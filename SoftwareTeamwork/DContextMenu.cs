@@ -15,12 +15,11 @@ using System.Windows.Shapes;
 
 namespace SoftwareTeamwork
 {
-
-    public partial class MainWindow : AIWindow
+    public class DContextMenu : ContextMenu
     {
-        public MainWindow()
+        static DContextMenu()
         {
-            InitializeComponent();
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(DContextMenu), new FrameworkPropertyMetadata(typeof(DContextMenu)));
         }
     }
 }

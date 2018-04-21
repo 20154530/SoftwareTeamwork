@@ -15,12 +15,14 @@ using System.Windows.Shapes;
 
 namespace SoftwareTeamwork
 {
-
-    public partial class MainWindow : AIWindow
+    public class DMenuItem : MenuItem
     {
-        public MainWindow()
+        public Color TextColor { get; set; }
+        public Color IconColor { get; set; }
+
+        static DMenuItem()
         {
-            InitializeComponent();
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(DMenuItem), new FrameworkPropertyMetadata(typeof(DMenuItem)));
         }
     }
 }

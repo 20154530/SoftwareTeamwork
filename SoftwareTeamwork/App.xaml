@@ -4,6 +4,12 @@
              xmlns:local="clr-namespace:SoftwareTeamwork"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/Configs.xaml"/>
+                <ResourceDictionary Source="Themes/Generic.xaml"/>
+                <ResourceDictionary Source="Themes/TestRes.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

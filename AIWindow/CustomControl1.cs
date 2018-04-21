@@ -13,14 +13,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SoftwareTeamwork
+namespace AIWindow
 {
-
-    public partial class MainWindow : AIWindow
+    public class CustomControl1 : Control
     {
-        public MainWindow()
+        static CustomControl1()
         {
-            InitializeComponent();
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(CustomControl1), new FrameworkPropertyMetadata(typeof(CustomControl1)));
         }
     }
 }
