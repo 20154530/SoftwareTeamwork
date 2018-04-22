@@ -13,13 +13,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SoftwareTeamwork
+namespace AIWindow
 {
     public class DContextMenu : ContextMenu
     {
         #region CommandParameter
         public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register("CommandParameter", typeof(Object), typeof(DContextMenu),
-            new PropertyMetadata(null,OnAttachedWindowChanged));
+            new PropertyMetadata(null, OnAttachedWindowChanged));
         private static void OnAttachedWindowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             DContextMenu dc = (DContextMenu)d;
@@ -50,12 +50,12 @@ namespace SoftwareTeamwork
 
         public DContextMenu()
         {
-            
+
         }
 
         static DContextMenu()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DContextMenu), new FrameworkPropertyMetadata(typeof(DContextMenu)));
-        }        
+        }
     }
 }

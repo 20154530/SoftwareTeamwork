@@ -6,7 +6,7 @@
         xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         xmlns:local="clr-namespace:SoftwareTeamwork"
         mc:Ignorable="d"
-        Title="MainWindow" >
+        Title="MainWindow" Background="White">
     <Grid >
         
     </Grid>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace SoftwareTeamwork
+namespace AIWindow
 {
     public class ClsCommand /* 关闭命令 */ : ICommand
     {
@@ -53,7 +53,6 @@ namespace SoftwareTeamwork
         {
             return true;
         }
-
         public void Execute(object parameter)
         {
             AIWindow a = parameter as AIWindow;

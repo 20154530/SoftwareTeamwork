@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SoftwareTeamwork
+namespace AIWindow
 {
     public class DMenuItem : MenuItem
     {

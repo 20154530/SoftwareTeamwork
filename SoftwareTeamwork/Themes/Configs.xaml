@@ -6,6 +6,7 @@
     <!--Color-->
     <SolidColorBrush x:Key="VsBorderBrush" Color="#007ACC"/>
     <SolidColorBrush x:Key="VsBackGroundBrush" Color="#FF1E1E1E"/>
+    <SolidColorBrush x:Key="VsBackGroundBrush_L1" Color="#FF2D2D30"/>
     <SolidColorBrush x:Key="VsBorderColor_L2" Color="#80007ACC"/>
     <SolidColorBrush x:Key="NotifyTextColor_L1_N" Color="#ffffffff"/>
     <SolidColorBrush x:Key="NotifyTextColor_L2_N" Color="#a0ffffff"/>

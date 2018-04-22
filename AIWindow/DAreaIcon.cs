@@ -18,29 +18,21 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Resources;
 
-namespace SoftwareTeamwork
+namespace AIWindow
 {
     class DAreaIcon : UIElement, IDisposable
     {
         //DllImport
         [DllImport("gdi32.dll", SetLastError = true)]
         private static extern bool DeleteObject(IntPtr hObject);
+
         private IntPtr ico = IntPtr.Zero;
 
-        //NormalProperties
         private System.Timers.Timer PopupHidetimer;
         private System.Windows.Forms.NotifyIcon FlowIcon;
         private PrivateFontCollection pfc;
         private Font DisIconFont;
         private DPopup FlowIconPopup;
-
-        //.NetProperties
-        private AIWindow attachedWindow = null;
-        public AIWindow AttachedWindow
-        {
-            get { return attachedWindow; }
-            set { attachedWindow = value; }
-        }
 
         private bool areaVisibility = false;
         public bool AreaVisibility
@@ -140,7 +132,7 @@ namespace SoftwareTeamwork
             {
                 case System.Windows.Forms.MouseButtons.Right:
                     DContextMenu d = (DContextMenu)Application.Current.FindResource("DcontextMenu");
-                    d.CommandParameter = attachedWindow;
+                    
                     d.IsOpen = true;
                     break;
                 case System.Windows.Forms.MouseButtons.Left:
@@ -201,9 +193,8 @@ namespace SoftwareTeamwork
         #endregion
 
         //构造函数
-        public DAreaIcon(AIWindow a)
+        public DAreaIcon()
         {
-            AttachedWindow = a;
             InitNotifyIcon();
             InitTimers();
         }

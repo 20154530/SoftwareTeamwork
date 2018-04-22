@@ -12,7 +12,7 @@ namespace SoftwareTeamwork
         private Random random;
         private DAreaIcon AreaIcon;
         //Timers
-        private System.Timers.Timer IconUpdatatimer;
+        private Timer IconUpdatatimer;
 
         #region override
         protected override void OnInitialized(EventArgs e)
@@ -20,7 +20,7 @@ namespace SoftwareTeamwork
             base.OnInitialized(e);
             InitTimers();
             random = new Random();
-            AreaIcon = new DAreaIcon
+            AreaIcon = new DAreaIcon(this)
             {
                 AreaVisibility = true
             };
@@ -56,7 +56,7 @@ namespace SoftwareTeamwork
         private void InitTimers()
         {
             //图标刷新计时器
-            IconUpdatatimer = new System.Timers.Timer(1000);
+            IconUpdatatimer = new Timer(1000);
             IconUpdatatimer.Elapsed += new ElapsedEventHandler(Updatetext);
             IconUpdatatimer.Enabled = true;
         }
