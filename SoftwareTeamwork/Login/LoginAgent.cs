@@ -12,8 +12,7 @@ using System.Data;
 using System.IO.Compression;
 using System.Collections;
 
-namespace ConsoleApp1
-{
+namespace SoftwareTeamwork {
     class LoginAgent
     {
         private const String dir = @"D:\DB\";

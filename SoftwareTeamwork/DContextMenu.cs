@@ -42,16 +42,18 @@ namespace SoftwareTeamwork
             DependencyProperty.Register("OpenOrClose", typeof(string), typeof(DContextMenu), new PropertyMetadata(""));
         #endregion
 
+        #region Content
+
+        #endregion
+
         protected override void OnOpened(RoutedEventArgs e)
         {
-           
             OpenOrClose = ((AIWindow)App.Current.MainWindow).Visibility.Equals(Visibility.Hidden) ? "显示主界面" : "隐藏主界面";
             base.OnOpened(e);
         }
 
         public DContextMenu()
         {
-            
         }
 
         static DContextMenu()

@@ -83,6 +83,9 @@ namespace SoftwareTeamwork
             DependencyProperty.Register("Shadow", typeof(int), typeof(DPopup), new PropertyMetadata(0));
         #endregion
 
+        #region
+        #endregion
+
         #endregion
 
         public void SetIconPathByPercentAngle(double a)
@@ -160,10 +163,16 @@ namespace SoftwareTeamwork
         }
         #endregion
 
+        private void Instence_ThemeChanged(object sender, EventArgs e)
+        {
+
+            Child = (Border)Application.Current.FindResource("FlowContentPanel");
+        }
+
         public DPopup()
         {
             AllowsTransparency = true;
-            
+            OverallSettingManger.Instence.ThemeChanged += Instence_ThemeChanged;
         }
 
         static DPopup()

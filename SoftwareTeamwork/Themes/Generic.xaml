@@ -5,6 +5,7 @@
     xmlns:local="clr-namespace:SoftwareTeamwork">
 
     <!--Commands-->
+    <local:CloseWinCommand x:Key="CloseWindow"/>
     <local:ClsCommand x:Key="ClsCommand"/>
     <local:MCommand x:Key="Mcommand"/>
     <local:ChangeThemeCommand x:Key="ChangeTheme"/>
@@ -18,34 +19,37 @@
     <!--Font-->
     <FontFamily x:Key="Segoe">/FontLibrary;Component/#Segoe</FontFamily>
     <FontFamily x:Key="Number">/FontLibrary;Component/#LineNumber</FontFamily>
-
-    <!--Thickness-->
-    <sys:Double x:Key="NotifyContextmenuTextSize">13</sys:Double>
-    <sys:Double x:Key="NotifyContextmenuIconSize">14</sys:Double>
-    <sys:Double x:Key="NotifyContextmenuItemHeight">26</sys:Double>
-    <sys:Double x:Key="wwww">14</sys:Double>
-    
     <!--Templates-->
 
-    <!--AIWindow-->
-    <Style TargetType="{x:Type local:AIWindow}">
-        <Setter Property="WindowStyle" Value="None"/>
-        <Setter Property="AllowsTransparency" Value="True"/>
-        <Setter Property="Width" Value="600"/>
-        <Setter Property="Height" Value="320"/>
+    <!--IconButton-->
+    <Style TargetType="{x:Type local:IconButton}">
+        <Setter Property="FontWeight" Value="Light"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:AIWindow}">
-                    <Grid Background="{TemplateBinding Background}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <local:TitleBar x:Name="TitleBar" Background="#00000000"/>
-                        <AdornerDecorator Grid.Row="1">
-                            <ContentPresenter/>
-                        </AdornerDecorator>
-                    </Grid>
+                <ControlTemplate TargetType="{x:Type local:IconButton}">
+                    <Border x:Name="RootBorder" SnapsToDevicePixels="True" Background="{TemplateBinding IconMaskN}">
+                        <TextBlock x:Name="ContentIcon" Text="{TemplateBinding Content}" FontFamily="{DynamicResource Segoe}" Foreground="{TemplateBinding IconN}"  FontSize="{TemplateBinding FontSize}" FontWeight="{TemplateBinding FontWeight}" TextAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="True">
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ContentIcon" Property="Foreground" Value="{Binding IconR,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                            <Setter TargetName="RootBorder" Property="Background" Value="{Binding IconMaskR,RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="ContentIcon" Property="Foreground"
+                                    Value="{Binding IconP,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                            <Setter TargetName="RootBorder" Property="Background"
+                                    Value="{Binding IconMaskP,RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -53,7 +57,7 @@
 
     <!--DContextMenu-->
     <Style TargetType="{x:Type local:DContextMenu}">
-        <Setter Property="CommandParameter" Value="{Binding Reference, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AIWindow}}}"/>
+        <Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
         <Setter Property="Padding" Value="-1"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Effect">
@@ -66,7 +70,7 @@
                 <ControlTemplate TargetType="{x:Type local:DContextMenu}">
                     <Border x:Name="RootBorder" BorderThickness="2" BorderBrush="{TemplateBinding BorderBrush}" Margin="{TemplateBinding Padding}" >
                         <Grid Background="{TemplateBinding Background}">
-                            <ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                            <ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Cycle" />
                         </Grid>
                     </Border>
                 </ControlTemplate>
@@ -77,14 +81,14 @@
     <!--DMenuItem-->
     <Style TargetType="{x:Type local:DMenuItem}">
         <Setter Property="FontWeight" Value="Light"/>
-        <Setter Property="Background" Value="{DynamicResource VsBorderBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource BorderBrush}"/>
         <Setter Property="Foreground" Value="{DynamicResource NotifyTextColor_L1_N}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:DMenuItem}">
-                    <Grid x:Name="RootGrid" Height="{StaticResource NotifyContextmenuItemHeight}" Margin="0,0,2,0">
+                    <Grid x:Name="RootGrid" Height="{DynamicResource NotifyContextmenuItemHeight}" Margin="0,0,2,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{Binding Source={StaticResource NotifyContextmenuItemHeight},Converter={StaticResource DubtoGridlConverter}}"/>
+                            <ColumnDefinition Width="26"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Rectangle x:Name="RootBorder" Fill="{Binding IconMask, RelativeSource={RelativeSource Mode=TemplatedParent},Converter={StaticResource ColortoBrushConverter}}" Opacity="0" Margin="2"/>
@@ -96,7 +100,7 @@
                         <Rectangle x:Name="TextBLockUnderLine" Grid.Column="1" Fill="{Binding IconMask, RelativeSource={RelativeSource Mode=TemplatedParent},Converter={StaticResource ColortoBrushConverter}}"  HorizontalAlignment="Right" Margin="0,1,0,1" Width="1" Opacity="0"/>
                         <TextBlock x:Name="Text" Grid.Column="1" Width="100" Margin="10,0,0,0"
                                    Foreground="{Binding TextColorN, RelativeSource={RelativeSource Mode=TemplatedParent},Converter={StaticResource ColortoBrushConverter}}"
-                                   FontSize="{StaticResource NotifyContextmenuTextSize}"
+                                   FontSize="{DynamicResource NotifyContextmenuTextSize}"
                                    Text="{Binding Header, RelativeSource={RelativeSource Mode=TemplatedParent},Mode=OneWay}"
                                    VerticalAlignment="Center" />
                     </Grid>
@@ -129,8 +133,37 @@
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        
+                        <local:IconButton Grid.Column="3" Content="{DynamicResource TitlebarExitIcon}" FontSize="16" Padding="4,4,4,0" IconN="{DynamicResource WindowTitleBarIconButtonIcon.N}" IconR="{DynamicResource WindowTitleBarIconButtonIcon.R}" IconP="{DynamicResource WindowTitleBarIconButtonIcon.P}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AIWindow}}}" Command="{StaticResource CloseWindow}" Margin="0,0,0,1"/>
                     </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--AIWindow-->
+    <Style TargetType="{x:Type local:AIWindow}">
+        <Setter Property="WindowStyle" Value="None"/>
+        <Setter Property="AllowsTransparency" Value="True"/>
+        <Setter Property="Width" Value="540"/>
+        <Setter Property="Height" Value="320"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:AIWindow}">
+                    <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0.8" Margin="2">
+                        <Border.Effect>
+                            <DropShadowEffect Color="{DynamicResource VsBackGroundColor}" Opacity="1" BlurRadius="5" ShadowDepth="0" />
+                        </Border.Effect>
+                        <Grid Background="{TemplateBinding Background}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="24"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <local:TitleBar x:Name="TitleBar" Background="{DynamicResource WindowTitleBarBackground}"/>
+                            <AdornerDecorator Grid.Row="1">
+                                <ContentPresenter/>
+                            </AdornerDecorator>
+                        </Grid>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

@@ -16,7 +16,6 @@ namespace SoftwareTeamwork {
             DependencyProperty.Register("AreaIcon", typeof(DAreaIcon), typeof(AIWindow), new PropertyMetadata(null));
         #endregion
 
-
         #region override
         protected override void OnInitialized(EventArgs e)
         {
@@ -50,15 +49,15 @@ namespace SoftwareTeamwork {
 
         #endregion
 
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-        }
-
         protected override void OnClosing(CancelEventArgs e)
         {
-            AreaIcon.Dispose();
-            base.OnClosing(e);
+            if (OverallSettingManger.Instence.RememberCloseMode == true) {
+                AreaIcon.Dispose();
+                base.OnClosing(e);
+            }
+            else {
+
+            }
         }
 
         static AIWindow()

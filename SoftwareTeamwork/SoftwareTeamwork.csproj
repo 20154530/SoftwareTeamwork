@@ -59,17 +59,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DialogBase.xaml.cs">
+      <DependentUpon>DialogBase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="IconButton.cs" />
     <Compile Include="Login\DataAnalysis.cs" />
     <Compile Include="Login\DataFormater.cs" />
     <Compile Include="Login\LoginAgent.cs" />
     <Compile Include="Login\XmlAnalyze.cs" />
     <Compile Include="Mangers\OverallSettingManger.cs" />
+    <Compile Include="Mangers\UIHelper.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="TitleBar.cs" />
+    <Page Include="DialogBase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

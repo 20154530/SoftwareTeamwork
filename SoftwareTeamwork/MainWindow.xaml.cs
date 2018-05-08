@@ -15,7 +15,6 @@ using System.Windows.Shapes;
 
 namespace SoftwareTeamwork
 {
-
     public partial class MainWindow : AIWindow
     {
         public MainWindow()

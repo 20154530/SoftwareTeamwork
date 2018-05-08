@@ -5,8 +5,7 @@ using System.IO;
 using System.Collections;
 using System.Reflection;
 
-namespace ConsoleApp1
-{
+namespace SoftwareTeamwork {
     class WebLoginInfSet //网站信息串
     {
         public bool NeedLogin = false;

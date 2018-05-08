@@ -9,7 +9,25 @@ using System.Windows.Input;
 
 namespace SoftwareTeamwork
 {
-    public class ClsCommand /* 关闭命令 */ : ICommand
+    /// <summary>
+    /// 关闭窗口
+    /// </summary>
+    public class CloseWinCommand : ICommand {
+        public event EventHandler CanExecuteChanged;
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+        public void Execute(object parameter)
+        {
+            ((AIWindow)parameter).Close();
+        }
+    }
+
+    /// <summary>
+    /// 退出程序
+    /// </summary>
+    public class ClsCommand : ICommand
     {
         public event EventHandler CanExecuteChanged
         {
@@ -73,11 +91,8 @@ namespace SoftwareTeamwork
         public void Execute(object parameter)
         {
             var dics = Application.Current.Resources.MergedDictionaries;
-            //ResourceDictionary skinDict = Application.LoadComponent(new Uri(@"./Themes/BrightTheme.xaml", UriKind.Relative)) as ResourceDictionary;
-            //dics.RemoveAt(0);
-            //dics.Insert(0, skinDict);
-            OverallSettingManger.Instence.Theme = "BrightTheme.xaml";
             dics[0].Source = new Uri(@"./Themes/BrightTheme.xaml", UriKind.Relative);
+            OverallSettingManger.Instence.Theme = "BrightTheme.xaml";
         }
     }
 }

@@ -7,8 +7,7 @@ using System.Reflection;
 using System.Collections.ObjectModel;
 using System.Text;
 
-namespace ConsoleApp1
-{
+namespace SoftwareTeamwork {
     class DataFormater //数据格式化类
     {
         public static DataFormater FormaterInstense = new DataFormater();

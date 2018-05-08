@@ -27,13 +27,6 @@ namespace SoftwareTeamwork
 
         private PrivateFontCollection pfc;
         private Font DisIconFont;
-        private DPopup flowIconPopup = null;
-        public DPopup FlowIconPopup {
-            get => flowIconPopup;
-            set {
-                flowIconPopup = value;
-            }
-        }
 
         //.NetProperties
 
@@ -88,6 +81,24 @@ namespace SoftwareTeamwork
                 new PropertyMetadata(null,new PropertyChangedCallback(OnDcontextmenuChanged)));
         private static void OnDcontextmenuChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            DAreaIcon dai = (DAreaIcon)d;
+            dai.Dcontextmenu.CommandParameter = dai.AttachedWindow;
+        }
+        #endregion
+
+        #region FlowIconPopup
+        public DPopup FlowIconPopup {
+            get { return (DPopup)GetValue(FlowIconPopupProperty); }
+            set { SetValue(FlowIconPopupProperty, value); }
+        }
+        public static readonly DependencyProperty FlowIconPopupProperty =
+            DependencyProperty.Register("FlowIconPopup", typeof(DPopup), typeof(DAreaIcon),
+                new PropertyMetadata(null,new PropertyChangedCallback(OnFlowIconPopupChanged)));
+        private static void OnFlowIconPopupChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            DAreaIcon dai = (DAreaIcon)d;
+            if (e.NewValue != null) 
+                dai.InitPopup();
         }
         #endregion
 
@@ -98,13 +109,13 @@ namespace SoftwareTeamwork
             FlowIcon = new System.Windows.Forms.NotifyIcon
             {
                 Visible = AreaVisibility,
-                ContextMenu = new System.Windows.Forms.ContextMenu()
+                ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip()
             };
-            UpdataIconByStr("0");
+            UpdataIconByStr("20");
             FlowIcon.MouseClick += FlowIcon_MouseClick;
             FlowIcon.MouseMove += FlowIcon_MouseMove;
             FlowIcon.MouseDoubleClick += FlowIcon_MouseDoubleClick;
-            InitPopup();
+            //InitPopup();
         }
 
         private void InitRes()
@@ -119,11 +130,8 @@ namespace SoftwareTeamwork
 
         private void InitPopup()
         {
-            FlowIconPopup = new DPopup {
-                PlacementRectangle = new Rect(SystemParameters.WorkArea.Width - 305, SystemParameters.WorkArea.Height - 85,
-                0, 0),
-                Child = (Border)Application.Current.FindResource("FlowContentPanel")
-            };
+            FlowIconPopup.PlacementRectangle = new Rect(SystemParameters.WorkArea.Width - 305, SystemParameters.WorkArea.Height - 85,
+                0, 0);
             FlowIconPopup.MouseMove += FlowIconPopup_MouseMove;
             FlowIconPopup.MouseLeave += FlowIconPopup_MouseLeave;
         }
@@ -152,7 +160,8 @@ namespace SoftwareTeamwork
 
         private void FlowIconPopup_MouseLeave(object sender, MouseEventArgs e)
         {
-            PopupHidetimer.Enabled = true;
+            if (PopupHidetimer != null)
+                PopupHidetimer.Enabled = true;
         }
 
         private void FlowIconPopup_MouseMove(object sender, MouseEventArgs e)
@@ -167,9 +176,7 @@ namespace SoftwareTeamwork
                 case System.Windows.Forms.MouseButtons.Right:
                     Dcontextmenu.IsOpen = true;
                     break;
-                case System.Windows.Forms.MouseButtons.Left:
-                    FlowIconPopup.Child = null;
-                    FlowIconPopup.Child = (Border)Application.Current.FindResource("FlowContentPanel");
+                case System.Windows.Forms.MouseButtons.Left:                    
                     if (!FlowIconPopup.IsOpen)
                         FlowIconPopup.ShowPopupAni();
                     PopupHidetimer.Enabled = true;
@@ -214,33 +221,28 @@ namespace SoftwareTeamwork
         #endregion
 
         #region 公共方法
+
+        /// <summary>
+        /// 更新图标
+        /// </summary>
+        /// <param name="s">以百分比表示的字符数字 </param>
         public void UpdataIconByStr(String s)
         {
             FlowIcon.Icon = GetImageSourceByText(s);
         }
 
-
         #endregion
-
-        //构造函数
-        //public DAreaIcon(AIWindow a)
-        //{
-        //    AttachedWindow = a;
-        //    OverallSettingManger.Instence.ThemeChanged += Instence_ThemeChanged;
-        //    InitNotifyIcon();
-        //    InitTimers();
-        //}
+        private void Instence_ThemeChanged(object sender, EventArgs e)
+        {
+          //  Dcontextmenu = new DContextMenu();
+            Dcontextmenu.Style = (Style)Application.Current.FindResource("DcontextMenu");
+        }
 
         public DAreaIcon()
         {
             OverallSettingManger.Instence.ThemeChanged += Instence_ThemeChanged;
             InitNotifyIcon();
             InitTimers();
-        }
-
-        private void Instence_ThemeChanged(object sender, EventArgs e)
-        {
-
         }
 
         #region IDisposable Support

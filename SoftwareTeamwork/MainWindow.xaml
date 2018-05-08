@@ -3,11 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         xmlns:local="clr-namespace:SoftwareTeamwork"
-        mc:Ignorable="d"  Title="MainWindow" >
-    <local:AIWindow.AreaIcon >
-        <local:DAreaIcon AreaVisibility="True" Dcontextmenu="{Binding Source={DynamicResource DcontextMenu}}"/>
+        mc:Ignorable="d"  Title="MainWindow" Background="{DynamicResource BackgroundBrush}">
+    <local:AIWindow.AreaIcon>
+        <local:DAreaIcon AreaVisibility="True">
+            <local:DAreaIcon.Dcontextmenu>
+                <local:DContextMenu Style="{DynamicResource DcontextMenu}"/>
+            </local:DAreaIcon.Dcontextmenu>
+            <local:DAreaIcon.FlowIconPopup>
+                <local:DPopup Child="{DynamicResource FlowContentPanel}"/>
+            </local:DAreaIcon.FlowIconPopup>
+        </local:DAreaIcon>
     </local:AIWindow.AreaIcon>
     <Grid >
 
