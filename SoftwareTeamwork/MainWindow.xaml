@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         xmlns:local="clr-namespace:SoftwareTeamwork"
-        mc:Ignorable="d"
-        Title="MainWindow" Background="White">
+        mc:Ignorable="d"  Title="MainWindow" >
+    <local:AIWindow.AreaIcon >
+        <local:DAreaIcon AreaVisibility="True" Dcontextmenu="{Binding Source={DynamicResource DcontextMenu}}"/>
+    </local:AIWindow.AreaIcon>
     <Grid >
-        
+
     </Grid>
 </local:AIWindow>

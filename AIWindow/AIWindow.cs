@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Timers;
 using System.Windows;
+using System.Timers;
+using System.Windows.Media;
 using System.Windows.Interop;
 
 namespace AIWindow
@@ -11,7 +12,7 @@ namespace AIWindow
         private Random random;
         private DAreaIcon AreaIcon;
         //Timers
-        private System.Timers.Timer IconUpdatatimer;
+        private Timer IconUpdatatimer;
 
         #region override
         protected override void OnInitialized(EventArgs e)
@@ -19,7 +20,7 @@ namespace AIWindow
             base.OnInitialized(e);
             InitTimers();
             random = new Random();
-            AreaIcon = new DAreaIcon
+            AreaIcon = new DAreaIcon(this)
             {
                 AreaVisibility = true
             };
@@ -30,7 +31,7 @@ namespace AIWindow
         //截获消息循环
         private void WSInitialized(object sender, EventArgs e)
         {
-            (PresentationSource.FromVisual((System.Windows.Media.Visual)sender) as HwndSource).AddHook(new HwndSourceHook(WndProc));
+            (PresentationSource.FromVisual((Visual)sender) as HwndSource).AddHook(new HwndSourceHook(WndProc));
         }
 
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
@@ -42,7 +43,7 @@ namespace AIWindow
                     switch (a)
                     {
                         case 2:
-
+                            
                             break;
                     }
                     break;
@@ -55,7 +56,7 @@ namespace AIWindow
         private void InitTimers()
         {
             //图标刷新计时器
-            IconUpdatatimer = new System.Timers.Timer(1000);
+            IconUpdatatimer = new Timer(1000);
             IconUpdatatimer.Elapsed += new ElapsedEventHandler(Updatetext);
             IconUpdatatimer.Enabled = true;
         }
@@ -67,7 +68,7 @@ namespace AIWindow
         {
             try
             {
-                AreaIcon.UpdataIconByStr(random.Next(0, 100).ToString());
+                AreaIcon.UpdataIconByStr(random.Next(0,100).ToString());
             }
             catch (Exception ex)
             {

@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
@@ -63,6 +64,15 @@ namespace SoftwareTeamwork
              DependencyProperty.Register("IconPath", typeof(String), typeof(DPopup), new PropertyMetadata(""));
         #endregion
 
+        #region 百分比
+        public int Percent {
+            get { return (int)GetValue(PercentProperty); }
+            set { SetValue(PercentProperty, value); }
+        }
+        public static readonly DependencyProperty PercentProperty =
+            DependencyProperty.Register("Percent", typeof(int), typeof(DPopup), new PropertyMetadata(100));
+        #endregion
+
         #region Shadow
         public int Shadow
         {
@@ -75,7 +85,7 @@ namespace SoftwareTeamwork
 
         #endregion
 
-        public void SetIconPathByAngle(double a)
+        public void SetIconPathByPercentAngle(double a)
         {
             var A = a * 2 * Math.PI / 360;
             var x = 20 * Math.Sin(A);
@@ -149,6 +159,12 @@ namespace SoftwareTeamwork
             IsOpen = false;
         }
         #endregion
+
+        public DPopup()
+        {
+            AllowsTransparency = true;
+            
+        }
 
         static DPopup()
         {

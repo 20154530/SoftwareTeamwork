@@ -1,34 +1,31 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
-using System.Timers;
-using System.Windows.Media;
 using System.Windows.Interop;
+using System.Windows.Media;
 
-namespace SoftwareTeamwork
-{
+namespace SoftwareTeamwork {
     public class AIWindow : Window
     {
-        private Random random;
-        private DAreaIcon AreaIcon;
-        //Timers
-        private Timer IconUpdatatimer;
+        #region 托盘图标
+        public DAreaIcon AreaIcon {
+            get { return (DAreaIcon)GetValue(AreaIconProperty); }
+            set { SetValue(AreaIconProperty, value); }
+        }
+        public static readonly DependencyProperty AreaIconProperty =
+            DependencyProperty.Register("AreaIcon", typeof(DAreaIcon), typeof(AIWindow), new PropertyMetadata(null));
+        #endregion
+
 
         #region override
         protected override void OnInitialized(EventArgs e)
         {
+            AreaIcon.AttachedWindow = this;
             base.OnInitialized(e);
-            InitTimers();
-            random = new Random();
-            AreaIcon = new DAreaIcon(this)
-            {
-                AreaVisibility = true
-            };
-            SourceInitialized += new EventHandler(WSInitialized);
         }
         #endregion
 
-        //截获消息循环
+        #region 截获消息循环
         private void WSInitialized(object sender, EventArgs e)
         {
             (PresentationSource.FromVisual((Visual)sender) as HwndSource).AddHook(new HwndSourceHook(WndProc));
@@ -37,53 +34,31 @@ namespace SoftwareTeamwork
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             int a = wParam.ToInt32();
-            switch (msg)
-            {
-                case 5:
-                    switch (a)
-                    {
-                        case 2:
-                            
-                            break;
-                    }
-                    break;
-            }
+            //switch (msg)
+            //{
+
+            //}
             return IntPtr.Zero;
         }
-
+        #endregion
 
         #region 控件初始化
-        private void InitTimers()
-        {
-            //图标刷新计时器
-            IconUpdatatimer = new Timer(1000);
-            IconUpdatatimer.Elapsed += new ElapsedEventHandler(Updatetext);
-            IconUpdatatimer.Enabled = true;
-        }
+
         #endregion
 
         #region 部件事件
 
-        private void Updatetext(object source, ElapsedEventArgs e)
-        {
-            try
-            {
-                AreaIcon.UpdataIconByStr(random.Next(0,100).ToString());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-        }
-
-
         #endregion
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+        }
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            base.OnClosing(e);
-            IconUpdatatimer.Close();
             AreaIcon.Dispose();
+            base.OnClosing(e);
         }
 
         static AIWindow()

@@ -53,6 +53,7 @@ namespace AIWindow
         {
             return true;
         }
+
         public void Execute(object parameter)
         {
             AIWindow a = parameter as AIWindow;

@@ -6,8 +6,10 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/DefaultTheme.xaml" />
+                <ResourceDictionary Source="Themes/CostumeStyles.xaml"/>
                 <ResourceDictionary Source="Themes/Generic.xaml"/>
-                <ResourceDictionary Source="Themes/TestRes.xaml"/>
+                <ResourceDictionary Source="Themes/CostumeControls.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

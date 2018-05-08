@@ -73,9 +73,9 @@ namespace AIWindow.Properties {
         /// <summary>
         ///   查找 System.Byte[] 类型的本地化资源。
         /// </summary>
-        internal static byte[] Sego {
+        internal static byte[] Segoe {
             get {
-                object obj = ResourceManager.GetObject("Sego", resourceCulture);
+                object obj = ResourceManager.GetObject("Segoe", resourceCulture);
                 return ((byte[])(obj));
             }
         }

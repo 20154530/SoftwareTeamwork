@@ -25,14 +25,22 @@ namespace AIWindow
         //DllImport
         [DllImport("gdi32.dll", SetLastError = true)]
         private static extern bool DeleteObject(IntPtr hObject);
-
         private IntPtr ico = IntPtr.Zero;
 
+        //NormalProperties
         private System.Timers.Timer PopupHidetimer;
         private System.Windows.Forms.NotifyIcon FlowIcon;
         private PrivateFontCollection pfc;
         private Font DisIconFont;
         private DPopup FlowIconPopup;
+
+        //.NetProperties
+        private AIWindow attachedWindow = null;
+        public AIWindow AttachedWindow
+        {
+            get { return attachedWindow; }
+            set { attachedWindow = value; }
+        }
 
         private bool areaVisibility = false;
         public bool AreaVisibility
@@ -53,7 +61,7 @@ namespace AIWindow
             set
             {
                 fontsize = value;
-                
+
             }
         }
 
@@ -75,7 +83,6 @@ namespace AIWindow
         private void InitRes()
         {
             byte[] myText = Properties.Resources.Rect;
-
             pfc = new PrivateFontCollection();
             IntPtr MeAdd = Marshal.AllocHGlobal(myText.Length);
             Marshal.Copy(myText, 0, MeAdd, myText.Length);
@@ -86,10 +93,11 @@ namespace AIWindow
         {
             DisIconFont = new Font(pfc.Families[0], fontsize);
             DisIconFont.ToHfont();
-                        
+
             FlowIconPopup = (DPopup)Application.Current.FindResource("DPopup");
             FlowIconPopup.PlacementRectangle = new Rect(SystemParameters.WorkArea.Width - 305, SystemParameters.WorkArea.Height - 85,
                 0, 0);
+            FlowIconPopup.Child = (Border)Application.Current.FindResource("FlowContentPanel");
             FlowIconPopup.MouseMove += FlowIconPopup_MouseMove;
             FlowIconPopup.MouseLeave += FlowIconPopup_MouseLeave;
         }
@@ -132,7 +140,7 @@ namespace AIWindow
             {
                 case System.Windows.Forms.MouseButtons.Right:
                     DContextMenu d = (DContextMenu)Application.Current.FindResource("DcontextMenu");
-                    
+                    d.CommandParameter = attachedWindow;
                     d.IsOpen = true;
                     break;
                 case System.Windows.Forms.MouseButtons.Left:
@@ -171,7 +179,7 @@ namespace AIWindow
             g.CompositingQuality = CompositingQuality.HighSpeed;
             g.TextRenderingHint = TextRenderingHint.SingleBitPerPixelGridFit;
             Pen pen = new Pen(Color.FromArgb(255, 255, 255, 255), 1f);
-            g.DrawString(Inf, DisIconFont, pen.Brush, new Drawing.Point(0,1),new StringFormat() { });
+            g.DrawString(Inf, DisIconFont, pen.Brush, new Drawing.Point(0, 1), new StringFormat() { });
             ico = (bufferedimage as Bitmap).GetHicon();
 
             g.Dispose();
@@ -193,8 +201,9 @@ namespace AIWindow
         #endregion
 
         //构造函数
-        public DAreaIcon()
+        public DAreaIcon(AIWindow a)
         {
+            AttachedWindow = a;
             InitNotifyIcon();
             InitTimers();
         }

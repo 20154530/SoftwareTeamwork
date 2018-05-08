@@ -19,7 +19,7 @@ namespace AIWindow
     {
         #region CommandParameter
         public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register("CommandParameter", typeof(Object), typeof(DContextMenu),
-            new PropertyMetadata(null, OnAttachedWindowChanged));
+            new PropertyMetadata(null,OnAttachedWindowChanged));
         private static void OnAttachedWindowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             DContextMenu dc = (DContextMenu)d;
@@ -50,12 +50,12 @@ namespace AIWindow
 
         public DContextMenu()
         {
-
+            
         }
 
         static DContextMenu()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DContextMenu), new FrameworkPropertyMetadata(typeof(DContextMenu)));
-        }
+        }        
     }
 }

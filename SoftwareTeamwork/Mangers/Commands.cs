@@ -63,4 +63,21 @@ namespace SoftwareTeamwork
                 a.Hide();
         }
     }
+
+    public class ChangeThemeCommand /*更换主题*/: ICommand {
+        public event EventHandler CanExecuteChanged;
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+        public void Execute(object parameter)
+        {
+            var dics = Application.Current.Resources.MergedDictionaries;
+            //ResourceDictionary skinDict = Application.LoadComponent(new Uri(@"./Themes/BrightTheme.xaml", UriKind.Relative)) as ResourceDictionary;
+            //dics.RemoveAt(0);
+            //dics.Insert(0, skinDict);
+            OverallSettingManger.Instence.Theme = "BrightTheme.xaml";
+            dics[0].Source = new Uri(@"./Themes/BrightTheme.xaml", UriKind.Relative);
+        }
+    }
 }

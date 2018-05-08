@@ -4,47 +4,56 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:local="clr-namespace:SoftwareTeamwork">
 
-    <!--Color-->
-    <SolidColorBrush x:Key="VsBorderBrush" Color="#007ACC"/>
-    <SolidColorBrush x:Key="VsBackGroundBrush" Color="#FF1E1E1E"/>
-    <SolidColorBrush x:Key="VsBackGroundBrush_L1" Color="#FF2D2D30"/>
-    <SolidColorBrush x:Key="VsBorderColor_L2" Color="#80007ACC"/>
-    <SolidColorBrush x:Key="NotifyTextColor_L1_N" Color="#ffffffff"/>
-    <SolidColorBrush x:Key="NotifyTextColor_L2_N" Color="#a0ffffff"/>
-    <Color x:Key="VsBorderColor">#007ACC</Color>
-    <Color x:Key="VsBackGroundColor">#FF1E1E1E</Color>
-
-    <!--Thickness-->
-    <sys:Double x:Key="NotifyContextmenuTextSize">13</sys:Double>
-    <sys:Double x:Key="NotifyContextmenuIconSize">14</sys:Double>
-    <sys:Double x:Key="NotifyContextmenuItemHeight">26</sys:Double>
-    <sys:Double x:Key="wwww">14</sys:Double>
-
     <!--Commands-->
     <local:ClsCommand x:Key="ClsCommand"/>
     <local:MCommand x:Key="Mcommand"/>
+    <local:ChangeThemeCommand x:Key="ChangeTheme"/>
     <local:OpenMainWindowCommand x:Key="OpenMainWindowCommand"/>
 
     <!--Converters-->
     <local:StrToPathConverter x:Key="StrToPathConverter"/>
     <local:ColortoBrushConverter x:Key="ColortoBrushConverter"/>
     <local:DubtoGridlConverter x:Key="DubtoGridlConverter"/>
+
+    <!--Font-->
+    <FontFamily x:Key="Segoe">/FontLibrary;Component/#Segoe</FontFamily>
+    <FontFamily x:Key="Number">/FontLibrary;Component/#LineNumber</FontFamily>
+
+    <!--Thickness-->
+    <sys:Double x:Key="NotifyContextmenuTextSize">13</sys:Double>
+    <sys:Double x:Key="NotifyContextmenuIconSize">14</sys:Double>
+    <sys:Double x:Key="NotifyContextmenuItemHeight">26</sys:Double>
+    <sys:Double x:Key="wwww">14</sys:Double>
     
-    <!--Custome-->
-    <Style x:Key="SeparatorStyle1" TargetType="{x:Type Separator}">
-        <Setter Property="Margin" Value="0,2,0,2"/>
-        <Setter Property="Focusable" Value="false"/>
+    <!--Templates-->
+
+    <!--AIWindow-->
+    <Style TargetType="{x:Type local:AIWindow}">
+        <Setter Property="WindowStyle" Value="None"/>
+        <Setter Property="AllowsTransparency" Value="True"/>
+        <Setter Property="Width" Value="600"/>
+        <Setter Property="Height" Value="320"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Separator}">
-                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Height="1" SnapsToDevicePixels="true"/>
+                <ControlTemplate TargetType="{x:Type local:AIWindow}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <local:TitleBar x:Name="TitleBar" Background="#00000000"/>
+                        <AdornerDecorator Grid.Row="1">
+                            <ContentPresenter/>
+                        </AdornerDecorator>
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
-    <!--Templates-->
+    <!--DContextMenu-->
     <Style TargetType="{x:Type local:DContextMenu}">
+        <Setter Property="CommandParameter" Value="{Binding Reference, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AIWindow}}}"/>
         <Setter Property="Padding" Value="-1"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Effect">
@@ -55,18 +64,21 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:DContextMenu}">
-                    <Border x:Name="RootBorder" BorderThickness="2" BorderBrush="{TemplateBinding BorderBrush}" Margin="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
-                        <ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                    <Border x:Name="RootBorder" BorderThickness="2" BorderBrush="{TemplateBinding BorderBrush}" Margin="{TemplateBinding Padding}" >
+                        <Grid Background="{TemplateBinding Background}">
+                            <ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
+    <!--DMenuItem-->
     <Style TargetType="{x:Type local:DMenuItem}">
         <Setter Property="FontWeight" Value="Light"/>
-        <Setter Property="Background" Value="{StaticResource VsBorderBrush}"/>
-        <Setter Property="Foreground" Value="{StaticResource NotifyTextColor_L1_N}"/>
+        <Setter Property="Background" Value="{DynamicResource VsBorderBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource NotifyTextColor_L1_N}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:DMenuItem}">
@@ -76,13 +88,10 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Rectangle x:Name="RootBorder" Fill="{Binding IconMask, RelativeSource={RelativeSource Mode=TemplatedParent},Converter={StaticResource ColortoBrushConverter}}" Opacity="0" Margin="2"/>
-                        <TextBlock x:Name="Icon" FontFamily="Segoe MDL2 Assets" 
-                                   FontSize="{TemplateBinding FontSize}"
+                        <TextBlock x:Name="Icon" FontSize="{TemplateBinding FontSize}"
                                    Foreground="{Binding IconColorN, RelativeSource={RelativeSource Mode=TemplatedParent},Converter={StaticResource ColortoBrushConverter}}"
                                    Text="{Binding Icon, RelativeSource={RelativeSource TemplatedParent},Mode=OneWay}"
-                                   TextAlignment="Center" 
-                                   HorizontalAlignment="Center" 
-                                   VerticalAlignment="Center" />
+                                   Style="{DynamicResource IconTextBlock}"/>
                         <Rectangle x:Name="TextBLockMask" Grid.Column="1" Fill="{Binding TextMask, RelativeSource={RelativeSource Mode=TemplatedParent},Converter={StaticResource ColortoBrushConverter}}"  HorizontalAlignment="Stretch" Margin="1" VerticalAlignment="Stretch" Opacity="0"/>
                         <Rectangle x:Name="TextBLockUnderLine" Grid.Column="1" Fill="{Binding IconMask, RelativeSource={RelativeSource Mode=TemplatedParent},Converter={StaticResource ColortoBrushConverter}}"  HorizontalAlignment="Right" Margin="0,1,0,1" Width="1" Opacity="0"/>
                         <TextBlock x:Name="Text" Grid.Column="1" Width="100" Margin="10,0,0,0"
@@ -104,96 +113,27 @@
         </Setter>
     </Style>
 
+    <!--TitleBar-->
     <Style TargetType="{x:Type local:TitleBar}">
         <Setter Property="Command" Value="{StaticResource Mcommand}"/>
         <Setter Property="CommandParameter" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor ,AncestorType={x:Type local:AIWindow}}}"/>
         <Setter Property="AttachedWindow" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor ,AncestorType={x:Type local:AIWindow}}}"/>
-        <Setter Property="Width" Value="{Binding Width, Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type local:AIWindow}, Mode=FindAncestor}}"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:TitleBar}">
                     <Grid Background="{TemplateBinding Background}" Height="{TemplateBinding Height}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
                         
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
-    <Style TargetType="{x:Type local:AIWindow}">
-        <Setter Property="WindowStyle" Value="None"/>
-        <Setter Property="AllowsTransparency" Value="True"/>
-        <Setter Property="Width" Value="248"/>
-        <Setter Property="Height" Value="400"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:AIWindow}">
-                    <Grid Background="{TemplateBinding Background}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <local:TitleBar x:Name="TitleBar" Background="#00000000"/>
-                        <AdornerDecorator Grid.Row="1">
-                            <ContentPresenter/>
-                        </AdornerDecorator>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <!--Controls-->
-
-    <local:DContextMenu x:Key="DcontextMenu" Background="{StaticResource VsBackGroundBrush_L1}" Placement="MousePoint" >
-        <local:DMenuItem x:Name="M1" Icon="&#xE15E;" Command="{StaticResource OpenMainWindowCommand}" 
-                         IconColorN="{StaticResource VsBorderColor}"
-                         IconMask="{StaticResource VsBorderColor}"
-                         IconColorR="White"
-                         Header="{Binding OpenOrClose, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:DContextMenu},Mode=OneWay}"
-                         CommandParameter="{Binding CommandParameter, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DContextMenu}}" />
-        <local:DMenuItem x:Name="M2" Icon="&#xEA39;" Header="退出程序" />
-        <local:DMenuItem x:Name="M3" Icon="&#xEA39;" Header="退出程序" />
-        <Separator Style="{StaticResource SeparatorStyle1}" />
-        <local:DMenuItem x:Name="M4" Icon="&#xEA39;" Header="退出程序" 
-                         IconColorN="Red"
-                         IconMask="Red"
-                         IconColorR="White"
-                         Command="{StaticResource ClsCommand}"/>
-    </local:DContextMenu>
-
-    <local:DPopup x:Key="DPopup" AllowsTransparency="True" ThemeBg="{StaticResource VsBackGroundColor}" 
-                  ThemeBorderC="{StaticResource VsBorderColor}">
-        <Border x:Name="ContentPanel" Width="300" Height="80" BorderThickness="1" Margin="3">
-            <Border.BorderBrush>
-                <SolidColorBrush Color="{Binding ThemeBorderC, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:DPopup}}"/>
-            </Border.BorderBrush>
-            <Border.Effect>
-                <DropShadowEffect Color="{Binding ThemeBorderC, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:DPopup}}" 
-                                  Opacity="{Binding Shadow, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:DPopup}}"
-                                  BlurRadius="5" ShadowDepth="0" />
-            </Border.Effect>
-            <Grid>
-                <Grid.Background>
-                    <SolidColorBrush Color="{Binding ThemeBg, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:DPopup}}"/>
-                </Grid.Background>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="80"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <TextBlock x:Name="Title" Text="{Binding Title,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DPopup}}" FontSize="14" Foreground="{StaticResource NotifyTextColor_L1_N}" FontWeight="UltraLight"  VerticalAlignment="Center" Grid.Column="1" />
-                <TextBlock x:Name="Content" Text="{Binding Content,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DPopup}}" FontSize="12" Foreground="{StaticResource NotifyTextColor_L2_N}" FontWeight="Thin" 
-                              VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" />
-                <Canvas Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="2" >
-                    <Path Data="{Binding IconPath, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:DPopup},Converter={StaticResource StrToPathConverter}}" Stroke="{StaticResource NotifyTextColor_L1_N}" StrokeThickness="5">
-                    </Path>
-                </Canvas>
-            </Grid>
-        </Border>
-    </local:DPopup>
 
 </ResourceDictionary>

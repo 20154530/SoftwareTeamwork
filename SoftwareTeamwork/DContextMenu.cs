@@ -44,7 +44,8 @@ namespace SoftwareTeamwork
 
         protected override void OnOpened(RoutedEventArgs e)
         {
-            OpenOrClose = ((AIWindow)CommandParameter).Visibility.Equals(Visibility.Hidden) ? "显示主界面" : "隐藏主界面";
+           
+            OpenOrClose = ((AIWindow)App.Current.MainWindow).Visibility.Equals(Visibility.Hidden) ? "显示主界面" : "隐藏主界面";
             base.OnOpened(e);
         }
 
