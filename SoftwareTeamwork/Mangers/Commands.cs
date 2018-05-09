@@ -50,6 +50,8 @@ namespace SoftwareTeamwork
 
         [DllImport("user32.dll")]
         private static extern bool ReleaseCapture();
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
         public event EventHandler CanExecuteChanged;
         public bool CanExecute(object parameter)
@@ -59,7 +61,7 @@ namespace SoftwareTeamwork
         public void Execute(object parameter)
         {
             ReleaseCapture();
-            TitleBar.SendMessage(TitleBar._Handle, WM_SYSCOMMAND, (IntPtr)0xF012, IntPtr.Zero);
+            SendMessage((IntPtr)parameter, WM_SYSCOMMAND, (IntPtr)0xF012, IntPtr.Zero);
         }
     }
 
@@ -93,6 +95,23 @@ namespace SoftwareTeamwork
             var dics = Application.Current.Resources.MergedDictionaries;
             dics[0].Source = new Uri(@"./Themes/BrightTheme.xaml", UriKind.Relative);
             OverallSettingManger.Instence.Theme = "BrightTheme.xaml";
+        }
+    }
+
+    /// <summary>
+    /// 用于模板化的弹出式对话框控件中的响应控件向对话框传递消息
+    /// </summary>
+    public class DialogInvokCommand : ICommand {
+        public event EventHandler CanExecuteChanged;
+
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            
         }
     }
 }

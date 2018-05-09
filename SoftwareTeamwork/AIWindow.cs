@@ -1,12 +1,14 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
 
 namespace SoftwareTeamwork {
     public class AIWindow : Window
     {
+        private bool IsExiting = false;
         #region 托盘图标
         public DAreaIcon AreaIcon {
             get { return (DAreaIcon)GetValue(AreaIconProperty); }
@@ -51,12 +53,31 @@ namespace SoftwareTeamwork {
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            if (OverallSettingManger.Instence.RememberCloseMode == true) {
-                AreaIcon.Dispose();
-                base.OnClosing(e);
-            }
+            if (IsExiting)
+                return;
             else {
-
+                if (OverallSettingManger.Instence.RememberCloseMode == true) {
+                    switch (OverallSettingManger.Instence.Closemode) {
+                        case OverallSettingManger.CloseMode.AreaIcon:
+                            Hide();
+                            return;
+                        case OverallSettingManger.CloseMode.Exit:
+                            AreaIcon.Dispose();
+                            App.Current.Shutdown();
+                            return;
+                    }
+                }
+                else {
+                    IsExiting = true;
+                    DialogBase dialog = new DialogBase {
+                        Template = (ControlTemplate)Application.Current.FindResource("ExitDialog"),
+                        Context = "是否退出?"
+                    };
+                    dialog.ShowDialog(this);
+                    e.Cancel = dialog.DialogResult == false;
+                    IsExiting = false;
+                    return;
+                }
             }
         }
 

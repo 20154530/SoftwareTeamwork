@@ -31,6 +31,58 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <!--ExitDialog-->
+    
+    <ControlTemplate x:Key="ExitDialog" TargetType="{x:Type local:DialogBase}">
+        <Border x:Name="RootBorder" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" Height="120" Width="270">
+            <Grid x:Name="RootGrid" Background="{DynamicResource WindowDialogBackground}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="24" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid x:Name="TitleLayer" >
+                    <local:TitleBar CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:DialogBase}},Converter={StaticResource ToHandle}}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <local:IconButton x:Name="CANCEL" Grid.Column="3" Content="{DynamicResource TitlebarExitIcon}"
+                                    FontSize="12" Padding="2"  Margin="0,8,8,0"
+                                    IconN="{DynamicResource WindowTitleBarIconButtonIcon.N}"
+                                    IconR="{DynamicResource WindowTitleBarIconButtonIcon.R}"
+                                    IconP="{DynamicResource WindowTitleBarIconButtonIcon.P}" />
+                        </Grid>
+                    </local:TitleBar>
+                </Grid>
+                <Grid x:Name="ContentLayer" Grid.Row="1" Margin="16,5,16,5">
+                    <TextBlock Text="{Binding Context, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                            FontSize="12" Foreground="{DynamicResource WindowTitleBarForeground}" TextWrapping="Wrap" />
+                </Grid>
+                <Grid x:Name="ControlLayer" Grid.Row="2" Margin="0,0,0,6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <local:IconButton Grid.Column="1" x:Name="YES" Content="&#xF13E;" Margin="0,0,12,0" FontSize="24"
+                            IconMaskN="Transparent" IconMaskP="Transparent" IconMaskR="Transparent" Padding="3"
+                            IconN="{DynamicResource WindowDialogButtonForeground.N}"
+                            IconR="{DynamicResource WindowDialogButtonForeground.R}"
+                            IconP="{DynamicResource WindowDialogButtonForeground.P}">
+                    </local:IconButton>
+                    <local:IconButton Grid.Column="2" x:Name="NO" Content="&#xF13D;" Margin="12,0,4,0" FontSize="24"
+                            IconMaskN="Transparent" IconMaskP="Transparent" IconMaskR="Transparent" Padding="3"
+                            IconN="{DynamicResource WindowDialogButtonForeground.N}"
+                            IconR="{DynamicResource WindowDialogButtonForeground.R}"
+                            IconP="{DynamicResource WindowDialogButtonForeground.P}" />
+                </Grid>
+            </Grid>
+        </Border>
+    </ControlTemplate>
     
     <!--FlowContentPanel-->
 

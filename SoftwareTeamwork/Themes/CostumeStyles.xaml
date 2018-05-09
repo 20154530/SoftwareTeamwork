@@ -42,30 +42,30 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
     
-    <!--IconButton-->
-    <Style x:Key="IconButton" TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderBrush" Value="Transparent"/>
-        <Setter Property="FontWeight" Value="Light"/>
-        <Setter Property="Foreground" Value="#444444"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="Padding" Value="1"/>
+    <!--Buttons-->
+    
+    <!--DialogButton-->
+    <Style x:Key="DialogButton" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="{DynamicResource WindowDialogButtonBackground}"/>
+        <Setter Property="Foreground" Value="{DynamicResource WindowDialogButtonForeground}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource WindowDialogButtonBorderBrush}"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="MinHeight" Value="20" />
+        <Setter Property="MinWidth" Value="40" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="border" SnapsToDevicePixels="True">
-                        <TextBlock x:Name="ContentIcon" Text="{TemplateBinding Content}" Style="{StaticResource IconTextBlock}" Foreground="{TemplateBinding Foreground}"  FontSize="{TemplateBinding FontSize}" FontWeight="{TemplateBinding FontWeight}" Margin="2"/>
-                    </Border>
+                    <Grid x:Name="RootGrid" Background="{TemplateBinding Background}">
+                        <TextBlock x:Name="Context" Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" FontSize="{TemplateBinding FontSize}">
+                        </TextBlock>
+                    </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsDefaulted" Value="True">
-                        </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="ContentIcon" Property="Foreground" Value="{Binding BorderBrush,RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <Setter TargetName="Context" Property="Foreground"
+                                    Value="{Binding BorderBrush, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="ContentIcon" Property="Foreground" Value="{Binding Background,RelativeSource={RelativeSource TemplatedParent}}"/>
+                            
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -74,20 +74,5 @@
     </Style>
 
     <!--DialogStyle-->
-    
-    <!--ExitDialog-->
-    <Style TargetType="{x:Type local:DialogBase}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:DialogBase}">
-                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <Grid x:Name="ContentLayer">
-
-                        </Grid>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
 
 </ResourceDictionary>

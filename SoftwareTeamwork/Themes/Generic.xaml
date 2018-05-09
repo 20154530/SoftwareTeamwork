@@ -15,6 +15,7 @@
     <local:StrToPathConverter x:Key="StrToPathConverter"/>
     <local:ColortoBrushConverter x:Key="ColortoBrushConverter"/>
     <local:DubtoGridlConverter x:Key="DubtoGridlConverter"/>
+    <local:WindowToIntPtrConverter x:Key="ToHandle" />
 
     <!--Font-->
     <FontFamily x:Key="Segoe">/FontLibrary;Component/#Segoe</FontFamily>
@@ -34,7 +35,29 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:IconButton}">
                     <Border x:Name="RootBorder" SnapsToDevicePixels="True" Background="{TemplateBinding IconMaskN}">
-                        <TextBlock x:Name="ContentIcon" Text="{TemplateBinding Content}" FontFamily="{DynamicResource Segoe}" Foreground="{TemplateBinding IconN}"  FontSize="{TemplateBinding FontSize}" FontWeight="{TemplateBinding FontWeight}" TextAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        <TextBlock x:Name="ContentIcon" Text="{TemplateBinding Content}"
+                                FontFamily="{DynamicResource Segoe}" Foreground="{TemplateBinding IconN}"
+                                FontSize="{TemplateBinding FontSize}" FontWeight="{TemplateBinding FontWeight}"
+                                TextAlignment="Center" Margin="{TemplateBinding Padding}">
+                            <TextBlock.Effect>
+                                <DropShadowEffect x:Name="ContentIconEffect" Color="{DynamicResource TextS}"
+                                        BlurRadius="1" ShadowDepth="0" Opacity="1"/>
+                            </TextBlock.Effect>
+                            <TextBlock.Triggers>
+                                <EventTrigger RoutedEvent="MouseMove">
+                                    <EventTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentIconEffect"
+                                                        Storyboard.TargetProperty="Opacity">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="1" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger.EnterActions>
+                                </EventTrigger>
+                            </TextBlock.Triggers>
+                        </TextBlock>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDefaulted" Value="True">
@@ -119,21 +142,13 @@
 
     <!--TitleBar-->
     <Style TargetType="{x:Type local:TitleBar}">
-        <Setter Property="Command" Value="{StaticResource Mcommand}"/>
-        <Setter Property="CommandParameter" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor ,AncestorType={x:Type local:AIWindow}}}"/>
-        <Setter Property="AttachedWindow" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor ,AncestorType={x:Type local:AIWindow}}}"/>
+        <Setter Property="Command" Value="{StaticResource Mcommand}" />
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:TitleBar}">
-                    <Grid Background="{TemplateBinding Background}" Height="{TemplateBinding Height}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-                        <local:IconButton Grid.Column="3" Content="{DynamicResource TitlebarExitIcon}" FontSize="16" Padding="4,4,4,0" IconN="{DynamicResource WindowTitleBarIconButtonIcon.N}" IconR="{DynamicResource WindowTitleBarIconButtonIcon.R}" IconP="{DynamicResource WindowTitleBarIconButtonIcon.P}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AIWindow}}}" Command="{StaticResource CloseWindow}" Margin="0,0,0,1"/>
+                    <Grid x:Name="RootGrid">
+                        <ContentPresenter Content="{TemplateBinding Content}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -158,7 +173,23 @@
                                 <RowDefinition Height="24"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <local:TitleBar x:Name="TitleBar" Background="{DynamicResource WindowTitleBarBackground}"/>
+                            <local:TitleBar x:Name="TitleBar" Background="{DynamicResource WindowTitleBarBackground}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AIWindow}},Converter={StaticResource ToHandle}}">
+                                <Grid Background="{DynamicResource WindowTitleBarBackground}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <local:IconButton Grid.Column="3" Content="{DynamicResource TitlebarExitIcon}"
+                                            FontSize="16" Padding="4,4,4,0"
+                                            IconN="{DynamicResource WindowTitleBarIconButtonIcon.N}"
+                                            IconR="{DynamicResource WindowTitleBarIconButtonIcon.R}"
+                                            IconP="{DynamicResource WindowTitleBarIconButtonIcon.P}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AIWindow}}}"
+                                            Command="{StaticResource CloseWindow}" Margin="0,0,0,1" />
+                                </Grid>
+                            </local:TitleBar>
                             <AdornerDecorator Grid.Row="1">
                                 <ContentPresenter/>
                             </AdornerDecorator>
@@ -168,5 +199,26 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <!--DialogBase-->
+    <Style TargetType="{x:Type local:DialogBase}">
+        <Setter Property="ResizeMode" Value="NoResize" />
+        <Setter Property="ShowInTaskbar" Value="False" />
+        <Setter Property="SizeToContent" Value="WidthAndHeight" />
+        <Setter Property="Background" Value="{DynamicResource WindowDialogBackground}" />
+        <Setter Property="Height" Value="160" />
+        <Setter Property="Width" Value="320" />
+        <Setter Property="WindowStyle" Value="None" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:DialogBase}">
+                    <AdornerDecorator>
+                        <ContentPresenter />
+                    </AdornerDecorator>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 
 </ResourceDictionary>

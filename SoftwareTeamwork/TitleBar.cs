@@ -17,27 +17,8 @@ using System.Windows.Shapes;
 
 namespace SoftwareTeamwork
 {
-    public class TitleBar : Control
+    public class TitleBar : ContentControl
     {
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
-
-        public static IntPtr _Handle;
-
-        #region AttachedAIWindowProperty
-        public static readonly DependencyProperty AttachedWindowProperty = DependencyProperty.Register("AttachedWindow", typeof(AIWindow), typeof(TitleBar),
-            new FrameworkPropertyMetadata(new PropertyChangedCallback(AttachedWindowChangedCallback)));
-        public AIWindow AttachedWindow
-        {
-            get { return (AIWindow)GetValue(AttachedWindowProperty); }
-            set { SetValue(AttachedWindowProperty, value); }
-        }
-        private static void AttachedWindowChangedCallback(DependencyObject sender, DependencyPropertyChangedEventArgs arg)
-        {
-            _Handle = new WindowInteropHelper(sender.GetValue(AttachedWindowProperty) as Window).Handle;
-        }
-        #endregion
-
         #region CommandProperty
         public static readonly DependencyProperty CommandProperty = DependencyProperty.Register("Command", typeof(ICommand), typeof(TitleBar)
             );
@@ -69,14 +50,11 @@ namespace SoftwareTeamwork
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonDown(e);
-            RoutedCommand rcmd = Command as RoutedCommand;
-            if (rcmd != null)
-            {
+            if (Command is RoutedCommand rcmd) {
                 if (rcmd.CanExecute(CommandParameter, CommandTarget))
                     rcmd.Execute(CommandParameter, CommandTarget);
             }
-            else
-            {
+            else {
                 if (Command != null)
                     if (Command.CanExecute(CommandParameter))
                         Command.Execute(CommandParameter);

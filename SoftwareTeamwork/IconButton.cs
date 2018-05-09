@@ -67,6 +67,17 @@ namespace SoftwareTeamwork
                 new PropertyMetadata(new SolidColorBrush(Colors.Transparent)));
         #endregion
 
+
+
+        public Visibility AllowShadow {
+            get { return (Visibility)GetValue(AllowShadowProperty); }
+            set { SetValue(AllowShadowProperty, value); }
+        }
+        public static readonly DependencyProperty AllowShadowProperty =
+            DependencyProperty.Register("AllowShadow", typeof(Visibility), typeof(IconButton), new PropertyMetadata(Visibility.Collapsed));
+
+
+
         static IconButton()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(IconButton), new FrameworkPropertyMetadata(typeof(IconButton)));
