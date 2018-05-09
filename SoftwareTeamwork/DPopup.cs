@@ -9,30 +9,9 @@ using System.Windows.Media.Imaging;
 
 namespace SoftwareTeamwork
 {
-
     public class DPopup : Popup
     {
         #region Properties
-
-        #region ThemeBg
-        public Color ThemeBg
-        {
-            get { return (Color)GetValue(ThemeBgProperty); }
-            set { SetValue(ThemeBgProperty, value); }
-        }
-        public static readonly DependencyProperty ThemeBgProperty =
-            DependencyProperty.Register("ThemeBg", typeof(Color), typeof(DPopup), new PropertyMetadata(null));
-        #endregion
-
-        #region ThemeBorderC
-        public Color ThemeBorderC
-        {
-            get { return (Color)GetValue(ThemeBorderCProperty); }
-            set { SetValue(ThemeBorderCProperty, value); }
-        }
-        public static readonly DependencyProperty ThemeBorderCProperty =
-            DependencyProperty.Register("ThemeBorderC", typeof(Color), typeof(DPopup), new PropertyMetadata(null));
-        #endregion
 
         #region Title
         public string Title
@@ -54,25 +33,6 @@ namespace SoftwareTeamwork
             DependencyProperty.Register("Content", typeof(string), typeof(DPopup), new PropertyMetadata(""));
         #endregion
 
-        # region IconPath
-        public String IconPath
-        {
-            get { return (String)GetValue(IconPathProperty); }
-            set { SetValue(IconPathProperty, value); }
-        }
-        public static readonly DependencyProperty IconPathProperty =
-             DependencyProperty.Register("IconPath", typeof(String), typeof(DPopup), new PropertyMetadata(""));
-        #endregion
-
-        #region 百分比
-        public int Percent {
-            get { return (int)GetValue(PercentProperty); }
-            set { SetValue(PercentProperty, value); }
-        }
-        public static readonly DependencyProperty PercentProperty =
-            DependencyProperty.Register("Percent", typeof(int), typeof(DPopup), new PropertyMetadata(100));
-        #endregion
-
         #region Shadow
         public int Shadow
         {
@@ -87,19 +47,6 @@ namespace SoftwareTeamwork
         #endregion
 
         #endregion
-
-        public void SetIconPathByPercentAngle(double a)
-        {
-            var A = a * 2 * Math.PI / 360;
-            var x = 20 * Math.Sin(A);
-            var y = 20 * Math.Cos(A);
-            x = 30 + x;
-            y = 30 - y;
-            if (a <= 180)
-                IconPath = "M 30,10 A 20,20,0,0,1," + x.ToString() + "," + y.ToString();
-            else
-                IconPath = "M 30,10 A 20,20,0,1,1," + x.ToString() + "," + y.ToString();
-        }
 
         #region Fadein/out ani
         public void ShowPopupAni()
@@ -118,7 +65,7 @@ namespace SoftwareTeamwork
             };
 
             Storyboard.SetTarget(Opacity, Child);
-            Storyboard.SetTargetProperty(Opacity, new PropertyPath(Grid.OpacityProperty));
+            Storyboard.SetTargetProperty(Opacity, new PropertyPath(OpacityProperty));
 
             Popupshow.Children.Add(Opacity);
 
@@ -148,7 +95,7 @@ namespace SoftwareTeamwork
             };
 
             Storyboard.SetTarget(Opacity, Child);
-            Storyboard.SetTargetProperty(Opacity, new PropertyPath(Grid.OpacityProperty));
+            Storyboard.SetTargetProperty(Opacity, new PropertyPath(OpacityProperty));
 
             PopupHide.Children.Add(Opacity);
 
@@ -163,10 +110,9 @@ namespace SoftwareTeamwork
         }
         #endregion
 
-        private void Instence_ThemeChanged(object sender, EventArgs e)
+        protected virtual void Instence_ThemeChanged(object sender, EventArgs e)
         {
-
-            Child = (Border)Application.Current.FindResource("FlowContentPanel");
+            
         }
 
         public DPopup()

@@ -5,11 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using static SoftwareTeamwork.OverallSettingManger;
 
 namespace SoftwareTeamwork
 {
-    class DialogBase : Window {
+    /// <summary>
+    /// 弹出式对话框类
+    /// 继承自窗口类，有四种模式，用名称标识相关按钮
+    /// </summary>
+    public class DialogBase : Window {
 
         #region DialogMode
         public MessageBoxButton DialogMode {
@@ -21,7 +26,7 @@ namespace SoftwareTeamwork
                 new PropertyMetadata(MessageBoxButton.YesNoCancel));
         #endregion
 
-        #region
+        #region Result
         private MessageBoxResult result = MessageBoxResult.None;
         public MessageBoxResult Result {
             get => result;
@@ -29,7 +34,7 @@ namespace SoftwareTeamwork
         }
         #endregion
 
-        #region 
+        #region Context
         public string Context {
             get { return (string)GetValue(ContextProperty); }
             set { SetValue(ContextProperty, value); }
@@ -38,26 +43,37 @@ namespace SoftwareTeamwork
             DependencyProperty.Register("Context", typeof(string), typeof(Window), new PropertyMetadata(""));
         #endregion
 
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e) {
+            this.DragMove();
+            base.OnMouseLeftButtonDown(e);
+        }
+
         public override void OnApplyTemplate()
         {
-            switch (DialogMode) {
-                case MessageBoxButton.OK:
-                    (GetTemplateChild("OK") as Button).Click += DialogButtonClick;
-                    break;
-                case MessageBoxButton.OKCancel:
-                    (GetTemplateChild("OK") as Button).Click += DialogButtonClick;
-                    (GetTemplateChild("CANCEL") as Button).Click += DialogButtonClick;
-                    break;
-                case MessageBoxButton.YesNo:
-                    (GetTemplateChild("YES") as Button).Click += DialogButtonClick;
-                    (GetTemplateChild("NO") as Button).Click += DialogButtonClick;
-                    break;
-                case MessageBoxButton.YesNoCancel:
-                    (GetTemplateChild("YES") as Button).Click += DialogButtonClick;
-                    (GetTemplateChild("NO") as Button).Click += DialogButtonClick;
-                    (GetTemplateChild("CANCEL") as Button).Click += DialogButtonClick;
-                    break;
+            try {
+                switch (DialogMode) {
+                    case MessageBoxButton.OK:
+                        (GetTemplateChild("OK") as Button).Click += DialogButtonClick;
+                        break;
+                    case MessageBoxButton.OKCancel:
+                        (GetTemplateChild("OK") as Button).Click += DialogButtonClick;
+                        (GetTemplateChild("CANCEL") as Button).Click += DialogButtonClick;
+                        break;
+                    case MessageBoxButton.YesNo:
+                        (GetTemplateChild("YES") as Button).Click += DialogButtonClick;
+                        (GetTemplateChild("NO") as Button).Click += DialogButtonClick;
+                        break;
+                    case MessageBoxButton.YesNoCancel:
+                        ((Button)GetTemplateChild("YES")).Click += DialogButtonClick;
+                        ((Button)GetTemplateChild("NO")).Click += DialogButtonClick;
+                        ((Button)GetTemplateChild("CANCEL")).Click += DialogButtonClick;
+                        break;
+                }
             }
+            catch (NullReferenceException e) {
+                Console.WriteLine(e.Source);
+            }
+            
             base.OnApplyTemplate();
         }
 

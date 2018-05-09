@@ -60,6 +60,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DialogBase.cs" />
+    <Compile Include="FlowPopup.cs" />
+    <Compile Include="FlowtTrendPopups.cs" />
     <Compile Include="IconButton.cs" />
     <Compile Include="Login\DataAnalysis.cs" />
     <Compile Include="Login\DataFormater.cs" />

@@ -38,26 +38,8 @@
                         <TextBlock x:Name="ContentIcon" Text="{TemplateBinding Content}"
                                 FontFamily="{DynamicResource Segoe}" Foreground="{TemplateBinding IconN}"
                                 FontSize="{TemplateBinding FontSize}" FontWeight="{TemplateBinding FontWeight}"
-                                TextAlignment="Center" Margin="{TemplateBinding Padding}">
-                            <TextBlock.Effect>
-                                <DropShadowEffect x:Name="ContentIconEffect" Color="{DynamicResource TextS}"
-                                        BlurRadius="1" ShadowDepth="0" Opacity="1"/>
-                            </TextBlock.Effect>
-                            <TextBlock.Triggers>
-                                <EventTrigger RoutedEvent="MouseMove">
-                                    <EventTrigger.EnterActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentIconEffect"
-                                                        Storyboard.TargetProperty="Opacity">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="1" />
-                                                </ObjectAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </EventTrigger.EnterActions>
-                                </EventTrigger>
-                            </TextBlock.Triggers>
-                        </TextBlock>
+                                TextAlignment="Center" Margin="{TemplateBinding Padding}"/>
+
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDefaulted" Value="True">
@@ -219,6 +201,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-
+    
 </ResourceDictionary>

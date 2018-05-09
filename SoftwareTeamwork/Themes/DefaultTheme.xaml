@@ -32,10 +32,12 @@
     <SolidColorBrush x:Key="WindowDialogButtonForeground.R" Color="#007acc" />
     <SolidColorBrush x:Key="WindowDialogButtonForeground.P" Color="#606060" />
 
+    <SolidColorBrush x:Key="FlowPopupAnaCanvas_BaseLine" Color="#404040"/>
+
     <Color x:Key="VsBorderColor">#005d9c</Color>
     <Color x:Key="TextS">#ffffff</Color>
     <Color x:Key="VsBackGroundColor">#FF1E1E1E</Color>
-    
+
     <!--Icon-->
 
     <sys:String x:Key="TitlebarExitIcon">&#xE8BB;</sys:String>
