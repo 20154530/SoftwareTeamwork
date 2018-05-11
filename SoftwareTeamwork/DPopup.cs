@@ -110,15 +110,9 @@ namespace SoftwareTeamwork
         }
         #endregion
 
-        protected virtual void Instence_ThemeChanged(object sender, EventArgs e)
-        {
-            
-        }
-
         public DPopup()
         {
             AllowsTransparency = true;
-            OverallSettingManger.Instence.ThemeChanged += Instence_ThemeChanged;
         }
 
         static DPopup()

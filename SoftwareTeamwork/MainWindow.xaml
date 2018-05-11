@@ -11,11 +11,20 @@
                 <local:DContextMenu Style="{DynamicResource DcontextMenu}"/>
             </local:DAreaIcon.Dcontextmenu>
             <local:DAreaIcon.FlowIconPopup>
-                <local:FlowPopup />
+                <local:FlowTrendPopups Style="{DynamicResource FlowAnaPanel}"/> 
             </local:DAreaIcon.FlowIconPopup>
         </local:DAreaIcon>
     </local:AIWindow.AreaIcon>
-    <Grid >
-
+    <Grid Margin="2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid Width="100">
+            
+        </Grid>
+        <Frame>
+            
+        </Frame>
     </Grid>
 </local:AIWindow>

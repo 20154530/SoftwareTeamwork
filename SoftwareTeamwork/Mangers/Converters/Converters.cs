@@ -40,6 +40,7 @@ namespace SoftwareTeamwork
         }
     }
 
+
     class ColortoBrushConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -69,6 +70,39 @@ namespace SoftwareTeamwork
         }
     }
 
+    /// <summary>
+    /// 将源位移一个double后返回
+    /// </summary>
+    class MoveConverter : IValueConverter {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+            return (double)value + System.Convert.ToInt32((string)parameter);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+            throw new NotImplementedException();
+        }
+    }
+
+    class MoveConverterI : IValueConverter {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+            return (double)((int)value + System.Convert.ToInt32((string)parameter));
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class IntToStringConverter : IValueConverter {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+            return ((int)value).ToString();
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+            throw new NotImplementedException();
+        }
+    }
+
     public class WindowToIntPtrConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -80,4 +114,5 @@ namespace SoftwareTeamwork
             throw new NotImplementedException();
         }
     }
+
 }

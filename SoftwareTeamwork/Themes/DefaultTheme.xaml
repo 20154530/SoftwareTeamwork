@@ -1,38 +1,66 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:sys ="clr-namespace:System;assembly=mscorlib"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:local="clr-namespace:SoftwareTeamwork">
     <!--Color-->
-    <SolidColorBrush x:Key="BorderBrush" Color="#007ACC"/>
-    <SolidColorBrush x:Key="BackgroundBrush" Color="#FF1E1E1E" />
-    <SolidColorBrush x:Key="BackgroundBrush_L1" Color="#FF2D2D30"/>
-    <SolidColorBrush x:Key="VsBorderColor_L2" Color="#80007ACC"/>
-    <SolidColorBrush x:Key="NotifyTextColor_L1_N" Color="#ffffffff"/>
-    <SolidColorBrush x:Key="NotifyTextColor_L2_N" Color="#a0ffffff"/>
+    <SolidColorBrush x:Key="BorderBrush"
+                     Color="#007ACC" />
+    <SolidColorBrush x:Key="BackgroundBrush"
+                     Color="#FF1E1E1E" />
+    <SolidColorBrush x:Key="NotifyTextColor_L1_N"
+                     Color="#ffffffff" />
+    <SolidColorBrush x:Key="NotifyTextColor_L2_N"
+                     Color="#a0ffffff" />
 
-    <SolidColorBrush x:Key="DMenuItemTextColorN" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="DMenuItemIconColorN" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="DMenuItemTextColorR" Color="#000000"/>
-    <SolidColorBrush x:Key="DMenuItemIconColorR" Color="#000000"/>
-    <SolidColorBrush x:Key="DMenuItemTextMask" Color="#80000000"/>
-    <SolidColorBrush x:Key="DMenuItemIconMask" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="DMenuItemTextColorN"
+                     Color="#FFFFFF" />
+    <SolidColorBrush x:Key="DMenuItemIconColorN"
+                     Color="#FFFFFF" />
+    <SolidColorBrush x:Key="DMenuItemTextColorR"
+                     Color="#000000" />
+    <SolidColorBrush x:Key="DMenuItemIconColorR"
+                     Color="#000000" />
+    <SolidColorBrush x:Key="DMenuItemTextMask"
+                     Color="#80000000" />
+    <SolidColorBrush x:Key="DMenuItemIconMask"
+                     Color="#FFFFFF" />
 
     <!--TitleBar-->
-    <SolidColorBrush x:Key="WindowTitleBarBackground" Color="#005d9c" />
-    <SolidColorBrush x:Key="WindowTitleBarForeground" Color="#c0c0c0" />
-    <SolidColorBrush x:Key="WindowTitleBarIconButtonIcon.N" Color="#E0E0E0" />
-    <SolidColorBrush x:Key="WindowTitleBarIconButtonIcon.R" Color="#0569cc" />
-    <SolidColorBrush x:Key="WindowTitleBarIconButtonIcon.P" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="WindowTitleBarBackground"
+                     Color="#005d9c" />
+    <SolidColorBrush x:Key="WindowTitleBarForeground"
+                     Color="#c0c0c0" />
+    <SolidColorBrush x:Key="WindowTitleBarIconButtonIcon.N"
+                     Color="#E0E0E0" />
+    <SolidColorBrush x:Key="WindowTitleBarIconButtonIcon.R"
+                     Color="#0569cc" />
+    <SolidColorBrush x:Key="WindowTitleBarIconButtonIcon.P"
+                     Color="#FFFFFF" />
 
-    <SolidColorBrush x:Key="WindowDialogBackground" Color="#080808" />
-    <SolidColorBrush x:Key="WindowDialogForeground" Color="#e0e0e0" />
+    <SolidColorBrush x:Key="WindowDialogBackground"
+                     Color="#080808" />
+    <SolidColorBrush x:Key="WindowDialogForeground"
+                     Color="#e0e0e0" />
 
-    <SolidColorBrush x:Key="WindowDialogButtonBackground" Color="Transparent" />
-    <SolidColorBrush x:Key="WindowDialogButtonForeground.N" Color="#A0A0A0" />
-    <SolidColorBrush x:Key="WindowDialogButtonForeground.R" Color="#007acc" />
-    <SolidColorBrush x:Key="WindowDialogButtonForeground.P" Color="#606060" />
+    <SolidColorBrush x:Key="WindowDialogButtonBackground"
+                     Color="Transparent" />
+    <SolidColorBrush x:Key="WindowDialogButtonForeground.N"
+                     Color="#A0A0A0" />
+    <SolidColorBrush x:Key="WindowDialogButtonForeground.R"
+                     Color="#007acc" />
+    <SolidColorBrush x:Key="WindowDialogButtonForeground.P"
+                     Color="#606060" />
 
-    <SolidColorBrush x:Key="FlowPopupAnaCanvas_BaseLine" Color="#404040"/>
+    <SolidColorBrush x:Key="FlowPopupAnaCanvas_BaseLine"
+                     Color="#323232" />
+    <SolidColorBrush x:Key="FlowPopupAnaCanvas_TrendLine"
+                     Color="#007ACC" />
+    <SolidColorBrush x:Key="FlowPopupAnaCanvas_AnaBackground"
+                     Color="#181818" />
+    <SolidColorBrush x:Key="FlowPopupAnaCanvas_Tick"
+                     Color="#808080" />
+    <SolidColorBrush x:Key="FlowPopupAnaCanvas_ToolTipBackground"
+                     Color="#202020" />
 
     <Color x:Key="VsBorderColor">#005d9c</Color>
     <Color x:Key="TextS">#ffffff</Color>

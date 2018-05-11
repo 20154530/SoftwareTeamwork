@@ -87,12 +87,12 @@ namespace SoftwareTeamwork
         #endregion
 
         #region FlowIconPopup
-        public FlowPopup FlowIconPopup {
-            get { return (FlowPopup)GetValue(FlowIconPopupProperty); }
+        public FlowTrendPopups FlowIconPopup {
+            get { return (FlowTrendPopups)GetValue(FlowIconPopupProperty); }
             set { SetValue(FlowIconPopupProperty, value); }
         }
         public static readonly DependencyProperty FlowIconPopupProperty =
-            DependencyProperty.Register("FlowIconPopup", typeof(FlowPopup), typeof(DAreaIcon),
+            DependencyProperty.Register("FlowIconPopup", typeof(FlowTrendPopups), typeof(DAreaIcon),
                 new PropertyMetadata(null,new PropertyChangedCallback(OnFlowIconPopupChanged)));
         private static void OnFlowIconPopupChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -131,7 +131,7 @@ namespace SoftwareTeamwork
         private void InitPopup()
         {
             FlowIconPopup.PlacementRectangle = 
-                new Rect(SystemParameters.WorkArea.Width - 305, SystemParameters.WorkArea.Height - 85, 0, 0);
+                new Rect(SystemParameters.WorkArea.Width - 305, SystemParameters.WorkArea.Height - 142, 0, 0);
             FlowIconPopup.MouseMove += FlowIconPopup_MouseMove;
             FlowIconPopup.MouseLeave += FlowIconPopup_MouseLeave;
         }

@@ -56,7 +56,7 @@ namespace SoftwareTeamwork {
             if (IsExiting)
                 return;
             else {
-                if (OverallSettingManger.Instence.RememberCloseMode == true) {
+                if (!Properties.Settings.Default.IsExitDialogShow) {
                     switch (OverallSettingManger.Instence.Closemode) {
                         case OverallSettingManger.CloseMode.AreaIcon:
                             Hide();

@@ -14,7 +14,7 @@ namespace SoftwareTeamwork {
             set { SetValue(IconPathProperty, value); }
         }
         public static readonly DependencyProperty IconPathProperty =
-             DependencyProperty.Register("IconPath", typeof(String), typeof(DPopup), new PropertyMetadata(""));
+             DependencyProperty.Register("IconPath", typeof(String), typeof(FlowPopup), new PropertyMetadata(""));
         #endregion
 
         #region 百分比
@@ -23,7 +23,7 @@ namespace SoftwareTeamwork {
             set { SetValue(PercentProperty, value); }
         }
         public static readonly DependencyProperty PercentProperty =
-            DependencyProperty.Register("Percent", typeof(int), typeof(DPopup), new PropertyMetadata(100));
+            DependencyProperty.Register("Percent", typeof(int), typeof(FlowPopup), new PropertyMetadata(100));
         #endregion
 
         public void SetIconPathByPercentAngle(double a) {
@@ -38,10 +38,13 @@ namespace SoftwareTeamwork {
                 IconPath = "M 30,10 A 20,20,0,1,1," + x.ToString() + "," + y.ToString();
         }
 
-
         public FlowPopup() {
-            this.Style = (Style)Application.Current.FindResource("MainFlowPopup");
+            OverallSettingManger.Instence.ThemeChanged += Instence_ThemeChanged;
         }
 
+        private void Instence_ThemeChanged(object sender, EventArgs e) {
+            this.Style = null;
+            this.Style = (Style)Application.Current.FindResource("MainFlowPopup");
+        }
     }
 }

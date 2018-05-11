@@ -6,16 +6,6 @@
     <!--Font-->
     <FontFamily x:Key="Segoe">/AIWindow;component/Resources/#Segoe</FontFamily>
 
-    <!--Color-->
-    <SolidColorBrush x:Key="VsBorderBrush" Color="#007ACC"/>
-    <SolidColorBrush x:Key="VsBackGroundBrush" Color="#FF1E1E1E"/>
-    <SolidColorBrush x:Key="VsBackGroundBrush_L1" Color="#FF2D2D30"/>
-    <SolidColorBrush x:Key="VsBorderColor_L2" Color="#80007ACC"/>
-    <SolidColorBrush x:Key="NotifyTextColor_L1_N" Color="#ffffffff"/>
-    <SolidColorBrush x:Key="NotifyTextColor_L2_N" Color="#a0ffffff"/>
-    <Color x:Key="VsBorderColor">#007ACC</Color>
-    <Color x:Key="VsBackGroundColor">#FF1E1E1E</Color>
-
     <!--Thickness-->
     <sys:Double x:Key="NotifyContextmenuTextSize">13</sys:Double>
     <sys:Double x:Key="NotifyContextmenuIconSize">14</sys:Double>
@@ -145,57 +135,5 @@
         </Setter>
     </Style>
 
-    <!--Controls-->
-
-    <local:DContextMenu x:Key="DcontextMenu" Background="{StaticResource VsBackGroundBrush_L1}" Placement="MousePoint" >
-        <local:DMenuItem x:Name="M1" Icon="&#xE15E;" Command="{StaticResource OpenMainWindowCommand}" 
-                         IconColorN="{StaticResource VsBorderColor}"
-                         IconMask="{StaticResource VsBorderColor}"
-                         IconColorR="White"
-                         Header="{Binding OpenOrClose, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:DContextMenu},Mode=OneWay}"
-                         CommandParameter="{Binding CommandParameter, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DContextMenu}}" />
-        <local:DMenuItem x:Name="M2" Icon="&#xEA39;" Header="退出程序" />
-        <local:DMenuItem x:Name="M3" Icon="&#xEA39;" Header="退出程序" />
-        <Separator Style="{StaticResource SeparatorStyle1}" />
-        <local:DMenuItem x:Name="M4" Icon="&#xEA39;" Header="退出程序" 
-                         IconColorN="Red"
-                         IconMask="Red"
-                         IconColorR="White"
-                         Command="{StaticResource ClsCommand}"/>
-    </local:DContextMenu>
-
-    <local:DPopup x:Key="DPopup" AllowsTransparency="True" ThemeBg="{StaticResource VsBackGroundColor}" 
-                  ThemeBorderC="{StaticResource VsBorderColor}"/>
-
-    <Border x:Key="FlowContentPanel" Width="300" Height="80" BorderThickness="1" Margin="3">
-        <Border.BorderBrush>
-            <SolidColorBrush Color="{Binding ThemeBorderC, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:DPopup}}"/>
-        </Border.BorderBrush>
-        <Border.Effect>
-            <DropShadowEffect Color="{Binding ThemeBorderC, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:DPopup}}" 
-                                  Opacity="{Binding Shadow, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:DPopup}}"
-                                  BlurRadius="5" ShadowDepth="0" />
-        </Border.Effect>
-        <Grid>
-            <Grid.Background>
-                <SolidColorBrush Color="{Binding ThemeBg, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:DPopup}}"/>
-            </Grid.Background>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="80"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <TextBlock x:Name="Title" Text="{Binding Title,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DPopup}}" FontSize="14" Foreground="{StaticResource NotifyTextColor_L1_N}" FontWeight="UltraLight"  VerticalAlignment="Center" Grid.Column="1" />
-            <TextBlock x:Name="Content" Text="{Binding Content,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DPopup}}" FontSize="12" Foreground="{StaticResource NotifyTextColor_L2_N}" FontWeight="Thin" 
-                              VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" />
-            <Canvas Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="2" >
-                <Path Data="{Binding IconPath, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:DPopup},Converter={StaticResource StrToPathConverter}}" Stroke="{StaticResource NotifyTextColor_L1_N}" StrokeThickness="5">
-                </Path>
-            </Canvas>
-        </Grid>
-    </Border>
-    
+   
 </ResourceDictionary>
