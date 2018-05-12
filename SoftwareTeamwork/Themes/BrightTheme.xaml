@@ -2,71 +2,98 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:local="clr-namespace:SoftwareTeamwork">
-    <!--Color-->
-    <SolidColorBrush x:Key="BorderBrush"
-                     Color="#101010" />
-    <SolidColorBrush x:Key="BackgroundBrush"
-                     Color="#FFf0f0f0" />
-    <SolidColorBrush x:Key="NotifyTextColor_L1_N"
-                     Color="#ff0080c0" />
-    <SolidColorBrush x:Key="NotifyTextColor_L2_N"
-                     Color="#a0ffffff" />
+  <!--AiWindow-->
+  <SolidColorBrush x:Key="BorderBrush"
+                   Color="#007ACC" />
+  <SolidColorBrush x:Key="BackgroundBrush"
+                   Color="#FF1E1E1E" />
+  <SolidColorBrush x:Key="NotifyTextColor_L1_N"
+                   Color="#ffffffff" />
+  <SolidColorBrush x:Key="NotifyTextColor_L2_N"
+                   Color="#a0ffffff" />
 
-    <SolidColorBrush x:Key="DMenuItemTextColorN"
-                     Color="#FFFFFF" />
-    <SolidColorBrush x:Key="DMenuItemIconColorN"
-                     Color="#FFFFFF" />
-    <SolidColorBrush x:Key="DMenuItemTextColorR"
-                     Color="#000000" />
-    <SolidColorBrush x:Key="DMenuItemIconColorR"
-                     Color="#000000" />
-    <SolidColorBrush x:Key="DMenuItemTextMask"
-                     Color="#80000000" />
-    <SolidColorBrush x:Key="DMenuItemIconMask"
-                     Color="#FFFFFF" />
+  <!--AccountPage-->
+  <SolidColorBrush x:Key="AccountPage_TextBox_Background"
+                   Color="#141414" />
+  <SolidColorBrush x:Key="AccountPage_TextBox_Foreground"
+                   Color="#E0E0E0" />
+  <SolidColorBrush x:Key="AccountPage_Button_Foreground"
+                   Color="#E0E0E0" />
+  <SolidColorBrush x:Key="AccountPage_Button_Background"
+                   Color="#004B70" />
+  <SolidColorBrush x:Key="AccountPage_Button_Background_R"
+                   Color="#00689C" />
+  <SolidColorBrush x:Key="AccountPage_Button_Background_P"
+                   Color="#00293D" />
 
-    <!--TitleBar-->
-    <SolidColorBrush x:Key="WindowTitleBarBackground"
-                     Color="Transparent" />
-    <SolidColorBrush x:Key="WindowTitleBarForeground"
-                     Color="#101010" />
-    <SolidColorBrush x:Key="WindowTitleBarIconButtonIcon.N"
-                     Color="#202020" />
-    <SolidColorBrush x:Key="WindowTitleBarIconButtonIcon.R"
-                     Color="#a03030" />
-    <SolidColorBrush x:Key="WindowTitleBarIconButtonIcon.P"
-                     Color="#602000" />
+  <!--DmenuItem-->
+  <SolidColorBrush x:Key="DMenuItemTextColorN"
+                   Color="#FFFFFF" />
+  <SolidColorBrush x:Key="DMenuItemIconColorN"
+                   Color="#FFFFFF" />
+  <SolidColorBrush x:Key="DMenuItemTextColorR"
+                   Color="#000000" />
+  <SolidColorBrush x:Key="DMenuItemIconColorR"
+                   Color="#000000" />
+  <SolidColorBrush x:Key="DMenuItemTextMask"
+                   Color="#80000000" />
+  <SolidColorBrush x:Key="DMenuItemIconMask"
+                   Color="#FFFFFF" />
 
-    <SolidColorBrush x:Key="WindowDialogBackground"
-                     Color="#080808" />
-    <SolidColorBrush x:Key="WindowDialogForeground"
-                     Color="#e0e0e0" />
+  <!--TitleBar-->
+  <SolidColorBrush x:Key="WindowTitleBarBackground"
+                   Color="#005d9c" />
+  <SolidColorBrush x:Key="WindowTitleBarForeground"
+                   Color="#c0c0c0" />
+  <SolidColorBrush x:Key="WindowTitleBarIconButtonIcon.N"
+                   Color="#E0E0E0" />
+  <SolidColorBrush x:Key="WindowTitleBarIconButtonIcon.R"
+                   Color="#F0F0F0" />
+  <SolidColorBrush x:Key="WindowTitleBarIconButtonIcon.P"
+                   Color="#FFFFFF" />
 
-    <SolidColorBrush x:Key="WindowDialogButtonBackground"
-                     Color="Transparent" />
-    <SolidColorBrush x:Key="WindowDialogButtonForeground.N"
-                     Color="#A0A0A0" />
-    <SolidColorBrush x:Key="WindowDialogButtonForeground.R"
-                     Color="#007acc" />
-    <SolidColorBrush x:Key="WindowDialogButtonForeground.P"
-                     Color="#606060" />
+  <!--Dialog-->
+  <SolidColorBrush x:Key="WindowDialogBackground"
+                   Color="#080808" />
+  <SolidColorBrush x:Key="WindowDialogForeground"
+                   Color="#e0e0e0" />
 
-    <SolidColorBrush x:Key="FlowPopupAnaCanvas_BaseLine"
-                     Color="#404040" />
-    <SolidColorBrush x:Key="FlowPopupAnaCanvas_TrendLine"
-                     Color="#007ACC" />
-    <SolidColorBrush x:Key="FlowPopupAnaCanvas_AnaBackground"
-                     Color="#161616" />
-    <SolidColorBrush x:Key="FlowPopupAnaCanvas_Tick"
-                     Color="#808080" />
+  <SolidColorBrush x:Key="WindowDialogButtonBackground"
+                   Color="Transparent" />
+  <SolidColorBrush x:Key="WindowDialogButtonForeground.N"
+                   Color="#A0A0A0" />
+  <SolidColorBrush x:Key="WindowDialogButtonForeground.R"
+                   Color="#007acc" />
+  <SolidColorBrush x:Key="WindowDialogButtonForeground.P"
+                   Color="#606060" />
 
-    <Color x:Key="VsBorderColor">#101010</Color>
-    <Color x:Key="TextS">#101010</Color>
-    <Color x:Key="VsBackGroundColor">#FFf0f0f0</Color>
+  <!--FlowPopup-->
+  <SolidColorBrush x:Key="FlowPopupAnaCanvas_BaseLine"
+                   Color="#323232" />
+  <SolidColorBrush x:Key="FlowPopupAnaCanvas_TrendLine"
+                   Color="#007ACC" />
+  <SolidColorBrush x:Key="FlowPopupAnaCanvas_AnaBackground"
+                   Color="#181818" />
+  <SolidColorBrush x:Key="FlowPopupAnaCanvas_Tick"
+                   Color="#808080" />
+  <SolidColorBrush x:Key="FlowPopupAnaCanvas_ToolTipBackground"
+                   Color="#202020" />
 
-    <!--Icon-->
+  <!--GridLineFloder-->
+  <SolidColorBrush x:Key="GridLineFloderLineColor"
+                   Color="#808080" />
+  <SolidColorBrush x:Key="GridLineFloderButtonColor"
+                   Color="#e0e0e0" />
+  <SolidColorBrush x:Key="GridLineFloderBackground"
+                   Color="#004B70" />
 
-    <sys:String x:Key="TitlebarExitIcon">&#xEA39;</sys:String>
+  <Color x:Key="VsBorderColor">#005d9c</Color>
+  <Color x:Key="TextS">#ffffff</Color>
+  <Color x:Key="VsBackGroundColor">#FF1E1E1E</Color>
+
+  <!--Icon-->
+
+  <sys:String x:Key="TitlebarExitIcon">&#xE8BB;</sys:String>
 
 
 </ResourceDictionary>

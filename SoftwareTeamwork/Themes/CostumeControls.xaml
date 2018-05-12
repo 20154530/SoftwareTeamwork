@@ -67,7 +67,7 @@
 
   <!--ExitDialog-->
 
-  <ControlTemplate x:Key="ExitDialog"
+  <ControlTemplate x:Key="ExitDialogStyle"
                    TargetType="{x:Type local:DialogBase}">
     <Border x:Name="RootBorder"
             BorderBrush="{DynamicResource BorderBrush}"
@@ -103,11 +103,51 @@
         </Grid>
         <Grid x:Name="ContentLayer"
               Grid.Row="1"
-              Margin="16,5,16,5">
+              Margin="16,0,16,0">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+          </Grid.RowDefinitions>
           <TextBlock Text="{Binding Context, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                      FontSize="12"
                      Foreground="{DynamicResource WindowTitleBarForeground}"
                      TextWrapping="Wrap" />
+          <StackPanel Orientation="Horizontal"
+                      Grid.Row="1"
+                      Margin="0,5,0,0">
+            <local:IconToggelButton x:Name="ExitAction"
+                                    ToolTipVisiblity="Collapsed"
+                                    VerticalAlignment="Center"
+                                    Foreground="{DynamicResource WindowTitleBarForeground}"
+                                    Background="Transparent"
+                                    BackIcon="&#xF16C;"
+                                    ForeIcon="&#xF16B;"
+                                    Padding="2"
+                                    FontSize="{TemplateBinding FontSize}" />
+            <TextBlock Margin="8,0,0,0"
+                       VerticalAlignment="Center"
+                       FontSize="10"
+                       Text="转到托盘运行"
+                       Foreground="{DynamicResource WindowTitleBarForeground}" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal"
+                      Grid.Row="2" Margin="0,5,0,0">
+            <local:IconToggelButton x:Name="SaveAction"
+                                    VerticalAlignment="Center"
+                                    ToolTipVisiblity="Collapsed"
+                                    Foreground="{DynamicResource WindowTitleBarForeground}"
+                                    Background="Transparent"
+                                    BackIcon="&#xF16C;"
+                                    ForeIcon="&#xF16B;"
+                                    Padding="2"
+                                    FontSize="{TemplateBinding FontSize}" />
+            <TextBlock Margin="8,0,0,0"
+                       VerticalAlignment="Center"
+                       FontSize="10"
+                       Text="记住选择"
+                       Foreground="{DynamicResource WindowTitleBarForeground}" />
+          </StackPanel>
         </Grid>
         <Grid x:Name="ControlLayer"
               Grid.Row="2"
@@ -266,15 +306,6 @@
                           Value="{DynamicResource FlowPopupAnaCanvas_TrendLine}" />
                   <Setter Property="StrokeThickness"
                           Value="{StaticResource FlowAnaBaseLineSize}" />
-                </Style>
-                <Style x:Key="NodeToolTip"
-                       TargetType="ToolTip">
-                  <Setter Property="Padding"
-                          Value="0" />
-                  <Setter Property="BorderBrush"
-                          Value="{DynamicResource BorderBrush}" />
-                  <Setter Property="BorderThickness"
-                          Value="1" />
                 </Style>
               </Canvas.Resources>
               <Rectangle Width="{StaticResource FlowAnaCanvasWidth}"

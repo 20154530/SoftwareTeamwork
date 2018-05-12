@@ -14,7 +14,19 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SoftwareTeamwork {
-    public class GridLineFloder : Control,ICommand {
+    public class GridLineFloder : Control, ICommand {
+
+        private double OriginGridSize;
+
+        #region GridType
+        public GridUnitType AimGridType {
+            get { return (GridUnitType)GetValue(AimGridTypeProperty); }
+            set { SetValue(AimGridTypeProperty, value); }
+        }
+        public static readonly DependencyProperty AimGridTypeProperty =
+            DependencyProperty.Register("AimGridType", typeof(GridUnitType), typeof(GridLineFloder),
+                new PropertyMetadata(GridUnitType.Auto));
+        #endregion
 
         #region Title
         public string Title {
@@ -31,7 +43,7 @@ namespace SoftwareTeamwork {
             set { SetValue(ContentVisProperty, value); }
         }
         public static readonly DependencyProperty ContentVisProperty =
-            DependencyProperty.Register("ContentVis", typeof(Visibility), typeof(GridLineFloder), 
+            DependencyProperty.Register("ContentVis", typeof(Visibility), typeof(GridLineFloder),
                 new PropertyMetadata(Visibility.Visible));
         #endregion
 
@@ -57,6 +69,7 @@ namespace SoftwareTeamwork {
         public event EventHandler CanExecuteChanged;
         #endregion
 
+        #region FloderCommand
         public bool CanExecute(object parameter) {
             return true;
         }
@@ -64,14 +77,35 @@ namespace SoftwareTeamwork {
         public void Execute(object parameter) {
             if (ContentVis.Equals(Visibility.Visible)) {
                 ContentVis = Visibility.Collapsed;
-                AttachedGrid.RowDefinitions[(int)parameter].Height = new GridLength(0, GridUnitType.Star);
+                switch (AimGridType) {
+                    case GridUnitType.Auto:
+                        AttachedGrid.RowDefinitions[(int)parameter].Height = new GridLength(0, GridUnitType.Star);
+                        break;
+                    case GridUnitType.Star:
+                        AttachedGrid.RowDefinitions[(int)parameter].Height = new GridLength(0, GridUnitType.Star);
+                        break;
+                    case GridUnitType.Pixel:
+                        OriginGridSize = AttachedGrid.RowDefinitions[(int)parameter].Height.Value;
+                        AttachedGrid.RowDefinitions[(int)parameter].Height = new GridLength(0, GridUnitType.Star);
+                        break;
+                }
             }
             else {
                 ContentVis = Visibility.Visible;
-                AttachedGrid.RowDefinitions[(int)parameter].Height = new GridLength(1, GridUnitType.Star);
+                switch (AimGridType) {
+                    case GridUnitType.Auto:
+                        AttachedGrid.RowDefinitions[(int)parameter].Height = new GridLength(1,GridUnitType.Auto);
+                        break;
+                    case GridUnitType.Star:
+                        AttachedGrid.RowDefinitions[(int)parameter].Height = new GridLength(0, GridUnitType.Star);
+                        break;
+                    case GridUnitType.Pixel:
+                        AttachedGrid.RowDefinitions[(int)parameter].Height = new GridLength(OriginGridSize, GridUnitType.Pixel);
+                        break;
+                }
             }
         }
-
+        #endregion
 
         static GridLineFloder() {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GridLineFloder), new FrameworkPropertyMetadata(typeof(GridLineFloder)));

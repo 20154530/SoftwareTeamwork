@@ -17,10 +17,23 @@ namespace SoftwareTeamwork
 {
     public class IconButton : Button {
 
+        #region ContentTextVisiblity
+        public Visibility ContentTextVisiblity {
+            get { return (Visibility)GetValue(ContentTextVisiblityProperty); }
+            set { SetValue(ContentTextVisiblityProperty, value); }
+        }
+        public static readonly DependencyProperty ContentTextVisiblityProperty =
+            DependencyProperty.Register("ContentTextVisiblity", typeof(Visibility), typeof(IconButton),
+                new PropertyMetadata(Visibility.Collapsed));
+        #endregion
+
         #region ButtonColor
         public Brush IconMaskN {
             get { return (Brush)GetValue(IconMaskNProperty); }
-            set { SetValue(IconMaskNProperty, value); }
+            set {
+                SetValue(IconMaskNProperty, value);
+            
+            }
         }
         public static readonly DependencyProperty IconMaskNProperty =
             DependencyProperty.Register("IconMaskN", typeof(Brush), typeof(IconButton),
@@ -44,7 +57,9 @@ namespace SoftwareTeamwork
 
         public Brush IconN {
             get { return (Brush)GetValue(IconNProperty); }
-            set { SetValue(IconNProperty, value); }
+            set {
+                SetValue(IconNProperty, value);
+            }
         }
         public static readonly DependencyProperty IconNProperty =
             DependencyProperty.Register("IconN", typeof(Brush), typeof(IconButton), 
@@ -67,12 +82,34 @@ namespace SoftwareTeamwork
                 new PropertyMetadata(new SolidColorBrush(Colors.Transparent)));
         #endregion
 
+        #region ContentText
+        public string ContentText {
+            get { return (string)GetValue(ContentTextProperty); }
+            set { SetValue(ContentTextProperty, value); }
+        }
+        public static readonly DependencyProperty ContentTextProperty =
+            DependencyProperty.Register("ContentText", typeof(string), typeof(IconButton),
+                new PropertyMetadata(""));
+        #endregion
+
+        #region ContentTextFontWeight
+        public double ContentTextFontSize {
+            get { return (double)GetValue(ContentTextFontSizeProperty); }
+            set { SetValue(ContentTextFontSizeProperty, value); }
+        }
+        public static readonly DependencyProperty ContentTextFontSizeProperty =
+            DependencyProperty.Register("ContentTextFontSize", typeof(double), typeof(IconButton), 
+                new PropertyMetadata(0.0));
+        #endregion
+
+        #region AllowShadow
         public double AllowShadow {
             get { return (double)GetValue(AllowShadowProperty); }
             set { SetValue(AllowShadowProperty, value); }
         }
         public static readonly DependencyProperty AllowShadowProperty =
             DependencyProperty.Register("AllowShadow", typeof(double), typeof(IconButton), new PropertyMetadata(0.0));
+        #endregion
 
         static IconButton()
         {

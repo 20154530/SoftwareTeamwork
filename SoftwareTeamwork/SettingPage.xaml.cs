@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,18 +13,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SoftwareTeamwork
-{
-    public partial class MainWindow : AIWindow
-    {
-        public MainWindow()
-        {
+namespace SoftwareTeamwork {
+    /// <summary>
+    /// SettingPage.xaml 的交互逻辑
+    /// </summary>
+    public partial class SettingPage : Page {
+        public SettingPage() {
             InitializeComponent();
-            Loaded += MainWindow_Loaded;
-        }
-
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e) {
-            MainFrame.NavigationService.Navigate(new Uri("AccountPage.xaml", UriKind.Relative));
         }
     }
 }

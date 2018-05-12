@@ -149,6 +149,7 @@
     <Compile Include="CustomeControls\GridLineFloder.cs" />
     <Compile Include="CustomeControls\IconButton.cs" />
     <Compile Include="CustomeControls\IconToggelButton.cs" />
+    <Compile Include="ExitDialog.cs" />
     <Compile Include="Login\DataAnalysis.cs" />
     <Compile Include="Login\DataFormater.cs" />
     <Compile Include="Login\LoginAgent.cs" />
@@ -172,6 +173,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="CustomeControls\TitleBar.cs" />
+    <Compile Include="SettingPage.xaml.cs">
+      <DependentUpon>SettingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -192,6 +197,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="AccountPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SettingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -57,20 +57,20 @@ namespace SoftwareTeamwork {
                 return;
             else {
                 if (!Properties.Settings.Default.IsExitDialogShow) {
-                    switch (OverallSettingManger.Instence.Closemode) {
-                        case OverallSettingManger.CloseMode.AreaIcon:
-                            Hide();
-                            return;
-                        case OverallSettingManger.CloseMode.Exit:
-                            AreaIcon.Dispose();
-                            App.Current.Shutdown();
-                            return;
+                    if (Properties.Settings.Default.ExitAction) {
+                        Hide();
+                        return;
+                    }
+                    else {
+                        AreaIcon.Dispose();
+                        App.Current.Shutdown();
+                        return;
                     }
                 }
                 else {
                     IsExiting = true;
-                    DialogBase dialog = new DialogBase {
-                        Template = (ControlTemplate)Application.Current.FindResource("ExitDialog"),
+                    ExitDialog dialog = new ExitDialog {
+                        Template = (ControlTemplate)Application.Current.FindResource("ExitDialogStyle"),
                         Context = "是否退出?"
                     };
                     dialog.ShowDialog(this);

@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:local="clr-namespace:SoftwareTeamwork">
-  <!--Color-->
+  <!--AiWindow-->
   <SolidColorBrush x:Key="BorderBrush"
                    Color="#007ACC" />
   <SolidColorBrush x:Key="BackgroundBrush"
@@ -11,6 +11,20 @@
                    Color="#ffffffff" />
   <SolidColorBrush x:Key="NotifyTextColor_L2_N"
                    Color="#a0ffffff" />
+  
+  <!--AccountPage-->
+  <SolidColorBrush x:Key="AccountPage_TextBox_Background"
+                   Color="#141414" />
+  <SolidColorBrush x:Key="AccountPage_TextBox_Foreground"
+                   Color="#E0E0E0" />
+  <SolidColorBrush x:Key="AccountPage_Button_Foreground"
+                   Color="#E0E0E0" />
+  <SolidColorBrush x:Key="AccountPage_Button_Background"
+                   Color="#004B70" />
+  <SolidColorBrush x:Key="AccountPage_Button_Background_R"
+                   Color="#00689C" />
+  <SolidColorBrush x:Key="AccountPage_Button_Background_P"
+                   Color="#00293D" />
 
   <!--DmenuItem-->
   <SolidColorBrush x:Key="DMenuItemTextColorN"
@@ -34,7 +48,7 @@
   <SolidColorBrush x:Key="WindowTitleBarIconButtonIcon.N"
                    Color="#E0E0E0" />
   <SolidColorBrush x:Key="WindowTitleBarIconButtonIcon.R"
-                   Color="#0569cc" />
+                   Color="#F0F0F0" />
   <SolidColorBrush x:Key="WindowTitleBarIconButtonIcon.P"
                    Color="#FFFFFF" />
 
@@ -67,9 +81,11 @@
 
   <!--GridLineFloder-->
   <SolidColorBrush x:Key="GridLineFloderLineColor"
-                   Color="#404040" />
+                   Color="#808080" />
   <SolidColorBrush x:Key="GridLineFloderButtonColor"
                    Color="#e0e0e0" />
+  <SolidColorBrush x:Key="GridLineFloderBackground"
+                   Color="#004B70" />
 
   <Color x:Key="VsBorderColor">#005d9c</Color>
   <Color x:Key="TextS">#ffffff</Color>

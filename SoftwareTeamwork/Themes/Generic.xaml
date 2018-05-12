@@ -1,4 +1,4 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:local="clr-namespace:SoftwareTeamwork">
@@ -43,15 +43,30 @@
           <Border x:Name="RootBorder"
                   SnapsToDevicePixels="True"
                   Background="{TemplateBinding IconMaskN}">
-            <TextBlock x:Name="ContentIcon"
-                       Text="{TemplateBinding Content}"
-                       FontFamily="{DynamicResource Segoe}"
-                       Foreground="{TemplateBinding IconN}"
-                       FontSize="{TemplateBinding FontSize}"
-                       FontWeight="{TemplateBinding FontWeight}"
-                       TextAlignment="Center"
-                       Margin="{TemplateBinding Padding}" />
-
+            <Grid x:Name="RootGrid"
+                  Margin="{TemplateBinding Padding}">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+              </Grid.ColumnDefinitions>
+              <TextBlock x:Name="ContentIcon"
+                         Text="{TemplateBinding Content}"
+                         FontFamily="{DynamicResource Segoe}"
+                         Foreground="{TemplateBinding IconN}"
+                         FontSize="{TemplateBinding FontSize}"
+                         FontWeight="{TemplateBinding FontWeight}"
+                         TextAlignment="Center" 
+                         VerticalAlignment="Center"/>
+              <TextBlock x:Name="ContentTexts"
+                         Grid.Column="1"
+                         Margin="8,0,0,0"
+                         Text="{TemplateBinding ContentText}"
+                         Foreground="{TemplateBinding IconN}"
+                         FontSize="{TemplateBinding ContentTextFontSize}"
+                         FontWeight="{TemplateBinding FontWeight}"
+                         Visibility="{TemplateBinding ContentTextVisiblity}"
+                         TextAlignment="Center"/>
+            </Grid>
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsDefaulted"
@@ -60,6 +75,9 @@
             <Trigger Property="IsMouseOver"
                      Value="True">
               <Setter TargetName="ContentIcon"
+                      Property="Foreground"
+                      Value="{Binding IconR,RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+              <Setter TargetName="ContentTexts"
                       Property="Foreground"
                       Value="{Binding IconR,RelativeSource={RelativeSource Mode=TemplatedParent}}" />
               <Setter TargetName="RootBorder"
@@ -71,9 +89,96 @@
               <Setter TargetName="ContentIcon"
                       Property="Foreground"
                       Value="{Binding IconP,RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+              <Setter TargetName="ContentTexts"
+                      Property="Foreground"
+                      Value="{Binding IconP,RelativeSource={RelativeSource Mode=TemplatedParent}}" />
               <Setter TargetName="RootBorder"
                       Property="Background"
                       Value="{Binding IconMaskP,RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!--IconToggelButton-->
+  <Style TargetType="{x:Type local:IconToggelButton}">
+    <Style.Triggers>
+      <Trigger Property="IsChecked"
+               Value="True">
+        <Setter Property="ToolTip">
+          <Setter.Value>
+            <ToolTip Style="{DynamicResource IconToggelButtonToolTip}"
+                     Visibility="{Binding ToolTipVisiblity}">
+              <Grid Background="{DynamicResource FlowPopupAnaCanvas_ToolTipBackground}">
+                <TextBlock Text="{Binding BackToolTip}"
+                           Style="{DynamicResource FlowAnaNodeTip}" />
+              </Grid>
+            </ToolTip>
+          </Setter.Value>
+        </Setter>
+      </Trigger>
+      <Trigger Property="IsChecked"
+               Value="False">
+        <Setter Property="ToolTip">
+          <Setter.Value>
+            <ToolTip Style="{DynamicResource IconToggelButtonToolTip}"
+                     Visibility="{Binding ToolTipVisiblity}">
+              <Grid Background="{DynamicResource FlowPopupAnaCanvas_ToolTipBackground}">
+                <TextBlock Text="{Binding ForeToolTip}"
+                           Style="{DynamicResource FlowAnaNodeTip}" />
+              </Grid>
+            </ToolTip>
+          </Setter.Value>
+        </Setter>
+      </Trigger>
+    </Style.Triggers>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type local:IconToggelButton}">
+          <Border BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid x:Name="RootGrid"
+                  Background="{TemplateBinding Background}">
+              <Rectangle x:Name="DarkMask"
+                         Fill="#40000000"
+                         Visibility="Collapsed" />
+              <TextBlock x:Name="ContentIcon"
+                         Margin="{TemplateBinding Padding}"
+                         Style="{StaticResource IconTextBlock}"
+                         Text="{TemplateBinding ForeIcon}"
+                         FontSize="{TemplateBinding FontSize}"
+                         Foreground="{TemplateBinding Foreground}" />
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsChecked"
+                     Value="True">
+              <Setter TargetName="ContentIcon"
+                      Property="Text"
+                      Value="{Binding BackIcon, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+            </Trigger>
+            <Trigger Property="IsChecked"
+                     Value="False">
+              <Setter TargetName="ContentIcon"
+                      Property="Text"
+                      Value="{Binding ForeIcon, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+            </Trigger>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+              <Setter TargetName="DarkMask"
+                      Property="Visibility"
+                      Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsPressed"
+                     Value="True">
+              <Setter TargetName="DarkMask"
+                      Property="Visibility"
+                      Value="Visible" />
+              <Setter TargetName="DarkMask"
+                      Property="Fill"
+                      Value="#80000000" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -304,7 +409,7 @@
   <!--GridLineFloder-->
   <Style TargetType="{x:Type local:GridLineFloder}">
     <Setter Property="Background"
-            Value="Transparent" />
+            Value="{DynamicResource GridLineFloderBackground}" />
     <Setter Property="BorderBrush"
             Value="Transparent" />
     <Setter Property="BorderThickness"
@@ -316,8 +421,7 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type local:GridLineFloder}">
-          <Border Background="{TemplateBinding Background}"
-                  BorderBrush="{TemplateBinding BorderBrush}"
+          <Border BorderBrush="{TemplateBinding BorderBrush}"
                   BorderThickness="{TemplateBinding BorderThickness}"
                   Margin="0,4,0,4">
             <Grid Height="{TemplateBinding Height}"
@@ -328,61 +432,28 @@
                 <ColumnDefinition Width="auto" />
               </Grid.ColumnDefinitions>
               <TextBlock x:Name="Title"
-                         Margin="10,0,0,0"
+                         Grid.ColumnSpan="2"
+                         Padding="4,2,4,2"
                          Text="{TemplateBinding Title}"
-                         FontSize="{TemplateBinding FontSize}" 
-                         Foreground="{TemplateBinding Foreground}"/>
-              <Rectangle x:Name="GridLine"
-                         Grid.Column="1"
-                         Margin="10,0,10,0"
-                         VerticalAlignment="Center"
-                         Height="0.5"
-                         HorizontalAlignment="Stretch"
-                         Fill="{DynamicResource GridLineFloderLineColor}" />
+                         FontSize="{TemplateBinding FontSize}"
+                         Foreground="{TemplateBinding Foreground}"
+                         Background="{TemplateBinding Background}" />
               <local:IconToggelButton x:Name="FloderButton"
                                       Foreground="{TemplateBinding Foreground}"
+                                      Background="{TemplateBinding Background}"
                                       Grid.Column="2"
                                       BackIcon="&#xE70D;"
                                       ForeIcon="&#xE70E;"
+                                      ForeToolTip="折叠当前块"
+                                      BackToolTip="打开当前块"
+                                      Margin="4,0,0,0"
+                                      Padding="3,2,3,2"
                                       FontSize="{TemplateBinding FontSize}"
-                                      Margin="0,0,10,0"
                                       Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}}"
-                                      CommandParameter="{TemplateBinding CommandPara}" />
+                                      CommandParameter="{TemplateBinding CommandPara}">
+              </local:IconToggelButton>
             </Grid>
           </Border>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
-
-  <!--IconToggelButton-->
-  <Style TargetType="{x:Type local:IconToggelButton}">
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type local:IconToggelButton}">
-          <Border Background="{TemplateBinding Background}"
-                  BorderBrush="{TemplateBinding BorderBrush}"
-                  BorderThickness="{TemplateBinding BorderThickness}">
-            <TextBlock x:Name="ContentIcon"
-                       Style="{StaticResource IconTextBlock}"
-                       Text="{TemplateBinding ForeIcon}"
-                       FontSize="{TemplateBinding FontSize}"
-                       Foreground="{TemplateBinding Foreground}" />
-          </Border>
-          <ControlTemplate.Triggers>
-            <Trigger Property="IsChecked"
-                     Value="True">
-              <Setter TargetName="ContentIcon"
-                      Property="Text"
-                      Value="{Binding BackIcon, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-            </Trigger>
-            <Trigger Property="IsChecked"
-                     Value="False">
-              <Setter TargetName="ContentIcon"
-                      Property="Text"
-                      Value="{Binding ForeIcon, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-            </Trigger>
-          </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>

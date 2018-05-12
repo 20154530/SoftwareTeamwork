@@ -34,5 +34,17 @@ namespace SoftwareTeamwork.Properties {
                 this["IsExitDialogShow"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ExitAction {
+            get {
+                return ((bool)(this["ExitAction"]));
+            }
+            set {
+                this["ExitAction"] = value;
+            }
+        }
     }
 }

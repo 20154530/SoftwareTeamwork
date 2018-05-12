@@ -8,6 +8,8 @@
   <sys:Double x:Key="NotifyContextmenuIconSize">14</sys:Double>
   <sys:Double x:Key="NotifyContextmenuItemHeight">26</sys:Double>
 
+  <!--Seperator-->
+
   <!--ContentMenuSeperator-->
   <Style x:Key="SeparatorStyle1"
          TargetType="{x:Type Separator}">
@@ -26,6 +28,19 @@
         </ControlTemplate>
       </Setter.Value>
     </Setter>
+  </Style>
+
+  <!--TextBlock-->
+
+  <!--AccountLabel-->
+  <Style x:Key="AccountLabel"
+         TargetType="TextBlock">
+    <Setter Property="FontSize"
+            Value="12" />
+    <Setter Property="Foreground"
+            Value="{DynamicResource GridLineFloderButtonColor}" />
+    <Setter Property="Padding"
+            Value="4,2,4,2" />
   </Style>
 
   <!--IconTextBlock-->
@@ -103,6 +118,8 @@
             Value="{DynamicResource FlowPopupAnaCanvas_Tick}" />
   </Style>
 
+  <!--ToolTip-->
+
   <!--FlowAnaNodeTip-->
   <Style x:Key="FlowAnaNodeTip"
          TargetType="TextBlock">
@@ -116,8 +133,120 @@
             Value="5,2,5,2" />
   </Style>
 
+  <!--NodeToolTip-->
+  <Style x:Key="NodeToolTip"
+         TargetType="ToolTip">
+    <Setter Property="Padding"
+            Value="0" />
+    <Setter Property="BorderBrush"
+            Value="{DynamicResource BorderBrush}" />
+    <Setter Property="BorderThickness"
+            Value="1" />
+  </Style>
+
+  <!--IconToggelButtonTooltip-->
+  <Style x:Key="IconToggelButtonToolTip"
+         TargetType="ToolTip">
+    <Setter Property="Padding"
+            Value="0" />
+    <Setter Property="BorderBrush"
+            Value="{DynamicResource BorderBrush}" />
+    <Setter Property="BorderThickness"
+            Value="1" />
+    <Setter Property="DataContext"
+            Value="{Binding PlacementTarget, RelativeSource={RelativeSource Mode=Self}}" />
+  </Style>
+
   <!--Buttons-->
 
+  <!--TextBox-->
+  <Style x:Key="AccountTextBox"
+         TargetType="TextBox">
+    <Setter Property="Height"
+            Value="20" />
+    <Setter Property="MinWidth"
+            Value="180" />
+    <Setter Property="Background"
+            Value="{DynamicResource AccountPage_TextBox_Background}" />
+    <Setter Property="Foreground"
+            Value="{DynamicResource AccountPage_TextBox_Foreground}" />
+    <Setter Property="BorderThickness"
+            Value="0" />
+    <Setter Property="Margin"
+            Value="10,0,0,0" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type TextBoxBase}">
+          <Border x:Name="border"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Background="{TemplateBinding Background}"
+                  SnapsToDevicePixels="True">
+            <ScrollViewer x:Name="PART_ContentHost"
+                          Focusable="False"
+                          HorizontalScrollBarVisibility="Hidden"
+                          VerticalScrollBarVisibility="Hidden"
+                          Margin="0,3,0,0" />
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled"
+                     Value="False">
+            </Trigger>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused"
+                     Value="True">
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
 
+  <!--AccountPasswordBox-->
+  <Style x:Key="AccountPasswordBox"
+         TargetType="{x:Type PasswordBox}">
+    <Setter Property="Height"
+            Value="20" />
+    <Setter Property="MinWidth"
+            Value="180" />
+    <Setter Property="Background"
+            Value="{DynamicResource AccountPage_TextBox_Background}" />
+    <Setter Property="Foreground"
+            Value="{DynamicResource AccountPage_TextBox_Foreground}" />
+    <Setter Property="BorderThickness"
+            Value="0" />
+    <Setter Property="Margin"
+            Value="10,0,0,0" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type PasswordBox}">
+          <Border x:Name="border"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Background="{TemplateBinding Background}"
+                  SnapsToDevicePixels="True">
+            <ScrollViewer x:Name="PART_ContentHost"
+                          Focusable="False"
+                          HorizontalScrollBarVisibility="Hidden"
+                          VerticalScrollBarVisibility="Hidden"
+                          Margin="0,2,0,0" />
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled"
+                     Value="False">
+            </Trigger>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused"
+                     Value="True">
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
 
 </ResourceDictionary>
