@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace SoftwareTeamwork
@@ -98,20 +99,4 @@ namespace SoftwareTeamwork
         }
     }
 
-    /// <summary>
-    /// 用于模板化的弹出式对话框控件中的响应控件向对话框传递消息
-    /// </summary>
-    public class DialogInvokCommand : ICommand {
-        public event EventHandler CanExecuteChanged;
-
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public void Execute(object parameter)
-        {
-            
-        }
-    }
 }

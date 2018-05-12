@@ -21,10 +21,10 @@ namespace SoftwareTeamwork.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DataTimes",
+                name: "DateTimes",
                 columns: table => new
                 {
-                    DataTimeId = table.Column<int>(nullable: false)
+                    DateTimeId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Mon = table.Column<int>(nullable: false),
                     Day = table.Column<int>(nullable: false),
@@ -32,7 +32,7 @@ namespace SoftwareTeamwork.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DataTimes", x => x.DataTimeId);
+                    table.PrimaryKey("PK_DateTimes", x => x.DateTimeId);
                 });
 
             migrationBuilder.CreateTable(
@@ -60,8 +60,8 @@ namespace SoftwareTeamwork.Migrations
                 {
                     FlowInfoId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    FlowData = table.Column<int>(nullable: false),
-                    InfoTimeDataTimeId = table.Column<int>(nullable: true),
+                    FlowData = table.Column<double>(nullable: false),
+                    InfoTimeDateTimeId = table.Column<int>(nullable: true),
                     AccountInfoId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -74,10 +74,10 @@ namespace SoftwareTeamwork.Migrations
                         principalColumn: "AccountInfoId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FlowInfos_DataTimes_InfoTimeDataTimeId",
-                        column: x => x.InfoTimeDataTimeId,
-                        principalTable: "DataTimes",
-                        principalColumn: "DataTimeId",
+                        name: "FK_FlowInfos_DateTimes_InfoTimeDateTimeId",
+                        column: x => x.InfoTimeDateTimeId,
+                        principalTable: "DateTimes",
+                        principalColumn: "DateTimeId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -147,9 +147,9 @@ namespace SoftwareTeamwork.Migrations
                 column: "AccountInfoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FlowInfos_InfoTimeDataTimeId",
+                name: "IX_FlowInfos_InfoTimeDateTimeId",
                 table: "FlowInfos",
-                column: "InfoTimeDataTimeId");
+                column: "InfoTimeDateTimeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -164,7 +164,7 @@ namespace SoftwareTeamwork.Migrations
                 name: "CourseSets");
 
             migrationBuilder.DropTable(
-                name: "DataTimes");
+                name: "DateTimes");
 
             migrationBuilder.DropTable(
                 name: "CourseInfos");

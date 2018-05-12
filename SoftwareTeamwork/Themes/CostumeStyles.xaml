@@ -3,161 +3,121 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:local="clr-namespace:SoftwareTeamwork">
 
-    <!--Thickness-->
-    <sys:Double x:Key="NotifyContextmenuTextSize">13</sys:Double>
-    <sys:Double x:Key="NotifyContextmenuIconSize">14</sys:Double>
-    <sys:Double x:Key="NotifyContextmenuItemHeight">26</sys:Double>
+  <!--Thickness-->
+  <sys:Double x:Key="NotifyContextmenuTextSize">13</sys:Double>
+  <sys:Double x:Key="NotifyContextmenuIconSize">14</sys:Double>
+  <sys:Double x:Key="NotifyContextmenuItemHeight">26</sys:Double>
 
-    <!--ContentMenuSeperator-->
-    <Style x:Key="SeparatorStyle1"
-           TargetType="{x:Type Separator}">
-        <Setter Property="Margin"
-                Value="0,2,0,2" />
-        <Setter Property="Focusable"
-                Value="false" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Separator}">
-                    <Border BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            Background="{TemplateBinding Background}"
-                            Height="1"
-                            SnapsToDevicePixels="true" />
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+  <!--ContentMenuSeperator-->
+  <Style x:Key="SeparatorStyle1"
+         TargetType="{x:Type Separator}">
+    <Setter Property="Margin"
+            Value="0,2,0,2" />
+    <Setter Property="Focusable"
+            Value="false" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Separator}">
+          <Border BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Background="{TemplateBinding Background}"
+                  Height="1"
+                  SnapsToDevicePixels="true" />
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
 
-    <!--IconTextBlock-->
-    <Style x:Key="IconTextBlock"
-           TargetType="TextBlock">
-        <Setter Property="FontFamily"
-                Value="{DynamicResource Segoe}" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource NotifyTextColor_L1_N}" />
-        <Setter Property="TextAlignment"
-                Value="Center" />
-        <Setter Property="HorizontalAlignment"
-                Value="Center" />
-        <Setter Property="VerticalAlignment"
-                Value="Center" />
-    </Style>
+  <!--IconTextBlock-->
+  <Style x:Key="IconTextBlock"
+         TargetType="TextBlock">
+    <Setter Property="FontFamily"
+            Value="{DynamicResource Segoe}" />
+    <Setter Property="Foreground"
+            Value="{DynamicResource NotifyTextColor_L1_N}" />
+    <Setter Property="TextAlignment"
+            Value="Center" />
+    <Setter Property="HorizontalAlignment"
+            Value="Center" />
+    <Setter Property="VerticalAlignment"
+            Value="Center" />
+  </Style>
 
-    <!--NumberTextBlock-->
-    <Style x:Key="NumberTextBlock"
-           TargetType="TextBlock">
-        <Setter Property="FontFamily"
-                Value="{DynamicResource Number}" />
-        <Setter Property="FontWeight"
-                Value="ExtraBold" />
-        <Setter Property="UseLayoutRounding"
-                Value="True" />
-        <Setter Property="FontSize"
-                Value="10.8" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource NotifyTextColor_L1_N}" />
-        <Setter Property="TextAlignment"
-                Value="Center" />
-        <Setter Property="HorizontalAlignment"
-                Value="Center" />
-        <Setter Property="VerticalAlignment"
-                Value="Center" />
-    </Style>
+  <!--NumberTextBlock-->
+  <Style x:Key="NumberTextBlock"
+         TargetType="TextBlock">
+    <Setter Property="FontFamily"
+            Value="{DynamicResource Number}" />
+    <Setter Property="FontWeight"
+            Value="ExtraBold" />
+    <Setter Property="UseLayoutRounding"
+            Value="True" />
+    <Setter Property="FontSize"
+            Value="10.8" />
+    <Setter Property="Foreground"
+            Value="{DynamicResource NotifyTextColor_L1_N}" />
+    <Setter Property="TextAlignment"
+            Value="Center" />
+    <Setter Property="HorizontalAlignment"
+            Value="Center" />
+    <Setter Property="VerticalAlignment"
+            Value="Center" />
+  </Style>
 
-    <!--FlowAnaTick-->
-    <Style x:Key="FlowAnaTickV"
-           TargetType="{x:Type TextBlock}">
-        <Setter Property="TextAlignment"
-                Value="Right" />
-        <Setter Property="VerticalAlignment"
-                Value="Top" />
-        <Setter Property="HorizontalAlignment"
-                Value="Left"/>
-        <Setter Property="Width"
-                Value="20" />
-        <Setter Property="FontSize"
-                Value="8" />
-        <Setter Property="FontWeight"
-                Value="Light" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource FlowPopupAnaCanvas_Tick}" />
-    </Style>
+  <!--FlowAnaTick-->
+  <Style x:Key="FlowAnaTickV"
+         TargetType="{x:Type TextBlock}">
+    <Setter Property="TextAlignment"
+            Value="Right" />
+    <Setter Property="VerticalAlignment"
+            Value="Top" />
+    <Setter Property="HorizontalAlignment"
+            Value="Left" />
+    <Setter Property="Width"
+            Value="20" />
+    <Setter Property="FontSize"
+            Value="8" />
+    <Setter Property="FontWeight"
+            Value="Light" />
+    <Setter Property="Foreground"
+            Value="{DynamicResource FlowPopupAnaCanvas_Tick}" />
+  </Style>
 
-    <Style x:Key="FlowAnaTickH"
-           TargetType="{x:Type TextBlock}">
-        <Setter Property="TextAlignment"
-                Value="Center" />
-        <Setter Property="HorizontalAlignment"
-                Value="Left" />
-        <Setter Property="Padding"
-                Value="0" />
-        <Setter Property="Width"
-                Value="20" />
-        <Setter Property="FontSize"
-                Value="8" />
-        <Setter Property="FontWeight"
-                Value="Light" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource FlowPopupAnaCanvas_Tick}" />
-    </Style>
-    
-    <!--FlowAnaNodeTip-->
-    <Style x:Key="FlowAnaNodeTip"
-           TargetType="TextBlock">
-        <Setter Property="FontSize"
-                Value="10" />
-        <Setter Property="Foreground"
-                Value="White" />
-        <Setter Property="FontWeight"
-                Value="Thin" />
-        <Setter Property="Margin"
-                Value="5,2,5,2" />
-    </Style>
+  <Style x:Key="FlowAnaTickH"
+         TargetType="{x:Type TextBlock}">
+    <Setter Property="TextAlignment"
+            Value="Center" />
+    <Setter Property="HorizontalAlignment"
+            Value="Left" />
+    <Setter Property="VerticalAlignment"
+            Value="Center" />
+    <Setter Property="Padding"
+            Value="0" />
+    <Setter Property="Width"
+            Value="20" />
+    <Setter Property="FontSize"
+            Value="8" />
+    <Setter Property="FontWeight"
+            Value="Light" />
+    <Setter Property="Foreground"
+            Value="{DynamicResource FlowPopupAnaCanvas_Tick}" />
+  </Style>
 
-    <!--Buttons-->
+  <!--FlowAnaNodeTip-->
+  <Style x:Key="FlowAnaNodeTip"
+         TargetType="TextBlock">
+    <Setter Property="FontSize"
+            Value="10" />
+    <Setter Property="Foreground"
+            Value="White" />
+    <Setter Property="FontWeight"
+            Value="Thin" />
+    <Setter Property="Margin"
+            Value="5,2,5,2" />
+  </Style>
 
-    <!--DialogButton-->
-    <Style x:Key="DialogButton"
-           TargetType="{x:Type Button}">
-        <Setter Property="Background"
-                Value="{DynamicResource WindowDialogButtonBackground}" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource WindowDialogButtonForeground}" />
-        <Setter Property="BorderBrush"
-                Value="{DynamicResource WindowDialogButtonBorderBrush}" />
-        <Setter Property="FontSize"
-                Value="16" />
-        <Setter Property="MinHeight"
-                Value="20" />
-        <Setter Property="MinWidth"
-                Value="40" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Grid x:Name="RootGrid"
-                          Background="{TemplateBinding Background}">
-                        <TextBlock x:Name="Context"
-                                   Text="{TemplateBinding Content}"
-                                   Foreground="{TemplateBinding Foreground}"
-                                   FontSize="{TemplateBinding FontSize}">
-                        </TextBlock>
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver"
-                                 Value="True">
-                            <Setter TargetName="Context"
-                                    Property="Foreground"
-                                    Value="{Binding BorderBrush, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-                        </Trigger>
-                        <Trigger Property="IsPressed"
-                                 Value="True">
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+  <!--Buttons-->
 
-    <!--DialogStyle-->
+
 
 </ResourceDictionary>

@@ -22,10 +22,10 @@ namespace SoftwareTeamwork
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
-            
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e) {
+            MainFrame.NavigationService.Navigate(new Uri("AccountPage.xaml", UriKind.Relative));
             //using (var db = new InfoContext()) {
             //    if (db.FlowInfos.Count().Equals(0))
             //        Console.WriteLine("Noitem");

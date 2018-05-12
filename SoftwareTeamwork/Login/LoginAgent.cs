@@ -42,9 +42,7 @@ namespace SoftwareTeamwork {
 
         private void GetLoginID()
         {
-            while (result == null) ;
-            String s = @"action=""(\S*)""";
-            Console.WriteLine(InfSet.IdCodes.Value + "    " + s + " " + s.Equals(InfSet.IdCodes.Value));
+            while (result == null) ;//等待请求数据
             ID = Regex.Matches(result, InfSet.IdCodes.Value)[0].Groups[1].Value;
         }
 
@@ -86,7 +84,7 @@ namespace SoftwareTeamwork {
             response = httpClient.GetAsync(new Uri(url)).Result;
             Write("amosli.png", response.Content.ReadAsByteArrayAsync().Result);
 
-            Console.WriteLine("输入图片验证码：");
+            //Console.WriteLine("输入图片验证码：");
             String imgCode = "";//验证码写到本地了，需要手动填写
             imgCode = Console.ReadLine();
 
@@ -100,8 +98,8 @@ namespace SoftwareTeamwork {
                 try
                 {
                     paramListCheck();
-                    foreach (KeyValuePair<string, string> i in paramList)
-                        Console.WriteLine(String.Format("{0} -- {1}", i.Key, i.Value));
+                    //foreach (KeyValuePair<string, string> i in paramList)
+                    //    Console.WriteLine(String.Format("{0} -- {1}", i.Key, i.Value));
                     response = httpClient.PostAsync(InfSet.Uris[0] + ID, new FormUrlEncodedContent(paramList)).Result;
                 }
                 catch (AggregateException)
@@ -166,7 +164,6 @@ namespace SoftwareTeamwork {
         private String GetDatasetByString(Stream Value)
         {
             string strHTML = "";
-
             GZipStream gzip = new GZipStream(Value, CompressionMode.Decompress);//解压缩
             using (StreamReader reader = new StreamReader(gzip, Encoding.GetEncoding(InfSet.CharSet)))//中文编码处理
             {

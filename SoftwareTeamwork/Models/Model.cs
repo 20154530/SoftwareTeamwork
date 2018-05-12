@@ -9,7 +9,7 @@ namespace SoftwareTeamwork {
     public class InfoContext : DbContext{
         public DbSet<AccountInfo> AccountInfos { get; set; }
         public DbSet<FlowInfo> FlowInfos { get; set; }
-        public DbSet<DataTime> DataTimes { get; set; }
+        public DbSet<DateTime> DateTimes { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<CourseSet> CourseSets { get; set; }
         public DbSet<CourseInfo> CourseInfos { get; set; }
@@ -28,8 +28,8 @@ namespace SoftwareTeamwork {
 
     public class FlowInfo {
         public int FlowInfoId { get; set; }
-        public int FlowData { get; set; }
-        public DataTime InfoTime { get; set; }
+        public double FlowData { get; set; }
+        public DateTime InfoTime { get; set; }
 
         public int AccountInfoId { get; set; }
         public AccountInfo AccountInfo { get; set; }
@@ -43,8 +43,8 @@ namespace SoftwareTeamwork {
         public AccountInfo AccountInfo { get; set; }
     }
 
-    public class DataTime {
-        public int DataTimeId { get; set; }
+    public class DateTime {
+        public int DateTimeId { get; set; }
         private int mon = 0;
         public int Mon {
             get => mon;
@@ -65,12 +65,12 @@ namespace SoftwareTeamwork {
         /// <param name="mon">月</param>
         /// <param name="day">日</param>
         /// <param name="hour">时</param>
-        public DataTime(int mon, int day, int hour) {
+        public DateTime(int mon, int day, int hour) {
             Mon = mon;
             Day = day;
             Hour = hour;
         }
-        public DataTime(int mon, int day) {
+        public DateTime(int mon, int day) {
             Mon = mon;
             Day = day;
         }

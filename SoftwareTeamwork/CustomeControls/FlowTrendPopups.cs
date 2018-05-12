@@ -32,40 +32,20 @@ namespace SoftwareTeamwork {
                 new PropertyMetadata(0.0));
         #endregion
 
-        #region DataGroup
+        #region DataGroup 
+        /// <summary>
+        /// 流量数据坐标信息
+        /// </summary>
         public FlowTradeGroup DataGroup {
             get { return (FlowTradeGroup)GetValue(DataGroupProperty); }
             set { SetValue(DataGroupProperty, value); }
         }
         public static readonly DependencyProperty DataGroupProperty =
             DependencyProperty.Register("DataGroup", typeof(FlowTradeGroup), typeof(FlowTrendPopups),
-                new PropertyMetadata(new FlowTradeGroup() {
-                    Flow1 = new FlowInfo { FlowData = 10, InfoTime = new DataTime(10, 20) },
-                    Flow2 = new FlowInfo { FlowData = 10, InfoTime = new DataTime(10, 20) },
-                    Flow3 = new FlowInfo { FlowData = 10, InfoTime = new DataTime(10, 20) },
-                    Flow4 = new FlowInfo { FlowData = 10, InfoTime = new DataTime(10, 20) },
-                    Flow5 = new FlowInfo { FlowData = 10, InfoTime = new DataTime(10, 20) },
-                    Flow6 = new FlowInfo { FlowData = 10, InfoTime = new DataTime(10, 20) },
-                    Flow7 = new FlowInfo { FlowData = 10, InfoTime = new DataTime(10, 20) },
-                }));
-        #endregion
-
-        #region ActrulData
-        public FlowTradeGroup ActDataGroup {
-            get { return (FlowTradeGroup)GetValue(ActDataGroupProperty); }
-            set { SetValue(ActDataGroupProperty, value); }
+                new PropertyMetadata(new FlowTradeGroup(), new PropertyChangedCallback(OnDataGroupChanged)));
+        private static void OnDataGroupChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
+            ((FlowTradeGroup)e.NewValue).GetFlowData();
         }
-        public static readonly DependencyProperty ActDataGroupProperty =
-            DependencyProperty.Register("ActDataGroup", typeof(FlowTradeGroup), typeof(FlowTrendPopups),
-                new PropertyMetadata(new FlowTradeGroup() {
-                    Flow1 = new FlowInfo { FlowData = 10, InfoTime = new DataTime(10, 20) },
-                    Flow2 = new FlowInfo { FlowData = 10, InfoTime = new DataTime(10, 20) },
-                    Flow3 = new FlowInfo { FlowData = 10, InfoTime = new DataTime(10, 20) },
-                    Flow4 = new FlowInfo { FlowData = 10, InfoTime = new DataTime(10, 20) },
-                    Flow5 = new FlowInfo { FlowData = 10, InfoTime = new DataTime(10, 20) },
-                    Flow6 = new FlowInfo { FlowData = 10, InfoTime = new DataTime(10, 20) },
-                    Flow7 = new FlowInfo { FlowData = 10, InfoTime = new DataTime(10, 20) },
-                }));
         #endregion
 
         #region CursorVis
@@ -76,15 +56,6 @@ namespace SoftwareTeamwork {
         public static readonly DependencyProperty CursorVisProperty =
             DependencyProperty.Register("CursorVis", typeof(Visibility), typeof(FlowTrendPopups),
                 new PropertyMetadata(Visibility.Collapsed));
-        #endregion
-
-        #region MaxiumFlow
-        public int MaxiumFlow {
-            get { return (int)GetValue(MaxiumFlowProperty); }
-            set { SetValue(MaxiumFlowProperty, value); }
-        }
-        public static readonly DependencyProperty MaxiumFlowProperty =
-            DependencyProperty.Register("MaxiumFlow", typeof(int), typeof(FlowTrendPopups), new PropertyMetadata(0));
         #endregion
 
         protected override void OnStyleChanged(Style oldStyle, Style newStyle) {
@@ -122,20 +93,45 @@ namespace SoftwareTeamwork {
     }
 
     public class FlowTradeGroup {
-        public FlowInfo Flow1 { get; set; }
-        public FlowInfo Flow2 { get; set; }
-        public FlowInfo Flow3 { get; set; }
-        public FlowInfo Flow4 { get; set; }
-        public FlowInfo Flow5 { get; set; }
-        public FlowInfo Flow6 { get; set; }
-        public FlowInfo Flow7 { get; set; }
+        public FlowInfo[] FlowInfos { get; set; }
+        public double[] ActrualData { get; set; }
+        public double[] VTicks { get; set; } 
+
+        public FlowTradeGroup() {
+            FlowInfos = new FlowInfo[7] {
+                    new FlowInfo { FlowData = 4, InfoTime = new DateTime(0, 0) },
+                    new FlowInfo { FlowData = 6, InfoTime = new DateTime(0, 0) },
+                    new FlowInfo { FlowData = 6, InfoTime = new DateTime(0, 0) },
+                    new FlowInfo { FlowData = 10, InfoTime = new DateTime(0, 0) },
+                    new FlowInfo { FlowData = 6, InfoTime = new DateTime(0, 0) },
+                    new FlowInfo { FlowData = 6, InfoTime = new DateTime(0, 0) },
+                    new FlowInfo { FlowData = 4, InfoTime = new DateTime(0, 0) },
+            };
+            ActrualData = new double[7];
+            VTicks = new double[6];
+            TransformToNode();
+        }
 
         public void GetFlowData() {
 
+            TransformToNode();
         }
 
         private void TransformToNode() {
+            double est = 1;
+            for (int i = 0; i < 7; i++) {
+                ActrualData[i] = FlowInfos[i].FlowData;//备份原有数据
+                est = FlowInfos[i].FlowData > est ? FlowInfos[i].FlowData : est;
+            }//找最大流量
 
+            est = est * 1.2;//画刻度
+            for(int i = 0; i < 6; i++) 
+                VTicks[i] = est / 6 * (i + 1);
+
+            //计算点的位置
+            foreach (FlowInfo f in FlowInfos) 
+                f.FlowData = 96 - (f.FlowData / est) * 96;
+            
         }
     }
 }

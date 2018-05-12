@@ -91,9 +91,9 @@ namespace SoftwareTeamwork.Migrations
                     b.ToTable("CourseSets");
                 });
 
-            modelBuilder.Entity("SoftwareTeamwork.DataTime", b =>
+            modelBuilder.Entity("SoftwareTeamwork.DateTime", b =>
                 {
-                    b.Property<int>("DataTimeId")
+                    b.Property<int>("DateTimeId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -103,9 +103,9 @@ namespace SoftwareTeamwork.Migrations
 
                     b.Property<int>("Mon");
 
-                    b.HasKey("DataTimeId");
+                    b.HasKey("DateTimeId");
 
-                    b.ToTable("DataTimes");
+                    b.ToTable("DateTimes");
                 });
 
             modelBuilder.Entity("SoftwareTeamwork.FlowInfo", b =>
@@ -116,15 +116,15 @@ namespace SoftwareTeamwork.Migrations
 
                     b.Property<int>("AccountInfoId");
 
-                    b.Property<int>("FlowData");
+                    b.Property<double>("FlowData");
 
-                    b.Property<int?>("InfoTimeDataTimeId");
+                    b.Property<int?>("InfoTimeDateTimeId");
 
                     b.HasKey("FlowInfoId");
 
                     b.HasIndex("AccountInfoId");
 
-                    b.HasIndex("InfoTimeDataTimeId");
+                    b.HasIndex("InfoTimeDateTimeId");
 
                     b.ToTable("FlowInfos");
                 });
@@ -160,9 +160,9 @@ namespace SoftwareTeamwork.Migrations
                         .HasForeignKey("AccountInfoId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("SoftwareTeamwork.DataTime", "InfoTime")
+                    b.HasOne("SoftwareTeamwork.DateTime", "InfoTime")
                         .WithMany()
-                        .HasForeignKey("InfoTimeDataTimeId");
+                        .HasForeignKey("InfoTimeDateTimeId");
                 });
 #pragma warning restore 612, 618
         }

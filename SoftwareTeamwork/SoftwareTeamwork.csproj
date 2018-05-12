@@ -88,6 +88,7 @@
     <Reference Include="Microsoft.Extensions.Primitives, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.2.1.0-rc1-final\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="Remotion.Linq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
       <HintPath>..\packages\Remotion.Linq.2.2.0\lib\net45\Remotion.Linq.dll</HintPath>
     </Reference>
@@ -143,30 +144,34 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DialogBase.cs" />
-    <Compile Include="FlowPopup.cs" />
-    <Compile Include="FlowTrendPopups.cs" />
-    <Compile Include="IconButton.cs" />
+    <Compile Include="CustomeControls\FlowPopup.cs" />
+    <Compile Include="CustomeControls\FlowTrendPopups.cs" />
+    <Compile Include="CustomeControls\GridLineFloder.cs" />
+    <Compile Include="CustomeControls\IconButton.cs" />
+    <Compile Include="CustomeControls\IconToggelButton.cs" />
     <Compile Include="Login\DataAnalysis.cs" />
     <Compile Include="Login\DataFormater.cs" />
     <Compile Include="Login\LoginAgent.cs" />
+    <Compile Include="Login\WebInfoSet.cs" />
     <Compile Include="Login\XmlAnalyze.cs" />
     <Compile Include="Mangers\OverallSettingManger.cs" />
     <Compile Include="Mangers\UIHelper.cs" />
     <Compile Include="AccountPage.xaml.cs">
       <DependentUpon>AccountPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20180511032217_WORKDB.cs" />
-    <Compile Include="Migrations\20180511032217_WORKDB.designer.cs">
-      <DependentUpon>20180511032217_WORKDB.cs</DependentUpon>
+    <Compile Include="CustomeControls\MenuItemIconRadioButton.cs" />
+    <Compile Include="Migrations\20180512031311_WORKDB.cs" />
+    <Compile Include="Migrations\20180512031311_WORKDB.designer.cs">
+      <DependentUpon>20180512031311_WORKDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\InfoContextModelSnapshot.cs" />
-    <Compile Include="Model.cs" />
+    <Compile Include="Models\Model.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="TitleBar.cs" />
+    <Compile Include="CustomeControls\TitleBar.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -179,9 +184,9 @@
     <Compile Include="Mangers\Converters\Converters.cs" />
     <Compile Include="DAreaIcon.cs" />
     <Compile Include="AIWindow.cs" />
-    <Compile Include="DContextMenu.cs" />
-    <Compile Include="DMenuItem.cs" />
-    <Compile Include="DPopup.cs" />
+    <Compile Include="CustomeControls\DContextMenu.cs" />
+    <Compile Include="CustomeControls\DMenuItem.cs" />
+    <Compile Include="CustomeControls\DPopup.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
