@@ -150,6 +150,9 @@
     <Compile Include="CustomeControls\IconButton.cs" />
     <Compile Include="CustomeControls\IconToggelButton.cs" />
     <Compile Include="ExitDialog.cs" />
+    <Compile Include="InfoPage.xaml.cs">
+      <DependentUpon>InfoPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Login\DataAnalysis.cs" />
     <Compile Include="Login\DataFormater.cs" />
     <Compile Include="Login\LoginAgent.cs" />
@@ -177,6 +180,10 @@
       <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Page Include="InfoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

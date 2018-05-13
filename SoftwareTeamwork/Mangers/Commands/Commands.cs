@@ -99,4 +99,14 @@ namespace SoftwareTeamwork
         }
     }
 
+    public class WindowCommand : ICommand /*命令基类*/ {
+        public Frame Target;
+        public event EventHandler CanExecuteChanged;
+        public bool CanExecute(object parameter) {
+            return true;
+        }
+        public void Execute(object parameter) {
+            Target.Navigate(new Uri((string)parameter, UriKind.Relative));
+        }
+    }
 }

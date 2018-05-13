@@ -17,13 +17,12 @@ namespace SoftwareTeamwork {
         }
 
         private void SaveAction_Click(object sender, RoutedEventArgs e) {
-            Console.WriteLine((bool)((IconToggelButton)sender).IsChecked);
-            Properties.Settings.Default.IsExitDialogShow = (bool)((IconToggelButton)sender).IsChecked;
+            Properties.Settings.Default.IsExitDialogShow = !(bool)((IconToggelButton)sender).IsChecked;
             Properties.Settings.Default.Save();
         }
 
         private void ExitAction_Click(object sender, RoutedEventArgs e) {
-            Console.WriteLine((bool)((IconToggelButton)sender).IsChecked);
+            Console.WriteLine(Properties.Settings.Default.ExitAction);
             Properties.Settings.Default.ExitAction = (bool)((IconToggelButton)sender).IsChecked;
             Properties.Settings.Default.Save();
         }

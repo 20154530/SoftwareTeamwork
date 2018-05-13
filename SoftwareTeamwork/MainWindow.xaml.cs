@@ -18,14 +18,28 @@ namespace SoftwareTeamwork
 {
     public partial class MainWindow : AIWindow
     {
+        #region NavigateCommand
+        public WindowCommand NavigateTo {
+            get { return (WindowCommand)GetValue(NavigateToProperty); }
+            set { SetValue(NavigateToProperty, value); }
+        }
+        public static readonly DependencyProperty NavigateToProperty =
+            DependencyProperty.Register("NavigateTo", typeof(WindowCommand), typeof(AccountPage),
+                new PropertyMetadata(new WindowCommand()));
+        #endregion
+
         public MainWindow()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
+            Properties.Settings.Default.Upgrade();
+
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e) {
+            NavigateTo.Target = MainFrame;
             MainFrame.NavigationService.Navigate(new Uri("AccountPage.xaml", UriKind.Relative));
         }
+
     }
 }

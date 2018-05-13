@@ -7,24 +7,42 @@
                    Color="#007ACC" />
   <SolidColorBrush x:Key="BackgroundBrush"
                    Color="#FF1E1E1E" />
-  <SolidColorBrush x:Key="NotifyTextColor_L1_N"
+  <SolidColorBrush x:Key="MainTextColor"
                    Color="#ffffffff" />
-  <SolidColorBrush x:Key="NotifyTextColor_L2_N"
+  <SolidColorBrush x:Key="MainTextColor_D1"
                    Color="#a0ffffff" />
-  
+  <SolidColorBrush x:Key="MenuIconButton_Mask_N"
+                   Color="Transparent" />
+  <SolidColorBrush x:Key="MenuIconButton_Mask_R"
+                   Color="#40007ACC" />
+  <SolidColorBrush x:Key="MenuIconButton_Mask_P"
+                   Color="#80007ACC" />
+
   <!--AccountPage-->
   <SolidColorBrush x:Key="AccountPage_TextBox_Background"
-                   Color="#141414" />
+                   Color="Transparent" />
   <SolidColorBrush x:Key="AccountPage_TextBox_Foreground"
                    Color="#E0E0E0" />
+  <SolidColorBrush x:Key="AccountPage_TextBox_UnderlineBrush" 
+                   Color="#E0E0E0"/>
   <SolidColorBrush x:Key="AccountPage_Button_Foreground"
                    Color="#E0E0E0" />
+  <SolidColorBrush x:Key="AccountPage_Button_Foreground_R"
+                   Color="#007ACC" />
+  <SolidColorBrush x:Key="AccountPage_Button_Foreground_P"
+                   Color="#00548C" />
   <SolidColorBrush x:Key="AccountPage_Button_Background"
-                   Color="#004B70" />
+                   Color="Transparent" />
   <SolidColorBrush x:Key="AccountPage_Button_Background_R"
-                   Color="#00689C" />
+                   Color="Transparent" />
   <SolidColorBrush x:Key="AccountPage_Button_Background_P"
-                   Color="#00293D" />
+                   Color="Transparent" />
+  <SolidColorBrush x:Key="GridLineFloderLineColor"
+                   Color="#808080" />
+  <SolidColorBrush x:Key="GridLineFloderButtonColor"
+                   Color="#e0e0e0" />
+  <SolidColorBrush x:Key="GridLineFloderBackground"
+                   Color="Transparent" />
 
   <!--DmenuItem-->
   <SolidColorBrush x:Key="DMenuItemTextColorN"
@@ -79,13 +97,6 @@
   <SolidColorBrush x:Key="FlowPopupAnaCanvas_ToolTipBackground"
                    Color="#202020" />
 
-  <!--GridLineFloder-->
-  <SolidColorBrush x:Key="GridLineFloderLineColor"
-                   Color="#808080" />
-  <SolidColorBrush x:Key="GridLineFloderButtonColor"
-                   Color="#e0e0e0" />
-  <SolidColorBrush x:Key="GridLineFloderBackground"
-                   Color="#004B70" />
 
   <Color x:Key="VsBorderColor">#005d9c</Color>
   <Color x:Key="TextS">#ffffff</Color>

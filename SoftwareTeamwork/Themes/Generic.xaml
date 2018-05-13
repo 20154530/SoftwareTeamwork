@@ -191,10 +191,73 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type local:MenuItemIconRadioButton}">
-          <Border Background="{TemplateBinding Background}"
-                  BorderBrush="{TemplateBinding BorderBrush}"
+          <Border BorderBrush="{TemplateBinding BorderBrush}"
                   BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid x:Name="RootGrid" Margin="{TemplateBinding Padding}">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+              <Rectangle x:Name="ChoiceIdentity"
+                         Grid.Column="0"
+                         Fill="{TemplateBinding Background}"
+                         Width="3"
+                         VerticalAlignment="Stretch"
+                         Visibility="Collapsed" />
+              <Rectangle x:Name="DarkMask"
+                         Grid.Column="1"
+                         Grid.ColumnSpan="2"
+                         Fill="{TemplateBinding IconMaskN}" />
+              <TextBlock x:Name="ContentIcon"
+                         Grid.Column="1"
+                         Margin="8,4,0,4"
+                         Style="{DynamicResource IconTextBlock}"
+                         Text="{TemplateBinding ForeIcon}"
+                         FontSize="{TemplateBinding FontSize}"
+                         Foreground="{TemplateBinding Foreground}"
+                         TextAlignment="Center"
+                         VerticalAlignment="Center" />
+              <TextBlock x:Name="ContentTexts"
+                         Grid.Column="2"
+                         Margin="8,4,0,4"
+                         Text="{TemplateBinding Text}"
+                         Foreground="{TemplateBinding Foreground}"
+                         FontSize="{TemplateBinding ContentTextFontSize}"
+                         FontWeight="{TemplateBinding FontWeight}"
+                         TextAlignment="Left" 
+                         VerticalAlignment="Center"/>
+            </Grid>
           </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsChecked"
+                     Value="True">
+              <Setter TargetName="ContentIcon"
+                      Property="Text"
+                      Value="{Binding BackIcon, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+              <Setter TargetName="ContentIcon"
+                      Property="Foreground"
+                      Value="{Binding Background, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+              <Setter TargetName="ContentTexts"
+                      Property="Foreground"
+                      Value="{Binding Background, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+              <Setter TargetName="ChoiceIdentity"
+                      Property="Visibility"
+                      Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+              <Setter TargetName="DarkMask"
+                      Property="Fill"
+                      Value="{Binding IconMaskR, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+            </Trigger>
+            <Trigger Property="IsPressed"
+                     Value="True">
+              <Setter TargetName="DarkMask"
+                      Property="Fill"
+                      Value="{Binding IconMaskP, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
@@ -239,7 +302,7 @@
     <Setter Property="Background"
             Value="{DynamicResource BorderBrush}" />
     <Setter Property="Foreground"
-            Value="{DynamicResource NotifyTextColor_L1_N}" />
+            Value="{DynamicResource MainTextColor}" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type local:DMenuItem}">
@@ -432,12 +495,17 @@
                 <ColumnDefinition Width="auto" />
               </Grid.ColumnDefinitions>
               <TextBlock x:Name="Title"
-                         Grid.ColumnSpan="2"
                          Padding="4,2,4,2"
                          Text="{TemplateBinding Title}"
                          FontSize="{TemplateBinding FontSize}"
                          Foreground="{TemplateBinding Foreground}"
                          Background="{TemplateBinding Background}" />
+              <Rectangle Grid.Column="1"
+                         Fill="{TemplateBinding Foreground}"
+                         Height="0.5"
+                         Margin="10,0,5,0"
+                         HorizontalAlignment="Stretch"
+                         VerticalAlignment="Center"/>
               <local:IconToggelButton x:Name="FloderButton"
                                       Foreground="{TemplateBinding Foreground}"
                                       Background="{TemplateBinding Background}"

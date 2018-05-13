@@ -6,75 +6,171 @@
       xmlns:local="clr-namespace:SoftwareTeamwork"
       mc:Ignorable="d"
       Title="AccountPage">
-  <Grid x:Name="RootGrid"
-        Margin="8,0,8,0">
-    <Grid.RowDefinitions>
-      <RowDefinition Height="auto" />
-      <RowDefinition Height="auto" />
-      <RowDefinition Height="auto" />
-      <RowDefinition Height="auto" />
-      <RowDefinition Height="auto" />
-    </Grid.RowDefinitions>
-    <local:GridLineFloder Grid.Row="1"
-                          Title="IPGW网关信息"
-                          AimGridType="Auto"
-                          AttachedGrid="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"
-                          CommandPara="2" />
-    <Grid Grid.Row="2">
+  <ScrollViewer Style="{DynamicResource SC_ScrollViewer}"
+                Background="{DynamicResource BackgroundBrush}"
+                Margin="8,0,0,0"
+                Padding="0,0,8,0">
+    <Grid x:Name="RootGrid"
+          Background="{DynamicResource BackgroundBrush}">
       <Grid.RowDefinitions>
         <RowDefinition Height="auto" />
         <RowDefinition Height="auto" />
         <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
       </Grid.RowDefinitions>
-      <Grid Margin="0,10,0,0">
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="auto" />
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="auto" />
-        </Grid.ColumnDefinitions>
-        <TextBlock Text="账号"
-                   Style="{DynamicResource AccountLabel}"
-                   Background="{DynamicResource GridLineFloderBackground}" />
-        <TextBox Grid.Column="1"
-                 VerticalAlignment="Stretch"
-                 Style="{DynamicResource AccountTextBox}" />
+      <local:GridLineFloder Grid.Row="1"
+                            Title="IPGW网关信息"
+                            AimGridType="Auto"
+                            AttachedGrid="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"
+                            CommandPara="2" />
+      <Grid Grid.Row="2">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid Margin="0,10,0,0">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+          </Grid.ColumnDefinitions>
+          <TextBlock Text="账号"
+                     Style="{DynamicResource AccountLabel}"
+                     Background="{DynamicResource GridLineFloderBackground}" />
+          <TextBox x:Name="IPGWAccount"
+                   Grid.Column="1"
+                   VerticalAlignment="Stretch"
+                   Style="{DynamicResource AccountTextBox}" />
+        </Grid>
+        <Grid Margin="0,10,0,0"
+              Grid.Row="1">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+          </Grid.ColumnDefinitions>
+          <TextBlock Text="密码"
+                     Style="{DynamicResource AccountLabel}"
+                     Background="{DynamicResource GridLineFloderBackground}" />
+          <PasswordBox  x:Name="IPGWPassword"
+                        Grid.Column="1"
+                        VerticalAlignment="Stretch"
+                        Style="{DynamicResource AccountPasswordBox}" />
+        </Grid>
+        <Grid Margin="0,10,0,10"
+              Grid.Row="2">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+          </Grid.ColumnDefinitions>
+          <local:IconButton Content="&#xE74E;"
+                            Grid.Column="1"
+                            Padding="4"
+                            ContentText="保存当前信息"
+                            ContentTextVisiblity="Visible"
+                            ContentTextFontSize="10"
+                            IconN="{DynamicResource AccountPage_Button_Foreground}"
+                            IconR="{DynamicResource AccountPage_Button_Foreground_R}"
+                            IconP="{DynamicResource AccountPage_Button_Foreground_P}"
+                            IconMaskN="{DynamicResource AccountPage_Button_Background}"
+                            IconMaskR="{DynamicResource AccountPage_Button_Background_R}"
+                            IconMaskP="{DynamicResource AccountPage_Button_Background_P}" />
+        </Grid>
       </Grid>
-      <Grid Margin="0,10,0,0" Grid.Row="1">
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="auto" />
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="auto" />
-        </Grid.ColumnDefinitions>
-        <TextBlock Text="密码"
-                   Style="{DynamicResource AccountLabel}"
-                   Background="{DynamicResource GridLineFloderBackground}" />
-        <PasswordBox Grid.Column="1"
-                     VerticalAlignment="Stretch"
-                     Style="{DynamicResource AccountPasswordBox}" />
-      </Grid>
-      <Grid Margin="0,10,0,10" Grid.Row="2">
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="auto" />
-        </Grid.ColumnDefinitions>
-        <local:IconButton Content="&#xE74E;"
-                          Grid.Column="1"
-                          Padding="4"
-                          ContentText="保存当前信息"
-                          ContentTextVisiblity="Visible"
-                          ContentTextFontSize="10"
-                          IconN="{DynamicResource AccountPage_Button_Foreground}"
-                          IconR="{DynamicResource AccountPage_Button_Foreground}"
-                          IconP="{DynamicResource AccountPage_Button_Foreground}"
-                          IconMaskN="{DynamicResource AccountPage_Button_Background}"
-                          IconMaskR="{DynamicResource AccountPage_Button_Background_R}"
-                          IconMaskP="{DynamicResource AccountPage_Button_Background_P}" />
+      <local:GridLineFloder Grid.Row="3"
+                            Title="教务处信息"
+                            AimGridType="Auto"
+                            AttachedGrid="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"
+                            CommandPara="4" />
+      <Grid Grid.Row="4">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid Margin="0,10,0,0">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+          </Grid.ColumnDefinitions>
+          <TextBlock Text="账号"
+                     Style="{DynamicResource AccountLabel}"
+                     Background="{DynamicResource GridLineFloderBackground}" />
+          <TextBox x:Name="JWAccount"
+                   Grid.Column="1"
+                   VerticalAlignment="Stretch"
+                   Style="{DynamicResource AccountTextBox}" />
+        </Grid>
+        <Grid Margin="0,10,0,0"
+              Grid.Row="1">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+          </Grid.ColumnDefinitions>
+          <TextBlock Text="密码"
+                     Style="{DynamicResource AccountLabel}"
+                     Background="{DynamicResource GridLineFloderBackground}" />
+          <PasswordBox  x:Name="JWPassword"
+                        Grid.Column="1"
+                        VerticalAlignment="Stretch"
+                        Style="{DynamicResource AccountPasswordBox}" />
+        </Grid>
+        <Grid Margin="0,10,0,10"
+              Grid.Row="2">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+          </Grid.ColumnDefinitions>
+          <TextBlock Text="验证码"
+                     Style="{DynamicResource AccountLabel}"
+                     Background="{DynamicResource GridLineFloderBackground}" />
+          <TextBox Grid.Column="1"
+                   x:Name="JWIdentifyCode"
+                   VerticalAlignment="Stretch"
+                   Style="{DynamicResource AccountTextBox}" />
+          <Image x:Name="JWIdentifyImage"
+                 Grid.Column="2" />
+          <local:IconButton Content="&#xE960;"
+                            Grid.Column="3"
+                            Margin="6,0,0,0"
+                            Padding="4"
+                            ContentText="获取验证码"
+                            ContentTextVisiblity="Visible"
+                            ContentTextFontSize="10"
+                            IconN="{DynamicResource AccountPage_Button_Foreground}"
+                            IconR="{DynamicResource AccountPage_Button_Foreground_R}"
+                            IconP="{DynamicResource AccountPage_Button_Foreground_P}"
+                            IconMaskN="{DynamicResource AccountPage_Button_Background}"
+                            IconMaskR="{DynamicResource AccountPage_Button_Background_R}"
+                            IconMaskP="{DynamicResource AccountPage_Button_Background_P}" />
+        </Grid>
+        <Grid Margin="0,10,0,10"
+              Grid.Row="3">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+          </Grid.ColumnDefinitions>
+          <local:IconButton Content="&#xE74E;"
+                            Grid.Column="1"
+                            Padding="4"
+                            ContentText="保存当前信息"
+                            ContentTextVisiblity="Visible"
+                            ContentTextFontSize="10"
+                            IconN="{DynamicResource AccountPage_Button_Foreground}"
+                            IconR="{DynamicResource AccountPage_Button_Foreground_R}"
+                            IconP="{DynamicResource AccountPage_Button_Foreground_P}"
+                            IconMaskN="{DynamicResource AccountPage_Button_Background}"
+                            IconMaskR="{DynamicResource AccountPage_Button_Background_R}"
+                            IconMaskP="{DynamicResource AccountPage_Button_Background_P}" />
+        </Grid>
       </Grid>
     </Grid>
-    <local:GridLineFloder Grid.Row="3"
-                          Title="教务处信息"
-                          AimGridType="Auto"
-                          AttachedGrid="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"
-                          CommandPara="4" />
-  </Grid>
+  </ScrollViewer>
 </Page>

@@ -7,9 +7,9 @@
                    Color="#007ACC" />
   <SolidColorBrush x:Key="BackgroundBrush"
                    Color="#FF1E1E1E" />
-  <SolidColorBrush x:Key="NotifyTextColor_L1_N"
+  <SolidColorBrush x:Key="MainTextColor"
                    Color="#ffffffff" />
-  <SolidColorBrush x:Key="NotifyTextColor_L2_N"
+  <SolidColorBrush x:Key="MainTextColor_D1"
                    Color="#a0ffffff" />
 
   <!--AccountPage-->

@@ -41,6 +41,10 @@
             Value="{DynamicResource GridLineFloderButtonColor}" />
     <Setter Property="Padding"
             Value="4,2,4,2" />
+    <Setter Property="VerticalAlignment"
+            Value="Bottom" />
+    <Setter Property="TextAlignment"
+            Value="Justify" />
   </Style>
 
   <!--IconTextBlock-->
@@ -49,7 +53,7 @@
     <Setter Property="FontFamily"
             Value="{DynamicResource Segoe}" />
     <Setter Property="Foreground"
-            Value="{DynamicResource NotifyTextColor_L1_N}" />
+            Value="{DynamicResource MainTextColor}" />
     <Setter Property="TextAlignment"
             Value="Center" />
     <Setter Property="HorizontalAlignment"
@@ -70,7 +74,7 @@
     <Setter Property="FontSize"
             Value="10.8" />
     <Setter Property="Foreground"
-            Value="{DynamicResource NotifyTextColor_L1_N}" />
+            Value="{DynamicResource MainTextColor}" />
     <Setter Property="TextAlignment"
             Value="Center" />
     <Setter Property="HorizontalAlignment"
@@ -174,19 +178,29 @@
             Value="0" />
     <Setter Property="Margin"
             Value="10,0,0,0" />
+    <Setter Property="CaretBrush"
+            Value="{DynamicResource AccountPage_TextBox_Foreground}" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type TextBoxBase}">
           <Border x:Name="border"
                   BorderBrush="{TemplateBinding BorderBrush}"
-                  BorderThickness="{TemplateBinding BorderThickness}"
-                  Background="{TemplateBinding Background}"
-                  SnapsToDevicePixels="True">
-            <ScrollViewer x:Name="PART_ContentHost"
-                          Focusable="False"
-                          HorizontalScrollBarVisibility="Hidden"
-                          VerticalScrollBarVisibility="Hidden"
-                          Margin="0,3,0,0" />
+                  BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid Background="{TemplateBinding Background}">
+              <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+              </Grid.RowDefinitions>
+              <ScrollViewer x:Name="PART_ContentHost"
+                            Focusable="False"
+                            HorizontalScrollBarVisibility="Hidden"
+                            VerticalScrollBarVisibility="Hidden"
+                            Margin="0,3,0,0" />
+              <Rectangle Grid.Row="1"
+                         Fill="{DynamicResource AccountPage_TextBox_UnderlineBrush}"
+                         Height="0.5"
+                         HorizontalAlignment="Stretch" />
+            </Grid>
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled"
@@ -217,6 +231,8 @@
             Value="{DynamicResource AccountPage_TextBox_Foreground}" />
     <Setter Property="BorderThickness"
             Value="0" />
+    <Setter Property="CaretBrush"
+            Value="{DynamicResource AccountPage_TextBox_Foreground}" />
     <Setter Property="Margin"
             Value="10,0,0,0" />
     <Setter Property="Template">
@@ -224,14 +240,22 @@
         <ControlTemplate TargetType="{x:Type PasswordBox}">
           <Border x:Name="border"
                   BorderBrush="{TemplateBinding BorderBrush}"
-                  BorderThickness="{TemplateBinding BorderThickness}"
-                  Background="{TemplateBinding Background}"
-                  SnapsToDevicePixels="True">
-            <ScrollViewer x:Name="PART_ContentHost"
-                          Focusable="False"
-                          HorizontalScrollBarVisibility="Hidden"
-                          VerticalScrollBarVisibility="Hidden"
-                          Margin="0,2,0,0" />
+                  BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid Background="{TemplateBinding Background}">
+              <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+              </Grid.RowDefinitions>
+              <ScrollViewer x:Name="PART_ContentHost"
+                            Focusable="False"
+                            HorizontalScrollBarVisibility="Hidden"
+                            VerticalScrollBarVisibility="Hidden"
+                            Margin="0,2,0,0" />
+              <Rectangle Grid.Row="1"
+                         Fill="{DynamicResource AccountPage_TextBox_UnderlineBrush}"
+                         Height="0.5"
+                         HorizontalAlignment="Stretch" />
+            </Grid>
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled"
@@ -244,6 +268,205 @@
                      Value="True">
             </Trigger>
           </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!--ScrollView-->
+
+  <!--ScrollView-->
+
+  <Style x:Key="SC_Thumb"
+         TargetType="{x:Type Thumb}">
+    <Setter Property="OverridesDefaultStyle"
+            Value="True" />
+    <Setter Property="IsTabStop"
+            Value="False" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Thumb}">
+          <Rectangle x:Name="THB"
+                     Fill="#006488" />
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsDragging"
+                     Value="true">
+              <Setter TargetName="THB"
+                      Property="Fill"
+                      Value="#ffffff" />
+            </Trigger>
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition Property="IsDragging"
+                           Value="false" />
+                <Condition Property="IsMouseOver"
+                           Value="true" />
+              </MultiTrigger.Conditions>
+              <Setter TargetName="THB"
+                      Property="Cursor"
+                      Value="Hand" />
+              <Setter TargetName="THB"
+                      Property="Fill"
+                      Value="#0096cc" />
+            </MultiTrigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="SC_PageButton"
+         TargetType="{x:Type RepeatButton}">
+    <Setter Property="OverridesDefaultStyle"
+            Value="True" />
+    <Setter Property="IsTabStop"
+            Value="False" />
+    <Setter Property="Focusable"
+            Value="False" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type RepeatButton}">
+          <Rectangle x:Name="REP"
+                     Width="{TemplateBinding Width}"
+                     Height="{TemplateBinding Height}"
+                     Fill="#222222" />
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="SC_Scrollbar"
+         TargetType="{x:Type ScrollBar}">
+    <Setter Property="HorizontalAlignment"
+            Value="Right" />
+    <Setter Property="OverridesDefaultStyle"
+            Value="True" />
+    <Setter Property="Width"
+            Value="2" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ScrollBar}">
+          <Grid SnapsToDevicePixels="True">
+            <Track x:Name="PART_Track"
+                   HorizontalAlignment="Center"
+                   Margin="0"
+                   Width="{TemplateBinding Width}"
+                   Maximum="{TemplateBinding Maximum}"
+                   Minimum="{TemplateBinding Minimum}"
+                   Value="{TemplateBinding Value}"
+                   IsDirectionReversed="true">
+              <Track.DecreaseRepeatButton>
+                <RepeatButton x:Name="VeticalLargeDecrease"
+                              Style="{StaticResource SC_PageButton}"
+                              Command="{x:Static ScrollBar.PageUpCommand}"
+                              IsTabStop="False"
+                              Interval="50" />
+              </Track.DecreaseRepeatButton>
+              <Track.Thumb>
+                <Thumb Style="{StaticResource SC_Thumb}" />
+              </Track.Thumb>
+              <Track.IncreaseRepeatButton>
+                <RepeatButton x:Name="VeticalLargeIncrease"
+                              Style="{StaticResource SC_PageButton}"
+                              Command="{x:Static ScrollBar.PageDownCommand}"
+                              IsTabStop="False"
+                              Interval="50" />
+              </Track.IncreaseRepeatButton>
+            </Track>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="SC_ScrollViewer"
+         TargetType="{x:Type ScrollViewer}">
+    <Setter Property="BorderThickness"
+            Value="0" />
+    <Setter Property="VerticalContentAlignment"
+            Value="Top" />
+    <Setter Property="VerticalScrollBarVisibility"
+            Value="Visible" />
+    <Setter Property="HorizontalContentAlignment"
+            Value="Center" />
+    <Setter Property="HorizontalScrollBarVisibility"
+            Value="Visible" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ScrollViewer}">
+          <Grid Background="{TemplateBinding Background}"
+                Width="{TemplateBinding MaxWidth}" >
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition x:Name="SBG" 
+                                Width="12" />
+            </Grid.ColumnDefinitions>
+            <ScrollContentPresenter x:Name="PART_ScrollContentPresenter"
+                                    CanHorizontallyScroll="False"
+                                    CanVerticallyScroll="False"
+                                    Margin="{TemplateBinding Padding}"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    CanContentScroll="{TemplateBinding CanContentScroll}" />
+            <Grid Grid.Column="1"
+                  Background="{TemplateBinding Background}">
+              <ScrollBar x:Name="PART_VerticalScrollBar"
+                         AutomationProperties.AutomationId="VerticalScrollBar"
+                         Orientation="Vertical"
+                         Maximum="{TemplateBinding ScrollableHeight}"
+                         Minimum="0"
+                         Opacity="0"
+                         Style="{StaticResource SC_Scrollbar}"
+                         ViewportSize="{TemplateBinding ViewportHeight}"
+                         Value="{TemplateBinding VerticalOffset}"
+                         Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" />
+              <Grid.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                  <BeginStoryboard>
+                    <Storyboard FillBehavior="HoldEnd">
+                      <DoubleAnimation Storyboard.TargetName="PART_VerticalScrollBar"
+                                       Storyboard.TargetProperty="Width"
+                                       To="12"
+                                       Duration="0:0:0.2" />
+                    </Storyboard>
+                  </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                  <BeginStoryboard>
+                    <Storyboard>
+                      <DoubleAnimation Storyboard.TargetName="PART_VerticalScrollBar"
+                                       Storyboard.TargetProperty="Width"
+                                       To="2"
+                                       BeginTime="0:0:3"
+                                       Duration="0:0:0.2" />
+                    </Storyboard>
+                  </BeginStoryboard>
+                </EventTrigger>
+              </Grid.Triggers>
+            </Grid>
+            <Grid.Triggers>
+              <EventTrigger RoutedEvent="MouseEnter">
+                <BeginStoryboard>
+                  <Storyboard FillBehavior="HoldEnd">
+                    <DoubleAnimation Storyboard.TargetName="PART_VerticalScrollBar"
+                                     Storyboard.TargetProperty="Opacity"
+                                     To="1"
+                                     Duration="0:0:0.5" />
+                  </Storyboard>
+                </BeginStoryboard>
+              </EventTrigger>
+              <EventTrigger RoutedEvent="MouseLeave">
+                <BeginStoryboard>
+                  <Storyboard FillBehavior="HoldEnd">
+                    <DoubleAnimation Storyboard.TargetName="PART_VerticalScrollBar"
+                                     Storyboard.TargetProperty="Opacity"
+                                     To="0"
+                                     Duration="0:0:0.5" />
+                  </Storyboard>
+                </BeginStoryboard>
+              </EventTrigger>
+            </Grid.Triggers>
+          </Grid>
         </ControlTemplate>
       </Setter.Value>
     </Setter>

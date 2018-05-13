@@ -34,7 +34,7 @@ namespace SoftwareTeamwork {
             set { SetValue(BackIconProperty, value); }
         }
         public static readonly DependencyProperty BackIconProperty =
-            DependencyProperty.Register("BackIcon", typeof(string), typeof(IconToggelButton), 
+            DependencyProperty.Register("BackIcon", typeof(string), typeof(IconToggelButton),
                 new PropertyMetadata(""));
         #endregion
 
@@ -54,7 +54,7 @@ namespace SoftwareTeamwork {
             set { SetValue(BackToolTipProperty, value); }
         }
         public static readonly DependencyProperty BackToolTipProperty =
-            DependencyProperty.Register("BackToolTip", typeof(string), typeof(IconToggelButton), 
+            DependencyProperty.Register("BackToolTip", typeof(string), typeof(IconToggelButton),
                 new PropertyMetadata(""));
         #endregion
 
@@ -64,17 +64,17 @@ namespace SoftwareTeamwork {
             set { SetValue(ToolTipVisiblityProperty, value); }
         }
         public static readonly DependencyProperty ToolTipVisiblityProperty =
-            DependencyProperty.Register("ToolTipVisiblity", typeof(Visibility), typeof(IconToggelButton), 
+            DependencyProperty.Register("ToolTipVisiblity", typeof(Visibility), typeof(IconToggelButton),
                 new PropertyMetadata(Visibility.Visible));
         #endregion
 
         public override void OnApplyTemplate() {
-            
+
             base.OnApplyTemplate();
         }
 
         protected override void OnIsPressedChanged(DependencyPropertyChangedEventArgs e) {
-           // Console.WriteLine(IsChecked);
+            // Console.WriteLine(IsChecked);
             base.OnIsPressedChanged(e);
         }
 

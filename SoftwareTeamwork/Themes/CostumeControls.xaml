@@ -5,7 +5,6 @@
                     xmlns:local="clr-namespace:SoftwareTeamwork">
   <!--Converter-->
   <local:MoveConverter x:Key="Move" />
-  <local:MoveConverterI x:Key="MoveI" />
   <local:IntToStringConverter x:Key="ITS" />
   <local:DateTimeStringFormat x:Key="DateTimeStringFormat" />
   <local:ActrualDataToNodesPos x:Key="DTP" />
@@ -551,14 +550,14 @@
             <TextBlock x:Name="Title"
                        Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:FlowPopup},Path=Title}"
                        FontSize="14"
-                       Foreground="{DynamicResource NotifyTextColor_L1_N}"
+                       Foreground="{DynamicResource MainTextColor}"
                        FontWeight="UltraLight"
                        VerticalAlignment="Center"
                        Grid.Column="1" />
             <TextBlock x:Name="Content"
                        Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:FlowPopup},Path=Content}"
                        FontSize="12"
-                       Foreground="{DynamicResource NotifyTextColor_L2_N}"
+                       Foreground="{DynamicResource MainTextColor_D1}"
                        FontWeight="Thin"
                        VerticalAlignment="Center"
                        Grid.Column="1"
@@ -569,14 +568,14 @@
                   VerticalAlignment="Center"
                   Grid.RowSpan="2">
               <Path Data="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:FlowPopup},Path=IconPath,Converter={StaticResource StrToPathConverter}}"
-                    Stroke="{DynamicResource NotifyTextColor_L1_N}"
+                    Stroke="{DynamicResource MainTextColor}"
                     StrokeThickness="5">
               </Path>
               <Ellipse Width="50"
                        Height="50"
                        Canvas.Left="5"
                        Canvas.Top="5"
-                       Stroke="{DynamicResource NotifyTextColor_L1_N}"
+                       Stroke="{DynamicResource MainTextColor}"
                        StrokeThickness="0.8" />
               <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type local:FlowPopup}},Path=Percent}"
                          Style="{DynamicResource NumberTextBlock}" />

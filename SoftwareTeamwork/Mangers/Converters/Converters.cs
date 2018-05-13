@@ -83,19 +83,9 @@ namespace SoftwareTeamwork
         }
     }
 
-    class MoveConverterI : IValueConverter {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-            return (double)((int)value + System.Convert.ToInt32((string)parameter));
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
-            throw new NotImplementedException();
-        }
-    }
-
     class DateTimeStringFormat : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-            return String.Format("{0:D2}-{1:D2}", ((DateTime)value).Mon, ((DateTime)value).Day);
+            return String.Format("{0:D2}.{1:D2}", ((DateTime)value).Mon, ((DateTime)value).Day);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
