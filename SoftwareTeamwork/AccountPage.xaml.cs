@@ -16,8 +16,8 @@ namespace SoftwareTeamwork {
         }
 
         private void SaveIPGW(object sender, RoutedEventArgs e) {
-            if (IPGWAccount.Text.Equals("") || IPGWPassword.Password.Equals(""))
-                ErrorMessageService.ShowError(this, "请输入用户名与密码");
+            if (IPGWAccount.Text.Equals("") || IPGWPassword.Password.Equals("")) 
+                ErrorMessageService.Instence.ShowError(this, "请输入用户名和密码");
             else {
                 XmlAnalyze.UpdateNodeValue("NEUIpgw", "username", IPGWAccount.Text);
                 XmlAnalyze.UpdateNodeValue("NEUIpgw", "password", IPGWPassword.Password);
@@ -26,18 +26,17 @@ namespace SoftwareTeamwork {
 
         private void Identify(object sender, RoutedEventArgs e) {
             if (JWAccount.Text.Equals("") || JWPassword.Password.Equals(""))
-                return;
+                ErrorMessageService.Instence.ShowError(this, "请输入用户名和密码");
             else {
-                //JWIdentifyImage.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() => {
                 LoginAgent.Instence.SetInfset(XmlAnalyze.GetInfWithName("NEUZhjw"));
                 JWIdentifyImage.Source = LoginAgent.Instence.GetVerify();
-                //}));
+                JWIdentifyImage.Visibility = Visibility.Visible;
             }
         }
 
         private void SaveNEUJW(object sender, RoutedEventArgs e) {
             if (JWAccount.Text.Equals("") || JWPassword.Password.Equals("") || JWIdentifyCode.Equals(""))
-                return;
+                ErrorMessageService.Instence.ShowError(this, "请输入用户名、密码、验证码uuuuuuuuu");
             else {
                 XmlAnalyze.UpdateNodeValue("NEUIpgw", "username", JWAccount.Text);
                 XmlAnalyze.UpdateNodeValue("NEUIpgw", "password", JWPassword.Password);

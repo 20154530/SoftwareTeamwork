@@ -123,6 +123,7 @@
                    Color="Transparent" />
   <SolidColorBrush x:Key="DefaultPopupButtonBackground_P"
                    Color="Transparent" />
+  
   <SolidColorBrush x:Key="FlowPopupForeground_D1"
                    Color="#B0e0e0e0"/>
   <SolidColorBrush x:Key="FlowPopupAnaCanvas_BaseLine"
@@ -135,6 +136,9 @@
                    Color="#808080" />
   <SolidColorBrush x:Key="FlowPopupAnaCanvas_ToolTipBackground"
                    Color="#202020" />
+
+  <SolidColorBrush x:Key="ErrorMessageBackground"
+                   Color="#080808" />
 
 
 

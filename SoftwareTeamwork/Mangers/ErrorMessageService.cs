@@ -9,14 +9,22 @@ using System.Windows.Threading;
 namespace SoftwareTeamwork
 {
     public class ErrorMessageService {
+        private ErrorPopup Error;
+        public static ErrorMessageService Instence = new ErrorMessageService();
 
-        public static void ShowError(UIElement aimobject,string message) {
-            ErrorPopup error = new ErrorPopup(aimobject) {
-                Content = message,
-               
-            };
-            error.Style = (Style)Application.Current.FindResource("ErrorMessage");
-            error.IsOpen = true;
+        public void ShowError(UIElement aimobject,string message) {
+            if (Error.IsOpen)
+                Error.HidePopupAni();
+            Error.PlacementTarget = aimobject;
+            Error.Content = message;
+            Error.ShowPopupAni(); 
         }
+
+         public ErrorMessageService() {
+            Error = new ErrorPopup {
+                Style = (Style)Application.Current.FindResource("ErrorMessagePopup")
+            };
+        }
+
     }
 }

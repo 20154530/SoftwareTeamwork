@@ -134,4 +134,5 @@ namespace SoftwareTeamwork
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DPopup), new FrameworkPropertyMetadata(typeof(DPopup)));
         }
     }
+
 }

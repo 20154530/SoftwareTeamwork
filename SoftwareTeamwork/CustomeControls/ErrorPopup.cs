@@ -4,32 +4,48 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls.Primitives;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace SoftwareTeamwork {
+    public class ErrorPopup :DPopup{
 
-    public class ErrorPopup : DPopup {
-
-        public override void OnApplyTemplate() {
-            if (GetTemplateChild("ExitButton") is IconButton ExitButton)
-                ExitButton.Click += ExitButton_Click;
-
-            base.OnApplyTemplate();
+        public event EventHandler PlacementTargetChanged;
+        public new UIElement PlacementTarget {
+            get => base.PlacementTarget;
+            set {
+                base.PlacementTarget = value;
+                PlacementTargetChanged .Invoke(this,EventArgs.Empty);
+            }
         }
 
-        private void ExitButton_Click(object sender, RoutedEventArgs e) {
-            this.IsOpen = false;
+        private void OnPlacementTargetChanged(object sender, EventArgs e) {
+            if (PlacementTarget is null)
+                return;
+            else {
+                HorizontalOffset = PlacementTarget.RenderSize.Width - 200;
+                VerticalOffset = PlacementTarget.RenderSize.Height - 45;
+                
+            }
         }
 
-        public ErrorPopup(UIElement parent) {
-            OverallSettingManger.Instence.ThemeChanged += Instence_ThemeChanged;
-            PlacementTarget = parent;
+        protected override void OnStyleChanged(Style oldStyle, Style newStyle) {
+            if (newStyle == null)
+                return;
+            UIElementCollection Children = ((Grid)((Border)Child).Child).Children;
+            foreach(UIElement u in Children) 
+                if (u is Control && ((Control)u).Name.Equals("ExitButton")) { ((IconButton)u).Click += Exit_Click;break; }
+            
+            base.OnStyleChanged(oldStyle, newStyle);
+        }
+
+        private void Exit_Click(object sender, System.Windows.RoutedEventArgs e) {
+            this.HidePopupAni();
+        }
+
+        public ErrorPopup() {
+            PlacementTargetChanged += OnPlacementTargetChanged;
             UseInOutAni = false;
-        }
-
-        private void Instence_ThemeChanged(object sender, EventArgs e) {
-            this.Style = null;
-            this.Style = (Style)Application.Current.FindResource("MainFlowPopup");
         }
     }
 }
