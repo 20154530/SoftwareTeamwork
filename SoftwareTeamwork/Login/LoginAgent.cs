@@ -11,11 +11,14 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Data;
 using System.IO.Compression;
 using System.Collections;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Threading.Tasks;
 
 namespace SoftwareTeamwork {
-    class LoginAgent
-    {
-        private const String dir = @"D:\DB\";
+
+    class LoginAgent {
+        private String dir = @"D:\DB\";
         private WebLoginInfSet InfSet;
         private String result = null;
         private String ID = "";
@@ -24,13 +27,13 @@ namespace SoftwareTeamwork {
         private List<KeyValuePair<String, String>> paramList;
         private CookieContainer Cookies;
 
-        public LoginAgent()
-        {
-            httpClient = new HttpClient();
+        public static LoginAgent Instence = new LoginAgent();
+
+        public LoginAgent() {
+            
         }
 
-        public LoginAgent(WebLoginInfSet infset)
-        {
+        public void SetInfset(WebLoginInfSet infset) {
             infset.CheckUris();
             InfSet = infset;
             Login_Headers_config();
@@ -40,25 +43,17 @@ namespace SoftwareTeamwork {
                 GetLoginID();
         }
 
-        private void GetLoginID()
-        {
+        private void GetLoginID() {
             while (result == null) ;//等待请求数据
             ID = Regex.Matches(result, InfSet.IdCodes.Value)[0].Groups[1].Value;
         }
 
-        private void paramListCheck()//请求键值对检查
+        private void ParamListCheck()//请求键值对检查
         {
-            if (InfSet.Verify)
-                GetVerify();
             int i = paramList.Count - 1;
-            for (; i >= 0; i--)
-            {
+            for (; i >= 0; i--) {
                 if (paramList[i].Value == "" | paramList[i].Value == null)//若为空进行补全
-                {
-                    Console.WriteLine("Please Enter " + paramList[i].Key);
-                    paramList.Add(new KeyValuePair<string, string>(paramList[i].Key, Console.ReadLine()));
-                    paramList.RemoveAt(i);
-                }
+                    ;
             }
         }
 
@@ -77,17 +72,23 @@ namespace SoftwareTeamwork {
             result = httpClient.GetStringAsync(InfSet.Uris[0]).Result;
         }
 
-        private void GetVerify()
-        {
+        public BitmapImage GetVerify() {
             var url = InfSet.Uris[0] + InfSet.VerifyCode + new Regex(InfSet.VerifyCode + "(.*?)").Match(result).Groups[1].Value;
-
             response = httpClient.GetAsync(new Uri(url)).Result;
-            Write("amosli.png", response.Content.ReadAsByteArrayAsync().Result);
+            BitmapImage bmp = null;
+            try {
+                bmp = new BitmapImage();
+                bmp.BeginInit();
+                bmp.StreamSource = new MemoryStream(response.Content.ReadAsByteArrayAsync().Result);
+                bmp.EndInit();
+            }
+            catch {
+                bmp = null;
+            }
+            return bmp;
+        }
 
-            //Console.WriteLine("输入图片验证码：");
-            String imgCode = "";//验证码写到本地了，需要手动填写
-            imgCode = Console.ReadLine();
-
+        public void SetVerify(string imgCode) {
             paramList.Add(new KeyValuePair<string, string>(paramList[paramList.Count - 1].Key, imgCode));
             paramList.RemoveAt(paramList.Count - 2);
         }
@@ -95,74 +96,64 @@ namespace SoftwareTeamwork {
         public void Post()//发送请求
         {
             if (InfSet.NeedLogin)
-                try
-                {
-                    paramListCheck();
-                    //foreach (KeyValuePair<string, string> i in paramList)
-                    //    Console.WriteLine(String.Format("{0} -- {1}", i.Key, i.Value));
+                try {
+                    ParamListCheck();
                     response = httpClient.PostAsync(InfSet.Uris[0] + ID, new FormUrlEncodedContent(paramList)).Result;
                 }
-                catch (AggregateException)
-                {
+                catch (AggregateException) {
                     Console.WriteLine("Post Message Error : Please check your web connection !");
                 }
         }
 
-        
         public String GetData()//请求字符数据
         {
             if (InfSet.Compressed)
                 return GetDatasetByString(GetDataAsStream());
             else
-                try
-                {
+                try {
                     return httpClient.GetStringAsync(InfSet.Uris[1]).Result;
                 }
-                catch (AggregateException)
-                {
+                catch (AggregateException) {
                     Console.WriteLine("Request Message Error : Please check your web connection !");
                     return null;
                 }
         }
 
-        public Stream GetDataAsStream()
-        {
+        public Stream GetDataAsStream() {
             Stream temp;
-            try
-            {
-                paramListCheck();
+            try {
+                ParamListCheck();
                 temp = httpClient.GetStreamAsync(InfSet.Uris[1]).Result;
             }
-            catch (AggregateException)
-            {
+            catch (AggregateException) {
                 Console.WriteLine("Request Message Error : Please check your web connection !");
                 return null;
             }
             return temp;
         }
 
-        public void SaveHtml()
-        {
+        public void SaveHtml() {
             Write("MyHtml.html", GetDatasetByString(GetDataAsStream()));
         }
 
-        private void GetVerifyCode()
-        {
+        private void GetVerifyCode() {
 
         }
 
-        #region 获取cookies
-        public static List<Cookie> GetAllCookies(CookieContainer cc)
-        {
+        #region 转成图片
 
-            
+        #endregion
+
+        #region 获取cookies
+        public static List<Cookie> GetAllCookies(CookieContainer cc) {
+
+
             return null;
         }
         #endregion
 
         #region 网页解压 
-        private String GetDatasetByString(Stream Value)
-        {
+        private String GetDatasetByString(Stream Value) {
             string strHTML = "";
             GZipStream gzip = new GZipStream(Value, CompressionMode.Decompress);//解压缩
             using (StreamReader reader = new StreamReader(gzip, Encoding.GetEncoding(InfSet.CharSet)))//中文编码处理
@@ -175,30 +166,24 @@ namespace SoftwareTeamwork {
         #endregion
 
         #region 写入本地
-        private void Write(string fileName, string html)
-        {
-            try
-            {
+        private void Write(string fileName, string html) {
+            try {
                 FileStream fs = new FileStream(dir + fileName, FileMode.Create);
                 StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
                 sw.Write(html);
                 sw.Close();
                 fs.Close();
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 Console.WriteLine(ex.StackTrace);
             }
         }
 
-        private void Write(string fileName, byte[] html)
-        {
-            try
-            {
+        private void Write(string fileName, byte[] html) {
+            try {
                 File.WriteAllBytes(dir + fileName, html);
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 Console.WriteLine(ex.StackTrace);
             }
         }

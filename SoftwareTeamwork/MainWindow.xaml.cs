@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -28,12 +29,33 @@ namespace SoftwareTeamwork
                 new PropertyMetadata(new WindowCommand()));
         #endregion
 
-        public MainWindow()
-        {
-            InitializeComponent();
-            Loaded += MainWindow_Loaded;
-            Properties.Settings.Default.Upgrade();
-
+        protected override void OnClosing(CancelEventArgs e) {
+            if (!Properties.Settings.Default.IsExitDialogShow) {
+                if (Properties.Settings.Default.ExitAction) {
+                    Hide();
+                    e.Cancel = true;
+                }
+                else {
+                    AreaIcon.Dispose();
+                    App.Current.Shutdown();
+                }
+            }
+            else {
+                ExitDialog dialog = new ExitDialog {
+                    Style = (Style)Application.Current.FindResource("ExitDialogStyle"),
+                    Context = "是否退出?"
+                };
+                dialog.ShowDialog(this);
+                if (dialog.DialogResult == false)
+                    e.Cancel = true;
+                else {
+                    if (Properties.Settings.Default.ExitAction) {
+                        Hide();
+                        e.Cancel = true;
+                    }
+                }
+                return;
+            }
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e) {
@@ -41,5 +63,10 @@ namespace SoftwareTeamwork
             MainFrame.NavigationService.Navigate(new Uri("AccountPage.xaml", UriKind.Relative));
         }
 
+        public MainWindow() {
+            InitializeComponent();
+            Loaded += MainWindow_Loaded;
+            Properties.Settings.Default.Upgrade();
+        }
     }
 }

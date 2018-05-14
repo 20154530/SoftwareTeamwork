@@ -8,8 +8,16 @@ using System.Windows.Media;
 namespace SoftwareTeamwork {
     public class AIWindow : Window
     {
-        private bool IsExiting = false;
-        #region 托盘图标
+        #region ExtendToTitleBar
+        public bool ExtendToTitleBar {
+            get { return (bool)GetValue(ExtendToTitleBarProperty); }
+            set { SetValue(ExtendToTitleBarProperty, value); }
+        }
+        public static readonly DependencyProperty ExtendToTitleBarProperty =
+            DependencyProperty.Register("ExtendToTitleBar", typeof(bool), typeof(AIWindow), new PropertyMetadata(false));
+        #endregion
+
+        #region AreaIcon
         public DAreaIcon AreaIcon {
             get { return (DAreaIcon)GetValue(AreaIconProperty); }
             set { SetValue(AreaIconProperty, value); }
@@ -24,9 +32,7 @@ namespace SoftwareTeamwork {
             AreaIcon.AttachedWindow = this;
             base.OnInitialized(e);
         }
-        #endregion
 
-        #region 截获消息循环
         private void WSInitialized(object sender, EventArgs e)
         {
             (PresentationSource.FromVisual((Visual)sender) as HwndSource).AddHook(new HwndSourceHook(WndProc));
@@ -50,36 +56,6 @@ namespace SoftwareTeamwork {
         #region 部件事件
 
         #endregion
-
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            if (IsExiting)
-                return;
-            else {
-                if (!Properties.Settings.Default.IsExitDialogShow) {
-                    if (Properties.Settings.Default.ExitAction) {
-                        Hide();
-                        return;
-                    }
-                    else {
-                        AreaIcon.Dispose();
-                        App.Current.Shutdown();
-                        return;
-                    }
-                }
-                else {
-                    IsExiting = true;
-                    ExitDialog dialog = new ExitDialog {
-                        Template = (ControlTemplate)Application.Current.FindResource("ExitDialogStyle"),
-                        Context = "是否退出?"
-                    };
-                    dialog.ShowDialog(this);
-                    e.Cancel = dialog.DialogResult == false;
-                    IsExiting = false;
-                    return;
-                }
-            }
-        }
 
         static AIWindow()
         {

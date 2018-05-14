@@ -121,6 +121,21 @@
     <Setter Property="Foreground"
             Value="{DynamicResource FlowPopupAnaCanvas_Tick}" />
   </Style>
+  
+  <!--ErrorPopupContent-->
+  <Style x:Key="ErrorPopupContent"
+         TargetType="TextBlock">
+    <Setter Property="Foreground"
+            Value="{DynamicResource DefaultPopupForeground}" />
+    <Setter Property="FontSize"
+            Value="14" />
+    <Setter Property="FontWeight"
+            Value="Light" />
+    <Setter Property="TextWrapping"
+            Value="Wrap" />
+    <Setter Property="ScrollViewer.Style"
+            Value="{DynamicResource SC_ScrollViewer}" />
+  </Style>
 
   <!--ToolTip-->
 
@@ -196,7 +211,7 @@
                             HorizontalScrollBarVisibility="Hidden"
                             VerticalScrollBarVisibility="Hidden"
                             Margin="0,3,0,0" />
-              <Rectangle Grid.Row="1"
+              <Rectangle x:Name="EnableId" Grid.Row="1"
                          Fill="{DynamicResource AccountPage_TextBox_UnderlineBrush}"
                          Height="0.5"
                          HorizontalAlignment="Stretch" />
@@ -205,6 +220,9 @@
           <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled"
                      Value="False">
+              <Setter TargetName="EnableId"
+                      Property="Visibility"
+                      Value="Collapsed" />
             </Trigger>
             <Trigger Property="IsMouseOver"
                      Value="True">
@@ -251,7 +269,7 @@
                             HorizontalScrollBarVisibility="Hidden"
                             VerticalScrollBarVisibility="Hidden"
                             Margin="0,2,0,0" />
-              <Rectangle Grid.Row="1"
+              <Rectangle x:Name="EnableID" Grid.Row="1"
                          Fill="{DynamicResource AccountPage_TextBox_UnderlineBrush}"
                          Height="0.5"
                          HorizontalAlignment="Stretch" />
@@ -260,6 +278,9 @@
           <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled"
                      Value="False">
+              <Setter TargetName="EnableID"
+                      Property="Visibility"
+                      Value="Collapsed" />
             </Trigger>
             <Trigger Property="IsMouseOver"
                      Value="True">
@@ -274,9 +295,6 @@
   </Style>
 
   <!--ScrollView-->
-
-  <!--ScrollView-->
-
   <Style x:Key="SC_Thumb"
          TargetType="{x:Type Thumb}">
     <Setter Property="OverridesDefaultStyle"
@@ -287,13 +305,13 @@
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Thumb}">
           <Rectangle x:Name="THB"
-                     Fill="#006488" />
+                     Fill="{DynamicResource DefaultScrollThumb_Background_N}" />
           <ControlTemplate.Triggers>
             <Trigger Property="IsDragging"
                      Value="true">
               <Setter TargetName="THB"
                       Property="Fill"
-                      Value="#ffffff" />
+                      Value="{DynamicResource DefaultScrollThumb_Background_P}" />
             </Trigger>
             <MultiTrigger>
               <MultiTrigger.Conditions>
@@ -307,7 +325,7 @@
                       Value="Hand" />
               <Setter TargetName="THB"
                       Property="Fill"
-                      Value="#0096cc" />
+                      Value="{DynamicResource DefaultScrollThumb_Background_R}" />
             </MultiTrigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -399,7 +417,7 @@
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="*" />
               <ColumnDefinition x:Name="SBG" 
-                                Width="12" />
+                                Width="8" />
             </Grid.ColumnDefinitions>
             <ScrollContentPresenter x:Name="PART_ScrollContentPresenter"
                                     CanHorizontallyScroll="False"
@@ -426,7 +444,7 @@
                     <Storyboard FillBehavior="HoldEnd">
                       <DoubleAnimation Storyboard.TargetName="PART_VerticalScrollBar"
                                        Storyboard.TargetProperty="Width"
-                                       To="12"
+                                       To="8"
                                        Duration="0:0:0.2" />
                     </Storyboard>
                   </BeginStoryboard>
@@ -467,6 +485,25 @@
               </EventTrigger>
             </Grid.Triggers>
           </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  
+  <!--Frame-->
+  <Style x:Key="DefaultFrame"
+         TargetType="{x:Type Frame}">
+    <Setter Property="Margin"
+            Value="0,24,0,0" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Frame}">
+          <Border BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Background="{TemplateBinding Background}"
+                  Padding="{TemplateBinding Padding}">
+            <ContentPresenter x:Name="PART_FrameCP" />
+          </Border>
         </ControlTemplate>
       </Setter.Value>
     </Setter>

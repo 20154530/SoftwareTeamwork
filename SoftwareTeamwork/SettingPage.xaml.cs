@@ -18,8 +18,21 @@ namespace SoftwareTeamwork {
     /// SettingPage.xaml 的交互逻辑
     /// </summary>
     public partial class SettingPage : Page {
+
         public SettingPage() {
             InitializeComponent();
+        }
+
+        private void Reset(object sender, RoutedEventArgs e) {
+            QuestionDialog dialog = new QuestionDialog {
+                Style = (Style)Application.Current.FindResource("QuestionDialog"),
+                Context = "确定还原默认设置?"
+            };
+            dialog.ShowDialog(Application.Current.MainWindow);
+
+            if (dialog.DialogResult.Equals(true))
+                Properties.Settings.Default.Reset();
+
         }
     }
 }

@@ -8,8 +8,6 @@
   <local:IntToStringConverter x:Key="ITS" />
   <local:DateTimeStringFormat x:Key="DateTimeStringFormat" />
   <local:ActrualDataToNodesPos x:Key="DTP" />
- 
-  <!--SizeConfig-->
 
   <!--Controls-->
 
@@ -64,129 +62,6 @@
     </Setter>
   </Style>
 
-  <!--ExitDialog-->
-
-  <ControlTemplate x:Key="ExitDialogStyle"
-                   TargetType="{x:Type local:DialogBase}">
-    <Border x:Name="RootBorder"
-            BorderBrush="{DynamicResource BorderBrush}"
-            BorderThickness="1"
-            Height="120"
-            Width="270">
-      <Grid x:Name="RootGrid"
-            Background="{DynamicResource WindowDialogBackground}">
-        <Grid.RowDefinitions>
-          <RowDefinition Height="24" />
-          <RowDefinition Height="*" />
-          <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-        <Grid x:Name="TitleLayer">
-          <local:TitleBar CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:DialogBase}},Converter={StaticResource ToHandle}}">
-            <Grid>
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
-              </Grid.ColumnDefinitions>
-              <local:IconButton x:Name="CANCEL"
-                                Grid.Column="3"
-                                Content="{DynamicResource TitlebarExitIcon}"
-                                FontSize="12"
-                                Padding="2"
-                                Margin="0,8,8,0"
-                                IconN="{DynamicResource WindowTitleBarIconButtonIcon.N}"
-                                IconR="{DynamicResource WindowTitleBarIconButtonIcon.R}"
-                                IconP="{DynamicResource WindowTitleBarIconButtonIcon.P}" />
-            </Grid>
-          </local:TitleBar>
-        </Grid>
-        <Grid x:Name="ContentLayer"
-              Grid.Row="1"
-              Margin="16,0,16,0">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-          </Grid.RowDefinitions>
-          <TextBlock Text="{Binding Context, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-                     FontSize="12"
-                     Foreground="{DynamicResource WindowTitleBarForeground}"
-                     TextWrapping="Wrap" />
-          <StackPanel Orientation="Horizontal"
-                      Grid.Row="1"
-                      Margin="0,5,0,0">
-            <local:IconToggelButton x:Name="ExitAction"
-                                    ToolTipVisiblity="Collapsed"
-                                    VerticalAlignment="Center"
-                                    Foreground="{DynamicResource WindowTitleBarForeground}"
-                                    Background="Transparent"
-                                    BackIcon="&#xF16C;"
-                                    ForeIcon="&#xF16B;"
-                                    Padding="2"
-                                    FontSize="{TemplateBinding FontSize}" />
-            <TextBlock Margin="8,0,0,0"
-                       VerticalAlignment="Center"
-                       FontSize="10"
-                       Text="转到托盘运行"
-                       Foreground="{DynamicResource WindowTitleBarForeground}" />
-          </StackPanel>
-          <StackPanel Orientation="Horizontal"
-                      Grid.Row="2" Margin="0,5,0,0">
-            <local:IconToggelButton x:Name="SaveAction"
-                                    VerticalAlignment="Center"
-                                    ToolTipVisiblity="Collapsed"
-                                    Foreground="{DynamicResource WindowTitleBarForeground}"
-                                    Background="Transparent"
-                                    BackIcon="&#xF16C;"
-                                    ForeIcon="&#xF16B;"
-                                    Padding="2"
-                                    FontSize="{TemplateBinding FontSize}" />
-            <TextBlock Margin="8,0,0,0"
-                       VerticalAlignment="Center"
-                       FontSize="10"
-                       Text="记住选择"
-                       Foreground="{DynamicResource WindowTitleBarForeground}" />
-          </StackPanel>
-        </Grid>
-        <Grid x:Name="ControlLayer"
-              Grid.Row="2"
-              Margin="0,0,0,6">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-          </Grid.ColumnDefinitions>
-          <local:IconButton Grid.Column="1"
-                            x:Name="YES"
-                            Content="&#xF13E;"
-                            Margin="0,0,12,0"
-                            FontSize="24"
-                            IconMaskN="Transparent"
-                            IconMaskP="Transparent"
-                            IconMaskR="Transparent"
-                            Padding="3"
-                            AllowShadow="1"
-                            IconN="{DynamicResource WindowDialogButtonForeground.N}"
-                            IconR="{DynamicResource WindowDialogButtonForeground.R}"
-                            IconP="{DynamicResource WindowDialogButtonForeground.P}" />
-          <local:IconButton Grid.Column="2"
-                            x:Name="NO"
-                            Content="&#xF13D;"
-                            Margin="12,0,4,0"
-                            FontSize="24"
-                            IconMaskN="Transparent"
-                            IconMaskP="Transparent"
-                            IconMaskR="Transparent"
-                            Padding="3"
-                            AllowShadow="1"
-                            IconN="{DynamicResource WindowDialogButtonForeground.N}"
-                            IconR="{DynamicResource WindowDialogButtonForeground.R}"
-                            IconP="{DynamicResource WindowDialogButtonForeground.P}" />
-        </Grid>
-      </Grid>
-    </Border>
-  </ControlTemplate>
-
   <!--FlowAnaPanel-->
 
   <Style x:Key="FlowAnaPanel"
@@ -203,7 +78,7 @@
                               BlurRadius="5"
                               ShadowDepth="0" />
           </Border.Effect>
-          <Grid Background="{DynamicResource BackgroundBrush}"
+          <Grid Background="{DynamicResource DefaultPopupBackground}"
                 DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FlowTrendPopups}}}">
             <Grid.Resources>
               <sys:Double x:Key="FlowAnaBaseLineSize">0.8</sys:Double>
@@ -519,6 +394,59 @@
       </Setter.Value>
     </Setter>
   </Style>
+  
+  <!--ErrorPopup-->
+
+  <Style x:Key="ErrorMessage"
+         TargetType='{x:Type local:err}'>
+    <Setter Property="Placement"
+            Value="RelativePoint" />
+    <Setter Property="Child">
+      <Setter.Value>
+        <Border Width="300"
+                Height="140"
+                BorderThickness="1"
+                BorderBrush="{DynamicResource BorderBrush}">
+          <Border.Effect>
+            <DropShadowEffect Color="{DynamicResource VsBackGroundColor}"
+                              Opacity="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ErrorPopup},Path=Shadow}"
+                              BlurRadius="5"
+                              ShadowDepth="0" />
+          </Border.Effect>
+          <Grid Background="{DynamicResource DefaultPopupBackground}"
+                DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ErrorPopup}}}">
+            <Grid.Resources>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="auto" />
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="auto" />
+              <RowDefinition Height="*" />
+              <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="1"
+                         Grid.Row="1"
+                         Text="{Binding Content}"
+                         Style="{DynamicResource ErrorPopupContent}" />
+            <local:IconButton x:Name="ExitButton"
+                              Grid.Column="2"
+                              Content="&#xE72A;"
+                              FontSize="10"
+                              IconN="{DynamicResource DefaultPopupButtonForeground}"
+                              IconR="{DynamicResource DefaultPopupButtonForeground_R}"
+                              IconP="{DynamicResource DefaultPopupButtonForeground_P}"
+                              IconMaskN="{DynamicResource DefaultPopupButtonBackground}"
+                              IconMaskR="{DynamicResource DefaultPopupButtonBackground_R}"
+                              IconMaskP="{DynamicResource DefaultPopupButtonBackground_P}"
+                              Foreground="{DynamicResource DefaultPopupForeground}" />
+          </Grid>
+        </Border>
+      </Setter.Value>
+    </Setter>
+  </Style>
 
   <!--MainFlowPopup-->
 
@@ -537,7 +465,7 @@
                               BlurRadius="5"
                               ShadowDepth="0" />
           </Border.Effect>
-          <Grid Background="{DynamicResource BackgroundBrush}">
+          <Grid Background="{DynamicResource DefaultPopupBackground}">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="80" />
               <ColumnDefinition Width="*" />
@@ -550,14 +478,14 @@
             <TextBlock x:Name="Title"
                        Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:FlowPopup},Path=Title}"
                        FontSize="14"
-                       Foreground="{DynamicResource MainTextColor}"
+                       Foreground="{DynamicResource DefaultPopupForeground}"
                        FontWeight="UltraLight"
                        VerticalAlignment="Center"
                        Grid.Column="1" />
             <TextBlock x:Name="Content"
                        Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:FlowPopup},Path=Content}"
                        FontSize="12"
-                       Foreground="{DynamicResource MainTextColor_D1}"
+                       Foreground="{DynamicResource FlowPopupForeground_D1}"
                        FontWeight="Thin"
                        VerticalAlignment="Center"
                        Grid.Column="1"
@@ -568,17 +496,17 @@
                   VerticalAlignment="Center"
                   Grid.RowSpan="2">
               <Path Data="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:FlowPopup},Path=IconPath,Converter={StaticResource StrToPathConverter}}"
-                    Stroke="{DynamicResource MainTextColor}"
+                    Stroke="{DynamicResource DefaultPopupForeground}"
                     StrokeThickness="5">
               </Path>
               <Ellipse Width="50"
                        Height="50"
                        Canvas.Left="5"
                        Canvas.Top="5"
-                       Stroke="{DynamicResource MainTextColor}"
+                       Stroke="{DynamicResource DefaultPopupForeground}"
                        StrokeThickness="0.8" />
               <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type local:FlowPopup}},Path=Percent}"
-                         Style="{DynamicResource NumberTextBlock}" />
+                         Style="{DynamicResource DefaultPopupForeground}" />
             </Grid>
           </Grid>
         </Border>

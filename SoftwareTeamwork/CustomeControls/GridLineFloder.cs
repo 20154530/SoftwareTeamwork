@@ -78,17 +78,11 @@ namespace SoftwareTeamwork {
             if (ContentVis.Equals(Visibility.Visible)) {
                 ContentVis = Visibility.Collapsed;
                 switch (AimGridType) {
-                    case GridUnitType.Auto:
-                        AttachedGrid.RowDefinitions[(int)parameter].Height = new GridLength(0, GridUnitType.Star);
-                        break;
-                    case GridUnitType.Star:
-                        AttachedGrid.RowDefinitions[(int)parameter].Height = new GridLength(0, GridUnitType.Star);
-                        break;
                     case GridUnitType.Pixel:
                         OriginGridSize = AttachedGrid.RowDefinitions[(int)parameter].Height.Value;
-                        AttachedGrid.RowDefinitions[(int)parameter].Height = new GridLength(0, GridUnitType.Star);
                         break;
                 }
+                AttachedGrid.RowDefinitions[(int)parameter].Height = new GridLength(0, GridUnitType.Pixel);
             }
             else {
                 ContentVis = Visibility.Visible;

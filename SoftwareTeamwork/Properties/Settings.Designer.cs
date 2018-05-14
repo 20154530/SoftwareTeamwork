@@ -46,5 +46,29 @@ namespace SoftwareTeamwork.Properties {
                 this["ExitAction"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ConfigPath {
+            get {
+                return ((string)(this["ConfigPath"]));
+            }
+            set {
+                this["ConfigPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Libs")]
+        public string DllPath {
+            get {
+                return ((string)(this["DllPath"]));
+            }
+            set {
+                this["DllPath"] = value;
+            }
+        }
     }
 }

@@ -5,10 +5,39 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:SoftwareTeamwork"
       mc:Ignorable="d"
-      d:DesignHeight="450"
-      d:DesignWidth="800"
       Title="SettingPage">
-  <Grid>
-        
+  <ScrollViewer Style="{DynamicResource SC_ScrollViewer}"
+                Background="{DynamicResource BackgroundBrush}"
+                Margin="8,0,0,0"
+                Padding="0,0,8,0">
+    <Grid x:Name="RootGrid">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+      </Grid.RowDefinitions>
+      <Grid Grid.Row="4">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+        <local:IconButton Content="&#xE9F3;"
+                          Grid.Column="1"
+                          Padding="4"
+                          ContentText="恢复默认设置"
+                          ContentTextVisiblity="Visible"
+                          ContentTextFontSize="10"
+                          IconN="{DynamicResource SettingPage_Button_Foreground}"
+                          IconR="{DynamicResource SettingPage_Button_Foreground_R}"
+                          IconP="{DynamicResource SettingPage_Button_Foreground_P}"
+                          IconMaskN="{DynamicResource SettingPage_Button_Background}"
+                          IconMaskR="{DynamicResource SettingPage_Button_Background_R}"
+                          IconMaskP="{DynamicResource SettingPage_Button_Background_P}"
+                          Click="Reset" />
+      </Grid>
     </Grid>
+  </ScrollViewer>
+
 </Page>

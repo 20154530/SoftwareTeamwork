@@ -7,6 +7,7 @@
                 x:Class="SoftwareTeamwork.MainWindow"
                 mc:Ignorable="d"
                 Title="MainWindow"
+                ExtendToTitleBar="True"
                 Background="{DynamicResource BackgroundBrush}">
   <local:AIWindow.AreaIcon>
     <local:DAreaIcon AreaVisibility="True">
@@ -25,7 +26,7 @@
       <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
     <Grid x:Name="ButtonGrid"
-          Margin="2,5,2,5">
+          Margin="2,30,2,5">
       <Grid.RowDefinitions>
         <RowDefinition Height="auto" />
         <RowDefinition Height="auto" />
@@ -72,11 +73,11 @@
                                      Text="使用说明"  />
     </Grid>
     <Rectangle Width="1"
+               Grid.Column="1"
                VerticalAlignment="Stretch"
-               Fill="{DynamicResource BorderBrush}"
-               Grid.Column="1" />
+               Fill="{DynamicResource BorderBrush}"/>
     <Frame x:Name="MainFrame"
            Grid.Column="2"
-           Source="AccountPage.xaml"/>
+           Style="{DynamicResource DefaultFrame}"/>
   </Grid>
 </local:AIWindow>

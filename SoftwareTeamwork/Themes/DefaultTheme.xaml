@@ -6,7 +6,7 @@
   <SolidColorBrush x:Key="BorderBrush"
                    Color="#007ACC" />
   <SolidColorBrush x:Key="BackgroundBrush"
-                   Color="#FF1E1E1E" />
+                   Color="#080808" />
   <SolidColorBrush x:Key="MainTextColor"
                    Color="#ffffffff" />
   <SolidColorBrush x:Key="MainTextColor_D1"
@@ -17,6 +17,25 @@
                    Color="#40007ACC" />
   <SolidColorBrush x:Key="MenuIconButton_Mask_P"
                    Color="#80007ACC" />
+  <SolidColorBrush x:Key="DefaultScrollThumb_Background_N"
+                   Color="#007ACC" />
+  <SolidColorBrush x:Key="DefaultScrollThumb_Background_R"
+                   Color="#0077C7" />
+  <SolidColorBrush x:Key="DefaultScrollThumb_Background_P"
+                   Color="#005d9c" />
+  <!--TitleBar-->
+  <SolidColorBrush x:Key="WindowTitleBarBackground"
+                   Color="Transparent" />
+  <SolidColorBrush x:Key="WindowTitleBarForeground"
+                   Color="#c0c0c0" />
+  <SolidColorBrush x:Key="WindowTitleBarIconButton_Icon.N"
+                   Color="#A0A0A0" />
+  <SolidColorBrush x:Key="WindowTitleBarIconButton_Icon.R"
+                   Color="#007ACC" />
+  <SolidColorBrush x:Key="WindowTitleBarIconButton_Icon.P"
+                   Color="#005A96" />
+  <SolidColorBrush x:Key="WindowTitleBarIconButton_Mask"
+                   Color="Transparent" />
 
   <!--AccountPage-->
   <SolidColorBrush x:Key="AccountPage_TextBox_Background"
@@ -43,6 +62,20 @@
                    Color="#e0e0e0" />
   <SolidColorBrush x:Key="GridLineFloderBackground"
                    Color="Transparent" />
+  
+  <!--SettingPage-->
+  <SolidColorBrush x:Key="SettingPage_Button_Foreground"
+                   Color="#E0E0E0" />
+  <SolidColorBrush x:Key="SettingPage_Button_Foreground_R"
+                   Color="#007ACC" />
+  <SolidColorBrush x:Key="SettingPage_Button_Foreground_P"
+                   Color="#00548C" />
+  <SolidColorBrush x:Key="SettingPage_Button_Background"
+                   Color="Transparent" />
+  <SolidColorBrush x:Key="SettingPage_Button_Background_R"
+                   Color="Transparent" />
+  <SolidColorBrush x:Key="SettingPage_Button_Background_P"
+                   Color="Transparent" />
 
   <!--DmenuItem-->
   <SolidColorBrush x:Key="DMenuItemTextColorN"
@@ -56,18 +89,6 @@
   <SolidColorBrush x:Key="DMenuItemTextMask"
                    Color="#80000000" />
   <SolidColorBrush x:Key="DMenuItemIconMask"
-                   Color="#FFFFFF" />
-
-  <!--TitleBar-->
-  <SolidColorBrush x:Key="WindowTitleBarBackground"
-                   Color="#005d9c" />
-  <SolidColorBrush x:Key="WindowTitleBarForeground"
-                   Color="#c0c0c0" />
-  <SolidColorBrush x:Key="WindowTitleBarIconButtonIcon.N"
-                   Color="#E0E0E0" />
-  <SolidColorBrush x:Key="WindowTitleBarIconButtonIcon.R"
-                   Color="#F0F0F0" />
-  <SolidColorBrush x:Key="WindowTitleBarIconButtonIcon.P"
                    Color="#FFFFFF" />
 
   <!--Dialog-->
@@ -85,7 +106,25 @@
   <SolidColorBrush x:Key="WindowDialogButtonForeground.P"
                    Color="#606060" />
 
-  <!--FlowPopup-->
+  <!--Popup-->
+  <SolidColorBrush x:Key="DefaultPopupBackground"
+                   Color="#1e1e1e" />
+  <SolidColorBrush x:Key="DefaultPopupForeground"
+                   Color="#e0e0e0" />
+  <SolidColorBrush x:Key="DefaultPopupButtonForeground"
+                   Color="#e0e0e0" />
+  <SolidColorBrush x:Key="DefaultPopupButtonForeground_R"
+                   Color="#007ACC" />
+  <SolidColorBrush x:Key="DefaultPopupButtonForeground_P"
+                   Color="#005d9c" />
+  <SolidColorBrush x:Key="DefaultPopupButtonBackground"
+                   Color="Transparent" />
+  <SolidColorBrush x:Key="DefaultPopupButtonBackground_R"
+                   Color="Transparent" />
+  <SolidColorBrush x:Key="DefaultPopupButtonBackground_P"
+                   Color="Transparent" />
+  <SolidColorBrush x:Key="FlowPopupForeground_D1"
+                   Color="#B0e0e0e0"/>
   <SolidColorBrush x:Key="FlowPopupAnaCanvas_BaseLine"
                    Color="#323232" />
   <SolidColorBrush x:Key="FlowPopupAnaCanvas_TrendLine"
@@ -96,6 +135,7 @@
                    Color="#808080" />
   <SolidColorBrush x:Key="FlowPopupAnaCanvas_ToolTipBackground"
                    Color="#202020" />
+
 
 
   <Color x:Key="VsBorderColor">#005d9c</Color>

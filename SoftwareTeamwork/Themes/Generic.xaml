@@ -55,8 +55,8 @@
                          Foreground="{TemplateBinding IconN}"
                          FontSize="{TemplateBinding FontSize}"
                          FontWeight="{TemplateBinding FontWeight}"
-                         TextAlignment="Center" 
-                         VerticalAlignment="Center"/>
+                         TextAlignment="Center"
+                         VerticalAlignment="Center" />
               <TextBlock x:Name="ContentTexts"
                          Grid.Column="1"
                          Margin="8,0,0,0"
@@ -65,7 +65,7 @@
                          FontSize="{TemplateBinding ContentTextFontSize}"
                          FontWeight="{TemplateBinding FontWeight}"
                          Visibility="{TemplateBinding ContentTextVisiblity}"
-                         TextAlignment="Center"/>
+                         TextAlignment="Center" />
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
@@ -193,7 +193,8 @@
         <ControlTemplate TargetType="{x:Type local:MenuItemIconRadioButton}">
           <Border BorderBrush="{TemplateBinding BorderBrush}"
                   BorderThickness="{TemplateBinding BorderThickness}">
-            <Grid x:Name="RootGrid" Margin="{TemplateBinding Padding}">
+            <Grid x:Name="RootGrid"
+                  Margin="{TemplateBinding Padding}">
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />
@@ -225,8 +226,8 @@
                          Foreground="{TemplateBinding Foreground}"
                          FontSize="{TemplateBinding ContentTextFontSize}"
                          FontWeight="{TemplateBinding FontWeight}"
-                         TextAlignment="Left" 
-                         VerticalAlignment="Center"/>
+                         TextAlignment="Left"
+                         VerticalAlignment="Center" />
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
@@ -411,6 +412,9 @@
                 <RowDefinition Height="24" />
                 <RowDefinition Height="*" />
               </Grid.RowDefinitions>
+              <AdornerDecorator x:Name="Content" Grid.Row="1">
+                <ContentPresenter />
+              </AdornerDecorator>
               <local:TitleBar x:Name="TitleBar"
                               Background="{DynamicResource WindowTitleBarBackground}"
                               CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AIWindow}},Converter={StaticResource ToHandle}}">
@@ -422,21 +426,42 @@
                   </Grid.ColumnDefinitions>
                   <local:IconButton Grid.Column="3"
                                     Content="{DynamicResource TitlebarExitIcon}"
-                                    FontSize="16"
-                                    Padding="4,4,4,0"
-                                    IconN="{DynamicResource WindowTitleBarIconButtonIcon.N}"
-                                    IconR="{DynamicResource WindowTitleBarIconButtonIcon.R}"
-                                    IconP="{DynamicResource WindowTitleBarIconButtonIcon.P}"
+                                    FontSize="14"
+                                    FontWeight="Light"
+                                    Padding="4,0,4,0"
+                                    IconN="{DynamicResource WindowTitleBarIconButton_Icon.N}"
+                                    IconR="{DynamicResource WindowTitleBarIconButton_Icon.R}"
+                                    IconP="{DynamicResource WindowTitleBarIconButton_Icon.P}"
+                                    IconMaskN="{DynamicResource WindowTitleBarIconButton_Mask}"
+                                    IconMaskR="{DynamicResource WindowTitleBarIconButton_Mask}"
+                                    IconMaskP="{DynamicResource WindowTitleBarIconButton_Mask}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AIWindow}}}"
                                     Command="{StaticResource CloseWindow}"
-                                    Margin="0,0,0,1" />
+                                    Margin="0,2,4,0">
+                    <local:IconButton.ToolTip>
+                      <ToolTip Style="{DynamicResource NodeToolTip}">
+                      <Grid Background="{DynamicResource BackgroundBrush}">
+                        <TextBlock Text="退出程序"
+                                   Style="{DynamicResource FlowAnaNodeTip}" />
+                      </Grid>
+                    </ToolTip>
+                    </local:IconButton.ToolTip>
+                  </local:IconButton>
                 </Grid>
               </local:TitleBar>
-              <AdornerDecorator Grid.Row="1">
-                <ContentPresenter />
-              </AdornerDecorator>
             </Grid>
           </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="ExtendToTitleBar"
+                     Value="true">
+              <Setter TargetName="Content"
+                      Property="Grid.RowSpan"
+                      Value="2" />
+              <Setter TargetName="Content"
+                      Property="Grid.Row"
+                      Value="0" />
+            </Trigger>
+          </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
@@ -501,11 +526,13 @@
                          Foreground="{TemplateBinding Foreground}"
                          Background="{TemplateBinding Background}" />
               <Rectangle Grid.Column="1"
-                         Fill="{TemplateBinding Foreground}"
                          Height="0.5"
                          Margin="10,0,5,0"
+                         Stroke="{TemplateBinding Foreground}"
+                         StrokeThickness="0.5"
+                         StrokeDashArray="5,5"
                          HorizontalAlignment="Stretch"
-                         VerticalAlignment="Center"/>
+                         VerticalAlignment="Center" />
               <local:IconToggelButton x:Name="FloderButton"
                                       Foreground="{TemplateBinding Foreground}"
                                       Background="{TemplateBinding Background}"
@@ -527,5 +554,4 @@
     </Setter>
   </Style>
 
-  <!---->
 </ResourceDictionary>

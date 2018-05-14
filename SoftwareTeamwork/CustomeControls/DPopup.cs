@@ -43,6 +43,16 @@ namespace SoftwareTeamwork
             DependencyProperty.Register("Shadow", typeof(int), typeof(DPopup), new PropertyMetadata(0));
         #endregion
 
+        #region UseFadeIn/Out
+        public bool UseInOutAni {
+            get { return (bool)GetValue(UseInOutAniProperty); }
+            set { SetValue(UseInOutAniProperty, value); }
+        }
+        public static readonly DependencyProperty UseInOutAniProperty =
+            DependencyProperty.Register("UseInOutAni", typeof(bool), typeof(DPopup), 
+                new PropertyMetadata(true));
+        #endregion
+
         #region
         #endregion
 
@@ -51,27 +61,29 @@ namespace SoftwareTeamwork
         #region Fadein/out ani
         public void ShowPopupAni()
         {
-            //Opacity
-            DoubleAnimation Opacity = new DoubleAnimation()
-            {
-                From = 0,
-                To = 1,
-                Duration = TimeSpan.FromSeconds(1)
-            };
+            if (UseInOutAni) {
+                //Opacity
+                DoubleAnimation Opacity = new DoubleAnimation() {
+                    From = 0,
+                    To = 1,
+                    Duration = TimeSpan.FromSeconds(1)
+                };
 
-            Storyboard Popupshow = new Storyboard()
-            {
-                FillBehavior = FillBehavior.HoldEnd
-            };
+                Storyboard Popupshow = new Storyboard() {
+                    FillBehavior = FillBehavior.HoldEnd
+                };
 
-            Storyboard.SetTarget(Opacity, Child);
-            Storyboard.SetTargetProperty(Opacity, new PropertyPath(OpacityProperty));
+                Storyboard.SetTarget(Opacity, Child);
+                Storyboard.SetTargetProperty(Opacity, new PropertyPath(OpacityProperty));
 
-            Popupshow.Children.Add(Opacity);
+                Popupshow.Children.Add(Opacity);
 
-            IsOpen = true;
-            Popupshow.Completed += Popupshow_Completed;
-            Popupshow.Begin();
+                IsOpen = true;
+                Popupshow.Completed += Popupshow_Completed;
+                Popupshow.Begin();
+            }
+            else
+                IsOpen = true;
         }
 
         private void Popupshow_Completed(object sender, EventArgs e)
@@ -81,27 +93,29 @@ namespace SoftwareTeamwork
 
         public void HidePopupAni()
         {
-            //Opacity
-            DoubleAnimation Opacity = new DoubleAnimation()
-            {
-                From = 1,
-                To = 0,
-                Duration = TimeSpan.FromSeconds(1)
-            };
+            if (UseInOutAni) {
+                //Opacity
+                DoubleAnimation Opacity = new DoubleAnimation() {
+                    From = 1,
+                    To = 0,
+                    Duration = TimeSpan.FromSeconds(1)
+                };
 
-            Storyboard PopupHide = new Storyboard()
-            {
-                FillBehavior = FillBehavior.HoldEnd
-            };
+                Storyboard PopupHide = new Storyboard() {
+                    FillBehavior = FillBehavior.HoldEnd
+                };
 
-            Storyboard.SetTarget(Opacity, Child);
-            Storyboard.SetTargetProperty(Opacity, new PropertyPath(OpacityProperty));
+                Storyboard.SetTarget(Opacity, Child);
+                Storyboard.SetTargetProperty(Opacity, new PropertyPath(OpacityProperty));
 
-            PopupHide.Children.Add(Opacity);
+                PopupHide.Children.Add(Opacity);
 
-            Shadow = 0;
-            PopupHide.Completed += PopupHide_Completed;
-            PopupHide.Begin();
+                Shadow = 0;
+                PopupHide.Completed += PopupHide_Completed;
+                PopupHide.Begin();
+            }
+            else
+                IsOpen = false;
         }
 
         private void PopupHide_Completed(object sender, EventArgs e)

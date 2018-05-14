@@ -24,7 +24,8 @@
                             AimGridType="Auto"
                             AttachedGrid="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"
                             CommandPara="2" />
-      <Grid Grid.Row="2">
+      <Grid Grid.Row="2" 
+            Margin="20,0,0,0">
         <Grid.RowDefinitions>
           <RowDefinition Height="auto" />
           <RowDefinition Height="auto" />
@@ -36,7 +37,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="auto" />
           </Grid.ColumnDefinitions>
-          <TextBlock Text="账号"
+          <TextBlock Text="&#x25AA;  账号"
                      Style="{DynamicResource AccountLabel}"
                      Background="{DynamicResource GridLineFloderBackground}" />
           <TextBox x:Name="IPGWAccount"
@@ -51,7 +52,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="auto" />
           </Grid.ColumnDefinitions>
-          <TextBlock Text="密码"
+          <TextBlock Text="&#x25AA;  密码"
                      Style="{DynamicResource AccountLabel}"
                      Background="{DynamicResource GridLineFloderBackground}" />
           <PasswordBox  x:Name="IPGWPassword"
@@ -62,7 +63,7 @@
         <Grid Margin="0,10,0,10"
               Grid.Row="2">
           <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
           </Grid.ColumnDefinitions>
           <local:IconButton Content="&#xE74E;"
@@ -76,7 +77,8 @@
                             IconP="{DynamicResource AccountPage_Button_Foreground_P}"
                             IconMaskN="{DynamicResource AccountPage_Button_Background}"
                             IconMaskR="{DynamicResource AccountPage_Button_Background_R}"
-                            IconMaskP="{DynamicResource AccountPage_Button_Background_P}" />
+                            IconMaskP="{DynamicResource AccountPage_Button_Background_P}" 
+                            Click="SaveIPGW"/>
         </Grid>
       </Grid>
       <local:GridLineFloder Grid.Row="3"
@@ -84,7 +86,8 @@
                             AimGridType="Auto"
                             AttachedGrid="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"
                             CommandPara="4" />
-      <Grid Grid.Row="4">
+      <Grid Grid.Row="4"
+            Margin="20,0,0,0">
         <Grid.RowDefinitions>
           <RowDefinition Height="auto" />
           <RowDefinition Height="auto" />
@@ -97,7 +100,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="auto" />
           </Grid.ColumnDefinitions>
-          <TextBlock Text="账号"
+          <TextBlock Text="&#x25AA;  账号"
                      Style="{DynamicResource AccountLabel}"
                      Background="{DynamicResource GridLineFloderBackground}" />
           <TextBox x:Name="JWAccount"
@@ -112,7 +115,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="auto" />
           </Grid.ColumnDefinitions>
-          <TextBlock Text="密码"
+          <TextBlock Text="&#x25AA;  密码"
                      Style="{DynamicResource AccountLabel}"
                      Background="{DynamicResource GridLineFloderBackground}" />
           <PasswordBox  x:Name="JWPassword"
@@ -120,7 +123,7 @@
                         VerticalAlignment="Stretch"
                         Style="{DynamicResource AccountPasswordBox}" />
         </Grid>
-        <Grid Margin="0,10,0,10"
+        <Grid Margin="0,10,0,0"
               Grid.Row="2">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
@@ -128,7 +131,7 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
           </Grid.ColumnDefinitions>
-          <TextBlock Text="验证码"
+          <TextBlock Text="&#x25AA;  验证码"
                      Style="{DynamicResource AccountLabel}"
                      Background="{DynamicResource GridLineFloderBackground}" />
           <TextBox Grid.Column="1"
@@ -136,7 +139,11 @@
                    VerticalAlignment="Stretch"
                    Style="{DynamicResource AccountTextBox}" />
           <Image x:Name="JWIdentifyImage"
-                 Grid.Column="2" />
+                 Grid.Column="2" 
+                 MaxHeight="20"
+                 Margin="10,0,0,0"
+                 VerticalAlignment="Bottom"
+                 Stretch="UniformToFill"/>
           <local:IconButton Content="&#xE960;"
                             Grid.Column="3"
                             Margin="6,0,0,0"
@@ -149,12 +156,13 @@
                             IconP="{DynamicResource AccountPage_Button_Foreground_P}"
                             IconMaskN="{DynamicResource AccountPage_Button_Background}"
                             IconMaskR="{DynamicResource AccountPage_Button_Background_R}"
-                            IconMaskP="{DynamicResource AccountPage_Button_Background_P}" />
+                            IconMaskP="{DynamicResource AccountPage_Button_Background_P}"
+                            Click="Identify"/>
         </Grid>
         <Grid Margin="0,10,0,10"
               Grid.Row="3">
           <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
           </Grid.ColumnDefinitions>
           <local:IconButton Content="&#xE74E;"
@@ -168,7 +176,8 @@
                             IconP="{DynamicResource AccountPage_Button_Foreground_P}"
                             IconMaskN="{DynamicResource AccountPage_Button_Background}"
                             IconMaskR="{DynamicResource AccountPage_Button_Background_R}"
-                            IconMaskP="{DynamicResource AccountPage_Button_Background_P}" />
+                            IconMaskP="{DynamicResource AccountPage_Button_Background_P}" 
+                            Click="SaveNEUJW"/>
         </Grid>
       </Grid>
     </Grid>

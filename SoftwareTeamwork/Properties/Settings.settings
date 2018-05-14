@@ -8,5 +8,11 @@
     <Setting Name="ExitAction" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="ConfigPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DllPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Libs</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
