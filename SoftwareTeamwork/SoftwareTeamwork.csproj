@@ -74,6 +74,7 @@
     <Compile Include="Dialogs\ExitDialog.cs" />
     <Compile Include="Dialogs\QuestionDialog.cs" />
     <Compile Include="CustomeControls\ErrorPopup.cs" />
+    <Compile Include="IconRadioButton.cs" />
     <Compile Include="InfoPage.xaml.cs">
       <DependentUpon>InfoPage.xaml</DependentUpon>
     </Compile>
@@ -272,7 +273,9 @@
     <None Include="Configs\CourseData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Content Include="HTMLPage1.html" />
+    <Content Include="HTMLPage1.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

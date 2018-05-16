@@ -88,9 +88,6 @@ namespace SoftwareTeamwork {
         /// </summary>
         /// <param name="para"></param>
         private void FrashCommand_CAction(object para) {
-            if (LoginAgent.Instence.SetInfset(XmlHelper.GetInfWithName("NEUIpgw")) == -1)
-                return;
-
             SetIconPathByPercentAngle(5);
         }
 

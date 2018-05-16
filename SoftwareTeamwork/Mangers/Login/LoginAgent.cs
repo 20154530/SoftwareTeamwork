@@ -28,21 +28,20 @@ namespace SoftwareTeamwork {
         private String result = null;
         private String ID = "";
         private static HttpClient httpClient;
-        private static CookieContainer Cookies;
+        private static HttpClientHandler clientHandler;
         private HttpResponseMessage response;
         private List<KeyValuePair<String, String>> paramList;
 
         public static LoginAgent Instence = new LoginAgent();
 
         static LoginAgent() {
-            Cookies = new CookieContainer();
-            httpClient = new HttpClient(new HttpClientHandler() { UseCookies = true, CookieContainer = Cookies });
+            clientHandler = new HttpClientHandler { UseCookies = true };
+            httpClient = new HttpClient(clientHandler);
             httpClient.MaxResponseContentBufferSize = 25600;
             httpClient.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36");
             httpClient.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate");
             httpClient.DefaultRequestHeaders.Add("Accept-Language", "zh-CN,zh;q=0.8");
-            httpClient.DefaultRequestHeaders.Add("Cache-Control", "max-age=0");
-            httpClient.DefaultRequestHeaders.Add("Connection", "keep-alive");
+            httpClient.DefaultRequestHeaders.Connection.Add("keep-alive");
         }
 
         public int SetInfset(WebLoginInfSet infset) {
@@ -74,8 +73,10 @@ namespace SoftwareTeamwork {
             }
             if (InfSet.Cookies.Count != 0) {
                 foreach (KeyValuePair<string, string> kv in InfSet.Cookies) {
-                    Console.WriteLine(kv.Key + "   " + kv.Value);
-                    Cookies.Add(new Uri(InfSet.Uris[0]), new Cookie(kv.Key, kv.Value));
+                    Cookie cookie = new Cookie(kv.Key, kv.Value) {
+                        Expires = DateTime.Now.AddYears(1)
+                    };
+                    clientHandler.CookieContainer.Add(new Uri(InfSet.Uris[0]),cookie);
                 }
                 InfSet.HasCookie = true;
             }
@@ -163,9 +164,9 @@ namespace SoftwareTeamwork {
 
         #region 获取cookies
         private void SetCookies() {
-            var responseCookies = Cookies.GetCookies(new Uri(infSet.Uris[1])).Cast<Cookie>().ToArray();
-            string[][] pairs = new string[Cookies.Count][];
-            for (int i= 0;i< Cookies.Count;i++) {
+            var responseCookies = clientHandler.CookieContainer.GetCookies(new Uri(infSet.Uris[1])).Cast<Cookie>().ToArray();
+            string[][] pairs = new string[clientHandler.CookieContainer.Count][];
+            for (int i= 0;i< clientHandler.CookieContainer.Count;i++) {
                 pairs[i] = FormatCookie(responseCookies[i]);
             }
             XmlHelper.CreatWebNode(infSet.name,pairs);

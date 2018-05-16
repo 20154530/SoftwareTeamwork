@@ -29,7 +29,7 @@ namespace SoftwareTeamwork {
         public enum DAYS { MON, TUE, WED, THU, FRI, SAT, SUN }
         public enum TERM { C1, C2, C3, C4, C5, C6 }
         public DAYS WeekDay { get; set; }
-        public TERM DayTime { get; set; } 
+        public TERM DayTime { get; set; }
     }
 
     public class FluxInfo {
@@ -37,7 +37,11 @@ namespace SoftwareTeamwork {
         public double Balance { get; set; }
         public DateTime InfoTime { get; set; }
 
-        public FluxInfo() { FluxData = 0.0; Balance = 0.0;InfoTime = new DateTime(2000, 1, 1, 0, 0, 0); }
+        public FluxInfo() {
+            FluxData = 0.0;
+            Balance = 0.0; InfoTime = new DateTime(2000, 1, 1, 0, 0, 0);
+        }
+
         public string[] GetXmlItemStyle() {
             string[] pairs = new string[]{
                 String.Format("Hour:{0}", InfoTime.Hour),

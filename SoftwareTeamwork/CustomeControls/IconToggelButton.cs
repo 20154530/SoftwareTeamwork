@@ -108,6 +108,16 @@ namespace SoftwareTeamwork {
                 new PropertyMetadata(""));
         #endregion
 
+        #region LabelVisibility
+        public Visibility LabelVisibility {
+            get { return (Visibility)GetValue(LabelVisibilityProperty); }
+            set { SetValue(LabelVisibilityProperty, value); }
+        }
+        public static readonly DependencyProperty LabelVisibilityProperty =
+            DependencyProperty.Register("LabelVisibility", typeof(Visibility),
+                typeof(IconToggelButton), new PropertyMetadata(Visibility.Collapsed));
+        #endregion
+
         #region ToolTipVisiblity
         public Visibility ToolTipVisiblity {
             get { return (Visibility)GetValue(ToolTipVisiblityProperty); }

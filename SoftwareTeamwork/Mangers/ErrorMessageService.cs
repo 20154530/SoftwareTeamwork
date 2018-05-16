@@ -16,7 +16,6 @@ namespace SoftwareTeamwork {
             var RootElement = (DependencyObject)aimobject;
             while (!(RootElement is Window) && !(RootElement is DPopup)) 
                 { RootElement = VisualTreeHelper.GetParent(RootElement); }
-
             if (Error.IsOpen)
                 Error.HidePopupAni();
             Error.PlacementTarget = (UIElement)RootElement;
