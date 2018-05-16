@@ -6,72 +6,79 @@ using System.Collections;
 using System.Reflection;
 using System.Collections.ObjectModel;
 using System.Text;
+using HtmlAgilityPack;
 
 namespace SoftwareTeamwork {
     class DataFormater //数据格式化类
     {
-        private String IPGWInfo; 
+        private FluxInfo ipgwInfo;
+        public FluxInfo IpgwInfo {
+            get { return ipgwInfo is null ? GetIpgwDataInf(LoginAgent.Instence.GetData("NEUIpgw")) : IpgwInfo; }
+            set { ipgwInfo = value; }
+        }
+        private HtmlDocument CourseInfo;
         public static DataFormater Instense = new DataFormater();
 
-        public const int Flux = 0;
-        public const int Time = 1;
-        public const int Balance = 2;
-
-        public DataFormater()
-        {
+        public DataFormater() {
 
         }
 
         #region Ipgw信息格式
 
-        public Dictionary<int, String> GetIpgwDataInf(String data)  //Ipgw网关信息格式化获取
+        public void UpdateFlux() {
+            LoginAgent.Instence.SetInfset(XmlHelper.GetInfWithName("NEUIpgw"));
+            IpgwInfo = GetIpgwDataInf(LoginAgent.Instence.GetData(null));
+        }
+
+        public double GetFlux() { return IpgwInfo.FluxData; }
+
+        public DateTime GetTime() { return IpgwInfo.InfoTime; }
+
+        public double GetBalance() { return IpgwInfo.Balance; }
+
+        private FluxInfo GetIpgwDataInf(string data)  //Ipgw网关信息格式化获取
         {
-            Dictionary<int, String> temp = new Dictionary<int, string>();
-            try
-            {
-                String[] t = data.Split(new char[] { ',' });
-                temp.Add(Flux, FluxFormater(t[0]));
-                temp.Add(Time, TimeFormater(t[1]));
-                temp.Add(Balance, t[2]);
+            FluxInfo info = new FluxInfo();
+            try {
+                string[] t = data.Split(new char[] { ',' });
+                info.FluxData = FluxFormater(t[0]);
+                info.Balance = Convert.ToDouble(t[2]);
+                info.InfoTime = DateTime.Now;
             }
-            catch (IndexOutOfRangeException)
-            {
-                ErrorMessageService.Instence.ShowError(App.Current.MainWindow, "用户名或密码错误");
+            catch (IndexOutOfRangeException) {
+                MessageService.Instence.ShowError(App.Current.MainWindow, "用户名或密码错误");
                 return null;
             }
-            return temp;
+            
+            return info;
         }
 
-        private String FluxFormater(String flux)//流量信息格式化 in(Byte)
+        private double FluxFormater(string flux)//流量信息格式化 in(Byte)
         {
             Int64 a = 0;
-            try
-            {
+            try {
                 a = Convert.ToInt64(flux);
             }
-            catch (FormatException)
-            {
-                Console.WriteLine("Wrong Format Information !");
+            catch (FormatException) {
+                MessageService.Instence.ShowError(null, "数据格式错误，请检查用户名和密码");
             }
             if (a > 1000000000)
-                return String.Format("{0} G {1:000} M", a / 1000000000, (a % 1000000000) / 1000000);
+                return  (a / 1000000000.0);
             if (a > 1000000)
-                return String.Format("{0:000} M", a / 1000000);
+                return (a / 1000000.0);
             if (a > 1000)
-                return String.Format("{0:#0000} K", a / 1000);
-            return String.Format("{0:#0} B", a);
+                return  a / 1000.0;
+            return 0.0;
         }
 
-        private String TimeFormater(String Data)//时间信息格式化 in(s)
+        private string TimeFormater(string Data)//时间信息格式化 in(s)
         {
             Int64 a = 0;
-            try
-            {
+            try {
                 a = Convert.ToInt64(Data);
             }
-            catch (FormatException ex)
-            {
-                Console.WriteLine("Wrong Format Information !");
+            catch (FormatException ex) {
+                MessageService.Instence.ShowError(null, "数据格式错误，请检查用户名和密码");
             }
             double h = Math.Round(a / 3600.0);
             double m = Math.Round((a % 3600) / 60.0);
@@ -83,7 +90,17 @@ namespace SoftwareTeamwork {
 
 
         #region 教务处
-        //public static GetClassInfo getClassInfo = GetClassInfo.getClassInfo;
+        public void LoadClassPage() {
+            CourseInfo = new HtmlDocument();
+            LoginAgent.Instence.SetInfset(XmlHelper.GetInfWithName("NEUZhjw"));
+            CourseInfo.Load(LoginAgent.Instence.GetDataAsStream(null));
+        }
+        
+        private CourseSet GetCourse() {
+            CourseSet cs = new CourseSet();
+            CourseInfo.get
+            return cs;
+        }
         #endregion
 
 

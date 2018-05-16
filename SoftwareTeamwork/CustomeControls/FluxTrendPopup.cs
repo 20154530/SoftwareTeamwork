@@ -10,7 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace SoftwareTeamwork {
-    public class FlowTrendPopup : DPopup {
+    public class FluxTrendPopup : DPopup {
 
         #region MousePoint.X
         public double PosX {
@@ -18,7 +18,7 @@ namespace SoftwareTeamwork {
             set { SetValue(PosXProperty, value); }
         }
         public static readonly DependencyProperty PosXProperty =
-            DependencyProperty.Register("PosX", typeof(double), typeof(FlowTrendPopup),
+            DependencyProperty.Register("PosX", typeof(double), typeof(FluxTrendPopup),
                 new PropertyMetadata(0.0));
         #endregion
 
@@ -28,7 +28,7 @@ namespace SoftwareTeamwork {
             set { SetValue(PosYProperty, value); }
         }
         public static readonly DependencyProperty PosYProperty =
-            DependencyProperty.Register("PosY", typeof(double), typeof(FlowTrendPopup),
+            DependencyProperty.Register("PosY", typeof(double), typeof(FluxTrendPopup),
                 new PropertyMetadata(0.0));
         #endregion
 
@@ -36,15 +36,15 @@ namespace SoftwareTeamwork {
         /// <summary>
         /// 流量数据坐标信息
         /// </summary>
-        public FlowTrendGroup DataGroup {
-            get { return (FlowTrendGroup)GetValue(DataGroupProperty); }
+        public FluxTrendGroup DataGroup {
+            get { return (FluxTrendGroup)GetValue(DataGroupProperty); }
             set { SetValue(DataGroupProperty, value); }
         }
         public static readonly DependencyProperty DataGroupProperty =
-            DependencyProperty.Register("DataGroup", typeof(FlowTrendGroup), typeof(FlowTrendPopup),
-                new PropertyMetadata(new FlowTrendGroup(), new PropertyChangedCallback(OnDataGroupChanged)));
+            DependencyProperty.Register("DataGroup", typeof(FluxTrendGroup), typeof(FluxTrendPopup),
+                new PropertyMetadata(new FluxTrendGroup(), new PropertyChangedCallback(OnDataGroupChanged)));
         private static void OnDataGroupChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
-            ((FlowTrendGroup)e.NewValue).GetFlowData();
+            ((FluxTrendGroup)e.NewValue).GetFluxData();
         }
         #endregion
 
@@ -54,7 +54,7 @@ namespace SoftwareTeamwork {
             set { SetValue(CursorVisProperty, value); }
         }
         public static readonly DependencyProperty CursorVisProperty =
-            DependencyProperty.Register("CursorVis", typeof(Visibility), typeof(FlowTrendPopup),
+            DependencyProperty.Register("CursorVis", typeof(Visibility), typeof(FluxTrendPopup),
                 new PropertyMetadata(Visibility.Collapsed));
         #endregion
 
@@ -86,52 +86,10 @@ namespace SoftwareTeamwork {
             base.OnMouseLeftButtonUp(e);
         }
 
-        public FlowTrendPopup() {
-            // Cursor = new Cursor(new MemoryStream(Properties.Resources.Arrow));
+        public FluxTrendPopup() {
+           
         }
 
     }
 
-    public class FlowTrendGroup {
-        public FlowInfo[] FlowInfos { get; set; }
-        public double[] ActrualData { get; set; }
-        public double[] VTicks { get; set; } 
-
-        public FlowTrendGroup() {
-            FlowInfos = new FlowInfo[7] {
-                    new FlowInfo { FlowData = 4, InfoTime = new DateTime(0, 0) },
-                    new FlowInfo { FlowData = 6, InfoTime = new DateTime(0, 0) },
-                    new FlowInfo { FlowData = 6, InfoTime = new DateTime(0, 0) },
-                    new FlowInfo { FlowData = 10, InfoTime = new DateTime(0, 0) },
-                    new FlowInfo { FlowData = 6, InfoTime = new DateTime(0, 0) },
-                    new FlowInfo { FlowData = 6, InfoTime = new DateTime(0, 0) },
-                    new FlowInfo { FlowData = 4, InfoTime = new DateTime(0, 0) },
-            };
-            ActrualData = new double[7];
-            VTicks = new double[6];
-            TransformToNode();
-        }
-
-        public void GetFlowData() {
-
-            TransformToNode();
-        }
-
-        private void TransformToNode() {
-            double est = 1;
-            for (int i = 0; i < 7; i++) {
-                ActrualData[i] = FlowInfos[i].FlowData;//备份原有数据
-                est = FlowInfos[i].FlowData > est ? FlowInfos[i].FlowData : est;
-            }//找最大流量
-
-            est = est * 1.2;//画刻度
-            for(int i = 0; i < 6; i++) 
-                VTicks[i] = est / 6 * (i + 1);
-
-            //计算点的位置
-            foreach (FlowInfo f in FlowInfos) 
-                f.FlowData = 96 - (f.FlowData / est) * 96;
-            
-        }
-    }
 }

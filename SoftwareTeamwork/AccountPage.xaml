@@ -20,7 +20,7 @@
         <RowDefinition Height="auto" />
       </Grid.RowDefinitions>
       <local:GridLineFloder Grid.Row="1"
-                            Title="IPGW网关信息"
+                            Title="IPGW网关信息  &#x2502;"
                             AimGridType="Auto"
                             AttachedGrid="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"
                             CommandPara="2" />
@@ -64,10 +64,10 @@
               Grid.Row="2">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="auto" />
           </Grid.ColumnDefinitions>
           <local:IconButton Content="&#xE74E;"
-                            Grid.Column="1"
                             Padding="4"
                             ContentText="保存当前信息"
                             ContentTextVisiblity="Visible"
@@ -79,10 +79,23 @@
                             IconMaskR="{DynamicResource AccountPage_Button_Background_R}"
                             IconMaskP="{DynamicResource AccountPage_Button_Background_P}" 
                             Click="SaveIPGW"/>
+          <local:IconButton Content="&#xF260;"
+                            Grid.Column="2"
+                            Padding="4"
+                            ContentText="编辑当前信息"
+                            ContentTextVisiblity="Visible"
+                            ContentTextFontSize="10"
+                            IconN="{DynamicResource AccountPage_Button_Foreground}"
+                            IconR="{DynamicResource AccountPage_Button_Foreground_R}"
+                            IconP="{DynamicResource AccountPage_Button_Foreground_P}"
+                            IconMaskN="{DynamicResource AccountPage_Button_Background}"
+                            IconMaskR="{DynamicResource AccountPage_Button_Background_R}"
+                            IconMaskP="{DynamicResource AccountPage_Button_Background_P}"
+                            Click="ChangeIPGW" />
         </Grid>
       </Grid>
       <local:GridLineFloder Grid.Row="3"
-                            Title="教务处信息"
+                            Title="教务处信息  &#x2502;"
                             AimGridType="Auto"
                             AttachedGrid="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"
                             CommandPara="4" />
@@ -124,7 +137,8 @@
                         Style="{DynamicResource AccountPasswordBox}" />
         </Grid>
         <Grid Margin="0,10,0,0"
-              Grid.Row="2">
+              Grid.Row="2"
+              x:Name="JWIdentifyCodeLayer">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
@@ -163,10 +177,10 @@
               Grid.Row="3">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="auto" />
           </Grid.ColumnDefinitions>
           <local:IconButton Content="&#xE74E;"
-                            Grid.Column="1"
                             Padding="4"
                             ContentText="保存当前信息"
                             ContentTextVisiblity="Visible"
@@ -178,6 +192,19 @@
                             IconMaskR="{DynamicResource AccountPage_Button_Background_R}"
                             IconMaskP="{DynamicResource AccountPage_Button_Background_P}" 
                             Click="SaveNEUJW"/>
+          <local:IconButton Content="&#xF260;"
+                            Grid.Column="2"
+                            Padding="4"
+                            ContentText="编辑当前信息"
+                            ContentTextVisiblity="Visible"
+                            ContentTextFontSize="10"
+                            IconN="{DynamicResource AccountPage_Button_Foreground}"
+                            IconR="{DynamicResource AccountPage_Button_Foreground_R}"
+                            IconP="{DynamicResource AccountPage_Button_Foreground_P}"
+                            IconMaskN="{DynamicResource AccountPage_Button_Background}"
+                            IconMaskR="{DynamicResource AccountPage_Button_Background_R}"
+                            IconMaskP="{DynamicResource AccountPage_Button_Background_P}"
+                            Click="ChangeNEUJW" />
         </Grid>
       </Grid>
     </Grid>

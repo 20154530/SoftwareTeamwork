@@ -5,6 +5,8 @@
   <!--ExitDialog-->
   <Style x:Key="ExitDialogStyle"
          TargetType="{x:Type local:DialogBase}">
+    <Setter Property="FontSize"
+            Value="10" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type local:DialogBase}">
@@ -58,11 +60,13 @@
                   <local:IconToggelButton x:Name="ExitAction"
                                           ToolTipVisiblity="Collapsed"
                                           VerticalAlignment="Center"
-                                          Foreground="{DynamicResource WindowTitleBarForeground}"
+                                          IconN="{DynamicResource WindowTitleBarForeground}"
+                                          IconR="{DynamicResource WindowTitleBarForeground}"
+                                          IconP="{DynamicResource WindowTitleBarForeground}"
                                           Background="Transparent"
                                           BackIcon="&#xF16C;"
                                           ForeIcon="&#xF16B;"
-                                          Padding="2"
+                                          FontWeight="Black"
                                           FontSize="{TemplateBinding FontSize}" />
                   <TextBlock Margin="8,0,0,0"
                              VerticalAlignment="Center"
@@ -76,11 +80,13 @@
                   <local:IconToggelButton x:Name="SaveAction"
                                           VerticalAlignment="Center"
                                           ToolTipVisiblity="Collapsed"
-                                          Foreground="{DynamicResource WindowTitleBarForeground}"
+                                          IconN="{DynamicResource WindowTitleBarForeground}"
+                                          IconR="{DynamicResource WindowTitleBarForeground}"
+                                          IconP="{DynamicResource WindowTitleBarForeground}"
                                           Background="Transparent"
                                           BackIcon="&#xF16C;"
                                           ForeIcon="&#xF16B;"
-                                          Padding="2"
+                                          FontWeight="Black"
                                           FontSize="{TemplateBinding FontSize}" />
                   <TextBlock Margin="8,0,0,0"
                              VerticalAlignment="Center"

@@ -14,33 +14,42 @@ using System.Collections;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Threading.Tasks;
+using System.Net.Http.Headers;
 
 namespace SoftwareTeamwork {
 
     class LoginAgent {
         private String dir = @"D:\DB\";
-        private WebLoginInfSet InfSet;
+        private WebLoginInfSet infSet;
+        public WebLoginInfSet InfSet {
+            get => infSet;
+            set { value.CheckUris(); infSet = value; }
+        }
         private String result = null;
         private String ID = "";
-        private HttpClient httpClient;
+        private static HttpClient httpClient;
+        private static CookieContainer Cookies;
         private HttpResponseMessage response;
         private List<KeyValuePair<String, String>> paramList;
-        private CookieContainer Cookies;
 
         public static LoginAgent Instence = new LoginAgent();
 
-        public LoginAgent() {
-            
+        static LoginAgent() {
+            Cookies = new CookieContainer();
+            httpClient = new HttpClient(new HttpClientHandler() { UseCookies = true, CookieContainer = Cookies });
+            httpClient.MaxResponseContentBufferSize = 25600;
+            httpClient.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36");
+            httpClient.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate");
+            httpClient.DefaultRequestHeaders.Add("Accept-Language", "zh-CN,zh;q=0.8");
+            httpClient.DefaultRequestHeaders.Add("Cache-Control", "max-age=0");
+            httpClient.DefaultRequestHeaders.Add("Connection", "keep-alive");
         }
 
         public int SetInfset(WebLoginInfSet infset) {
-            infset.CheckUris();
             InfSet = infset;
-            try {
-                Login_Headers_config();
-            }
+            try { Login_Headers_config(); }
             catch (Exception e) {
-                ErrorMessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接");
+                MessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接");
                 return -1;
             }
             if (infset.NeedLogin)
@@ -57,27 +66,23 @@ namespace SoftwareTeamwork {
 
         private void ParamListCheck()//请求键值对检查
         {
-            int i = paramList.Count - 1;
-            for (; i >= 0; i--) {
-                if (paramList[i].Value == "" | paramList[i].Value == null){//若为空进行补全{
-                    ErrorMessageService.Instence.ShowError(App.Current.MainWindow, "请完善登陆信息");
+            for (int i = 0; i < paramList.Count; i++) {
+                if (paramList[i].Value == "" ){//若为空进行补全{
+                    MessageService.Instence.ShowError(App.Current.MainWindow, "请完善登陆信息");
                     break;
                 }
+            }
+            if (InfSet.Cookies.Count != 0) {
+                foreach (KeyValuePair<string, string> kv in InfSet.Cookies) {
+                    Console.WriteLine(kv.Key + "   " + kv.Value);
+                    Cookies.Add(new Uri(InfSet.Uris[0]), new Cookie(kv.Key, kv.Value));
+                }
+                InfSet.HasCookie = true;
             }
         }
 
         private void Login_Headers_config()//Http头填写
         {
-            Cookies = new CookieContainer();
-            httpClient = new HttpClient(new HttpClientHandler() { UseCookies = true, CookieContainer = Cookies });
-            httpClient.MaxResponseContentBufferSize = 25600;
-            httpClient.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36");
-            httpClient.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate");
-            httpClient.DefaultRequestHeaders.Add("Accept-Language", "zh-CN,zh;q=0.8");
-            httpClient.DefaultRequestHeaders.Add("Cache-Control", "max-age=0");
-            httpClient.DefaultRequestHeaders.Add("Connection", "keep-alive");
-            httpClient.DefaultRequestHeaders.Add("Upgrade-Insecure-Requests", "1");
-
             result = httpClient.GetStringAsync(InfSet.Uris[0]).Result;
         }
 
@@ -96,67 +101,82 @@ namespace SoftwareTeamwork {
             return bmp;
         }
 
-        public void SetVerify(string imgCode) {
-            paramList.Add(new KeyValuePair<string, string>(paramList[paramList.Count - 1].Key, imgCode));
-            paramList.RemoveAt(paramList.Count - 2);
+        private void RefrashinfSet(string name) {
+            InfSet = XmlHelper.GetInfWithName(name is null ? infSet.name : name);
+            if (InfSet.NeedLogin) {
+                paramList = InfSet.KeyValuePairs;
+                ParamListCheck();
+            }
         }
 
         public void Post()//发送请求
         {
+            RefrashinfSet(null);
             if (InfSet.NeedLogin)
                 try {
-                    ParamListCheck();
                     response = httpClient.PostAsync(InfSet.Uris[0] + ID, new FormUrlEncodedContent(paramList)).Result;
+                    if (!infSet.HasCookie)
+                        SetCookies();
                 }
                 catch (AggregateException) {
-                    ErrorMessageService.Instence.ShowError(App.Current.MainWindow,"请检查网络连接");
+                    MessageService.Instence.ShowError(App.Current.MainWindow,"请检查网络连接");
                 }
         }
 
-        public String GetData()//请求字符数据
+        public String GetData(string name)//请求字符数据
         {
+            if (!(name is null))
+                RefrashinfSet(name);
             if (InfSet.Compressed)
-                return GetDatasetByString(GetDataAsStream());
+                return GetDatasetByString(GetDataAsStream(null));
             else
                 try {
                     return httpClient.GetStringAsync(InfSet.Uris[1]).Result;
                 }
                 catch (AggregateException) {
-                    ErrorMessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接");
+                    MessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接");
                     return null;
                 }
         }
 
-        public Stream GetDataAsStream() {
+        public Stream GetDataAsStream(string name) {
+            if (!(name is null))
+                RefrashinfSet(name);
             Stream temp;
             try {
-                ParamListCheck();
                 temp = httpClient.GetStreamAsync(InfSet.Uris[1]).Result;
             }
             catch (AggregateException) {
-                ErrorMessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接");
+                MessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接");
                 return null;
             }
             return temp;
         }
 
-        public void SaveHtml() {
-            Write("MyHtml.html", GetDatasetByString(GetDataAsStream()));
-        }
-
-        private void GetVerifyCode() {
-
-        }
+        //public void SaveHtml() {
+        //    Write("MyHtml.html", GetDatasetByString(GetDataAsStream()));
+        //}
 
         #region 转成图片
 
         #endregion
 
         #region 获取cookies
-        public static List<Cookie> GetAllCookies(CookieContainer cc) {
+        private void SetCookies() {
+            var responseCookies = Cookies.GetCookies(new Uri(infSet.Uris[1])).Cast<Cookie>().ToArray();
+            string[][] pairs = new string[Cookies.Count][];
+            for (int i= 0;i< Cookies.Count;i++) {
+                pairs[i] = FormatCookie(responseCookies[i]);
+            }
+            XmlHelper.CreatWebNode(infSet.name,pairs);
+        }
 
-
-            return null;
+        private string[] FormatCookie(Cookie c) {
+           return new string[] {
+                String.Format("type:cookie"),
+                String.Format("name:{0}",c.Name),
+                String.Format("value:{0}",c.Value)
+            };
         }
         #endregion
 

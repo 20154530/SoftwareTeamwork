@@ -15,7 +15,7 @@
         <local:DContextMenu Style="{DynamicResource DcontextMenu}" />
       </local:DAreaIcon.Dcontextmenu>
       <local:DAreaIcon.FlowIconPopup>
-        <local:FlowPopup Style="{DynamicResource MainFlowPopup}" />
+        <local:FluxPopup Style="{DynamicResource MainFluxPopup}" />
       </local:DAreaIcon.FlowIconPopup>
     </local:DAreaIcon>
   </local:AIWindow.AreaIcon>
@@ -75,6 +75,7 @@
     <Rectangle Width="1"
                Grid.Column="1"
                VerticalAlignment="Stretch"
+               Margin="0,5,0,5"
                Fill="{DynamicResource BorderBrush}"/>
     <Frame x:Name="MainFrame"
            Grid.Column="2"

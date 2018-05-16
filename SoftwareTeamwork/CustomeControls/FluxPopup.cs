@@ -7,8 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 
 namespace SoftwareTeamwork {
-    public class FlowPopup : DPopup {
-        private FlowTrendPopup Pop;
+    public class FluxPopup : DPopup {
+        private FluxTrendPopup Pop;
 
         #region IconPath
         public String IconPath {
@@ -16,7 +16,7 @@ namespace SoftwareTeamwork {
             set { SetValue(IconPathProperty, value); }
         }
         public static readonly DependencyProperty IconPathProperty =
-             DependencyProperty.Register("IconPath", typeof(String), typeof(FlowPopup), new PropertyMetadata(""));
+             DependencyProperty.Register("IconPath", typeof(String), typeof(FluxPopup), new PropertyMetadata(""));
         #endregion
 
         #region 百分比
@@ -25,7 +25,7 @@ namespace SoftwareTeamwork {
             set { SetValue(PercentProperty, value); }
         }
         public static readonly DependencyProperty PercentProperty =
-            DependencyProperty.Register("Percent", typeof(int), typeof(FlowPopup), new PropertyMetadata(100));
+            DependencyProperty.Register("Percent", typeof(int), typeof(FluxPopup), new PropertyMetadata(100));
         #endregion
 
         #region OpenTrendCommand
@@ -35,7 +35,7 @@ namespace SoftwareTeamwork {
         }
         public static readonly DependencyProperty OpenTrendCommandProperty =
             DependencyProperty.Register("OpenTrendCommand", typeof(WindowCommand),
-                typeof(FlowPopup), new PropertyMetadata(new WindowCommand()));
+                typeof(FluxPopup), new PropertyMetadata(new WindowCommand()));
         #endregion
 
         #region FrashCommand
@@ -45,7 +45,7 @@ namespace SoftwareTeamwork {
         }
         public static readonly DependencyProperty FrashCommandProperty =
             DependencyProperty.Register("FrashCommand", typeof(WindowCommand),
-                typeof(FlowPopup), new PropertyMetadata(new WindowCommand()));
+                typeof(FluxPopup), new PropertyMetadata(new WindowCommand()));
         #endregion
 
         protected override void OnStyleChanged(Style oldStyle, Style newStyle) {
@@ -70,7 +70,7 @@ namespace SoftwareTeamwork {
 
         private void Instence_ThemeChanged(object sender, EventArgs e) {
             this.Style = null;
-            this.Style = (Style)Application.Current.FindResource("MainFlowPopup");
+            this.Style = (Style)Application.Current.FindResource("MainFluxPopup");
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace SoftwareTeamwork {
         /// </summary>
         /// <param name="para"></param>
         private void FrashCommand_CAction(object para) {
-            if (LoginAgent.Instence.SetInfset(XmlAnalyze.GetInfWithName("NEUIpgw")) == -1)
+            if (LoginAgent.Instence.SetInfset(XmlHelper.GetInfWithName("NEUIpgw")) == -1)
                 return;
 
             SetIconPathByPercentAngle(5);
@@ -102,10 +102,8 @@ namespace SoftwareTeamwork {
             
         }
 
-        public FlowPopup() {
-            Pop = new FlowTrendPopup {
-                Style = (Style)Application.Current.FindResource("FlowAnaPanel")
-            };
+        public FluxPopup() {
+            Pop = new FluxTrendPopup { Style = (Style)Application.Current.FindResource("FluxAnaPanel") };
             Pop.MouseMove += Pop_MouseMove;
             Pop.MouseLeave += Pop_MouseLeave;
             OverallSettingManger.Instence.ThemeChanged += Instence_ThemeChanged;

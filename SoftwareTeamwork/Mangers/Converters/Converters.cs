@@ -85,7 +85,7 @@ namespace SoftwareTeamwork
 
     class DateTimeStringFormat : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-            return String.Format("{0:D2}.{1:D2}", ((DateTime)value).Mon, ((DateTime)value).Day);
+            return String.Format("{0:D2}.{1:D2}", ((DateTime)value).Month, ((DateTime)value).Day);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {

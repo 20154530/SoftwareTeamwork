@@ -111,7 +111,7 @@
           <Setter.Value>
             <ToolTip Style="{DynamicResource IconToggelButtonToolTip}"
                      Visibility="{Binding ToolTipVisiblity}">
-              <Grid Background="{DynamicResource FlowPopupAnaCanvas_ToolTipBackground}">
+              <Grid Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
                 <TextBlock Text="{Binding BackToolTip}"
                            Style="{DynamicResource FlowAnaNodeTip}" />
               </Grid>
@@ -125,7 +125,7 @@
           <Setter.Value>
             <ToolTip Style="{DynamicResource IconToggelButtonToolTip}"
                      Visibility="{Binding ToolTipVisiblity}">
-              <Grid Background="{DynamicResource FlowPopupAnaCanvas_ToolTipBackground}">
+              <Grid Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
                 <TextBlock Text="{Binding ForeToolTip}"
                            Style="{DynamicResource FlowAnaNodeTip}" />
               </Grid>
@@ -146,10 +146,11 @@
                          Visibility="Collapsed" />
               <TextBlock x:Name="ContentIcon"
                          Margin="{TemplateBinding Padding}"
-                         Style="{StaticResource IconTextBlock}"
+                         Style="{DynamicResource IconTextBlock}"
                          Text="{TemplateBinding ForeIcon}"
                          FontSize="{TemplateBinding FontSize}"
-                         Foreground="{TemplateBinding IconN}" />
+                         Foreground="{TemplateBinding IconN}"
+                         FontWeight="{TemplateBinding FontWeight}"/>
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
@@ -511,6 +512,7 @@
         <ControlTemplate TargetType="{x:Type local:GridLineFloder}">
           <Border BorderBrush="{TemplateBinding BorderBrush}"
                   BorderThickness="{TemplateBinding BorderThickness}"
+                  SnapsToDevicePixels="True"
                   Margin="0,4,0,4">
             <Grid Height="{TemplateBinding Height}"
                   HorizontalAlignment="Stretch">
@@ -521,18 +523,12 @@
               </Grid.ColumnDefinitions>
               <TextBlock x:Name="Title"
                          Padding="4,2,4,2"
+                         FontWeight="Light"
                          Text="{TemplateBinding Title}"
                          FontSize="{TemplateBinding FontSize}"
                          Foreground="{TemplateBinding Foreground}"
-                         Background="{TemplateBinding Background}" />
-              <Rectangle Grid.Column="1"
-                         Height="0.5"
-                         Margin="10,0,5,0"
-                         Stroke="{TemplateBinding Foreground}"
-                         StrokeThickness="0.5"
-                         StrokeDashArray="5,5"
-                         HorizontalAlignment="Stretch"
-                         VerticalAlignment="Center" />
+                         Background="{TemplateBinding Background}" 
+                         SnapsToDevicePixels="True"/>
               <local:IconToggelButton x:Name="FloderButton"
                                       IconN="{TemplateBinding Foreground}"
                                       IconR="{DynamicResource AccountPage_Button_Foreground_R}"

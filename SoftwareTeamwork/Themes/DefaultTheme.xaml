@@ -124,17 +124,17 @@
   <SolidColorBrush x:Key="DefaultPopupButtonBackground_P"
                    Color="Transparent" />
   
-  <SolidColorBrush x:Key="FlowPopupForeground_D1"
+  <SolidColorBrush x:Key="FluxPopupForeground_D1"
                    Color="#B0e0e0e0"/>
-  <SolidColorBrush x:Key="FlowPopupAnaCanvas_BaseLine"
+  <SolidColorBrush x:Key="FluxPopupAnaCanvas_BaseLine"
                    Color="#323232" />
-  <SolidColorBrush x:Key="FlowPopupAnaCanvas_TrendLine"
+  <SolidColorBrush x:Key="FluxPopupAnaCanvas_TrendLine"
                    Color="#007ACC" />
-  <SolidColorBrush x:Key="FlowPopupAnaCanvas_AnaBackground"
+  <SolidColorBrush x:Key="FluxPopupAnaCanvas_AnaBackground"
                    Color="#181818" />
-  <SolidColorBrush x:Key="FlowPopupAnaCanvas_Tick"
+  <SolidColorBrush x:Key="FluxPopupAnaCanvas_Tick"
                    Color="#808080" />
-  <SolidColorBrush x:Key="FlowPopupAnaCanvas_ToolTipBackground"
+  <SolidColorBrush x:Key="FluxPopupAnaCanvas_ToolTipBackground"
                    Color="#202020" />
 
   <SolidColorBrush x:Key="ErrorMessageBackground"

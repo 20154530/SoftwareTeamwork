@@ -83,12 +83,12 @@ namespace SoftwareTeamwork
         #endregion
 
         #region FlowIconPopup
-        public FlowPopup FlowIconPopup {
-            get { return (FlowPopup)GetValue(FlowIconPopupProperty); }
+        public FluxPopup FlowIconPopup {
+            get { return (FluxPopup)GetValue(FlowIconPopupProperty); }
             set { SetValue(FlowIconPopupProperty, value); }
         }
         public static readonly DependencyProperty FlowIconPopupProperty =
-            DependencyProperty.Register("FlowIconPopup", typeof(FlowPopup), typeof(DAreaIcon),
+            DependencyProperty.Register("FlowIconPopup", typeof(FluxPopup), typeof(DAreaIcon),
                 new PropertyMetadata(null,new PropertyChangedCallback(OnFlowIconPopupChanged)));
         private static void OnFlowIconPopupChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

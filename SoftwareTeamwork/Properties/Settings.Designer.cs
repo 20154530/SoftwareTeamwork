@@ -59,15 +59,84 @@ namespace SoftwareTeamwork.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Libs")]
         public string DllPath {
             get {
                 return ((string)(this["DllPath"]));
             }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string IPGWA {
+            get {
+                return ((string)(this["IPGWA"]));
+            }
             set {
-                this["DllPath"] = value;
+                this["IPGWA"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string IPGWP {
+            get {
+                return ((string)(this["IPGWP"]));
+            }
+            set {
+                this["IPGWP"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string JWA {
+            get {
+                return ((string)(this["JWA"]));
+            }
+            set {
+                this["JWA"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string JWP {
+            get {
+                return ((string)(this["JWP"]));
+            }
+            set {
+                this["JWP"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IPGWF {
+            get {
+                return ((bool)(this["IPGWF"]));
+            }
+            set {
+                this["IPGWF"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool JWF {
+            get {
+                return ((bool)(this["JWF"]));
+            }
+            set {
+                this["JWF"] = value;
             }
         }
     }

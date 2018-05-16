@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -22,14 +23,18 @@ namespace SoftwareTeamwork {
         }
 
         private void OnPlacementTargetChanged(object sender, EventArgs e) {
-            if (PlacementTarget is null)
-                return;
+            if (PlacementTarget is null) {
+                this.Placement = PlacementMode.Absolute;
+                PlacementRectangle = new Rect(SystemParameters.WorkArea.Width - 10,
+                SystemParameters.WorkArea.Height - this.Child.RenderSize.Height - 10, 0, 0);
+            }
             else {
                 HorizontalOffset = PlacementTarget.RenderSize.Width - 210;
                 VerticalOffset = PlacementTarget.RenderSize.Height - 50;
-                if(PlacementTarget is Window) {
+                if (PlacementTarget is Window) {
                     ((Window)PlacementTarget).LocationChanged += ErrorPopup_LocationChanged;
-                }else if(PlacementTarget is DPopup) {
+                }
+                else if (PlacementTarget is DPopup) {
                     ((DPopup)PlacementTarget).Closed += ErrorPopup_Closed;
                 }
             }
@@ -41,10 +46,9 @@ namespace SoftwareTeamwork {
 
         private void ErrorPopup_LocationChanged(object sender, EventArgs e) {
             if (IsOpen) {
-                HorizontalOffset = PlacementTarget.RenderSize.Width - 210;
-                VerticalOffset = PlacementTarget.RenderSize.Height - 50;
-                IsOpen = false;
-                IsOpen = true;
+                var mi = typeof(Popup).GetMethod("UpdatePosition", 
+                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                mi.Invoke(this, null);
             }
         }
 

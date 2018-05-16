@@ -64,8 +64,8 @@
 
   <!--FlowAnaPanel-->
 
-  <Style x:Key="FlowAnaPanel"
-         TargetType='{x:Type local:FlowTrendPopup}'>
+  <Style x:Key="FluxAnaPanel"
+         TargetType='{x:Type local:FluxTrendPopup}'>
     <Setter Property="Placement"
             Value="AbsolutePoint" />
     <Setter Property="Child">
@@ -76,12 +76,12 @@
                 BorderBrush="{DynamicResource BorderBrush}">
           <Border.Effect>
             <DropShadowEffect Color="{DynamicResource VsBackGroundColor}"
-                              Opacity="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:FlowTrendPopup},Path=Shadow}"
+                              Opacity="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:FluxTrendPopup},Path=Shadow}"
                               BlurRadius="5"
                               ShadowDepth="0" />
           </Border.Effect>
           <Grid Background="{DynamicResource DefaultPopupBackground}"
-                DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FlowTrendPopup}}}">
+                DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FluxTrendPopup}}}">
             <Grid.Resources>
               <sys:Double x:Key="FlowAnaBaseLineSize">0.8</sys:Double>
               <sys:Double x:Key="FlowAnaCanvasHeight">96</sys:Double>
@@ -100,25 +100,25 @@
             </Grid.RowDefinitions>
             <Grid x:Name="VTick"
                   Grid.RowSpan="3">
-              <TextBlock Style="{DynamicResource FlowAnaTickV}"
+              <TextBlock Style="{DynamicResource FluxAnaTickV}"
                          Text="{Binding DataGroup.VTicks[5]}"
                          Margin="6,18,0,0" />
-              <TextBlock Style="{DynamicResource FlowAnaTickV}"
+              <TextBlock Style="{DynamicResource FluxAnaTickV}"
                          Text="{Binding DataGroup.VTicks[4]}"
                          Margin="6,34,0,0" />
-              <TextBlock Style="{DynamicResource FlowAnaTickV}"
+              <TextBlock Style="{DynamicResource FluxAnaTickV}"
                          Text="{Binding DataGroup.VTicks[3]}"
                          Margin="6,50,0,0" />
-              <TextBlock Style="{DynamicResource FlowAnaTickV}"
+              <TextBlock Style="{DynamicResource FluxAnaTickV}"
                          Text="{Binding DataGroup.VTicks[2]}"
                          Margin="6,66,0,0" />
-              <TextBlock Style="{DynamicResource FlowAnaTickV}"
+              <TextBlock Style="{DynamicResource FluxAnaTickV}"
                          Text="{Binding DataGroup.VTicks[1]}"
                          Margin="6,82,0,0" />
-              <TextBlock Style="{DynamicResource FlowAnaTickV}"
+              <TextBlock Style="{DynamicResource FluxAnaTickV}"
                          Text="{Binding DataGroup.VTicks[0]}"
                          Margin="6,98,0,0" />
-              <TextBlock Style="{DynamicResource FlowAnaTickV}"
+              <TextBlock Style="{DynamicResource FluxAnaTickV}"
                          Text="0"
                          Margin="6,114,0,0" />
             </Grid>
@@ -126,32 +126,32 @@
                   Grid.Row="2"
                   Grid.Column="1"
                   Grid.ColumnSpan="2">
-              <TextBlock Style="{DynamicResource FlowAnaTickH}"
-                         Text="{Binding DataGroup.FlowInfos[0].InfoTime,Converter={StaticResource DateTimeStringFormat},UpdateSourceTrigger=PropertyChanged}"
+              <TextBlock Style="{DynamicResource FluxAnaTickH}"
+                         Text="{Binding DataGroup.FluxInfos[0].InfoTime,Converter={StaticResource DateTimeStringFormat},UpdateSourceTrigger=PropertyChanged}"
                          Margin="-10,4,0,0" />
-              <TextBlock Style="{DynamicResource FlowAnaTickH}"
-                         Text="{Binding DataGroup.FlowInfos[1].InfoTime,Converter={StaticResource DateTimeStringFormat},UpdateSourceTrigger=PropertyChanged}"
+              <TextBlock Style="{DynamicResource FluxAnaTickH}"
+                         Text="{Binding DataGroup.FluxInfos[1].InfoTime,Converter={StaticResource DateTimeStringFormat},UpdateSourceTrigger=PropertyChanged}"
                          Margin="30,4,0,0" />
-              <TextBlock Style="{DynamicResource FlowAnaTickH}"
-                         Text="{Binding DataGroup.FlowInfos[2].InfoTime,Converter={StaticResource DateTimeStringFormat},UpdateSourceTrigger=PropertyChanged}"
+              <TextBlock Style="{DynamicResource FluxAnaTickH}"
+                         Text="{Binding DataGroup.FluxInfos[2].InfoTime,Converter={StaticResource DateTimeStringFormat},UpdateSourceTrigger=PropertyChanged}"
                          Margin="70,4,0,0" />
-              <TextBlock Style="{DynamicResource FlowAnaTickH}"
-                         Text="{Binding DataGroup.FlowInfos[3].InfoTime,Converter={StaticResource DateTimeStringFormat},UpdateSourceTrigger=PropertyChanged}"
+              <TextBlock Style="{DynamicResource FluxAnaTickH}"
+                         Text="{Binding DataGroup.FluxInfos[3].InfoTime,Converter={StaticResource DateTimeStringFormat},UpdateSourceTrigger=PropertyChanged}"
                          Margin="110,4,0,0" />
-              <TextBlock Style="{DynamicResource FlowAnaTickH}"
-                         Text="{Binding DataGroup.FlowInfos[4].InfoTime,Converter={StaticResource DateTimeStringFormat},UpdateSourceTrigger=PropertyChanged}"
+              <TextBlock Style="{DynamicResource FluxAnaTickH}"
+                         Text="{Binding DataGroup.FluxInfos[4].InfoTime,Converter={StaticResource DateTimeStringFormat},UpdateSourceTrigger=PropertyChanged}"
                          Margin="150,4,0,0" />
-              <TextBlock Style="{DynamicResource FlowAnaTickH}"
-                         Text="{Binding DataGroup.FlowInfos[5].InfoTime,Converter={StaticResource DateTimeStringFormat},UpdateSourceTrigger=PropertyChanged}"
+              <TextBlock Style="{DynamicResource FluxAnaTickH}"
+                         Text="{Binding DataGroup.FluxInfos[5].InfoTime,Converter={StaticResource DateTimeStringFormat},UpdateSourceTrigger=PropertyChanged}"
                          Margin="190,4,0,0" />
-              <TextBlock Style="{DynamicResource FlowAnaTickH}"
-                         Text="{Binding DataGroup.FlowInfos[6].InfoTime,Converter={StaticResource DateTimeStringFormat},UpdateSourceTrigger=PropertyChanged}"
+              <TextBlock Style="{DynamicResource FluxAnaTickH}"
+                         Text="{Binding DataGroup.FluxInfos[6].InfoTime,Converter={StaticResource DateTimeStringFormat},UpdateSourceTrigger=PropertyChanged}"
                          Margin="230,4,0,0" />
             </Grid>
             <Canvas x:Name="TrendGrid"
                     Width="{StaticResource FlowAnaCanvasWidth}"
                     Height="{StaticResource FlowAnaCanvasHeight}"
-                    Background="{DynamicResource FlowPopupAnaCanvas_AnaBackground}"
+                    Background="{DynamicResource FluxPopupAnaCanvas_AnaBackground}"
                     Grid.Column="1"
                     Grid.Row="1"
                     Cursor="None"
@@ -163,7 +163,7 @@
                   <Setter Property="StrokeThickness"
                           Value="{StaticResource FlowAnaBaseLineSize}" />
                   <Setter Property="Stroke"
-                          Value="{DynamicResource FlowPopupAnaCanvas_BaseLine}" />
+                          Value="{DynamicResource FluxPopupAnaCanvas_BaseLine}" />
                 </Style>
                 <Style x:Key="AnaFLowPoints"
                        TargetType="Rectangle">
@@ -179,7 +179,7 @@
                 <Style x:Key="TrendLineStyle"
                        TargetType="Line">
                   <Setter Property="Stroke"
-                          Value="{DynamicResource FlowPopupAnaCanvas_TrendLine}" />
+                          Value="{DynamicResource FluxPopupAnaCanvas_TrendLine}" />
                   <Setter Property="StrokeThickness"
                           Value="{StaticResource FlowAnaBaseLineSize}" />
                 </Style>
@@ -263,43 +263,43 @@
 
               <!--TrendLine-->
               <Line X1="0"
-                    Y1="{Binding DataGroup.FlowInfos[0].FlowData}"
+                    Y1="{Binding DataGroup.FluxInfos[0].FluxData}"
                     X2="40"
-                    Y2="{Binding DataGroup.FlowInfos[1].FlowData }"
+                    Y2="{Binding DataGroup.FluxInfos[1].FluxData }"
                     Style="{StaticResource TrendLineStyle}" />
               <Line X1="40"
-                    Y1="{Binding DataGroup.FlowInfos[1].FlowData }"
+                    Y1="{Binding DataGroup.FluxInfos[1].FluxData }"
                     X2="80"
-                    Y2="{Binding DataGroup.FlowInfos[2].FlowData }"
+                    Y2="{Binding DataGroup.FluxInfos[2].FluxData }"
                     Style="{StaticResource TrendLineStyle}" />
               <Line X1="80"
-                    Y1="{Binding DataGroup.FlowInfos[2].FlowData }"
+                    Y1="{Binding DataGroup.FluxInfos[2].FluxData }"
                     X2="120"
-                    Y2="{Binding DataGroup.FlowInfos[3].FlowData }"
+                    Y2="{Binding DataGroup.FluxInfos[3].FluxData }"
                     Style="{StaticResource TrendLineStyle}" />
               <Line X1="120"
-                    Y1="{Binding DataGroup.FlowInfos[3].FlowData }"
+                    Y1="{Binding DataGroup.FluxInfos[3].FluxData }"
                     X2="160"
-                    Y2="{Binding DataGroup.FlowInfos[4].FlowData }"
+                    Y2="{Binding DataGroup.FluxInfos[4].FluxData }"
                     Style="{StaticResource TrendLineStyle}" />
               <Line X1="160"
-                    Y1="{Binding DataGroup.FlowInfos[4].FlowData }"
+                    Y1="{Binding DataGroup.FluxInfos[4].FluxData }"
                     X2="200"
-                    Y2="{Binding DataGroup.FlowInfos[5].FlowData }"
+                    Y2="{Binding DataGroup.FluxInfos[5].FluxData }"
                     Style="{StaticResource TrendLineStyle}" />
               <Line X1="200"
-                    Y1="{Binding DataGroup.FlowInfos[5].FlowData }"
+                    Y1="{Binding DataGroup.FluxInfos[5].FluxData }"
                     X2="240"
-                    Y2="{Binding DataGroup.FlowInfos[6].FlowData }"
+                    Y2="{Binding DataGroup.FluxInfos[6].FluxData }"
                     Style="{StaticResource TrendLineStyle}" />
 
               <!--FLowPoints-->
               <Rectangle Canvas.Left="-3"
-                         Canvas.Top="{Binding DataGroup.FlowInfos[0].FlowData,Converter={StaticResource Move},ConverterParameter=-3}"
+                         Canvas.Top="{Binding DataGroup.FluxInfos[0].FluxData,Converter={StaticResource Move},ConverterParameter=-3}"
                          Style="{StaticResource AnaFLowPoints}">
                 <Rectangle.ToolTip>
                   <ToolTip Style="{StaticResource NodeToolTip}">
-                    <Grid Background="{DynamicResource FlowPopupAnaCanvas_ToolTipBackground}">
+                    <Grid Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
                       <TextBlock Text="{Binding DataGroup.ActrualData[0]}"
                                  Style="{StaticResource FlowAnaNodeTip}" />
                     </Grid>
@@ -307,11 +307,11 @@
                 </Rectangle.ToolTip>
               </Rectangle>
               <Rectangle Canvas.Left="37"
-                         Canvas.Top="{Binding DataGroup.FlowInfos[1].FlowData,Converter={StaticResource Move},ConverterParameter=-3}"
+                         Canvas.Top="{Binding DataGroup.FluxInfos[1].FluxData,Converter={StaticResource Move},ConverterParameter=-3}"
                          Style="{StaticResource AnaFLowPoints}">
                 <Rectangle.ToolTip>
                   <ToolTip Style="{StaticResource NodeToolTip}">
-                    <Grid Background="{DynamicResource FlowPopupAnaCanvas_ToolTipBackground}">
+                    <Grid Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
                       <TextBlock Text="{Binding DataGroup.ActrualData[1]}"
                                  Style="{StaticResource FlowAnaNodeTip}" />
                     </Grid>
@@ -319,11 +319,11 @@
                 </Rectangle.ToolTip>
               </Rectangle>
               <Rectangle Canvas.Left="77"
-                         Canvas.Top="{Binding DataGroup.FlowInfos[2].FlowData,Converter={StaticResource Move},ConverterParameter=-3}"
+                         Canvas.Top="{Binding DataGroup.FluxInfos[2].FluxData,Converter={StaticResource Move},ConverterParameter=-3}"
                          Style="{StaticResource AnaFLowPoints}">
                 <Rectangle.ToolTip>
                   <ToolTip Style="{StaticResource NodeToolTip}">
-                    <Grid  Background="{DynamicResource FlowPopupAnaCanvas_ToolTipBackground}">
+                    <Grid  Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
                       <TextBlock Text="{Binding DataGroup.ActrualData[2]}"
                                  Style="{StaticResource FlowAnaNodeTip}" />
                     </Grid>
@@ -331,11 +331,11 @@
                 </Rectangle.ToolTip>
               </Rectangle>
               <Rectangle Canvas.Left="117"
-                         Canvas.Top="{Binding DataGroup.FlowInfos[3].FlowData,Converter={StaticResource Move},ConverterParameter=-3}"
+                         Canvas.Top="{Binding DataGroup.FluxInfos[3].FluxData,Converter={StaticResource Move},ConverterParameter=-3}"
                          Style="{StaticResource AnaFLowPoints}">
                 <Rectangle.ToolTip>
                   <ToolTip Style="{StaticResource NodeToolTip}">
-                    <Grid Background="{DynamicResource FlowPopupAnaCanvas_ToolTipBackground}">
+                    <Grid Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
                       <TextBlock Text="{Binding DataGroup.ActrualData[3]}"
                                  Style="{StaticResource FlowAnaNodeTip}" />
                     </Grid>
@@ -343,11 +343,11 @@
                 </Rectangle.ToolTip>
               </Rectangle>
               <Rectangle Canvas.Left="157"
-                         Canvas.Top="{Binding DataGroup.FlowInfos[4].FlowData,Converter={StaticResource Move},ConverterParameter=-3}"
+                         Canvas.Top="{Binding DataGroup.FluxInfos[4].FluxData,Converter={StaticResource Move},ConverterParameter=-3}"
                          Style="{StaticResource AnaFLowPoints}">
                 <Rectangle.ToolTip>
                   <ToolTip Style="{StaticResource NodeToolTip}">
-                    <Grid Background="{DynamicResource FlowPopupAnaCanvas_ToolTipBackground}">
+                    <Grid Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
                       <TextBlock Text="{Binding DataGroup.ActrualData[4]}"
                                  Style="{StaticResource FlowAnaNodeTip}" />
                     </Grid>
@@ -355,11 +355,11 @@
                 </Rectangle.ToolTip>
               </Rectangle>
               <Rectangle Canvas.Left="197"
-                         Canvas.Top="{Binding DataGroup.FlowInfos[5].FlowData,Converter={StaticResource Move},ConverterParameter=-3}"
+                         Canvas.Top="{Binding DataGroup.FluxInfos[5].FluxData,Converter={StaticResource Move},ConverterParameter=-3}"
                          Style="{StaticResource AnaFLowPoints}">
                 <Rectangle.ToolTip>
                   <ToolTip Style="{StaticResource NodeToolTip}">
-                    <Grid Background="{DynamicResource FlowPopupAnaCanvas_ToolTipBackground}">
+                    <Grid Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
                       <TextBlock Text="{Binding DataGroup.ActrualData[5]}"
                                  Style="{StaticResource FlowAnaNodeTip}" />
                     </Grid>
@@ -367,11 +367,11 @@
                 </Rectangle.ToolTip>
               </Rectangle>
               <Rectangle Canvas.Left="237"
-                         Canvas.Top="{Binding DataGroup.FlowInfos[6].FlowData,Converter={StaticResource Move},ConverterParameter=-3}"
+                         Canvas.Top="{Binding DataGroup.FluxInfos[6].FluxData,Converter={StaticResource Move},ConverterParameter=-3}"
                          Style="{StaticResource AnaFLowPoints}">
                 <Rectangle.ToolTip>
                   <ToolTip Style="{StaticResource NodeToolTip}">
-                    <Grid Background="{DynamicResource FlowPopupAnaCanvas_ToolTipBackground}">
+                    <Grid Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
                       <TextBlock Text="{Binding DataGroup.ActrualData[6]}"
                                  Style="{StaticResource FlowAnaNodeTip}" />
                     </Grid>
@@ -397,10 +397,10 @@
     </Setter>
   </Style>
 
-  <!--MainFlowPopup-->
+  <!--MainFluxPopup-->
 
-  <Style x:Key="MainFlowPopup"
-         TargetType="{x:Type local:FlowPopup}">
+  <Style x:Key="MainFluxPopup"
+         TargetType="{x:Type local:FluxPopup}">
     <Setter Property="Placement"
             Value="AbsolutePoint" />
     <Setter Property="Child">
@@ -412,12 +412,12 @@
                 BorderBrush="{DynamicResource BorderBrush}">
           <Border.Effect>
             <DropShadowEffect Color="{DynamicResource VsBackGroundColor}"
-                              Opacity="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:FlowPopup},Path=Shadow}"
+                              Opacity="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:FluxPopup},Path=Shadow}"
                               BlurRadius="5"
                               ShadowDepth="0" />
           </Border.Effect>
           <Grid Background="{DynamicResource DefaultPopupBackground}"
-                DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:FlowPopup}}">
+                DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:FluxPopup}}">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="80" />
               <ColumnDefinition Width="*" />
@@ -437,7 +437,7 @@
             <TextBlock x:Name="Content"
                        Text="{Binding Content}"
                        FontSize="12"
-                       Foreground="{DynamicResource FlowPopupForeground_D1}"
+                       Foreground="{DynamicResource FluxPopupForeground_D1}"
                        FontWeight="Thin"
                        VerticalAlignment="Center"
                        Grid.Column="1"
@@ -456,10 +456,10 @@
                        Canvas.Top="5"
                        Stroke="{DynamicResource DefaultPopupForeground}"
                        StrokeThickness="0.8" />
-              <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type local:FlowPopup}},Path=Percent}"
+              <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type local:FluxPopup}},Path=Percent}"
                          Style="{DynamicResource NumberTextBlock}" />
             </Grid>
-            <Grid Grid.Column="2">
+            <Grid Grid.Column="2" Grid.RowSpan="2">
               <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
@@ -480,7 +480,7 @@
                                 Content="&#xEDAB;"
                                 Grid.Row="1"
                                 ContentTextFontSize="10"
-                                Margin="0,0,4,0"
+                                Margin="0,4,4,0"
                                 Command="{Binding FrashCommand}"
                                 IconN="{DynamicResource DefaultPopupButtonForeground}"
                                 IconR="{DynamicResource DefaultPopupButtonForeground_R}"

@@ -37,6 +37,7 @@ namespace SoftwareTeamwork
                 }
                 else {
                     AreaIcon.Dispose();
+                    Properties.Settings.Default.Save();
                     App.Current.Shutdown();
                 }
             }
@@ -46,15 +47,18 @@ namespace SoftwareTeamwork
                     Context = "是否退出?"
                 };
                 dialog.ShowDialog(this);
-                if (dialog.DialogResult == false)
+                if (dialog.DialogResult == false) {
                     e.Cancel = true;
+                    Properties.Settings.Default.ExitAction = false;
+                    Properties.Settings.Default.IsExitDialogShow = true;
+                }
                 else {
                     if (Properties.Settings.Default.ExitAction) {
                         Hide();
                         e.Cancel = true;
                     }
+                    Properties.Settings.Default.Save();
                 }
-                return;
             }
         }
 

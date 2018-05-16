@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,23 +15,67 @@ namespace SoftwareTeamwork {
 
         public AccountPage() {
             InitializeComponent();
-            
+            Loaded += AccountPage_Loaded;
+        }
+
+        private void AccountPage_Loaded(object sender, RoutedEventArgs e) {
+            InitControls();
+        }
+
+        private void InitControls() {
+
+            IPGWAccount.Text = Properties.Settings.Default.IPGWA;
+            IPGWPassword.Password = Properties.Settings.Default.IPGWP;
+            JWAccount.Text = Properties.Settings.Default.JWA;
+            JWPassword.Password = Properties.Settings.Default.JWP;
+
+            IPGWAccount.IsEnabled = !Properties.Settings.Default.IPGWF;
+            IPGWPassword.IsEnabled = !Properties.Settings.Default.IPGWF;
+            JWIdentifyCodeLayer.Visibility = Properties.Settings.Default.JWF ? Visibility.Collapsed : Visibility.Visible;
+            JWAccount.IsEnabled = !Properties.Settings.Default.JWF;
+            JWPassword.IsEnabled = !Properties.Settings.Default.JWF;
         }
 
         private void SaveIPGW(object sender, RoutedEventArgs e) {
             if (IPGWAccount.Text.Equals("") || IPGWPassword.Password.Equals("")) 
-                ErrorMessageService.Instence.ShowError(this, "请输入用户名和密码");
-            else {
-                XmlAnalyze.UpdateNodeValue("NEUIpgw", "username", IPGWAccount.Text);
-                XmlAnalyze.UpdateNodeValue("NEUIpgw", "password", IPGWPassword.Password);
+                MessageService.Instence.ShowError(this, "请输入用户名和密码");
+            else 
+                SaveIPGW();
+        }
+
+        private async void SaveIPGW(){
+            if (!Properties.Settings.Default.IPGWF) {
+                Properties.Settings.Default.IPGWA = IPGWAccount.Text;
+                Properties.Settings.Default.IPGWP = IPGWPassword.Password;
+                Properties.Settings.Default.IPGWF = true;
+                IPGWAccount.IsEnabled = false;
+                IPGWPassword.IsEnabled = false;
+                string name, password;
+                name = IPGWAccount.Text;
+                password = IPGWPassword.Password;
+                Task t = new Task(() => {
+                    Dictionary<string, string> dc = new Dictionary<string, string> {
+                    { "username", name },
+                    { "password", password },
+                };
+                    XmlHelper.UpdateWebNodeValue("NEUIpgw", dc);
+                });
+                t.Start();
+                await t;
             }
+        }
+
+        private void ChangeIPGW(object sender, RoutedEventArgs e) {
+            Properties.Settings.Default.IPGWF = false;
+            IPGWAccount.IsEnabled = true;
+            IPGWPassword.IsEnabled = true;
         }
 
         private void Identify(object sender, RoutedEventArgs e) {
             if (JWAccount.Text.Equals("") || JWPassword.Password.Equals(""))
-                ErrorMessageService.Instence.ShowError(this, "请输入用户名和密码");
+                MessageService.Instence.ShowError(this, "请输入用户名和密码");
             else {
-                if (LoginAgent.Instence.SetInfset(XmlAnalyze.GetInfWithName("NEUZhjw")) == -1) 
+                if (LoginAgent.Instence.SetInfset(XmlHelper.GetInfWithName("NEUZhjw")) == -1) 
                     return;
                 JWIdentifyImage.Source = LoginAgent.Instence.GetVerify();
                 JWIdentifyImage.Visibility = Visibility.Visible;
@@ -37,12 +84,48 @@ namespace SoftwareTeamwork {
 
         private void SaveNEUJW(object sender, RoutedEventArgs e) {
             if (JWAccount.Text.Equals("") || JWPassword.Password.Equals("") || JWIdentifyCode.Equals(""))
-                ErrorMessageService.Instence.ShowError(this, "请输入用户名、密码、验证码");
-            else {
-                XmlAnalyze.UpdateNodeValue("NEUIpgw", "username", JWAccount.Text);
-                XmlAnalyze.UpdateNodeValue("NEUIpgw", "password", JWPassword.Password);
-                XmlAnalyze.UpdateNodeValue("NEUIpgw", "username", JWIdentifyCode.Text);
+                MessageService.Instence.ShowError(this, "请输入用户名、密码、验证码");
+            else
+                SaveNEUJW();
+        }
+
+        private async void SaveNEUJW() {
+            if (!Properties.Settings.Default.JWF) {
+                Properties.Settings.Default.JWA = JWAccount.Text;
+                Properties.Settings.Default.JWP = JWPassword.Password;
+                Properties.Settings.Default.JWF = true;
+                JWAccount.IsEnabled = false;
+                JWPassword.IsEnabled = false;
+                JWIdentifyCodeLayer.Visibility = Visibility.Collapsed;
+                string name, password, id;
+                name = JWAccount.Text;
+                password = JWPassword.Password;
+                id = JWIdentifyCode.Text;
+                Task t = new Task(() => {
+                    Dictionary<string, string> dc = new Dictionary<string, string> {
+                    { "WebUserNO", name },
+                    { "Password", password },
+                    { "Agnomen", id }
+                     };
+                    XmlHelper.UpdateWebNodeValue("NEUZhjw", dc);
+                });
+                t.Start();
+                await t;
+                LoginAgent.Instence.Post();
             }
+           // Console.WriteLine(LoginAgent.Instence.GetData("NEUZhjw"));
+        }
+
+        private void ChangeNEUJW(object sender, RoutedEventArgs e) {
+            Properties.Settings.Default.JWF = false;
+            JWIdentifyCodeLayer.Visibility = Visibility.Visible;
+            JWAccount.IsEnabled = true;
+            JWPassword.IsEnabled = true;
+
+            XmlHelper.DeleteWebNode("NEUZhjw", new HashSet<string>() { "cookie" });
+            //FluxInfo info = new FluxInfo();
+            //XmlHelper.CreatFluxNode(XmlHelper.FluxNodeType.Date, info.GetXmlDateStyle());
+            //XmlHelper.CreatFluxNode(XmlHelper.FluxNodeType.Item, info.GetXmlItemStyle());
         }
     }
 }

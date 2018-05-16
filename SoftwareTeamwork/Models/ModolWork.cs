@@ -11,6 +11,8 @@ namespace SoftwareTeamwork
         public bool NeedLogin = false;
         public bool Compressed = false;
         public bool Verify = false;
+        public bool HasCookie = false;
+        public String name;
         public String CharSet;
         public String VerifyCode;
         private List<String> uris;
@@ -23,6 +25,13 @@ namespace SoftwareTeamwork
             get { return keyValuePairs; }
             set { keyValuePairs = value; }
         }
+        private List<KeyValuePair<string, string>> cookies;
+        public List<KeyValuePair<string, string>> Cookies {
+            get => cookies;
+            set {
+                cookies = value;
+            }
+        }
         private KeyValuePair<String, String> idcodes;
         public KeyValuePair<String, String> IdCodes {
             get { return idcodes; }
@@ -32,6 +41,7 @@ namespace SoftwareTeamwork
         public WebLoginInfSet() {
             uris = new List<string>();
             KeyValuePairs = new List<KeyValuePair<string, string>>();
+            Cookies = new List<KeyValuePair<string, string>>();
             idcodes = new KeyValuePair<string, string>(null, null);
         }
 
@@ -51,5 +61,4 @@ namespace SoftwareTeamwork
                 Console.WriteLine(String.Format("< {0} : {1} >", idcodes.Key.PadRight(20), idcodes.Value.PadRight(20)));
         }
     }
-
 }

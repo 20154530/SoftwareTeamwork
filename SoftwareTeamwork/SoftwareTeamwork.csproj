@@ -66,8 +66,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Dialogs\DialogBase.cs" />
-    <Compile Include="CustomeControls\FlowPopup.cs" />
-    <Compile Include="CustomeControls\FlowTrendPopup.cs" />
+    <Compile Include="CustomeControls\FluxPopup.cs" />
+    <Compile Include="CustomeControls\FluxTrendPopup.cs" />
     <Compile Include="CustomeControls\GridLineFloder.cs" />
     <Compile Include="CustomeControls\IconButton.cs" />
     <Compile Include="CustomeControls\IconToggelButton.cs" />
@@ -77,11 +77,12 @@
     <Compile Include="InfoPage.xaml.cs">
       <DependentUpon>InfoPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Login\DataAnalysis.cs" />
-    <Compile Include="Login\DataFormater.cs" />
-    <Compile Include="Login\LoginAgent.cs" />
-    <Compile Include="Login\WebInfoSet.cs" />
-    <Compile Include="Login\XmlAnalyze.cs" />
+    <Compile Include="Mangers\DataAnalysis.cs" />
+    <Compile Include="Mangers\Login\DataFormater.cs" />
+    <Compile Include="Mangers\Login\LoginAgent.cs" />
+    <Compile Include="Models\ModolView.cs" />
+    <Compile Include="Models\ModolWork.cs" />
+    <Compile Include="Mangers\XmlHelper.cs" />
     <Compile Include="Mangers\Commands\Win32APIs.cs" />
     <Compile Include="Mangers\OverallSettingManger.cs" />
     <Compile Include="Mangers\ErrorMessageService.cs" />
@@ -89,12 +90,7 @@
       <DependentUpon>AccountPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="CustomeControls\MenuItemIconRadioButton.cs" />
-    <Compile Include="Migrations\20180512031311_WORKDB.cs" />
-    <Compile Include="Migrations\20180512031311_WORKDB.designer.cs">
-      <DependentUpon>20180512031311_WORKDB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\InfoContextModelSnapshot.cs" />
-    <Compile Include="Models\Model.cs" />
+    <Compile Include="Models\ModolData.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -191,34 +187,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Configs\Web-config.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack">
+      <Version>1.8.2</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.CSharp">
       <Version>4.5.0-rc1</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore">
-      <Version>2.1.0-rc1-final</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions">
-      <Version>2.1.0-rc1-final</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers">
-      <Version>2.1.0-rc1-final</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
-      <Version>2.1.0-rc1-final</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational">
-      <Version>2.1.0-rc1-final</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer">
-      <Version>2.1.0-rc1-final</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
-      <Version>2.1.0-rc1-final</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions">
       <Version>2.1.0-rc1-final</Version>
@@ -286,6 +264,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\docu.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Configs\FluxLog.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Configs\CourseData.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="HTMLPage1.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -27,11 +27,15 @@ namespace SoftwareTeamwork {
         }
 
         protected override void OnClosing(CancelEventArgs e) {
-            Properties.Settings.Default.Save();
             base.OnClosing(e);
         }
 
+        private void ExitDialog_Loaded(object sender, RoutedEventArgs e) {
+
+        }
+
         public ExitDialog() {
+            this.Loaded += ExitDialog_Loaded;
         }
     }
 }

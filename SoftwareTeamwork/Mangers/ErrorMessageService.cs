@@ -8,9 +8,9 @@ using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace SoftwareTeamwork {
-    public class ErrorMessageService {
+    public class MessageService {
         private ErrorPopup Error;
-        public static ErrorMessageService Instence = new ErrorMessageService();
+        public static MessageService Instence = new MessageService();
 
         public void ShowError(UIElement aimobject, string message) {
             var RootElement = (DependencyObject)aimobject;
@@ -24,7 +24,7 @@ namespace SoftwareTeamwork {
             Error.ShowPopupAni();
         }
 
-        public ErrorMessageService() {
+        public MessageService() {
             Error = new ErrorPopup {
                 Style = (Style)Application.Current.FindResource("ErrorMessagePopup")
             };
