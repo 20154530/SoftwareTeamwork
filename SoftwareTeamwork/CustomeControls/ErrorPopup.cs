@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace SoftwareTeamwork {
     public class ErrorPopup :DPopup{
@@ -15,7 +17,7 @@ namespace SoftwareTeamwork {
             get => base.PlacementTarget;
             set {
                 base.PlacementTarget = value;
-                PlacementTargetChanged .Invoke(this,EventArgs.Empty);
+                PlacementTargetChanged.Invoke(this,EventArgs.Empty);
             }
         }
 
@@ -23,9 +25,26 @@ namespace SoftwareTeamwork {
             if (PlacementTarget is null)
                 return;
             else {
-                HorizontalOffset = PlacementTarget.RenderSize.Width - 200;
-                VerticalOffset = PlacementTarget.RenderSize.Height - 45;
-                
+                HorizontalOffset = PlacementTarget.RenderSize.Width - 210;
+                VerticalOffset = PlacementTarget.RenderSize.Height - 50;
+                if(PlacementTarget is Window) {
+                    ((Window)PlacementTarget).LocationChanged += ErrorPopup_LocationChanged;
+                }else if(PlacementTarget is DPopup) {
+                    ((DPopup)PlacementTarget).Closed += ErrorPopup_Closed;
+                }
+            }
+        }
+
+        private void ErrorPopup_Closed(object sender, EventArgs e) {
+            HidePopupAni();
+        }
+
+        private void ErrorPopup_LocationChanged(object sender, EventArgs e) {
+            if (IsOpen) {
+                HorizontalOffset = PlacementTarget.RenderSize.Width - 210;
+                VerticalOffset = PlacementTarget.RenderSize.Height - 50;
+                IsOpen = false;
+                IsOpen = true;
             }
         }
 

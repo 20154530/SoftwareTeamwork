@@ -67,7 +67,7 @@
     </ApplicationDefinition>
     <Compile Include="Dialogs\DialogBase.cs" />
     <Compile Include="CustomeControls\FlowPopup.cs" />
-    <Compile Include="CustomeControls\FlowTrendPopups.cs" />
+    <Compile Include="CustomeControls\FlowTrendPopup.cs" />
     <Compile Include="CustomeControls\GridLineFloder.cs" />
     <Compile Include="CustomeControls\IconButton.cs" />
     <Compile Include="CustomeControls\IconToggelButton.cs" />
@@ -82,6 +82,7 @@
     <Compile Include="Login\LoginAgent.cs" />
     <Compile Include="Login\WebInfoSet.cs" />
     <Compile Include="Login\XmlAnalyze.cs" />
+    <Compile Include="Mangers\Commands\Win32APIs.cs" />
     <Compile Include="Mangers\OverallSettingManger.cs" />
     <Compile Include="Mangers\ErrorMessageService.cs" />
     <Compile Include="AccountPage.xaml.cs">

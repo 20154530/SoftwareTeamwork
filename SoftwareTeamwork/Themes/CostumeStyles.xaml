@@ -65,8 +65,7 @@
   <!--NumberTextBlock-->
   <Style x:Key="NumberTextBlock"
          TargetType="TextBlock">
-    <Setter Property="FontFamily"
-            Value="{DynamicResource Number}" />
+    
     <Setter Property="FontWeight"
             Value="ExtraBold" />
     <Setter Property="UseLayoutRounding"

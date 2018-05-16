@@ -28,7 +28,8 @@ namespace SoftwareTeamwork {
             if (JWAccount.Text.Equals("") || JWPassword.Password.Equals(""))
                 ErrorMessageService.Instence.ShowError(this, "请输入用户名和密码");
             else {
-                LoginAgent.Instence.SetInfset(XmlAnalyze.GetInfWithName("NEUZhjw"));
+                if (LoginAgent.Instence.SetInfset(XmlAnalyze.GetInfWithName("NEUZhjw")) == -1) 
+                    return;
                 JWIdentifyImage.Source = LoginAgent.Instence.GetVerify();
                 JWIdentifyImage.Visibility = Visibility.Visible;
             }
@@ -36,7 +37,7 @@ namespace SoftwareTeamwork {
 
         private void SaveNEUJW(object sender, RoutedEventArgs e) {
             if (JWAccount.Text.Equals("") || JWPassword.Password.Equals("") || JWIdentifyCode.Equals(""))
-                ErrorMessageService.Instence.ShowError(this, "请输入用户名、密码、验证码uuuuuuuuu");
+                ErrorMessageService.Instence.ShowError(this, "请输入用户名、密码、验证码");
             else {
                 XmlAnalyze.UpdateNodeValue("NEUIpgw", "username", JWAccount.Text);
                 XmlAnalyze.UpdateNodeValue("NEUIpgw", "password", JWPassword.Password);

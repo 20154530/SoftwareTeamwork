@@ -59,8 +59,12 @@ namespace SoftwareTeamwork
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e) {
-            NavigateTo.Target = MainFrame;
+            NavigateTo.CAction += NavigateT;
             MainFrame.NavigationService.Navigate(new Uri("AccountPage.xaml", UriKind.Relative));
+        }
+
+        private void NavigateT(object para) {
+            MainFrame.Navigate(new Uri((string)para,UriKind.Relative));
         }
 
         public MainWindow() {

@@ -10,7 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace SoftwareTeamwork {
-    public class FlowTrendPopups : DPopup {
+    public class FlowTrendPopup : DPopup {
 
         #region MousePoint.X
         public double PosX {
@@ -18,7 +18,7 @@ namespace SoftwareTeamwork {
             set { SetValue(PosXProperty, value); }
         }
         public static readonly DependencyProperty PosXProperty =
-            DependencyProperty.Register("PosX", typeof(double), typeof(FlowTrendPopups),
+            DependencyProperty.Register("PosX", typeof(double), typeof(FlowTrendPopup),
                 new PropertyMetadata(0.0));
         #endregion
 
@@ -28,7 +28,7 @@ namespace SoftwareTeamwork {
             set { SetValue(PosYProperty, value); }
         }
         public static readonly DependencyProperty PosYProperty =
-            DependencyProperty.Register("PosY", typeof(double), typeof(FlowTrendPopups),
+            DependencyProperty.Register("PosY", typeof(double), typeof(FlowTrendPopup),
                 new PropertyMetadata(0.0));
         #endregion
 
@@ -36,15 +36,15 @@ namespace SoftwareTeamwork {
         /// <summary>
         /// 流量数据坐标信息
         /// </summary>
-        public FlowTradeGroup DataGroup {
-            get { return (FlowTradeGroup)GetValue(DataGroupProperty); }
+        public FlowTrendGroup DataGroup {
+            get { return (FlowTrendGroup)GetValue(DataGroupProperty); }
             set { SetValue(DataGroupProperty, value); }
         }
         public static readonly DependencyProperty DataGroupProperty =
-            DependencyProperty.Register("DataGroup", typeof(FlowTradeGroup), typeof(FlowTrendPopups),
-                new PropertyMetadata(new FlowTradeGroup(), new PropertyChangedCallback(OnDataGroupChanged)));
+            DependencyProperty.Register("DataGroup", typeof(FlowTrendGroup), typeof(FlowTrendPopup),
+                new PropertyMetadata(new FlowTrendGroup(), new PropertyChangedCallback(OnDataGroupChanged)));
         private static void OnDataGroupChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
-            ((FlowTradeGroup)e.NewValue).GetFlowData();
+            ((FlowTrendGroup)e.NewValue).GetFlowData();
         }
         #endregion
 
@@ -54,7 +54,7 @@ namespace SoftwareTeamwork {
             set { SetValue(CursorVisProperty, value); }
         }
         public static readonly DependencyProperty CursorVisProperty =
-            DependencyProperty.Register("CursorVis", typeof(Visibility), typeof(FlowTrendPopups),
+            DependencyProperty.Register("CursorVis", typeof(Visibility), typeof(FlowTrendPopup),
                 new PropertyMetadata(Visibility.Collapsed));
         #endregion
 
@@ -86,18 +86,18 @@ namespace SoftwareTeamwork {
             base.OnMouseLeftButtonUp(e);
         }
 
-        public FlowTrendPopups() {
+        public FlowTrendPopup() {
             // Cursor = new Cursor(new MemoryStream(Properties.Resources.Arrow));
         }
 
     }
 
-    public class FlowTradeGroup {
+    public class FlowTrendGroup {
         public FlowInfo[] FlowInfos { get; set; }
         public double[] ActrualData { get; set; }
         public double[] VTicks { get; set; } 
 
-        public FlowTradeGroup() {
+        public FlowTrendGroup() {
             FlowInfos = new FlowInfo[7] {
                     new FlowInfo { FlowData = 4, InfoTime = new DateTime(0, 0) },
                     new FlowInfo { FlowData = 6, InfoTime = new DateTime(0, 0) },

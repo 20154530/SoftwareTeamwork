@@ -149,7 +149,7 @@
                          Style="{StaticResource IconTextBlock}"
                          Text="{TemplateBinding ForeIcon}"
                          FontSize="{TemplateBinding FontSize}"
-                         Foreground="{TemplateBinding Foreground}" />
+                         Foreground="{TemplateBinding IconN}" />
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
@@ -159,17 +159,14 @@
                       Property="Text"
                       Value="{Binding BackIcon, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
             </Trigger>
-            <Trigger Property="IsChecked"
-                     Value="False">
-              <Setter TargetName="ContentIcon"
-                      Property="Text"
-                      Value="{Binding ForeIcon, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-            </Trigger>
             <Trigger Property="IsMouseOver"
                      Value="True">
               <Setter TargetName="DarkMask"
                       Property="Visibility"
                       Value="Visible" />
+              <Setter TargetName="ContentIcon"
+                      Property="Foreground"
+                      Value="{Binding IconR, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
             </Trigger>
             <Trigger Property="IsPressed"
                      Value="True">
@@ -179,6 +176,9 @@
               <Setter TargetName="DarkMask"
                       Property="Fill"
                       Value="#80000000" />
+              <Setter TargetName="ContentIcon"
+                      Property="Foreground"
+                      Value="{Binding IconP, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -534,7 +534,9 @@
                          HorizontalAlignment="Stretch"
                          VerticalAlignment="Center" />
               <local:IconToggelButton x:Name="FloderButton"
-                                      Foreground="{TemplateBinding Foreground}"
+                                      IconN="{TemplateBinding Foreground}"
+                                      IconR="{DynamicResource AccountPage_Button_Foreground_R}"
+                                      IconP="{DynamicResource AccountPage_Button_Foreground_P}"
                                       Background="{TemplateBinding Background}"
                                       Grid.Column="2"
                                       BackIcon="&#xE70D;"

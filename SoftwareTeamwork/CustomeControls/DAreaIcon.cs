@@ -34,11 +34,7 @@ namespace SoftwareTeamwork
         public float Fontsize
         {
             get { return fontsize; }
-            set
-            {
-                fontsize = value;
-                
-            }
+            set { fontsize = value; }
         }
 
         #region AttachedWindow
@@ -87,12 +83,12 @@ namespace SoftwareTeamwork
         #endregion
 
         #region FlowIconPopup
-        public FlowTrendPopups FlowIconPopup {
-            get { return (FlowTrendPopups)GetValue(FlowIconPopupProperty); }
+        public FlowPopup FlowIconPopup {
+            get { return (FlowPopup)GetValue(FlowIconPopupProperty); }
             set { SetValue(FlowIconPopupProperty, value); }
         }
         public static readonly DependencyProperty FlowIconPopupProperty =
-            DependencyProperty.Register("FlowIconPopup", typeof(FlowTrendPopups), typeof(DAreaIcon),
+            DependencyProperty.Register("FlowIconPopup", typeof(FlowPopup), typeof(DAreaIcon),
                 new PropertyMetadata(null,new PropertyChangedCallback(OnFlowIconPopupChanged)));
         private static void OnFlowIconPopupChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -131,7 +127,11 @@ namespace SoftwareTeamwork
         private void InitPopup()
         {
             FlowIconPopup.PlacementRectangle = 
-                new Rect(SystemParameters.WorkArea.Width - 305, SystemParameters.WorkArea.Height - 142, 0, 0);
+                new Rect(SystemParameters.WorkArea.Width -5, 
+                SystemParameters.WorkArea.Height - 5, 0, 0);
+            FlowIconPopup.Title = "流量信息";
+            FlowIconPopup.Content = "";
+            FlowIconPopup.SetIconPathByPercentAngle(20);
             FlowIconPopup.MouseMove += FlowIconPopup_MouseMove;
             FlowIconPopup.MouseLeave += FlowIconPopup_MouseLeave;
         }

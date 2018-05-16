@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace SoftwareTeamwork {
     public class FlowPopup : DPopup {
+        private FlowTrendPopup Pop;
 
         #region IconPath
         public String IconPath {
@@ -26,8 +28,36 @@ namespace SoftwareTeamwork {
             DependencyProperty.Register("Percent", typeof(int), typeof(FlowPopup), new PropertyMetadata(100));
         #endregion
 
+        #region OpenTrendCommand
+        public WindowCommand OpenTrendCommand {
+            get { return (WindowCommand)GetValue(OpenTrendCommandProperty); }
+            set { SetValue(OpenTrendCommandProperty, value); }
+        }
+        public static readonly DependencyProperty OpenTrendCommandProperty =
+            DependencyProperty.Register("OpenTrendCommand", typeof(WindowCommand),
+                typeof(FlowPopup), new PropertyMetadata(new WindowCommand()));
+        #endregion
+
+        #region FrashCommand
+        public WindowCommand FrashCommand {
+            get { return (WindowCommand)GetValue(FrashCommandProperty); }
+            set { SetValue(FrashCommandProperty, value); }
+        }
+        public static readonly DependencyProperty FrashCommandProperty =
+            DependencyProperty.Register("FrashCommand", typeof(WindowCommand),
+                typeof(FlowPopup), new PropertyMetadata(new WindowCommand()));
+        #endregion
+
+        protected override void OnStyleChanged(Style oldStyle, Style newStyle) {
+            if (newStyle == null)
+                return;
+          
+            base.OnStyleChanged(oldStyle, newStyle);
+        }
+
         public void SetIconPathByPercentAngle(double a) {
-            var A = a * 2 * Math.PI / 360;
+            Percent = (int)a;
+            var A = a  * Math.PI * 3.6 / 180;
             var x = 20 * Math.Sin(A);
             var y = 20 * Math.Cos(A);
             x = 30 + x;
@@ -38,13 +68,50 @@ namespace SoftwareTeamwork {
                 IconPath = "M 30,10 A 20,20,0,1,1," + x.ToString() + "," + y.ToString();
         }
 
-        public FlowPopup() {
-            OverallSettingManger.Instence.ThemeChanged += Instence_ThemeChanged;
-        }
-
         private void Instence_ThemeChanged(object sender, EventArgs e) {
             this.Style = null;
             this.Style = (Style)Application.Current.FindResource("MainFlowPopup");
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="para"></param>
+        private void OpenTrendCommand_CAction(object para) {
+            Pop.PlacementRectangle = new Rect(SystemParameters.WorkArea.Width - 5,
+                SystemParameters.WorkArea.Height - this.Child.RenderSize.Height - 10, 0, 0);
+            Pop.ShowPopupAni();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="para"></param>
+        private void FrashCommand_CAction(object para) {
+            if (LoginAgent.Instence.SetInfset(XmlAnalyze.GetInfWithName("NEUIpgw")) == -1)
+                return;
+
+            SetIconPathByPercentAngle(5);
+        }
+
+        private void Pop_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) {
+            Pop.HidePopupAni();
+        }
+
+        private void Pop_MouseMove(object sender, System.Windows.Input.MouseEventArgs e) {
+            
+        }
+
+        public FlowPopup() {
+            Pop = new FlowTrendPopup {
+                Style = (Style)Application.Current.FindResource("FlowAnaPanel")
+            };
+            Pop.MouseMove += Pop_MouseMove;
+            Pop.MouseLeave += Pop_MouseLeave;
+            OverallSettingManger.Instence.ThemeChanged += Instence_ThemeChanged;
+            OpenTrendCommand.CAction += OpenTrendCommand_CAction;
+            FrashCommand.CAction += FrashCommand_CAction;
+        }
+
     }
 }

@@ -8,19 +8,16 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace SoftwareTeamwork
-{
+namespace SoftwareTeamwork {
     /// <summary>
     /// 关闭窗口
     /// </summary>
     public class CloseWinCommand : ICommand {
         public event EventHandler CanExecuteChanged;
-        public bool CanExecute(object parameter)
-        {
+        public bool CanExecute(object parameter) {
             return true;
         }
-        public void Execute(object parameter)
-        {
+        public void Execute(object parameter) {
             ((AIWindow)parameter).Close();
         }
     }
@@ -28,55 +25,38 @@ namespace SoftwareTeamwork
     /// <summary>
     /// 退出程序
     /// </summary>
-    public class ClsCommand : ICommand
-    {
-        public event EventHandler CanExecuteChanged
-        {
+    public class ClsCommand : ICommand {
+        public event EventHandler CanExecuteChanged {
             add { CommandManager.RequerySuggested += value; }
             remove { CommandManager.RequerySuggested -= value; }
         }
-        public bool CanExecute(object parameter)
-        {
+        public bool CanExecute(object parameter) {
             return true;
         }
-        public void Execute(object parameter)
-        {
+        public void Execute(object parameter) {
             Application.Current.Shutdown();
         }
     }
 
-    public class MCommand /* 移动命令 */ : ICommand
-    {
-        private const int WM_SYSCOMMAND = 0x112;
-
-        [DllImport("user32.dll")]
-        private static extern bool ReleaseCapture();
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
-
+    public class MCommand /* 移动命令 */ : ICommand {
         public event EventHandler CanExecuteChanged;
-        public bool CanExecute(object parameter)
-        {
+        public bool CanExecute(object parameter) {
             return true;
         }
-        public void Execute(object parameter)
-        {
-            ReleaseCapture();
-            SendMessage((IntPtr)parameter, WM_SYSCOMMAND, (IntPtr)0xF012, IntPtr.Zero);
+        public void Execute(object parameter) {
+            Win32APIs.ReleaseCapture();
+            Win32APIs.SendMessage((IntPtr)parameter, Win32APIs.WM_SYSCOMMAND, (IntPtr)0xF012, IntPtr.Zero);
         }
     }
 
-    public class OpenMainWindowCommand/* 打开主窗口*/ : ICommand
-    {
+    public class OpenMainWindowCommand/* 打开主窗口*/ : ICommand {
         public event EventHandler CanExecuteChanged;
 
-        public bool CanExecute(object parameter)
-        {
+        public bool CanExecute(object parameter) {
             return true;
         }
 
-        public void Execute(object parameter)
-        {
+        public void Execute(object parameter) {
             AIWindow a = parameter as AIWindow;
             if (a.Visibility.Equals(Visibility.Hidden))
                 a.Show();
@@ -87,12 +67,10 @@ namespace SoftwareTeamwork
 
     public class ChangeThemeCommand /*更换主题*/: ICommand {
         public event EventHandler CanExecuteChanged;
-        public bool CanExecute(object parameter)
-        {
+        public bool CanExecute(object parameter) {
             return true;
         }
-        public void Execute(object parameter)
-        {
+        public void Execute(object parameter) {
             var dics = Application.Current.Resources.MergedDictionaries;
             dics[0].Source = new Uri(@"./Themes/BrightTheme.xaml", UriKind.Relative);
             OverallSettingManger.Instence.Theme = "BrightTheme.xaml";
@@ -100,13 +78,18 @@ namespace SoftwareTeamwork
     }
 
     public class WindowCommand : ICommand /*命令基类*/ {
-        public Frame Target;
         public event EventHandler CanExecuteChanged;
+        public delegate void Act(object para);
+        private Act cAction;
+        public event Act CAction {
+            add { cAction = value; }
+            remove { cAction -= value; }
+        }
         public bool CanExecute(object parameter) {
             return true;
         }
         public void Execute(object parameter) {
-            Target.Navigate(new Uri((string)parameter, UriKind.Relative));
+                cAction(parameter);
         }
     }
 }

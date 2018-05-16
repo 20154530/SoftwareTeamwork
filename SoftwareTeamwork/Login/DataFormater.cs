@@ -10,7 +10,8 @@ using System.Text;
 namespace SoftwareTeamwork {
     class DataFormater //数据格式化类
     {
-        public static DataFormater FormaterInstense = new DataFormater();
+        private String IPGWInfo; 
+        public static DataFormater Instense = new DataFormater();
 
         public const int Flux = 0;
         public const int Time = 1;
@@ -35,7 +36,7 @@ namespace SoftwareTeamwork {
             }
             catch (IndexOutOfRangeException)
             {
-                Console.WriteLine("Username or password wrong!");
+                ErrorMessageService.Instence.ShowError(App.Current.MainWindow, "用户名或密码错误");
                 return null;
             }
             return temp;

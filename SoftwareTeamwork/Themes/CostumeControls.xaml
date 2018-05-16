@@ -9,8 +9,6 @@
   <local:DateTimeStringFormat x:Key="DateTimeStringFormat" />
   <local:ActrualDataToNodesPos x:Key="DTP" />
 
-  <sys:String x:Key="OOOOID">sdsdsdsdsddsd</sys:String>
-
   <!--Controls-->
 
   <!--DcontextMenu-->
@@ -67,7 +65,9 @@
   <!--FlowAnaPanel-->
 
   <Style x:Key="FlowAnaPanel"
-         TargetType='{x:Type local:FlowTrendPopups}'>
+         TargetType='{x:Type local:FlowTrendPopup}'>
+    <Setter Property="Placement"
+            Value="AbsolutePoint" />
     <Setter Property="Child">
       <Setter.Value>
         <Border Width="300"
@@ -76,12 +76,12 @@
                 BorderBrush="{DynamicResource BorderBrush}">
           <Border.Effect>
             <DropShadowEffect Color="{DynamicResource VsBackGroundColor}"
-                              Opacity="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:FlowTrendPopups},Path=Shadow}"
+                              Opacity="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:FlowTrendPopup},Path=Shadow}"
                               BlurRadius="5"
                               ShadowDepth="0" />
           </Border.Effect>
           <Grid Background="{DynamicResource DefaultPopupBackground}"
-                DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FlowTrendPopups}}}">
+                DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FlowTrendPopup}}}">
             <Grid.Resources>
               <sys:Double x:Key="FlowAnaBaseLineSize">0.8</sys:Double>
               <sys:Double x:Key="FlowAnaCanvasHeight">96</sys:Double>
@@ -401,6 +401,8 @@
 
   <Style x:Key="MainFlowPopup"
          TargetType="{x:Type local:FlowPopup}">
+    <Setter Property="Placement"
+            Value="AbsolutePoint" />
     <Setter Property="Child">
       <Setter.Value>
         <Border Width="300"
@@ -414,7 +416,8 @@
                               BlurRadius="5"
                               ShadowDepth="0" />
           </Border.Effect>
-          <Grid Background="{DynamicResource DefaultPopupBackground}">
+          <Grid Background="{DynamicResource DefaultPopupBackground}"
+                DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:FlowPopup}}">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="80" />
               <ColumnDefinition Width="*" />
@@ -425,14 +428,14 @@
               <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <TextBlock x:Name="Title"
-                       Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:FlowPopup},Path=Title}"
+                       Text="{Binding Title}"
                        FontSize="14"
                        Foreground="{DynamicResource DefaultPopupForeground}"
                        FontWeight="UltraLight"
                        VerticalAlignment="Center"
                        Grid.Column="1" />
             <TextBlock x:Name="Content"
-                       Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:FlowPopup},Path=Content}"
+                       Text="{Binding Content}"
                        FontSize="12"
                        Foreground="{DynamicResource FlowPopupForeground_D1}"
                        FontWeight="Thin"
@@ -444,10 +447,9 @@
                   HorizontalAlignment="Center"
                   VerticalAlignment="Center"
                   Grid.RowSpan="2">
-              <Path Data="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:FlowPopup},Path=IconPath,Converter={StaticResource StrToPathConverter}}"
+              <Path Data="{Binding IconPath,Converter={StaticResource StrToPathConverter}}"
                     Stroke="{DynamicResource DefaultPopupForeground}"
-                    StrokeThickness="5">
-              </Path>
+                    StrokeThickness="5" />
               <Ellipse Width="50"
                        Height="50"
                        Canvas.Left="5"
@@ -456,6 +458,36 @@
                        StrokeThickness="0.8" />
               <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type local:FlowPopup}},Path=Percent}"
                          Style="{DynamicResource NumberTextBlock}" />
+            </Grid>
+            <Grid Grid.Column="2">
+              <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+              </Grid.RowDefinitions>
+              <local:IconButton x:Name="TrendPanel"
+                                Content="&#xE152;"
+                                ContentTextFontSize="10"
+                                Padding="4"
+                                Margin="0,4,4,0"
+                                Command="{Binding OpenTrendCommand}"
+                                IconN="{DynamicResource DefaultPopupButtonForeground}"
+                                IconR="{DynamicResource DefaultPopupButtonForeground_R}"
+                                IconP="{DynamicResource DefaultPopupButtonForeground_P}"
+                                IconMaskN="{DynamicResource DefaultPopupButtonBackground}"
+                                IconMaskR="{DynamicResource DefaultPopupButtonBackground_R}"
+                                IconMaskP="{DynamicResource DefaultPopupButtonBackground_P}" />
+              <local:IconButton x:Name="Refrash"
+                                Content="&#xEDAB;"
+                                Grid.Row="1"
+                                ContentTextFontSize="10"
+                                Margin="0,0,4,0"
+                                Command="{Binding FrashCommand}"
+                                IconN="{DynamicResource DefaultPopupButtonForeground}"
+                                IconR="{DynamicResource DefaultPopupButtonForeground_R}"
+                                IconP="{DynamicResource DefaultPopupButtonForeground_P}"
+                                IconMaskN="{DynamicResource DefaultPopupButtonBackground}"
+                                IconMaskR="{DynamicResource DefaultPopupButtonBackground_R}"
+                                IconMaskP="{DynamicResource DefaultPopupButtonBackground_P}" />
             </Grid>
           </Grid>
         </Border>

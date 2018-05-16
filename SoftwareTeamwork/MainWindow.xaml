@@ -15,7 +15,7 @@
         <local:DContextMenu Style="{DynamicResource DcontextMenu}" />
       </local:DAreaIcon.Dcontextmenu>
       <local:DAreaIcon.FlowIconPopup>
-        <local:FlowTrendPopups Style="{DynamicResource FlowAnaPanel}" />
+        <local:FlowPopup Style="{DynamicResource MainFlowPopup}" />
       </local:DAreaIcon.FlowIconPopup>
     </local:DAreaIcon>
   </local:AIWindow.AreaIcon>

@@ -33,14 +33,21 @@ namespace SoftwareTeamwork {
             
         }
 
-        public void SetInfset(WebLoginInfSet infset) {
+        public int SetInfset(WebLoginInfSet infset) {
             infset.CheckUris();
             InfSet = infset;
-            Login_Headers_config();
+            try {
+                Login_Headers_config();
+            }
+            catch (Exception e) {
+                ErrorMessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接");
+                return -1;
+            }
             if (infset.NeedLogin)
                 paramList = infset.KeyValuePairs;
             if (infset.IdCodes.Key != null)
                 GetLoginID();
+            return 0;
         }
 
         private void GetLoginID() {
@@ -52,8 +59,10 @@ namespace SoftwareTeamwork {
         {
             int i = paramList.Count - 1;
             for (; i >= 0; i--) {
-                if (paramList[i].Value == "" | paramList[i].Value == null)//若为空进行补全
-                    ;
+                if (paramList[i].Value == "" | paramList[i].Value == null){//若为空进行补全{
+                    ErrorMessageService.Instence.ShowError(App.Current.MainWindow, "请完善登陆信息");
+                    break;
+                }
             }
         }
 
@@ -81,8 +90,7 @@ namespace SoftwareTeamwork {
                 bmp.BeginInit();
                 bmp.StreamSource = new MemoryStream(response.Content.ReadAsByteArrayAsync().Result);
                 bmp.EndInit();
-            }
-            catch {
+            } catch {
                 bmp = null;
             }
             return bmp;
@@ -101,7 +109,7 @@ namespace SoftwareTeamwork {
                     response = httpClient.PostAsync(InfSet.Uris[0] + ID, new FormUrlEncodedContent(paramList)).Result;
                 }
                 catch (AggregateException) {
-                    Console.WriteLine("Post Message Error : Please check your web connection !");
+                    ErrorMessageService.Instence.ShowError(App.Current.MainWindow,"请检查网络连接");
                 }
         }
 
@@ -114,7 +122,7 @@ namespace SoftwareTeamwork {
                     return httpClient.GetStringAsync(InfSet.Uris[1]).Result;
                 }
                 catch (AggregateException) {
-                    Console.WriteLine("Request Message Error : Please check your web connection !");
+                    ErrorMessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接");
                     return null;
                 }
         }
@@ -126,7 +134,7 @@ namespace SoftwareTeamwork {
                 temp = httpClient.GetStreamAsync(InfSet.Uris[1]).Result;
             }
             catch (AggregateException) {
-                Console.WriteLine("Request Message Error : Please check your web connection !");
+                ErrorMessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接");
                 return null;
             }
             return temp;

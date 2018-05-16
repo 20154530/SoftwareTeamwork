@@ -4,23 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Threading;
 
-namespace SoftwareTeamwork
-{
+namespace SoftwareTeamwork {
     public class ErrorMessageService {
         private ErrorPopup Error;
         public static ErrorMessageService Instence = new ErrorMessageService();
 
-        public void ShowError(UIElement aimobject,string message) {
+        public void ShowError(UIElement aimobject, string message) {
+            var RootElement = (DependencyObject)aimobject;
+            while (!(RootElement is Window) && !(RootElement is DPopup)) 
+                { RootElement = VisualTreeHelper.GetParent(RootElement); }
+
             if (Error.IsOpen)
                 Error.HidePopupAni();
-            Error.PlacementTarget = aimobject;
+            Error.PlacementTarget = (UIElement)RootElement;
             Error.Content = message;
-            Error.ShowPopupAni(); 
+            Error.ShowPopupAni();
         }
 
-         public ErrorMessageService() {
+        public ErrorMessageService() {
             Error = new ErrorPopup {
                 Style = (Style)Application.Current.FindResource("ErrorMessagePopup")
             };
