@@ -64,22 +64,6 @@ namespace SoftwareTeamwork {
             }
             return a / 1000000.0;
         }
-
-        private string TimeFormater(string Data)//时间信息格式化 in(s)
-        {
-            Int64 a = 0;
-            try {
-                a = Convert.ToInt64(Data);
-            }
-            catch (FormatException ex) {
-                MessageService.Instence.ShowError(null, "数据格式错误，请检查用户名和密码");
-            }
-            double h = Math.Round(a / 3600.0);
-            double m = Math.Round((a % 3600) / 60.0);
-            double s = a % 3600 % 60;
-            return String.Format("{0}:{1}:{2}", h, m, s);
-        }
-
         #endregion
 
 

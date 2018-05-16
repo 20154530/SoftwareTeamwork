@@ -31,9 +31,14 @@ namespace SoftwareTeamwork {
 
             IPGWAccount.IsEnabled = !Properties.Settings.Default.IPGWF;
             IPGWPassword.IsEnabled = !Properties.Settings.Default.IPGWF;
+            Flux15.IsEnabled = !Properties.Settings.Default.IPGWF;
+            Flux20.IsEnabled = !Properties.Settings.Default.IPGWF;
+            Flux15.Visibility = Properties.Settings.Default.FluxPackage ? Visibility.Collapsed:Visibility.Visible;
+            Flux20.Visibility = Properties.Settings.Default.FluxPackage ? Visibility.Visible : Visibility.Collapsed;
             JWIdentifyCodeLayer.Visibility = Properties.Settings.Default.JWF ? Visibility.Collapsed : Visibility.Visible;
             JWAccount.IsEnabled = !Properties.Settings.Default.JWF;
             JWPassword.IsEnabled = !Properties.Settings.Default.JWF;
+
         }
 
         private void SaveIPGW(object sender, RoutedEventArgs e) {
@@ -48,6 +53,10 @@ namespace SoftwareTeamwork {
                 Properties.Settings.Default.IPGWA = IPGWAccount.Text;
                 Properties.Settings.Default.IPGWP = IPGWPassword.Password;
                 Properties.Settings.Default.IPGWF = true;
+                Flux15.IsEnabled = !Properties.Settings.Default.IPGWF;
+                Flux20.IsEnabled = !Properties.Settings.Default.IPGWF;
+                Flux15.Visibility = Properties.Settings.Default.FluxPackage ? Visibility.Collapsed : Visibility.Visible;
+                Flux20.Visibility = Properties.Settings.Default.FluxPackage ? Visibility.Visible : Visibility.Collapsed;
                 IPGWAccount.IsEnabled = false;
                 IPGWPassword.IsEnabled = false;
                 string name, password;
@@ -69,6 +78,10 @@ namespace SoftwareTeamwork {
             Properties.Settings.Default.IPGWF = false;
             IPGWAccount.IsEnabled = true;
             IPGWPassword.IsEnabled = true;
+            Flux15.IsEnabled = true;
+            Flux20.IsEnabled = true;
+            Flux15.Visibility = Visibility.Visible;
+            Flux20.Visibility = Visibility.Visible;
         }
 
         private void Identify(object sender, RoutedEventArgs e) {
@@ -113,9 +126,6 @@ namespace SoftwareTeamwork {
                 await t;
                 LoginAgent.Instence.Post();
             }
-            MessageBox.Show(LoginAgent.Instence.GetData("NEUZhjw").Substring(1000));
-            //DataFormater.Instense.LoadClassPage();
-            //DataFormater.Instense.GetCourse();
         }
 
         private void ChangeNEUJW(object sender, RoutedEventArgs e) {
@@ -125,9 +135,17 @@ namespace SoftwareTeamwork {
             JWPassword.IsEnabled = true;
 
             XmlHelper.DeleteWebNode("NEUZhjw", new HashSet<string>() { "cookie" });
-            //FluxInfo info = new FluxInfo();
-            //XmlHelper.CreatFluxNode(XmlHelper.FluxNodeType.Date, info.GetXmlDateStyle());
-            //XmlHelper.CreatFluxNode(XmlHelper.FluxNodeType.Item, info.GetXmlItemStyle());
+        }
+
+        private void FluxKindChoice(object sender, RoutedEventArgs e) {
+            switch (((Control)sender).Name) {
+                case "Flux15":
+                    Properties.Settings.Default.FluxPackage = false;
+                    break;
+                case "Flux20":
+                    Properties.Settings.Default.FluxPackage = true;
+                    break;
+            }
         }
     }
 }

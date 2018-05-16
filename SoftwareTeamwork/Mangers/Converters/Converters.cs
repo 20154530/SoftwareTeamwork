@@ -12,7 +12,6 @@ using System.Windows.Shapes;
 
 namespace SoftwareTeamwork
 {
-    //
     class ColorAlphaConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -26,7 +25,6 @@ namespace SoftwareTeamwork
         }
     }
 
-    //
     class DubtoGridlConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -39,7 +37,6 @@ namespace SoftwareTeamwork
             throw new NotImplementedException();
         }
     }
-
 
     class ColortoBrushConverter : IValueConverter
     {
@@ -103,7 +100,7 @@ namespace SoftwareTeamwork
         }
     }
 
-    public class IntToStringConverter : IValueConverter {
+    class IntToStringConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             return ((int)value).ToString();
         }
@@ -113,7 +110,7 @@ namespace SoftwareTeamwork
         }
     }
 
-    public class WindowToIntPtrConverter : IValueConverter {
+    class WindowToIntPtrConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return new WindowInteropHelper(value as Window).Handle;
@@ -125,4 +122,16 @@ namespace SoftwareTeamwork
         }
     }
 
+    class FluxFormatConverter : IValueConverter {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+            if ((double)value > 1000)
+                return String.Format("{0:###.##} G", (double)value / 1000.0);
+            else
+                return String.Format("{0:###.##} M", (double)value);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+            throw new NotImplementedException();
+        }
+    }
 }

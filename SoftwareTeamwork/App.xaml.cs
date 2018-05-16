@@ -23,10 +23,15 @@ namespace SoftwareTeamwork
            // AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
             MainWindow window = new MainWindow();
             window.Show();
+            LoadCompleted += App_LoadCompleted;
             base.OnStartup(e);
         }
 
-        private System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args) {
+        private void App_LoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e) {
+            
+        }
+
+        private Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args) {
             AssemblyName assemblyName = new AssemblyName(args.Name);
             return Assembly.LoadFrom(Path.Combine(RootPath, DllPath));
         }

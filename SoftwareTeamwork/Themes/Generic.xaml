@@ -18,7 +18,7 @@
 
   <!--Font-->
   <FontFamily x:Key="Segoe">/FontLibrary;Component/#Segoe</FontFamily>
-  <FontFamily x:Key="Number">/FontLibrary;Component/#LineNumber</FontFamily>
+  <FontFamily x:Key="Digital">/FontLibrary;Component/#Digital</FontFamily>
   <!--Templates-->
 
   <!--IconButton-->
@@ -158,8 +158,9 @@
                          Foreground="{TemplateBinding IconN}"
                          FontWeight="{TemplateBinding FontWeight}" />
               <TextBlock x:Name="Label"
-                         Margin="0,0,4,0"
-                         TextAlignment="Justify"
+                         Margin="0,0,5,0"
+                        HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
                          Text="{TemplateBinding Content}"
                          FontSize="{TemplateBinding FontSize}"
                          Foreground="{TemplateBinding IconN}"
@@ -191,6 +192,109 @@
               <Setter TargetName="ContentIcon"
                       Property="Foreground"
                       Value="{Binding IconP, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!--IconRadioButton-->
+  <Style TargetType="{x:Type local:IconRadioButton}">
+    <Style.Triggers>
+      <Trigger Property="IsChecked"
+               Value="True">
+        <Setter Property="ToolTip">
+          <Setter.Value>
+            <ToolTip Style="{DynamicResource IconToggelButtonToolTip}"
+                     Visibility="{Binding ToolTipVisiblity}">
+              <Grid Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
+                <TextBlock Text="{Binding BackToolTip}"
+                           Style="{DynamicResource FlowAnaNodeTip}" />
+              </Grid>
+            </ToolTip>
+          </Setter.Value>
+        </Setter>
+      </Trigger>
+      <Trigger Property="IsChecked"
+               Value="False">
+        <Setter Property="ToolTip">
+          <Setter.Value>
+            <ToolTip Style="{DynamicResource IconToggelButtonToolTip}"
+                     Visibility="{Binding ToolTipVisiblity}">
+              <Grid Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
+                <TextBlock Text="{Binding ForeToolTip}"
+                           Style="{DynamicResource FlowAnaNodeTip}" />
+              </Grid>
+            </ToolTip>
+          </Setter.Value>
+        </Setter>
+      </Trigger>
+    </Style.Triggers>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type local:IconRadioButton}">
+          <Border BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid x:Name="RootGrid"
+                  Background="{TemplateBinding Background}">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+              <Rectangle x:Name="DarkMask"
+                         Fill="{TemplateBinding IconMaskN}"
+                         Visibility="Collapsed"
+                         Grid.ColumnSpan="2" />
+              <TextBlock x:Name="ContentIcon"
+                         Grid.Column="1"
+                         Margin="{TemplateBinding Padding}"
+                         Style="{DynamicResource IconTextBlock}"
+                         Text="{TemplateBinding ForeIcon}"
+                         FontSize="{TemplateBinding FontSize}"
+                         Foreground="{TemplateBinding IconN}"
+                         FontWeight="{TemplateBinding FontWeight}" />
+              <TextBlock x:Name="Label"
+                         Margin="0,0,4,0"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         Text="{TemplateBinding Content}"
+                         FontSize="{TemplateBinding LabelFontSize}"
+                         Foreground="{TemplateBinding IconN}"
+                         FontWeight="{TemplateBinding FontWeight}"
+                         Visibility="{TemplateBinding LabelVisibility}" />
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsChecked"
+                     Value="True">
+              <Setter TargetName="ContentIcon"
+                      Property="Text"
+                      Value="{Binding BackIcon, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+            </Trigger>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+              <Setter TargetName="DarkMask"
+                      Property="Fill"
+                      Value="{Binding IconMaskR, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+              <Setter TargetName="ContentIcon"
+                      Property="Foreground"
+                      Value="{Binding IconR, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+            </Trigger>
+            <Trigger Property="IsPressed"
+                     Value="True">
+              <Setter TargetName="DarkMask"
+                      Property="Fill"
+                      Value="{Binding IconMaskP, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+              <Setter TargetName="ContentIcon"
+                      Property="Foreground"
+                      Value="{Binding IconP, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+            </Trigger>
+            <Trigger Property="IsEnabled"
+                     Value="false">
+              <Setter TargetName="ContentIcon"
+                      Property="Text"
+                      Value="{Binding DisIcon, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -564,17 +668,4 @@
     </Setter>
   </Style>
 
-
-    <Style TargetType="{x:Type local:IconRadioButton}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:IconRadioButton}">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
 </ResourceDictionary>

@@ -139,5 +139,17 @@ namespace SoftwareTeamwork.Properties {
                 this["JWF"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FluxPackage {
+            get {
+                return ((bool)(this["FluxPackage"]));
+            }
+            set {
+                this["FluxPackage"] = value;
+            }
+        }
     }
 }

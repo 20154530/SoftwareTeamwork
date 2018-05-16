@@ -73,22 +73,14 @@ namespace SoftwareTeamwork {
             this.Style = (Style)Application.Current.FindResource("MainFluxPopup");
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="para"></param>
-        private void OpenTrendCommand_CAction(object para) {
+        private void OpenTrendCommand_CAction(object para) {//打开流量走势面板委托
             Pop.PlacementRectangle = new Rect(SystemParameters.WorkArea.Width - 5,
                 SystemParameters.WorkArea.Height - this.Child.RenderSize.Height - 10, 0, 0);
             Pop.ShowPopupAni();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="para"></param>
-        private void FrashCommand_CAction(object para) {
-            SetIconPathByPercentAngle(5);
+        private void FrashCommand_CAction(object para) {//刷新按钮命令委托
+            SetIconPathByPercentAngle(DataAnalysis.GetFluxPercent(true)*100);
         }
 
         private void Pop_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) {
@@ -106,6 +98,7 @@ namespace SoftwareTeamwork {
             OverallSettingManger.Instence.ThemeChanged += Instence_ThemeChanged;
             OpenTrendCommand.CAction += OpenTrendCommand_CAction;
             FrashCommand.CAction += FrashCommand_CAction;
+            SetIconPathByPercentAngle(DataAnalysis.GetFluxPercent(false) * 100);
         }
 
     }

@@ -8,6 +8,7 @@
   <local:IntToStringConverter x:Key="ITS" />
   <local:DateTimeStringFormat x:Key="DateTimeStringFormat" />
   <local:ActrualDataToNodesPos x:Key="DTP" />
+  <local:FluxFormatConverter x:Key="FluxFormat" />
 
   <!--Controls-->
 
@@ -101,22 +102,22 @@
             <Grid x:Name="VTick"
                   Grid.RowSpan="3">
               <TextBlock Style="{DynamicResource FluxAnaTickV}"
-                         Text="{Binding DataGroup.VTicks[5]}"
+                         Text="{Binding DataGroup.VTicks[5],Converter={StaticResource FluxFormat}}"
                          Margin="6,18,0,0" />
               <TextBlock Style="{DynamicResource FluxAnaTickV}"
-                         Text="{Binding DataGroup.VTicks[4]}"
+                         Text="{Binding DataGroup.VTicks[4],Converter={StaticResource FluxFormat}}"
                          Margin="6,34,0,0" />
               <TextBlock Style="{DynamicResource FluxAnaTickV}"
-                         Text="{Binding DataGroup.VTicks[3]}"
+                         Text="{Binding DataGroup.VTicks[3],Converter={StaticResource FluxFormat}}"
                          Margin="6,50,0,0" />
               <TextBlock Style="{DynamicResource FluxAnaTickV}"
-                         Text="{Binding DataGroup.VTicks[2]}"
+                         Text="{Binding DataGroup.VTicks[2],Converter={StaticResource FluxFormat}}"
                          Margin="6,66,0,0" />
               <TextBlock Style="{DynamicResource FluxAnaTickV}"
-                         Text="{Binding DataGroup.VTicks[1]}"
+                         Text="{Binding DataGroup.VTicks[1],Converter={StaticResource FluxFormat}}"
                          Margin="6,82,0,0" />
               <TextBlock Style="{DynamicResource FluxAnaTickV}"
-                         Text="{Binding DataGroup.VTicks[0]}"
+                         Text="{Binding DataGroup.VTicks[0],Converter={StaticResource FluxFormat}}"
                          Margin="6,98,0,0" />
               <TextBlock Style="{DynamicResource FluxAnaTickV}"
                          Text="0"
@@ -300,7 +301,7 @@
                 <Rectangle.ToolTip>
                   <ToolTip Style="{StaticResource NodeToolTip}">
                     <Grid Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
-                      <TextBlock Text="{Binding DataGroup.ActrualData[0]}"
+                      <TextBlock Text="{Binding DataGroup.ActrualData[0],Converter={StaticResource FluxFormat}}"
                                  Style="{StaticResource FlowAnaNodeTip}" />
                     </Grid>
                   </ToolTip>
@@ -312,7 +313,7 @@
                 <Rectangle.ToolTip>
                   <ToolTip Style="{StaticResource NodeToolTip}">
                     <Grid Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
-                      <TextBlock Text="{Binding DataGroup.ActrualData[1]}"
+                      <TextBlock Text="{Binding DataGroup.ActrualData[1],Converter={StaticResource FluxFormat}}"
                                  Style="{StaticResource FlowAnaNodeTip}" />
                     </Grid>
                   </ToolTip>
@@ -324,7 +325,7 @@
                 <Rectangle.ToolTip>
                   <ToolTip Style="{StaticResource NodeToolTip}">
                     <Grid  Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
-                      <TextBlock Text="{Binding DataGroup.ActrualData[2]}"
+                      <TextBlock Text="{Binding DataGroup.ActrualData[2],Converter={StaticResource FluxFormat}}"
                                  Style="{StaticResource FlowAnaNodeTip}" />
                     </Grid>
                   </ToolTip>
@@ -336,7 +337,7 @@
                 <Rectangle.ToolTip>
                   <ToolTip Style="{StaticResource NodeToolTip}">
                     <Grid Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
-                      <TextBlock Text="{Binding DataGroup.ActrualData[3]}"
+                      <TextBlock Text="{Binding DataGroup.ActrualData[3],Converter={StaticResource FluxFormat}}"
                                  Style="{StaticResource FlowAnaNodeTip}" />
                     </Grid>
                   </ToolTip>
@@ -348,7 +349,7 @@
                 <Rectangle.ToolTip>
                   <ToolTip Style="{StaticResource NodeToolTip}">
                     <Grid Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
-                      <TextBlock Text="{Binding DataGroup.ActrualData[4]}"
+                      <TextBlock Text="{Binding DataGroup.ActrualData[4],Converter={StaticResource FluxFormat}}"
                                  Style="{StaticResource FlowAnaNodeTip}" />
                     </Grid>
                   </ToolTip>
@@ -360,7 +361,7 @@
                 <Rectangle.ToolTip>
                   <ToolTip Style="{StaticResource NodeToolTip}">
                     <Grid Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
-                      <TextBlock Text="{Binding DataGroup.ActrualData[5]}"
+                      <TextBlock Text="{Binding DataGroup.ActrualData[5],Converter={StaticResource FluxFormat}}"
                                  Style="{StaticResource FlowAnaNodeTip}" />
                     </Grid>
                   </ToolTip>
@@ -372,7 +373,7 @@
                 <Rectangle.ToolTip>
                   <ToolTip Style="{StaticResource NodeToolTip}">
                     <Grid Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
-                      <TextBlock Text="{Binding DataGroup.ActrualData[6]}"
+                      <TextBlock Text="{Binding DataGroup.ActrualData[6],Converter={StaticResource FluxFormat}}"
                                  Style="{StaticResource FlowAnaNodeTip}" />
                     </Grid>
                   </ToolTip>

@@ -65,12 +65,14 @@
   <!--NumberTextBlock-->
   <Style x:Key="NumberTextBlock"
          TargetType="TextBlock">
+    <Setter Property="FontFamily"
+            Value="{DynamicResource Digital}" />
     <Setter Property="FontWeight"
-            Value="ExtraBold" />
+            Value="Light" />
     <Setter Property="UseLayoutRounding"
             Value="True" />
     <Setter Property="FontSize"
-            Value="10.8" />
+            Value="12" />
     <Setter Property="Foreground"
             Value="{DynamicResource MainTextColor}" />
     <Setter Property="TextAlignment"

@@ -66,7 +66,7 @@ namespace SoftwareTeamwork {
         private void ParamListCheck()//请求键值对检查
         {
             for (int i = 0; i < paramList.Count; i++) {
-                if (paramList[i].Value == "" ){//若为空进行补全{
+                if (paramList[i].Value == "" ){//若为空进行补全
                     MessageService.Instence.ShowError(App.Current.MainWindow, "请完善登陆信息");
                     break;
                 }
@@ -154,10 +154,6 @@ namespace SoftwareTeamwork {
             return temp;
         }
 
-        //public void SaveHtml() {
-        //    Write("MyHtml.html", GetDatasetByString(GetDataAsStream()));
-        //}
-
         #region 转成图片
 
         #endregion
@@ -189,7 +185,6 @@ namespace SoftwareTeamwork {
             {
                 strHTML = reader.ReadToEnd();
             }
-
             return strHTML;
         }
         #endregion

@@ -96,6 +96,12 @@ namespace SoftwareTeamwork {
             else return -1;
         }
 
+        /// <summary>
+        /// 在主节点中创建一系列子节点，主要用于cookies的本地化
+        /// </summary>
+        /// <param name="loc">节点的主键名</param>
+        /// <param name="pairs">要创建子节点的节点标签名[0]，要创建子节点的属性键值对[1]</param>
+        /// <returns></returns>
         public static int CreatWebNode(string loc, string[][] pairs) {
             StreamReader reader = new StreamReader(App.RootPath + WebConfig, System.Text.Encoding.UTF8);
             XmlDocument xmlDocument = new XmlDocument();
@@ -120,6 +126,41 @@ namespace SoftwareTeamwork {
                         node.SetAttribute(x[0], x[1]);
                     }
                     par.AppendChild(node);
+                }
+                xmlDocument.Save(App.RootPath + WebConfig);
+                return 0;
+            }
+            else return -1;
+        }
+
+        /// <summary>
+        /// 从主节点中删去一系列相同属性的子节点，主要用于本地cookies的删除
+        /// </summary>
+        /// <param name="loc">节点的主键名</param>
+        /// <param name="dc">要删除的子节点键值名称</param>
+        /// <returns></returns>
+        public static int DeleteWebNode(string loc, HashSet<string> dc) {
+            StreamReader reader = new StreamReader(App.RootPath + WebConfig, System.Text.Encoding.UTF8);
+            XmlDocument xmlDocument = new XmlDocument();
+            xmlDocument.Load(reader);
+            reader.Close();
+
+            XmlElement root = xmlDocument.DocumentElement;
+            XmlNodeList xnl = root.SelectNodes("/Configs/Web");
+            XmlNode par = null;
+            XmlNodeList xnls = null;
+
+            foreach (XmlNode i in xnl)
+                if (i.Attributes["name"].Value.Equals(loc)) {
+                    par = i;
+                    xnls = i.ChildNodes;
+                    break;
+                }
+
+            if (par != null) {
+                for (int i = 0; i < xnls.Count; i++) {
+                    if (dc.Contains(xnls[i].Attributes["type"].Value))
+                        par.RemoveChild(xnls[i]);
                 }
                 xmlDocument.Save(App.RootPath + WebConfig);
                 return 0;
@@ -165,33 +206,15 @@ namespace SoftwareTeamwork {
             return 0;
         }
 
-        public static int DeleteWebNode(string loc, HashSet<string> dc) {
-            StreamReader reader = new StreamReader(App.RootPath + WebConfig, System.Text.Encoding.UTF8);
+        public static int DeleteFluxNode() {
             XmlDocument xmlDocument = new XmlDocument();
-            xmlDocument.Load(reader);
-            reader.Close();
-
-            XmlElement root = xmlDocument.DocumentElement;
-            XmlNodeList xnl = root.SelectNodes("/Configs/Web");
-            XmlNode par = null;
-            XmlNodeList xnls = null;
-
-            foreach (XmlNode i in xnl)
-                if (i.Attributes["name"].Value.Equals(loc)) {
-                    par = i;
-                    xnls = i.ChildNodes;
-                    break;
-                }
-
-            if (par != null) {
-                for (int i =0;i<xnls.Count;i++) {
-                    if (dc.Contains(xnls[i].Attributes["type"].Value))
-                        par.RemoveChild(xnls[i]);
-                }
-                xmlDocument.Save(App.RootPath + WebConfig);
-                return 0;
+            using (StreamReader reader = new StreamReader(App.RootPath + FluxLog, System.Text.Encoding.UTF8)) {
+                xmlDocument.Load(reader);
             }
-            else return -1;
+            
+
+            xmlDocument.Save(App.RootPath + FluxLog);
+            return 0;
         }
     }
 }
