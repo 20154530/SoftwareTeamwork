@@ -124,10 +124,18 @@ namespace SoftwareTeamwork
 
     class FluxFormatConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-            if ((double)value > 1000)
-                return String.Format("{0:###.##} G", (double)value / 1000.0);
-            else
-                return String.Format("{0:###.##} M", (double)value);
+            if ((double)value > 1000) {
+                if (parameter is null)
+                    return String.Format("{0:###.##} G", (double)value / 1000.0);
+                else
+                    return String.Format("{0:### . ##} G", (double)value / 1000.0);
+            }
+            else {
+                if (parameter is null)
+                    return String.Format("{0:###.##} M", (double)value);
+                else
+                    return String.Format("{0:### . ##} G", (double)value / 1000.0);
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {

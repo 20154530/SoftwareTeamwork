@@ -8,6 +8,7 @@
                 mc:Ignorable="d"
                 Title="MainWindow"
                 ExtendToTitleBar="True"
+                ResizeMode="NoResize"
                 Background="{DynamicResource BackgroundBrush}">
   <local:AIWindow.AreaIcon>
     <local:DAreaIcon AreaVisibility="True">

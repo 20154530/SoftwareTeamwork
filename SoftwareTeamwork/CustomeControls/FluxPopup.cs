@@ -28,6 +28,26 @@ namespace SoftwareTeamwork {
             DependencyProperty.Register("Percent", typeof(int), typeof(FluxPopup), new PropertyMetadata(100));
         #endregion
 
+        #region FluxUsed
+        public double FluxUsed {
+            get { return (double)GetValue(FluxUsedProperty); }
+            set { SetValue(FluxUsedProperty, value); }
+        }
+        public static readonly DependencyProperty FluxUsedProperty =
+            DependencyProperty.Register("FluxUsed", typeof(double), 
+                typeof(FluxPopup), new PropertyMetadata(0.0));
+        #endregion
+
+        #region FluxRemain
+        public double FluxRemain {
+            get { return (double)GetValue(FluxRemainProperty); }
+            set { SetValue(FluxRemainProperty, value); }
+        }
+        public static readonly DependencyProperty FluxRemainProperty =
+            DependencyProperty.Register("FluxRemain", typeof(double),
+                typeof(FluxPopup), new PropertyMetadata(0.0));
+        #endregion
+
         #region OpenTrendCommand
         public WindowCommand OpenTrendCommand {
             get { return (WindowCommand)GetValue(OpenTrendCommandProperty); }
@@ -48,11 +68,30 @@ namespace SoftwareTeamwork {
                 typeof(FluxPopup), new PropertyMetadata(new WindowCommand()));
         #endregion
 
-        protected override void OnStyleChanged(Style oldStyle, Style newStyle) {
-            if (newStyle == null)
-                return;
-          
-            base.OnStyleChanged(oldStyle, newStyle);
+        #region ConnectCommand
+        public WindowCommand ConnectCommand {
+            get { return (WindowCommand)GetValue(ConnectCommandProperty); }
+            set { SetValue(ConnectCommandProperty, value); }
+        }
+        public static readonly DependencyProperty ConnectCommandProperty =
+            DependencyProperty.Register("ConnectCommand", typeof(WindowCommand), 
+                typeof(FluxPopup), new PropertyMetadata(new WindowCommand()));
+        #endregion
+
+        #region DisConnect
+        public WindowCommand DisConnect {
+            get { return (WindowCommand)GetValue(DisConnectProperty); }
+            set { SetValue(DisConnectProperty, value); }
+        }
+        public static readonly DependencyProperty DisConnectProperty =
+            DependencyProperty.Register("DisConnect", typeof(WindowCommand),
+                typeof(FluxPopup), new PropertyMetadata(new WindowCommand()));
+        #endregion
+
+        protected override void OnOpened(EventArgs e) {
+            SetIconPathByPercentAngle(DataAnalysis.GetFluxPercent(false) * 100);
+            FluxUsed = DataAnalysis.GetFluxData(true);
+            FluxRemain = DataAnalysis.GetFluxData(false);
         }
 
         public void SetIconPathByPercentAngle(double a) {
@@ -81,6 +120,12 @@ namespace SoftwareTeamwork {
 
         private void FrashCommand_CAction(object para) {//刷新按钮命令委托
             SetIconPathByPercentAngle(DataAnalysis.GetFluxPercent(true)*100);
+            FluxUsed = DataAnalysis.GetFluxData(true);
+            FluxRemain = DataAnalysis.GetFluxData(false);
+        }
+
+        private void ConnectCommand_CAction(object para) {
+            LoginAgent.Instence.Post("NEUIpgw");
         }
 
         private void Pop_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) {
@@ -98,7 +143,7 @@ namespace SoftwareTeamwork {
             OverallSettingManger.Instence.ThemeChanged += Instence_ThemeChanged;
             OpenTrendCommand.CAction += OpenTrendCommand_CAction;
             FrashCommand.CAction += FrashCommand_CAction;
-            SetIconPathByPercentAngle(DataAnalysis.GetFluxPercent(false) * 100);
+            ConnectCommand.CAction += ConnectCommand_CAction; 
         }
 
     }

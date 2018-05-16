@@ -12,23 +12,25 @@ using System.Diagnostics;
 namespace SoftwareTeamwork {
     class DataFormater //数据格式化类
     {
-        private FluxInfo ipgwInfo;
+        public bool IPGWConnected { get; set; }
+        private FluxInfo ipgwInfo = null;
         public FluxInfo IpgwInfo {
-            get { return ipgwInfo is null ? GetIpgwDataInf(LoginAgent.Instence.GetData("NEUIpgw")) : IpgwInfo; }
+            get {
+                return ipgwInfo is null ? 
+                    ipgwInfo = GetIpgwDataInf(LoginAgent.Instence.GetData("NEUIpgw")) :ipgwInfo;
+            }
             set { ipgwInfo = value; }
         }
         private HtmlDocument CourseInfo;
         public static DataFormater Instense = new DataFormater();
 
-        public DataFormater() {
-
-        }
+        public DataFormater() {  }
 
         #region Ipgw信息格式
 
         public void UpdateFlux() {
             LoginAgent.Instence.SetInfset(XmlHelper.GetInfWithName("NEUIpgw"));
-            IpgwInfo = GetIpgwDataInf(LoginAgent.Instence.GetData(null));
+            ipgwInfo = GetIpgwDataInf(LoginAgent.Instence.GetData(null));
         }
 
         public double GetFlux() { return IpgwInfo.FluxData; }
@@ -48,6 +50,7 @@ namespace SoftwareTeamwork {
             }
             catch (IndexOutOfRangeException) {
                 MessageService.Instence.ShowError(App.Current.MainWindow, "用户名或密码错误");
+                IPGWConnected = false;
                 return null;
             }
             return info;
@@ -81,8 +84,15 @@ namespace SoftwareTeamwork {
                 Courses = new List<Course>()
             };
             HtmlNodeCollection nodes = CourseInfo.DocumentNode.ChildNodes;
-            HtmlNode content = nodes[3].ChildNodes[3].ChildNodes[1].ChildNodes[3].
-                ChildNodes[1].ChildNodes[1].ChildNodes[3];
+            HtmlNode content = null;
+            try {
+                content = nodes[3].ChildNodes[3].ChildNodes[1].ChildNodes[3].
+                    ChildNodes[1].ChildNodes[1].ChildNodes[3];
+            }
+            catch (Exception) {
+                MessageService.Instence.ShowError(App.Current.MainWindow,"登录过期，请重新登录");
+                return null;
+            }
             string[] s = content.InnerText.Split('\n');
             List<string> co = new List<string>();
             foreach(string ss in s){
@@ -92,9 +102,8 @@ namespace SoftwareTeamwork {
             cs.Term = co[0];
             co.RemoveRange(0, 3);
             co.RemoveAt(co.Count-1);
-            Console.WriteLine(cs.Term);
             foreach ( string k in co) {
-                Console.WriteLine(k);
+                Debug.Print(k);
             }
 
             return cs;

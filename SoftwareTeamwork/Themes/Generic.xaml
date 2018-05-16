@@ -556,7 +556,7 @@
                                     Command="{StaticResource CloseWindow}"
                                     Margin="0,2,4,0">
                     <local:IconButton.ToolTip>
-                      <ToolTip Style="{DynamicResource NodeToolTip}">
+                      <ToolTip Style="{DynamicResource DefaultToolTip}">
                         <Grid Background="{DynamicResource BackgroundBrush}">
                           <TextBlock Text="退出程序"
                                      Style="{DynamicResource FlowAnaNodeTip}" />

@@ -299,7 +299,7 @@
                          Canvas.Top="{Binding DataGroup.FluxInfos[0].FluxData,Converter={StaticResource Move},ConverterParameter=-3}"
                          Style="{StaticResource AnaFLowPoints}">
                 <Rectangle.ToolTip>
-                  <ToolTip Style="{StaticResource NodeToolTip}">
+                  <ToolTip Style="{StaticResource DefaultToolTip}">
                     <Grid Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
                       <TextBlock Text="{Binding DataGroup.ActrualData[0],Converter={StaticResource FluxFormat}}"
                                  Style="{StaticResource FlowAnaNodeTip}" />
@@ -311,7 +311,7 @@
                          Canvas.Top="{Binding DataGroup.FluxInfos[1].FluxData,Converter={StaticResource Move},ConverterParameter=-3}"
                          Style="{StaticResource AnaFLowPoints}">
                 <Rectangle.ToolTip>
-                  <ToolTip Style="{StaticResource NodeToolTip}">
+                  <ToolTip Style="{StaticResource DefaultToolTip}">
                     <Grid Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
                       <TextBlock Text="{Binding DataGroup.ActrualData[1],Converter={StaticResource FluxFormat}}"
                                  Style="{StaticResource FlowAnaNodeTip}" />
@@ -323,7 +323,7 @@
                          Canvas.Top="{Binding DataGroup.FluxInfos[2].FluxData,Converter={StaticResource Move},ConverterParameter=-3}"
                          Style="{StaticResource AnaFLowPoints}">
                 <Rectangle.ToolTip>
-                  <ToolTip Style="{StaticResource NodeToolTip}">
+                  <ToolTip Style="{StaticResource DefaultToolTip}">
                     <Grid  Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
                       <TextBlock Text="{Binding DataGroup.ActrualData[2],Converter={StaticResource FluxFormat}}"
                                  Style="{StaticResource FlowAnaNodeTip}" />
@@ -335,7 +335,7 @@
                          Canvas.Top="{Binding DataGroup.FluxInfos[3].FluxData,Converter={StaticResource Move},ConverterParameter=-3}"
                          Style="{StaticResource AnaFLowPoints}">
                 <Rectangle.ToolTip>
-                  <ToolTip Style="{StaticResource NodeToolTip}">
+                  <ToolTip Style="{StaticResource DefaultToolTip}">
                     <Grid Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
                       <TextBlock Text="{Binding DataGroup.ActrualData[3],Converter={StaticResource FluxFormat}}"
                                  Style="{StaticResource FlowAnaNodeTip}" />
@@ -347,7 +347,7 @@
                          Canvas.Top="{Binding DataGroup.FluxInfos[4].FluxData,Converter={StaticResource Move},ConverterParameter=-3}"
                          Style="{StaticResource AnaFLowPoints}">
                 <Rectangle.ToolTip>
-                  <ToolTip Style="{StaticResource NodeToolTip}">
+                  <ToolTip Style="{StaticResource DefaultToolTip}">
                     <Grid Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
                       <TextBlock Text="{Binding DataGroup.ActrualData[4],Converter={StaticResource FluxFormat}}"
                                  Style="{StaticResource FlowAnaNodeTip}" />
@@ -359,7 +359,7 @@
                          Canvas.Top="{Binding DataGroup.FluxInfos[5].FluxData,Converter={StaticResource Move},ConverterParameter=-3}"
                          Style="{StaticResource AnaFLowPoints}">
                 <Rectangle.ToolTip>
-                  <ToolTip Style="{StaticResource NodeToolTip}">
+                  <ToolTip Style="{StaticResource DefaultToolTip}">
                     <Grid Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
                       <TextBlock Text="{Binding DataGroup.ActrualData[5],Converter={StaticResource FluxFormat}}"
                                  Style="{StaticResource FlowAnaNodeTip}" />
@@ -371,7 +371,7 @@
                          Canvas.Top="{Binding DataGroup.FluxInfos[6].FluxData,Converter={StaticResource Move},ConverterParameter=-3}"
                          Style="{StaticResource AnaFLowPoints}">
                 <Rectangle.ToolTip>
-                  <ToolTip Style="{StaticResource NodeToolTip}">
+                  <ToolTip Style="{StaticResource DefaultToolTip}">
                     <Grid Background="{DynamicResource FluxPopupAnaCanvas_ToolTipBackground}">
                       <TextBlock Text="{Binding DataGroup.ActrualData[6],Converter={StaticResource FluxFormat}}"
                                  Style="{StaticResource FlowAnaNodeTip}" />
@@ -425,7 +425,7 @@
               <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-              <RowDefinition Height="*" />
+              <RowDefinition Height="auto" />
               <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <TextBlock x:Name="Title"
@@ -434,15 +434,46 @@
                        Foreground="{DynamicResource DefaultPopupForeground}"
                        FontWeight="UltraLight"
                        VerticalAlignment="Center"
+                       Margin="0,12,0,0"
                        Grid.Column="1" />
-            <TextBlock x:Name="Content"
-                       Text="{Binding Content}"
-                       FontSize="12"
-                       Foreground="{DynamicResource FluxPopupForeground_D1}"
-                       FontWeight="Thin"
-                       VerticalAlignment="Center"
-                       Grid.Column="1"
-                       Grid.Row="1" />
+            <Grid Grid.Row="1"
+                  Grid.Column="1"
+                  Margin="0,8,0,0">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+              </Grid.RowDefinitions>
+              <TextBlock Text="已用流量"
+                         FontSize="10"
+                         Foreground="{DynamicResource DefaultPopupForeground}"
+                         VerticalAlignment="Center" />
+              <TextBlock Grid.Row="1"
+                         Margin="0,4,0,0"
+                         Text="{Binding FluxUsed,Converter={StaticResource FluxFormat},ConverterParameter=1}"
+                         FontFamily="{DynamicResource Digital}"
+                         FontSize="12"
+                         Foreground="{DynamicResource DefaultPopupForeground}"
+                         FontWeight="Light"
+                         VerticalAlignment="Center" />
+              <TextBlock Text="剩余流量"
+                         Grid.Column="1"
+                         FontSize="10"
+                         Foreground="{DynamicResource DefaultPopupForeground}"
+                         VerticalAlignment="Center" />
+              <TextBlock Grid.Row="1"
+                         Grid.Column="1"
+                         Margin="0,4,0,0"
+                         Text="{Binding FluxRemain,Converter={StaticResource FluxFormat},ConverterParameter=1}"
+                         FontFamily="{DynamicResource Digital}"
+                         FontSize="12"
+                         Foreground="{DynamicResource DefaultPopupForeground}"
+                         FontWeight="Light"
+                         VerticalAlignment="Center" />
+            </Grid>
             <Grid Width="60"
                   Height="60"
                   HorizontalAlignment="Center"
@@ -460,35 +491,70 @@
               <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type local:FluxPopup}},Path=Percent}"
                          Style="{DynamicResource NumberTextBlock}" />
             </Grid>
-            <Grid Grid.Column="2" Grid.RowSpan="2">
+            <Grid Grid.Column="2"
+                  Grid.RowSpan="2">
+              <Grid.Resources>
+                <Style x:Key="FluxPopupToolTipText"
+                       TargetType="TextBlock">
+                  <Setter Property="FontSize"
+                          Value="10" />
+                  <Setter Property="Foreground"
+                          Value="{DynamicResource DefaultPopupForeground}" />
+                  <Setter Property="Margin"
+                          Value="5,2,5,2" />
+                </Style>
+              </Grid.Resources>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+              </Grid.ColumnDefinitions>
               <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
               </Grid.RowDefinitions>
               <local:IconButton x:Name="TrendPanel"
                                 Content="&#xE152;"
-                                ContentTextFontSize="10"
+                                Grid.Column="1"
                                 Padding="4"
-                                Margin="0,4,4,0"
+                                Margin="0,4,6,0"
                                 Command="{Binding OpenTrendCommand}"
-                                IconN="{DynamicResource DefaultPopupButtonForeground}"
-                                IconR="{DynamicResource DefaultPopupButtonForeground_R}"
-                                IconP="{DynamicResource DefaultPopupButtonForeground_P}"
-                                IconMaskN="{DynamicResource DefaultPopupButtonBackground}"
-                                IconMaskR="{DynamicResource DefaultPopupButtonBackground_R}"
-                                IconMaskP="{DynamicResource DefaultPopupButtonBackground_P}" />
+                                Style="{DynamicResource FluxPopupButtonStyle}">
+                <local:IconButton.ToolTip>
+                  <ToolTip Style="{DynamicResource DefaultToolTip}"
+                           Background="{DynamicResource DefaultPopupBackground}">
+                    <TextBlock Text="打开流量走势图"
+                               Style="{DynamicResource FluxPopupToolTipText}" />
+                  </ToolTip>
+                </local:IconButton.ToolTip>
+              </local:IconButton>
               <local:IconButton x:Name="Refrash"
                                 Content="&#xEDAB;"
+                                Grid.Column="1"
                                 Grid.Row="1"
-                                ContentTextFontSize="10"
-                                Margin="0,4,4,0"
+                                Margin="0,6,6,0"
                                 Command="{Binding FrashCommand}"
-                                IconN="{DynamicResource DefaultPopupButtonForeground}"
-                                IconR="{DynamicResource DefaultPopupButtonForeground_R}"
-                                IconP="{DynamicResource DefaultPopupButtonForeground_P}"
-                                IconMaskN="{DynamicResource DefaultPopupButtonBackground}"
-                                IconMaskR="{DynamicResource DefaultPopupButtonBackground_R}"
-                                IconMaskP="{DynamicResource DefaultPopupButtonBackground_P}" />
+                                Style="{DynamicResource FluxPopupButtonStyle}">
+                <local:IconButton.ToolTip>
+                  <ToolTip Style="{DynamicResource DefaultToolTip}"
+                           Background="{DynamicResource DefaultPopupBackground}">
+                    <TextBlock Text="刷新流量数据"
+                               Style="{DynamicResource FluxPopupToolTipText}" />
+                  </ToolTip>
+                </local:IconButton.ToolTip>
+              </local:IconButton>
+              <local:IconButton x:Name="Connect"
+                                Content="&#xE704;"
+                                Margin="0,4,6,0"
+                                Command="{Binding ConnectCommand}"
+                                Style="{DynamicResource FluxPopupButtonStyle}">
+                <local:IconButton.ToolTip>
+                  <ToolTip Style="{DynamicResource DefaultToolTip}"
+                           Background="{DynamicResource DefaultPopupBackground}">
+                    <TextBlock Text="连接IPGW"
+                               Style="{DynamicResource FluxPopupToolTipText}" />
+                  </ToolTip>
+                </local:IconButton.ToolTip>
+              </local:IconButton>
             </Grid>
           </Grid>
         </Border>
@@ -540,12 +606,7 @@
                               Content="&#xE72A;"
                               FontSize="10"
                               HorizontalAlignment="Center"
-                              IconN="{DynamicResource DefaultPopupButtonForeground}"
-                              IconR="{DynamicResource DefaultPopupButtonForeground_R}"
-                              IconP="{DynamicResource DefaultPopupButtonForeground_P}"
-                              IconMaskN="{DynamicResource DefaultPopupButtonBackground}"
-                              IconMaskR="{DynamicResource DefaultPopupButtonBackground_R}"
-                              IconMaskP="{DynamicResource DefaultPopupButtonBackground_P}"
+                              Style="{DynamicResource FluxPopupButtonStyle}"
                               Foreground="{DynamicResource DefaultPopupForeground}" />
           </Grid>
         </Border>

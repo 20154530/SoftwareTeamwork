@@ -42,11 +42,12 @@ namespace SoftwareTeamwork {
             httpClient.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate");
             httpClient.DefaultRequestHeaders.Add("Accept-Language", "zh-CN,zh;q=0.8");
             httpClient.DefaultRequestHeaders.Connection.Add("keep-alive");
+            httpClient.Timeout = TimeSpan.FromDays(1);
         }
 
         public int SetInfset(WebLoginInfSet infset) {
             InfSet = infset;
-            try { Login_Headers_config(); }
+            try { GetOrignResult(); }
             catch (Exception e) {
                 MessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接");
                 return -1;
@@ -74,15 +75,15 @@ namespace SoftwareTeamwork {
             if (InfSet.Cookies.Count != 0) {
                 foreach (KeyValuePair<string, string> kv in InfSet.Cookies) {
                     Cookie cookie = new Cookie(kv.Key, kv.Value) {
-                        Expires = DateTime.Now.AddYears(1)
+                        Expires = DateTime.MaxValue
                     };
-                    clientHandler.CookieContainer.Add(new Uri(InfSet.Uris[0]),cookie);
+                    clientHandler.CookieContainer.Add(new Uri(InfSet.Uris[1]), cookie);
                 }
                 InfSet.HasCookie = true;
             }
         }
 
-        private void Login_Headers_config()//Http头填写
+        private void GetOrignResult()//Http头填写
         {
             result = httpClient.GetStringAsync(InfSet.Uris[0]).Result;
         }
@@ -116,11 +117,22 @@ namespace SoftwareTeamwork {
             if (InfSet.NeedLogin)
                 try {
                     response = httpClient.PostAsync(InfSet.Uris[0] + ID, new FormUrlEncodedContent(paramList)).Result;
-                    if (!infSet.HasCookie)
+                    if (!infSet.HasCookie && InfSet.NeedLogin)
                         SetCookies();
                 }
                 catch (AggregateException) {
                     MessageService.Instence.ShowError(App.Current.MainWindow,"请检查网络连接");
+                }
+        }
+
+        public void Post(string name) {
+            RefrashinfSet(name);
+            if (InfSet.NeedLogin)
+                try {
+                    response = httpClient.PostAsync(InfSet.Uris[0] + ID, new FormUrlEncodedContent(paramList)).Result;
+                }
+                catch (AggregateException) {
+                    MessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接");
                 }
         }
 
@@ -135,7 +147,7 @@ namespace SoftwareTeamwork {
                     return httpClient.GetStringAsync(InfSet.Uris[1]).Result;
                 }
                 catch (AggregateException) {
-                    MessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接");
+                    MessageService.Instence.ShowError(null, "请检查网络连接");
                     return null;
                 }
         }
@@ -148,7 +160,7 @@ namespace SoftwareTeamwork {
                 temp = httpClient.GetStreamAsync(InfSet.Uris[1]).Result;
             }
             catch (AggregateException) {
-                MessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接");
+                MessageService.Instence.ShowError(null, "请检查网络连接");
                 return null;
             }
             return temp;
@@ -161,6 +173,10 @@ namespace SoftwareTeamwork {
         #region 获取cookies
         private void SetCookies() {
             var responseCookies = clientHandler.CookieContainer.GetCookies(new Uri(infSet.Uris[1])).Cast<Cookie>().ToArray();
+            foreach (Cookie c in responseCookies)
+                c.Expires = DateTime.Now.AddYears(1);
+            HttpResponseMessage ss = httpClient.PostAsync(infSet.Uris[1], null).Result;
+
             string[][] pairs = new string[clientHandler.CookieContainer.Count][];
             for (int i= 0;i< clientHandler.CookieContainer.Count;i++) {
                 pairs[i] = FormatCookie(responseCookies[i]);

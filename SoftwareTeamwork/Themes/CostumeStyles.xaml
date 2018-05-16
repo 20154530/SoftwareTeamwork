@@ -137,8 +137,8 @@
             Value="5,2,5,2" />
   </Style>
 
-  <!--NodeToolTip-->
-  <Style x:Key="NodeToolTip"
+  <!--DefaultToolTip-->
+  <Style x:Key="DefaultToolTip"
          TargetType="ToolTip">
     <Setter Property="Padding"
             Value="0" />
@@ -163,6 +163,26 @@
 
   <!--Buttons-->
 
+  <!--FluxPopupButtonStyle-->
+  <Style x:Key="FluxPopupButtonStyle"
+         TargetType="local:IconButton">
+    <Setter Property="IconN"
+            Value="{DynamicResource DefaultPopupButtonForeground}" />
+    <Setter Property="IconR"
+            Value="{DynamicResource DefaultPopupButtonForeground_R}" />
+    <Setter Property="IconP"
+            Value="{DynamicResource DefaultPopupButtonForeground_P}" />
+    <Setter Property="IconMaskN"
+            Value="{DynamicResource DefaultPopupButtonBackground}" />
+    <Setter Property="IconMaskR"
+            Value="{DynamicResource DefaultPopupButtonBackground_R}" />
+    <Setter Property="IconMaskP"
+            Value="{DynamicResource DefaultPopupButtonBackground_P}" />
+    <Setter Property="ContentTextFontSize"
+            Value="10" />
+  </Style>
+  
+  
   <!--TextBox-->
 
   <!--AccountTextBox-->
