@@ -65,6 +65,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CourseTable.cs" />
     <Compile Include="Dialogs\DialogBase.cs" />
     <Compile Include="CustomeControls\FluxPopup.cs" />
     <Compile Include="CustomeControls\FluxTrendPopup.cs" />
@@ -74,7 +75,7 @@
     <Compile Include="Dialogs\ExitDialog.cs" />
     <Compile Include="Dialogs\QuestionDialog.cs" />
     <Compile Include="CustomeControls\ErrorPopup.cs" />
-    <Compile Include="IconRadioButton.cs" />
+    <Compile Include="CustomeControls\IconRadioButton.cs" />
     <Compile Include="InfoPage.xaml.cs">
       <DependentUpon>InfoPage.xaml</DependentUpon>
     </Compile>
@@ -273,6 +274,11 @@
     <None Include="Configs\CourseData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Resource Include="Backs\CourseData.xml" />
+    <Resource Include="Backs\FluxLog.xml" />
+    <Resource Include="Backs\Web-config.xml">
+      <SubType>Designer</SubType>
+    </Resource>
     <Content Include="HTMLPage1.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -11,8 +11,6 @@ namespace SoftwareTeamwork
 {
     public class DPopup : Popup
     {
-        #region Properties
-
         #region Title
         public string Title
         {
@@ -51,11 +49,6 @@ namespace SoftwareTeamwork
         public static readonly DependencyProperty UseInOutAniProperty =
             DependencyProperty.Register("UseInOutAni", typeof(bool), typeof(DPopup), 
                 new PropertyMetadata(true));
-        #endregion
-
-        #region
-        #endregion
-
         #endregion
 
         #region Fadein/out ani

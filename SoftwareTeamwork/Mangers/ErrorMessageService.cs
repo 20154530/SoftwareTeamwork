@@ -13,32 +13,42 @@ namespace SoftwareTeamwork {
         public static MessageService Instence = new MessageService();
 
         public void ShowError(UIElement aimobject, string message) {
-            if (aimobject is null) {
-                if (Error.IsOpen)
-                    Error.HidePopupAni();
-                Error.Placement = System.Windows.Controls.Primitives.PlacementMode.AbsolutePoint;
-                Console.WriteLine(Error.Child.RenderSize.Height);
-                Error.PlacementRectangle = new Rect(0, 0, 0, 0);
-                Error.Content = message;
-                Error.ShowPopupAni();
-            }
-            else {
-                var RootElement = (DependencyObject)aimobject;
-                while (!(RootElement is Window) && !(RootElement is DPopup)) { RootElement = VisualTreeHelper.GetParent(RootElement); }
-                if (Error.IsOpen)
-                    Error.HidePopupAni();
-                Error.Placement = System.Windows.Controls.Primitives.PlacementMode.RelativePoint;
-                Error.PlacementTarget = (UIElement)RootElement;
-                Error.Content = message;
-                Error.ShowPopupAni();
-            }
+                  if (aimobject is null) {
+
+                      if (Error.IsOpen)
+                          Error.HidePopupAni();
+                      Error.PlacementTarget = null;
+                      Error.Content = message;
+                      Error.ShowPopupAni();
+
+                  }
+                  else {
+                      var RootElement = (DependencyObject)aimobject;
+                      while (!(RootElement is Window) && !(RootElement is DPopup)) { RootElement = VisualTreeHelper.GetParent(RootElement); }
+                      if (Error.IsOpen)
+                          Error.HidePopupAni();
+                      Error.Placement = System.Windows.Controls.Primitives.PlacementMode.RelativePoint;
+                      Error.PlacementTarget = (UIElement)RootElement;
+                      Error.Content = message;
+                      Error.ShowPopupAni();
+                  }
+        }
+
+        private void MainWindow_StateChanged(object sender, EventArgs e) {
+            if (((Window)sender).WindowState.Equals(WindowState.Minimized))
+                Error.IsOpen = false;
+            else
+                Error.IsOpen = true;
+            throw new NotImplementedException();
         }
 
         public MessageService() {
             Error = new ErrorPopup {
                 Style = (Style)Application.Current.FindResource("ErrorMessagePopup")
             };
+            Application.Current.MainWindow.StateChanged += MainWindow_StateChanged;
         }
 
+  
     }
 }

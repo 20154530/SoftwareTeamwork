@@ -296,6 +296,19 @@
                       Property="Text"
                       Value="{Binding DisIcon, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
             </Trigger>
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition Property="IsEnabled"
+                           Value="false" />
+                <Condition Property="IsChecked"
+                           Value="false" />
+              </MultiTrigger.Conditions>
+              <MultiTrigger.Setters>
+                <Setter TargetName="ContentIcon"
+                        Property="Text"
+                        Value="{Binding DisIconBack, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+              </MultiTrigger.Setters>
+            </MultiTrigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>

@@ -26,13 +26,14 @@ namespace SoftwareTeamwork {
         private void Reset(object sender, RoutedEventArgs e) {
             QuestionDialog dialog = new QuestionDialog {
                 Style = (Style)Application.Current.FindResource("QuestionDialog"),
-                Context = "确定还原默认设置?"
+                Context = "确定还原默认设置,包括用户数据?"
             };
             dialog.ShowDialog(Application.Current.MainWindow);
 
-            if (dialog.DialogResult.Equals(true))
+            if (dialog.DialogResult.Equals(true)) {
                 Properties.Settings.Default.Reset();
 
+            }
         }
     }
 }

@@ -33,8 +33,8 @@ namespace SoftwareTeamwork {
             IPGWPassword.IsEnabled = !Properties.Settings.Default.IPGWF;
             Flux15.IsEnabled = !Properties.Settings.Default.IPGWF;
             Flux20.IsEnabled = !Properties.Settings.Default.IPGWF;
-            Flux15.Visibility = Properties.Settings.Default.FluxPackage ? Visibility.Collapsed:Visibility.Visible;
-            Flux20.Visibility = Properties.Settings.Default.FluxPackage ? Visibility.Visible : Visibility.Collapsed;
+            Flux15.IsChecked = !Properties.Settings.Default.FluxPackage;
+            Flux20.IsChecked = Properties.Settings.Default.FluxPackage;
             JWIdentifyCodeLayer.Visibility = Properties.Settings.Default.JWF ? Visibility.Collapsed : Visibility.Visible;
             JWAccount.IsEnabled = !Properties.Settings.Default.JWF;
             JWPassword.IsEnabled = !Properties.Settings.Default.JWF;
@@ -96,7 +96,7 @@ namespace SoftwareTeamwork {
         }
 
         private void SaveNEUJW(object sender, RoutedEventArgs e) {
-            if (JWAccount.Text.Equals("") || JWPassword.Password.Equals("") || JWIdentifyCode.Equals(""))
+            if (JWAccount.Text.Equals("") || JWPassword.Password.Equals("") || (JWIdentifyCode.Text.Equals("") && !Properties.Settings.Default.JWF))
                 MessageService.Instence.ShowError(this, "请输入用户名、密码、验证码");
             else
                 SaveNEUJW();
@@ -124,11 +124,13 @@ namespace SoftwareTeamwork {
                 });
                 t.Start();
                 await t;
-                LoginAgent.Instence.Post();
+                LoginAgent.Instence.Post("NEUZhjw");
             }
-            //Console.WriteLine(LoginAgent.Instence.GetData("NEUZhjw"));
-            DataFormater.Instense.LoadClassPage();
-            DataFormater.Instense.GetCourse();
+            Task v = new Task(() => {
+                DataFormater.Instense.UpDateCourse();
+            });
+            v.Start();
+            await v;
         }
 
         private void ChangeNEUJW(object sender, RoutedEventArgs e) {

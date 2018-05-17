@@ -101,7 +101,7 @@ namespace SoftwareTeamwork {
             var y = 20 * Math.Cos(A);
             x = 30 + x;
             y = 30 - y;
-            if (a <= 180)
+            if (a <= 50)
                 IconPath = "M 30,10 A 20,20,0,0,1," + x.ToString() + "," + y.ToString();
             else
                 IconPath = "M 30,10 A 20,20,0,1,1," + x.ToString() + "," + y.ToString();
@@ -128,6 +128,12 @@ namespace SoftwareTeamwork {
             LoginAgent.Instence.Post("NEUIpgw");
         }
 
+        private void DisConnect_CAction(object para) {
+            LoginAgent.Instence.Post("NEUIpgw", new Dictionary<string, string>() {
+                {"action","logout" }
+            });
+        }
+
         private void Pop_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) {
             Pop.HidePopupAni();
         }
@@ -143,8 +149,8 @@ namespace SoftwareTeamwork {
             OverallSettingManger.Instence.ThemeChanged += Instence_ThemeChanged;
             OpenTrendCommand.CAction += OpenTrendCommand_CAction;
             FrashCommand.CAction += FrashCommand_CAction;
-            ConnectCommand.CAction += ConnectCommand_CAction; 
+            ConnectCommand.CAction += ConnectCommand_CAction;
+            DisConnect.CAction += DisConnect_CAction;
         }
-
     }
 }

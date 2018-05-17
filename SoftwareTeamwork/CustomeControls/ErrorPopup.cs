@@ -25,8 +25,10 @@ namespace SoftwareTeamwork {
         private void OnPlacementTargetChanged(object sender, EventArgs e) {
             if (PlacementTarget is null) {
                 this.Placement = PlacementMode.Absolute;
-                PlacementRectangle = new Rect(SystemParameters.WorkArea.Width - 10,
-                SystemParameters.WorkArea.Height - this.Child.RenderSize.Height - 10, 0, 0);
+                HorizontalOffset = 0;
+                VerticalOffset = 0;
+                PlacementRectangle = new Rect(SystemParameters.WorkArea.Width - this.Child.RenderSize.Width - 5,
+                SystemParameters.WorkArea.Height - this.Child.RenderSize.Height - 5, 0, 0);
             }
             else {
                 HorizontalOffset = PlacementTarget.RenderSize.Width - 210;

@@ -261,7 +261,7 @@
                             Title="天气信息  &#x2502;"
                             AimGridType="Auto"
                             AttachedGrid="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"
-                            CommandPara="4" />
+                            CommandPara="6" />
       <Grid Grid.Row="6"
             Margin="20,0,0,0">
         <Grid.RowDefinitions>

@@ -97,6 +97,16 @@ namespace SoftwareTeamwork {
                 typeof(IconRadioButton), new PropertyMetadata(null));
         #endregion
 
+        #region DisIconBack
+        public string DisIconBack {
+            get { return (string)GetValue(DisIconBackProperty); }
+            set { SetValue(DisIconBackProperty, value); }
+        }
+        public static readonly DependencyProperty DisIconBackProperty =
+            DependencyProperty.Register("DisIconBack", typeof(string),
+                typeof(IconRadioButton), new PropertyMetadata(""));
+        #endregion
+
         #region ForeTip
         public string ForeToolTip {
             get { return (string)GetValue(ForeToolTipProperty); }

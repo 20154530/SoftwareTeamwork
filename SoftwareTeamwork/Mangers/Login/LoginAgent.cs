@@ -89,7 +89,7 @@ namespace SoftwareTeamwork {
         }
 
         public BitmapImage GetVerify() {
-            var url = InfSet.Uris[0] + InfSet.VerifyCode + new Regex(InfSet.VerifyCode + "(.*?)").Match(result).Groups[1].Value;
+            var url = InfSet.Uris[0] + InfSet.VerifyCode + new Regex(InfSet.VerifyCode).Match(result).Groups[1].Value;
             response = httpClient.GetAsync(new Uri(url)).Result;
             BitmapImage bmp = null;
             try {
@@ -136,6 +136,22 @@ namespace SoftwareTeamwork {
                 }
         }
 
+        public void Post(string name,Dictionary<string,string> dic) {
+            RefrashinfSet(name);
+            for (int kvp = 0; kvp < paramList.Count; kvp++) {
+                if (dic.ContainsKey(paramList[kvp].Key)) {
+                    paramList[kvp] = new KeyValuePair<string, string>(paramList[kvp].Key, dic[paramList[kvp].Key]);
+                }
+            }
+            if (InfSet.NeedLogin)
+                try {
+                    response = httpClient.PostAsync(InfSet.Uris[0] + ID, new FormUrlEncodedContent(paramList)).Result;
+                }
+                catch (AggregateException) {
+                    MessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接");
+                }
+        }
+
         public String GetData(string name)//请求字符数据
         {
             if (!(name is null))
@@ -173,9 +189,10 @@ namespace SoftwareTeamwork {
         #region 获取cookies
         private void SetCookies() {
             var responseCookies = clientHandler.CookieContainer.GetCookies(new Uri(infSet.Uris[1])).Cast<Cookie>().ToArray();
+
             foreach (Cookie c in responseCookies)
                 c.Expires = DateTime.Now.AddYears(1);
-            HttpResponseMessage ss = httpClient.PostAsync(infSet.Uris[1], null).Result;
+            HttpResponseMessage ss = httpClient.PostAsync(infSet.Uris[1],null).Result;
 
             string[][] pairs = new string[clientHandler.CookieContainer.Count][];
             for (int i= 0;i< clientHandler.CookieContainer.Count;i++) {

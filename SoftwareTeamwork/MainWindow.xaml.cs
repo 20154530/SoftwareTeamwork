@@ -74,6 +74,7 @@ namespace SoftwareTeamwork
         public MainWindow() {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
+            
             Properties.Settings.Default.Upgrade();
         }
     }

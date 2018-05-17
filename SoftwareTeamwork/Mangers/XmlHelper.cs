@@ -69,7 +69,7 @@ namespace SoftwareTeamwork {
             else return null;
         }
 
-        public static int UpdateWebNodeValue(string loc, Dictionary<string,string> dc) {
+        public static int UpdateWebNodeValue(string loc, Dictionary<string, string> dc) {
             StreamReader reader = new StreamReader(App.RootPath + WebConfig, System.Text.Encoding.UTF8);
             XmlDocument xmlDocument = new XmlDocument();
             xmlDocument.Load(reader);
@@ -87,7 +87,7 @@ namespace SoftwareTeamwork {
 
             if (cxnl != null) {
                 foreach (XmlElement i in cxnl) {
-                    if (dc.ContainsKey(i.Attributes["name"].Value)) 
+                    if (dc.ContainsKey(i.Attributes["name"].Value))
                         i.SetAttribute("value", dc[i.Attributes["name"].Value]);
                 }
                 xmlDocument.Save(App.RootPath + WebConfig);
@@ -121,7 +121,7 @@ namespace SoftwareTeamwork {
             if (par != null) {
                 foreach (string[] pair in pairs) {
                     var node = xmlDocument.CreateElement("Inf");
-                    foreach(string s in pair) {
+                    foreach (string s in pair) {
                         string[] x = s.Split(':');
                         node.SetAttribute(x[0], x[1]);
                     }
@@ -159,8 +159,9 @@ namespace SoftwareTeamwork {
 
             if (par != null) {
                 for (int i = 0; i < xnls.Count; i++) {
-                    if (dc.Contains(xnls[i].Attributes["type"].Value))
-                        par.RemoveChild(xnls[i]);
+                    if (dc.Contains(xnls[i].Attributes["type"].Value)) {
+                        par.RemoveChild(xnls[i]); i--;
+                    }
                 }
                 xmlDocument.Save(App.RootPath + WebConfig);
                 return 0;
@@ -194,14 +195,14 @@ namespace SoftwareTeamwork {
                 case FluxNodeType.Item:
                     var Item = xmlDocument.CreateElement("Item");
                     var LastDate = Root.LastChild;
-                    foreach(string s in pairs) {
+                    foreach (string s in pairs) {
                         string[] k = s.Split(':');
                         Item.SetAttribute(k[0], k[1]);
                     }
                     LastDate.AppendChild(Item);
                     break;
             }
-            
+
             xmlDocument.Save(App.RootPath + FluxLog);
             return 0;
         }
@@ -211,9 +212,81 @@ namespace SoftwareTeamwork {
             using (StreamReader reader = new StreamReader(App.RootPath + FluxLog, System.Text.Encoding.UTF8)) {
                 xmlDocument.Load(reader);
             }
-            
+
 
             xmlDocument.Save(App.RootPath + FluxLog);
+            return 0;
+        }
+
+        public static CourseSet GetCourseSetNode(string term) {
+            StreamReader reader = new StreamReader(App.RootPath + CourseData, Encoding.UTF8);
+            XmlDocument xmlDocument = new XmlDocument();
+            xmlDocument.Load(reader);
+            reader.Close();
+
+            XmlElement root = xmlDocument.DocumentElement;
+            XmlNodeList xnl = root.SelectNodes("/Courses/CourseSet");
+            XmlNodeList xnls = null;
+
+            CourseSet courseSet = new CourseSet();
+
+            foreach(XmlNode xn in xnl) 
+                if (xn.Attributes["Term"].Value.Equals(term)) {
+                    xnls = xn.ChildNodes; break;
+                }
+            
+            if(xnls != null && xnls.Count > 0) {
+                courseSet.Term = term;
+                courseSet.Courses = new List<Course>();
+                foreach (XmlNode xn in xnls) {
+                    Course temp = new Course();
+                    temp.CourseName = xn.Attributes["Name"].Value;
+                    temp.CourseTeacher = xn.Attributes["Teacher"].Value;
+                    temp.CourseLoc = xn.Attributes["Loc"].Value;
+                    temp.CourseDur = xn.Attributes["Dur"].Value;
+                    temp.CourseTime = CourseTime.FromString(xn.Attributes["Time"].Value);
+
+                    courseSet.Courses.Add(temp);
+                }
+            }
+
+            return courseSet;
+        }
+
+        //public static int DeleteCourseSetNode(string term) {
+
+        //}
+
+        public static int CreatCourseSetNode(CourseSet set) {
+            StreamReader reader = new StreamReader(App.RootPath + CourseData, Encoding.UTF8);
+            XmlDocument xmlDocument = new XmlDocument();
+            xmlDocument.Load(reader);
+            reader.Close();
+
+            XmlElement root = xmlDocument.DocumentElement;
+            XmlNodeList xnl = root.SelectNodes("/Courses/CourseSet");
+            foreach(XmlNode xn in xnl) {
+                if (xn.Attributes["Term"].Value.Equals(set.Term)) {
+                    root.RemoveChild(xn);
+                    break;
+                }
+            }
+
+            XmlElement Courses = xmlDocument.CreateElement("CourseSet");
+            Courses.SetAttribute("Term", set.Term);
+            root.AppendChild(Courses);
+
+            foreach (Course c in set.Courses) {
+                XmlElement NewCourse = xmlDocument.CreateElement("Course");
+                NewCourse.SetAttribute("Name", c.CourseName);
+                NewCourse.SetAttribute("Teacher", c.CourseTeacher);
+                NewCourse.SetAttribute("Loc", c.CourseLoc);
+                NewCourse.SetAttribute("Dur", c.CourseDur);
+                NewCourse.SetAttribute("Time", c.CourseTime.ToString());
+                Courses.AppendChild(NewCourse);
+            }
+
+            xmlDocument.Save(App.RootPath + CourseData);
             return 0;
         }
     }

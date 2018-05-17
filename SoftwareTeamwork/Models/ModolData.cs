@@ -21,8 +21,32 @@ namespace SoftwareTeamwork {
         public string CourseTeacher { get; set; }
         public string CourseLoc { get; set; }
         public CourseTime CourseTime { get; set; }
-        public int CourseBegin { get; set; }
-        public int CourseEnd { get; set; }
+        public string CourseDur { get; set; }
+
+        public Course() {
+            
+        }
+
+        public override string ToString() {
+            if (CourseName == null) {
+                return String.Format("<Name:{0} Teacher:{1} Loc:{2} Week:{3}  |{4}-{5}| >"
+                    , "NULL"
+                    , "NULL"
+                    , "NULL"
+                    , "NULL"
+                    , CourseTime.WeekDay
+                    , CourseTime.DayTime);
+            }
+            else {
+                return String.Format("<Name:{0} Teacher:{1} Loc:{2} Week:{3}  |{4}-{5}| >"
+                    , CourseName.PadLeft(10)
+                    , CourseTeacher.PadLeft(5)
+                    , CourseLoc.PadLeft(5)
+                    , CourseDur
+                    , CourseTime.WeekDay
+                    , CourseTime.DayTime);
+            }
+        }
     }
 
     public class CourseTime {
@@ -30,6 +54,18 @@ namespace SoftwareTeamwork {
         public enum TERM { C1, C2, C3, C4, C5, C6 }
         public DAYS WeekDay { get; set; }
         public TERM DayTime { get; set; }
+
+        public override string ToString() {
+            return String.Format("{0}-{1}", Convert.ToInt32(WeekDay), Convert.ToInt32(DayTime));
+        }
+
+        public static CourseTime FromString(string s) {
+            CourseTime temp = new CourseTime();
+            string[] ts = s.Split('-');
+            temp.WeekDay = (CourseTime.DAYS)Convert.ToInt32(ts[0]);
+            temp.DayTime = (CourseTime.TERM)Convert.ToInt32(ts[1]);
+            return temp;
+        }
     }
 
     public class FluxInfo {
