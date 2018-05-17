@@ -126,7 +126,6 @@ namespace SoftwareTeamwork {
                 await t;
                 LoginAgent.Instence.Post("NEUZhjw");
             }
-            Console.WriteLine(LoginAgent.Instence.GetData("NEUZhjw"));
         }
 
         private void ChangeNEUJW(object sender, RoutedEventArgs e) {

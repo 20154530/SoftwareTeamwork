@@ -638,7 +638,7 @@
         <Border x:Name="RootBorder"
                 BorderThickness="0"
                 DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CourseTable}}}">
-          <Grid x:Name="RootGrid">
+          <Grid x:Name="RootGrid" Width="560" Height="400">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="auto" />
               <ColumnDefinition Width="*" />
@@ -678,13 +678,27 @@
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />
               </Grid.ColumnDefinitions>
-              <ListView Grid.Column="0" />
-              <ListView Grid.Column="1" />
-              <ListView Grid.Column="2" />
-              <ListView Grid.Column="3" />
-              <ListView Grid.Column="4" />
-              <ListView Grid.Column="5" />
-              <ListView Grid.Column="6" />
+              <ListView Grid.Column="0"
+                        Style="{DynamicResource CourseTableListView}"
+                        ItemsSource="{Binding CourseSet.Courses}"/>
+              <ListView Grid.Column="1"
+                        Style="{DynamicResource CourseTableListView}"
+                        ItemsSource="{Binding CourseSet.Courses}" />
+              <ListView Grid.Column="2"
+                        Style="{DynamicResource CourseTableListView}"
+                        ItemsSource="{Binding CourseSet.Courses}" />
+              <ListView Grid.Column="3"
+                        Style="{DynamicResource CourseTableListView}"
+                        ItemsSource="{Binding CourseSet.Courses}" />
+              <ListView Grid.Column="4"
+                        Style="{DynamicResource CourseTableListView}"
+                        ItemsSource="{Binding CourseSet.Courses}" />
+              <ListView Grid.Column="5"
+                        Style="{DynamicResource CourseTableListView}"
+                        ItemsSource="{Binding CourseSet.Courses}" />
+              <ListView Grid.Column="6"
+                        Style="{DynamicResource CourseTableListView}"
+                        ItemsSource="{Binding CourseSet.Courses}" />
             </Grid>
           </Grid>
         </Border>

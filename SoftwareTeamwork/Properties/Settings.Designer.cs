@@ -151,5 +151,29 @@ namespace SoftwareTeamwork.Properties {
                 this["FluxPackage"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int WeekNow {
+            get {
+                return ((int)(this["WeekNow"]));
+            }
+            set {
+                this["WeekNow"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("05/17/2018 21:06:00")]
+        public global::System.DateTime WeekNowSet {
+            get {
+                return ((global::System.DateTime)(this["WeekNowSet"]));
+            }
+            set {
+                this["WeekNowSet"] = value;
+            }
+        }
     }
 }

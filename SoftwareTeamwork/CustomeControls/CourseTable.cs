@@ -9,12 +9,12 @@ namespace SoftwareTeamwork {
     class CourseTable : DPopup {
 
         #region CourseSet
-        public CourseSet courseSet {
-            get { return (CourseSet)GetValue(courseSetProperty); }
-            set { SetValue(courseSetProperty, value); }
+        public CourseSet CourseSet {
+            get { return (CourseSet)GetValue(CourseSetProperty); }
+            set { SetValue(CourseSetProperty, value); }
         }
-        public static readonly DependencyProperty courseSetProperty =
-            DependencyProperty.Register("courseSet", typeof(CourseSet),
+        public static readonly DependencyProperty CourseSetProperty =
+            DependencyProperty.Register("CourseSet", typeof(CourseSet),
                 typeof(CourseTable), new PropertyMetadata(new CourseSet()));
         #endregion
 
@@ -28,6 +28,13 @@ namespace SoftwareTeamwork {
                 typeof(CourseTable), new PropertyMetadata(DateTime.Now));
         #endregion
 
+        #region
+        #endregion
 
+        public CourseTable() {
+            CourseSet = DataFormater.Instense.GetCourse();
+            CourseSet.RemoveNotNow();
+            Console.WriteLine(CourseSet);
+        }
     }
 }

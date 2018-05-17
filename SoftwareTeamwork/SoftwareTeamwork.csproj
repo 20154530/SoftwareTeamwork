@@ -65,7 +65,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CourseTable.cs" />
+    <Compile Include="CustomeControls\CourseTable.cs" />
     <Compile Include="Dialogs\DialogBase.cs" />
     <Compile Include="CustomeControls\FluxPopup.cs" />
     <Compile Include="CustomeControls\FluxTrendPopup.cs" />
@@ -272,7 +272,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Configs\CourseData.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Resource Include="Backs\CourseData.xml" />
     <Resource Include="Backs\FluxLog.xml" />

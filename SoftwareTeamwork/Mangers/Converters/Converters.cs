@@ -142,4 +142,23 @@ namespace SoftwareTeamwork
             throw new NotImplementedException();
         }
     }
+
+    class CourseSetToListConverter : IValueConverter {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+            switch ((string)parameter) {
+                case "1":  break;
+                case "2":break;
+                case "3":break;
+                case "4":break;
+                case "5":break;
+                case "6":break;
+                case "7":break;
+            }
+            return null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+            throw new NotImplementedException();
+        }
+    }
 }

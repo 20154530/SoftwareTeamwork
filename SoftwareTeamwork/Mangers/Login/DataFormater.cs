@@ -190,9 +190,10 @@ namespace SoftwareTeamwork {
         }
 
         public CourseSet GetCourse() {
-            return XmlHelper.GetCourseSetNode(DateTime.Now.Month > 8 ?
+            courseSet = XmlHelper.GetCourseSetNode(DateTime.Now.Month > 8 ?
                 String.Format("{0}-{1}", DateTime.Now.Year, DateTime.Now.Year + 1) :
                  String.Format("{0}-{1}", DateTime.Now.Year - 1, DateTime.Now.Year));
+            return courseSet;
         }
         #endregion
 

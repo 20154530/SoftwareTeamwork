@@ -35,5 +35,11 @@
     <Setting Name="FluxPackage" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="WeekNow" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="WeekNowSet" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">05/17/2018 21:06:00</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
