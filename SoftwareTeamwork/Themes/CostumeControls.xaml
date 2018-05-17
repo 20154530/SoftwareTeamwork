@@ -667,6 +667,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
               </Grid.RowDefinitions>
+              <TextBlock Text=""
             </Grid>
             <Grid Grid.Column="1" Grid.Row="1">
               <Grid.ColumnDefinitions>
@@ -680,25 +681,25 @@
               </Grid.ColumnDefinitions>
               <ListView Grid.Column="0"
                         Style="{DynamicResource CourseTableListView}"
-                        ItemsSource="{Binding CourseSet.Courses}"/>
+                        ItemsSource="{Binding MONList}"/>
               <ListView Grid.Column="1"
                         Style="{DynamicResource CourseTableListView}"
-                        ItemsSource="{Binding CourseSet.Courses}" />
+                        ItemsSource="{Binding TUEList}" />
               <ListView Grid.Column="2"
                         Style="{DynamicResource CourseTableListView}"
-                        ItemsSource="{Binding CourseSet.Courses}" />
+                        ItemsSource="{Binding WEDList}" />
               <ListView Grid.Column="3"
                         Style="{DynamicResource CourseTableListView}"
-                        ItemsSource="{Binding CourseSet.Courses}" />
+                        ItemsSource="{Binding THUList}" />
               <ListView Grid.Column="4"
                         Style="{DynamicResource CourseTableListView}"
-                        ItemsSource="{Binding CourseSet.Courses}" />
+                        ItemsSource="{Binding FRIList}" />
               <ListView Grid.Column="5"
                         Style="{DynamicResource CourseTableListView}"
-                        ItemsSource="{Binding CourseSet.Courses}" />
+                        ItemsSource="{Binding SATList}" />
               <ListView Grid.Column="6"
                         Style="{DynamicResource CourseTableListView}"
-                        ItemsSource="{Binding CourseSet.Courses}" />
+                        ItemsSource="{Binding SUNList}" />
             </Grid>
           </Grid>
         </Border>

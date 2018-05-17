@@ -126,6 +126,9 @@ namespace SoftwareTeamwork {
                 await t;
                 LoginAgent.Instence.Post("NEUZhjw");
             }
+            CourseTable ss = new CourseTable();
+            ss.Style = Application.Current.FindResource("CourseTableWidget") as Style;
+            ss.IsOpen = true;
         }
 
         private void ChangeNEUJW(object sender, RoutedEventArgs e) {

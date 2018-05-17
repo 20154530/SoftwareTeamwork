@@ -15,28 +15,35 @@ namespace SoftwareTeamwork {
         public string Term { get; set; }
         public List<Course> Courses { get; set; }
 
+        //移除非本周课程
         public void RemoveNotNow() {
             if (Courses.Count > 0) {
-                Course lastco = null;
                 for (int i = 0; i < Courses.Count; i++) {
                     if (Courses[i].CourseName != "") {
                         if (Courses[i].CourseDur.Length <= 2) {
                             if (Convert.ToInt32(Courses[i].CourseDur) != Properties.Settings.Default.WeekNow) {
-                                if(Courses[i].CourseTime.Equals(lastco.CourseTime))
-                                lastco = Courses[i];
-                                Courses.RemoveAt(i);
-                                i--;
+                                if (Courses[i].CourseTime.Equals(Courses[i + 1].CourseTime) || (i > 1 && Courses[i].CourseTime.Equals(Courses[i - 1].CourseTime))) {
+                                    Courses.RemoveAt(i);
+                                    i--;
+                                }
+                                else {
+                                    Courses[i] = new Course() { CourseTime = Courses[i].CourseTime };
+                                }
                             }
                         }
-                        else if(Courses[i].CourseDur.Length <= 6) {
+                        else if (Courses[i].CourseDur.Length <= 6) {
                             string[] during = Courses[i].CourseDur.Split('-');
                             if (during.Length > 1) {
                                 int begin = Convert.ToInt32(during[0]);
                                 int end = Convert.ToInt32(during[1]);
                                 if (Properties.Settings.Default.WeekNow < begin || Properties.Settings.Default.WeekNow > end) {
-                                    lastco = Courses[i];
-                                    Courses.RemoveAt(i);
-                                    i--;
+                                    if (Courses[i].CourseTime.Equals(Courses[i + 1].CourseTime) || (i > 1 && Courses[i].CourseTime.Equals(Courses[i - 1].CourseTime))) {
+                                        Courses.RemoveAt(i);
+                                        i--;
+                                    }
+                                    else {
+                                        Courses[i] = new Course() { CourseTime = Courses[i].CourseTime };
+                                    }
                                 }
                             }
                         }
@@ -49,9 +56,13 @@ namespace SoftwareTeamwork {
                                 int end2 = Convert.ToInt32(during[3]);
                                 if ((Properties.Settings.Default.WeekNow < begin1 || Properties.Settings.Default.WeekNow > end1) ||
                                     (Properties.Settings.Default.WeekNow < begin2 || Properties.Settings.Default.WeekNow > end2)) {
-                                    lastco = Courses[i];
-                                    Courses.RemoveAt(i);
-                                    i--;
+                                    if (Courses[i].CourseTime.Equals(Courses[i + 1].CourseTime) || (i > 1 && Courses[i].CourseTime.Equals(Courses[i - 1].CourseTime))) {
+                                        Courses.RemoveAt(i);
+                                        i--;
+                                    }
+                                    else {
+                                        Courses[i] = new Course() { CourseTime = Courses[i].CourseTime };
+                                    }
                                 }
                             }
                         }
@@ -59,6 +70,7 @@ namespace SoftwareTeamwork {
                 }
             }
         }
+
         public override string ToString() {
             string s = "";
             s += Term + "\n";
@@ -121,6 +133,11 @@ namespace SoftwareTeamwork {
             temp.WeekDay = (CourseTime.DAYS)Convert.ToInt32(ts[0]);
             temp.DayTime = (CourseTime.TERM)Convert.ToInt32(ts[1]);
             return temp;
+        }
+
+        public override bool Equals(object obj) {
+            CourseTime time = (CourseTime)obj;
+            return time.DayTime.Equals(DayTime) && time.WeekDay.Equals(WeekDay);
         }
     }
 

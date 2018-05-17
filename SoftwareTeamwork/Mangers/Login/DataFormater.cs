@@ -87,11 +87,6 @@ namespace SoftwareTeamwork {
         private void LoadClassPage() {
             CourseInfo = new HtmlDocument();
             try {
-                string data = LoginAgent.Instence.GetData("NEUZhjw");
-                if(data.Contains("2222"))
-                    App.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => {
-                        MessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接,用户信息设置");
-                    }));
                 CourseInfo.LoadHtml(LoginAgent.Instence.GetData("NEUZhjw"));
             }
             catch (Exception) {
@@ -193,6 +188,7 @@ namespace SoftwareTeamwork {
             courseSet = XmlHelper.GetCourseSetNode(DateTime.Now.Month > 8 ?
                 String.Format("{0}-{1}", DateTime.Now.Year, DateTime.Now.Year + 1) :
                  String.Format("{0}-{1}", DateTime.Now.Year - 1, DateTime.Now.Year));
+            courseSet.RemoveNotNow();
             return courseSet;
         }
         #endregion
