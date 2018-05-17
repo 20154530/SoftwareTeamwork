@@ -635,8 +635,10 @@
             Value="AbsolutePoint" />
     <Setter Property="Child">
       <Setter.Value>
-        <Border>
-          <Grid>
+        <Border x:Name="RootBorder"
+                BorderThickness="0"
+                DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CourseTable}}}">
+          <Grid x:Name="RootGrid">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="auto" />
               <ColumnDefinition Width="*" />
@@ -646,7 +648,25 @@
               <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid x:Name="HTitle">
-              
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+              </Grid.ColumnDefinitions>
+            </Grid>
+            <Grid x:Name="VTitle">
+              <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+              </Grid.RowDefinitions>
             </Grid>
             <Grid Grid.Column="1" Grid.Row="1">
               <Grid.ColumnDefinitions>
@@ -658,7 +678,13 @@
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />
               </Grid.ColumnDefinitions>
-              
+              <ListView Grid.Column="0" />
+              <ListView Grid.Column="1" />
+              <ListView Grid.Column="2" />
+              <ListView Grid.Column="3" />
+              <ListView Grid.Column="4" />
+              <ListView Grid.Column="5" />
+              <ListView Grid.Column="6" />
             </Grid>
           </Grid>
         </Border>

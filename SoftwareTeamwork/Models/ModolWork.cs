@@ -46,8 +46,10 @@ namespace SoftwareTeamwork
         }
 
         public void CheckUris() {
-            if (uris.Count == 1)
+            if (uris.Count == 1) {
                 uris.Add(uris[0]);
+                uris.Add(uris[0]);
+            }
         }
 
         public void Printf() {

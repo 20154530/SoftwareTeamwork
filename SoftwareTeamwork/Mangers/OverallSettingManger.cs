@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace SoftwareTeamwork {
-    [Serializable]
+
     class OverallSettingManger {
         public static OverallSettingManger Instence = new OverallSettingManger();
         public enum CloseMode {
@@ -25,23 +25,18 @@ namespace SoftwareTeamwork {
         }
         #endregion
 
-        #region Closemode
-        private CloseMode closemode;
-        public CloseMode Closemode {
-            get => closemode;
-            set { closemode = value; }
-        }
+        #region
         #endregion
 
-        #region RememberCloseMode
-        private bool rememberCloseMode = false;
-        public bool RememberCloseMode {
-            get => rememberCloseMode;
-            set {
-                rememberCloseMode = value;
-            }
+        public async void Reset() {
+            Properties.Settings.Default.Reset();
+            Task t =  new Task(() => {
+                XmlHelper.ResetAll();
+            });
+            t.Start();
+            await t;
+            MessageService.Instence.ShowError(App.Current.MainWindow,"已恢复初始化设置");
         }
-        #endregion
 
         public OverallSettingManger()
         {

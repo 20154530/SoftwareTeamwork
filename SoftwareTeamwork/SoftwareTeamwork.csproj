@@ -87,7 +87,7 @@
     <Compile Include="Mangers\XmlHelper.cs" />
     <Compile Include="Mangers\Commands\Win32APIs.cs" />
     <Compile Include="Mangers\OverallSettingManger.cs" />
-    <Compile Include="Mangers\ErrorMessageService.cs" />
+    <Compile Include="Mangers\MessageService.cs" />
     <Compile Include="AccountPage.xaml.cs">
       <DependentUpon>AccountPage.xaml</DependentUpon>
     </Compile>

@@ -289,5 +289,27 @@ namespace SoftwareTeamwork {
             xmlDocument.Save(App.RootPath + CourseData);
             return 0;
         }
+
+        public static int ResetAll() {
+            DeleteWebNode("NEUZhjw", new HashSet<string>() { "cookie" });
+            StreamReader reader = new StreamReader(App.RootPath + CourseData, Encoding.UTF8);
+            XmlDocument xmlDocument = new XmlDocument();
+            xmlDocument.Load(reader);
+            reader.Close();
+
+            XmlElement root = xmlDocument.DocumentElement;
+            root.RemoveAll();
+            xmlDocument.Save(App.RootPath + CourseData);
+
+            reader = new StreamReader(App.RootPath + FluxLog, Encoding.UTF8);
+            xmlDocument.Load(reader);
+            reader.Close();
+
+            root = xmlDocument.DocumentElement;
+            root.RemoveAll();
+            xmlDocument.Save(App.RootPath + FluxLog);
+
+            return 0;
+        }
     }
 }

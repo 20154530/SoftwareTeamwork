@@ -27,7 +27,7 @@ namespace SoftwareTeamwork {
             get {
                 return courseSet is null ? //为空则寻找最近的课程列表
                     courseSet = GetCourse() is null ?//最近课程列表为空则寻找网络
-                       UpdateCourse() :
+                       UpdateCourse() ://没网，那没辙了
                        GetCourse() : 
                        courseSet;
             }
@@ -86,13 +86,20 @@ namespace SoftwareTeamwork {
         #region 教务处
         private void LoadClassPage() {
             CourseInfo = new HtmlDocument();
-            //try { CourseInfo.LoadHtml(LoginAgent.Instence.GetData("NEUZhjw")); }
-            //catch (Exception) {
-            //    App.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() => {
-            //        MessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接,用户信息设置");
-            //    }));
-            //}
-            CourseInfo.Load("HTMLPage1.html");
+            try {
+                string data = LoginAgent.Instence.GetData("NEUZhjw");
+                if(data.Contains("2222"))
+                    App.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => {
+                        MessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接,用户信息设置");
+                    }));
+                CourseInfo.LoadHtml(LoginAgent.Instence.GetData("NEUZhjw"));
+            }
+            catch (Exception) {
+                App.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => {
+                    MessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接,用户信息设置");
+                }));
+            }
+            //CourseInfo.Load("HTMLPage1.html");
         }
 
         private CourseSet UpdateCourse() {
@@ -190,7 +197,7 @@ namespace SoftwareTeamwork {
         #endregion
 
 
-        #region One信息格式
+        #region 天气信息
 
 
         #endregion

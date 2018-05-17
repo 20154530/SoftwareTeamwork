@@ -574,5 +574,8 @@
       </Setter.Value>
     </Setter>
   </Style>
+  
+  <!--ListView-->
+  <Style x:Key="CourseTableListView"
 
 </ResourceDictionary>

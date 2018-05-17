@@ -31,8 +31,7 @@ namespace SoftwareTeamwork {
             dialog.ShowDialog(Application.Current.MainWindow);
 
             if (dialog.DialogResult.Equals(true)) {
-                Properties.Settings.Default.Reset();
-
+                OverallSettingManger.Instence.Reset();
             }
         }
     }

@@ -43,7 +43,7 @@ namespace SoftwareTeamwork {
 
         private void SaveIPGW(object sender, RoutedEventArgs e) {
             if (IPGWAccount.Text.Equals("") || IPGWPassword.Password.Equals("")) 
-                MessageService.Instence.ShowError(this, "请输入用户名和密码");
+                MessageService.Instence.ShowError(App.Current.MainWindow, "请输入用户名和密码");
             else 
                 SaveIPGW();
         }
@@ -86,7 +86,7 @@ namespace SoftwareTeamwork {
 
         private void Identify(object sender, RoutedEventArgs e) {
             if (JWAccount.Text.Equals("") || JWPassword.Password.Equals(""))
-                MessageService.Instence.ShowError(this, "请输入用户名和密码");
+                MessageService.Instence.ShowError(App.Current.MainWindow, "请输入用户名和密码");
             else {
                 if (LoginAgent.Instence.SetInfset(XmlHelper.GetInfWithName("NEUZhjw")) == -1) 
                     return;
@@ -97,7 +97,7 @@ namespace SoftwareTeamwork {
 
         private void SaveNEUJW(object sender, RoutedEventArgs e) {
             if (JWAccount.Text.Equals("") || JWPassword.Password.Equals("") || (JWIdentifyCode.Text.Equals("") && !Properties.Settings.Default.JWF))
-                MessageService.Instence.ShowError(this, "请输入用户名、密码、验证码");
+                MessageService.Instence.ShowError(App.Current.MainWindow, "请输入用户名、密码、验证码");
             else
                 SaveNEUJW();
         }
@@ -126,11 +126,7 @@ namespace SoftwareTeamwork {
                 await t;
                 LoginAgent.Instence.Post("NEUZhjw");
             }
-            Task v = new Task(() => {
-                DataFormater.Instense.UpDateCourse();
-            });
-            v.Start();
-            await v;
+            Console.WriteLine(LoginAgent.Instence.GetData("NEUZhjw"));
         }
 
         private void ChangeNEUJW(object sender, RoutedEventArgs e) {

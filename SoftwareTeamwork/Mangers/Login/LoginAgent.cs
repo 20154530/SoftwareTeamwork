@@ -19,7 +19,7 @@ using System.Net.Http.Headers;
 namespace SoftwareTeamwork {
 
     class LoginAgent {
-        private String dir = @"D:\DB\";
+        private String dir = @"D:\TEMP\";
         private WebLoginInfSet infSet;
         public WebLoginInfSet InfSet {
             get => infSet;
@@ -62,6 +62,7 @@ namespace SoftwareTeamwork {
         private void GetLoginID() {
             while (result == null) ;//等待请求数据
             ID = Regex.Matches(result, InfSet.IdCodes.Value)[0].Groups[1].Value;
+            
         }
 
         private void ParamListCheck()//请求键值对检查
@@ -77,7 +78,7 @@ namespace SoftwareTeamwork {
                     Cookie cookie = new Cookie(kv.Key, kv.Value) {
                         Expires = DateTime.MaxValue
                     };
-                    clientHandler.CookieContainer.Add(new Uri(InfSet.Uris[1]), cookie);
+                    clientHandler.CookieContainer.Add(new Uri(InfSet.Uris[0]), cookie);
                 }
                 InfSet.HasCookie = true;
             }
@@ -89,7 +90,7 @@ namespace SoftwareTeamwork {
         }
 
         public BitmapImage GetVerify() {
-            var url = InfSet.Uris[0] + InfSet.VerifyCode + new Regex(InfSet.VerifyCode).Match(result).Groups[1].Value;
+            var url = InfSet.Uris[0] + new Regex(InfSet.VerifyCode).Match(result).Groups[1].Value;
             response = httpClient.GetAsync(new Uri(url)).Result;
             BitmapImage bmp = null;
             try {
@@ -117,8 +118,9 @@ namespace SoftwareTeamwork {
             if (InfSet.NeedLogin)
                 try {
                     response = httpClient.PostAsync(InfSet.Uris[0] + ID, new FormUrlEncodedContent(paramList)).Result;
-                    if (!infSet.HasCookie && InfSet.NeedLogin)
-                        SetCookies();
+                    Console.WriteLine(response.Content.ReadAsStringAsync().Result.Contains("网络综合平台"));
+                    if (!infSet.HasCookie && InfSet.Verify)
+                        SetCookies(InfSet.Uris[0]);
                 }
                 catch (AggregateException) {
                     MessageService.Instence.ShowError(App.Current.MainWindow,"请检查网络连接");
@@ -129,7 +131,10 @@ namespace SoftwareTeamwork {
             RefrashinfSet(name);
             if (InfSet.NeedLogin)
                 try {
-                    response = httpClient.PostAsync(InfSet.Uris[0] + ID, new FormUrlEncodedContent(paramList)).Result;
+                    response = httpClient.PostAsync(InfSet.Uris[0] + ID , new FormUrlEncodedContent(paramList)).Result;
+                    Console.WriteLine(response.Content.ReadAsStringAsync().Result.Contains("网络综合平台"));
+                    if (!infSet.HasCookie && InfSet.Verify)
+                        SetCookies(InfSet.Uris[0]);
                 }
                 catch (AggregateException) {
                     MessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接");
@@ -146,6 +151,8 @@ namespace SoftwareTeamwork {
             if (InfSet.NeedLogin)
                 try {
                     response = httpClient.PostAsync(InfSet.Uris[0] + ID, new FormUrlEncodedContent(paramList)).Result;
+                    if (!infSet.HasCookie && InfSet.Verify)
+                        SetCookies(InfSet.Uris[0]);
                 }
                 catch (AggregateException) {
                     MessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接");
@@ -187,18 +194,13 @@ namespace SoftwareTeamwork {
         #endregion
 
         #region 获取cookies
-        private void SetCookies() {
-            var responseCookies = clientHandler.CookieContainer.GetCookies(new Uri(infSet.Uris[1])).Cast<Cookie>().ToArray();
-
-            foreach (Cookie c in responseCookies)
-                c.Expires = DateTime.Now.AddYears(1);
-            HttpResponseMessage ss = httpClient.PostAsync(infSet.Uris[1],null).Result;
-
+        private void SetCookies(string uri) {
+            var responseCookies = clientHandler.CookieContainer.GetCookies(new Uri(uri)).Cast<Cookie>().ToArray();
             string[][] pairs = new string[clientHandler.CookieContainer.Count][];
-            for (int i= 0;i< clientHandler.CookieContainer.Count;i++) {
+            for (int i = 0; i < clientHandler.CookieContainer.Count; i++) {
                 pairs[i] = FormatCookie(responseCookies[i]);
             }
-            XmlHelper.CreatWebNode(infSet.name,pairs);
+            XmlHelper.CreatWebNode(infSet.name, pairs);
         }
 
         private string[] FormatCookie(Cookie c) {
@@ -225,7 +227,7 @@ namespace SoftwareTeamwork {
         #region 写入本地
         private void Write(string fileName, string html) {
             try {
-                FileStream fs = new FileStream(dir + fileName, FileMode.Create);
+                FileStream fs = new FileStream(dir + fileName, FileMode.OpenOrCreate);
                 StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
                 sw.Write(html);
                 sw.Close();
