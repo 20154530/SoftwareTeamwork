@@ -14,7 +14,7 @@
     <Inf type="idcode" name="action" value="action=&quot;(\S*)&quot;"/>
     <Inf type="uri" name="Login" uri="https://zhjw.neu.edu.cn/"/>
     <Inf type="uri" name="DataUsage" uri="https://zhjw.neu.edu.cn/ACTIONQUERYSTUDENTSCHEDULEBYSELF.APPPROCESS?m=1"/>
-    <Inf type="verify" name="Verify" value="ACTIONVALIDATERANDOMPICTURE.APPPROCESS?id="/>
+    <Inf type="verify" name="Verify" value="src=&quot;(\S*\?id=\S*)&quot;"/>
   </Web>
   <Web id="2" name="One" login="false" gzip="true" charset="UTF-8" needverifycode="false">
     <Inf type="uri" name="DataUsage" uri="http://wufazhuce.com/"/>

@@ -77,6 +77,11 @@
   <SolidColorBrush x:Key="SettingPage_Button_Background_P"
                    Color="Transparent" />
 
+  <SolidColorBrush x:Key="SettingPage_Splitter_ForeGround"
+                   Color="#A0A0A0" />
+  <SolidColorBrush x:Key="SettingPage_Splitter"
+                   Color="#E0E0E0" />
+
   <!--DmenuItem-->
   <SolidColorBrush x:Key="DMenuItemTextColorN"
                    Color="#FFFFFF" />
@@ -141,14 +146,13 @@
                    Color="#080808" />
 
 
-
   <Color x:Key="VsBorderColor">#005d9c</Color>
   <Color x:Key="TextS">#ffffff</Color>
   <Color x:Key="VsBackGroundColor">#FF1E1E1E</Color>
 
   <!--Icon-->
 
-  <sys:String x:Key="TitlebarExitIcon">&#xE8BB;</sys:String>
+  <sys:String x:Key="TitlebarExitIcon">&#xE7E8;</sys:String>
 
 
 </ResourceDictionary>

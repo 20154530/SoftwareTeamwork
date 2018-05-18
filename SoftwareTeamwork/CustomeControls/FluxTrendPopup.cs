@@ -87,7 +87,7 @@ namespace SoftwareTeamwork {
         }
 
         public FluxTrendPopup() {
-           
+            DataGroup = XmlHelper.GetFluxTrendGroup(DateTime.Now.AddDays(-1), DateTime.Now);
         }
 
     }

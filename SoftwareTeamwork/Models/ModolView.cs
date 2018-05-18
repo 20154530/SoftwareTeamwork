@@ -23,11 +23,32 @@ namespace SoftwareTeamwork {
             };
             ActrualData = new double[7];
             VTicks = new double[6];
-            TransformToNode();
         }
 
         public void GetFluxData() {
+            GetSub();
             TransformToNode();
+        }
+
+        public override string ToString() {
+            string temp = "";
+            foreach(FluxInfo fi in FluxInfos) {
+                temp += fi.ToString() + "\n";
+            }
+            return temp;
+        }
+
+        private void GetSub() {
+            double d = 0.0;
+            for (int i = 6; i >= 0; i--) {
+                if (i > 0)
+                    d = FluxInfos[i - 1].FluxData;
+                else
+                    d = 0;
+                FluxInfos[i].FluxData -= d;
+                if (FluxInfos[i].FluxData <= 0)
+                    FluxInfos[i].FluxData = 0;
+            }
         }
 
         private void TransformToNode() {

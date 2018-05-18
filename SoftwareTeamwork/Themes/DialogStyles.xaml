@@ -32,7 +32,7 @@
                     </Grid.ColumnDefinitions>
                     <local:IconButton x:Name="CANCEL"
                                       Grid.Column="3"
-                                      Content="{DynamicResource TitlebarExitIcon}"
+                                      Content="&#xE830;"
                                       FontSize="12"
                                       Padding="2"
                                       Margin="0,8,8,0"
@@ -165,7 +165,7 @@
                     </Grid.ColumnDefinitions>
                     <local:IconButton x:Name="CANCEL"
                                       Grid.Column="3"
-                                      Content="{DynamicResource TitlebarExitIcon}"
+                                      Content="&#xE830;"
                                       FontSize="12"
                                       Padding="2"
                                       Margin="0,8,8,0"

@@ -107,20 +107,37 @@ namespace SoftwareTeamwork
                 Visible = AreaVisibility,
                 ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip()
             };
-            UpdataIconByStr("0");
+            UpdataIconByStr(Properties.Settings.Default.LastFluxInfo.ToString());
             FlowIcon.MouseClick += FlowIcon_MouseClick;
             FlowIcon.MouseMove += FlowIcon_MouseMove;
             FlowIcon.MouseDoubleClick += FlowIcon_MouseDoubleClick;
-            //InitPopup();
         }
 
         private void InitRes()
         {
-            byte[] myText = (byte[])Properties.Resources.ResourceManager.GetObject("Rect");
-            pfc = new PrivateFontCollection();
-            IntPtr MeAdd = Marshal.AllocHGlobal(myText.Length);
-            Marshal.Copy(myText, 0, MeAdd, myText.Length);
-            pfc.AddMemoryFont(MeAdd, myText.Length);
+            byte[] myText = null;
+            IntPtr MeAdd = IntPtr.Zero;
+            switch (Properties.Settings.Default.AreaIconFontFamily) {
+                case "Default":
+                    myText = (byte[])Properties.Resources.ResourceManager.GetObject("Rect");
+                    pfc = new PrivateFontCollection();
+                    MeAdd = Marshal.AllocHGlobal(myText.Length);
+                    Marshal.Copy(myText, 0, MeAdd, myText.Length);
+                    pfc.AddMemoryFont(MeAdd, myText.Length);
+                    break;
+                case "Digital":
+                    myText = (byte[])Properties.Resources.ResourceManager.GetObject("Digital");
+                    pfc = new PrivateFontCollection();
+                    MeAdd = Marshal.AllocHGlobal(myText.Length);
+                    Marshal.Copy(myText, 0, MeAdd, myText.Length);
+                    pfc.AddMemoryFont(MeAdd, myText.Length);
+                    break;
+                default:
+                    Drawing.FontFamily font = new Drawing.FontFamily(Properties.Settings.Default.AreaIconFontFamily);
+                    DisIconFont = new Font(font, Fontsize);
+                    break;
+            }
+          
             DisIconFont = new Font(pfc.Families[0], fontsize);
         }
 
@@ -130,7 +147,7 @@ namespace SoftwareTeamwork
                 new Rect(SystemParameters.WorkArea.Width -5, 
                 SystemParameters.WorkArea.Height - 5, 0, 0);
             FlowIconPopup.Title = "流量信息";
-            FlowIconPopup.SetIconPathByPercentAngle(0);
+            FlowIconPopup.SetIconPathByPercentAngle(Properties.Settings.Default.LastFluxInfo);
             FlowIconPopup.MouseMove += FlowIconPopup_MouseMove;
             FlowIconPopup.MouseLeave += FlowIconPopup_MouseLeave;
         }
@@ -244,6 +261,7 @@ namespace SoftwareTeamwork
         public DAreaIcon() {
             OverallSettingManger.Instence.ThemeChanged += Instence_ThemeChanged;
             OverallSettingManger.Instence.OnFluxUpdate += Instence_OnFluxUpdate;
+            fontsize = (float)Properties.Settings.Default.AreaIconFontSize;
             InitNotifyIcon();
             InitTimers();
         }

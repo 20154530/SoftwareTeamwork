@@ -17,10 +17,13 @@ namespace SoftwareTeamwork {
         private FluxInfo ipgwInfo = null;
         public FluxInfo IpgwInfo {
             get {
-                return ipgwInfo is null ? 
-                    ipgwInfo = GetIpgwDataInf(LoginAgent.Instence.GetData("NEUIpgw")) :ipgwInfo;
+                return ipgwInfo is null ?
+                     GetIpgwDataInf() is null ?
+                     UpdateFlux() :
+                     GetIpgwDataInf() :
+                     ipgwInfo;
             }
-            set { ipgwInfo = value; }
+            set { ipgwInfo = value;  }
         }
         private CourseSet courseSet = null;
         public CourseSet CourseSet {
@@ -41,9 +44,8 @@ namespace SoftwareTeamwork {
 
         #region Ipgw信息格式
 
-        public void UpdateFlux() {
-            LoginAgent.Instence.SetInfset(XmlHelper.GetInfWithName("NEUIpgw"));
-            ipgwInfo = GetIpgwDataInf(LoginAgent.Instence.GetData(null));
+        public FluxInfo UpdateFlux() {
+            return GetIpgwDataInf(LoginAgent.Instence.GetData("NEUIpgw"));
         }
 
         public double GetFlux() { return IpgwInfo.FluxData; }
@@ -51,6 +53,10 @@ namespace SoftwareTeamwork {
         public DateTime GetTime() { return IpgwInfo.InfoTime; }
 
         public double GetBalance() { return IpgwInfo.Balance; }
+
+        private FluxInfo GetIpgwDataInf() {
+            return GetIpgwDataInf(LoginAgent.Instence.GetData("NEUIpgw"));
+        }
 
         private FluxInfo GetIpgwDataInf(string data)  //Ipgw网关信息格式化获取
         {
@@ -63,6 +69,11 @@ namespace SoftwareTeamwork {
             }
             catch (IndexOutOfRangeException) {
                 MessageService.Instence.ShowError(App.Current.MainWindow, "用户名或密码错误");
+                IPGWConnected = false;
+                return null;
+            }
+            catch (NullReferenceException) {
+                MessageService.Instence.ShowError(App.Current.MainWindow, "网络未连接");
                 IPGWConnected = false;
                 return null;
             }
@@ -96,7 +107,6 @@ namespace SoftwareTeamwork {
                     MessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接,用户信息设置");
                 }));
             }
-            //CourseInfo.Load("HTMLPage1.html");
         }
 
         private CourseSet UpdateCourse() {
@@ -177,6 +187,8 @@ namespace SoftwareTeamwork {
             cs.Term = DateTime.Now.Month > 8 ?
                 String.Format("{0}-{1}", DateTime.Now.Year, DateTime.Now.Year + 1) :
                  String.Format("{0}-{1}", DateTime.Now.Year - 1, DateTime.Now.Year);
+
+            XmlHelper.CreatCourseSetNode(cs);
             return cs;
         }
 
@@ -190,6 +202,10 @@ namespace SoftwareTeamwork {
             courseSet = XmlHelper.GetCourseSetNode(DateTime.Now.Month > 8 ?
                 String.Format("{0}-{1}", DateTime.Now.Year, DateTime.Now.Year + 1) :
                  String.Format("{0}-{1}", DateTime.Now.Year - 1, DateTime.Now.Year));
+            if (courseSet is null) {
+                Console.WriteLine("ssdsd");
+                return null;
+            }
             courseSet.RemoveNotNow();
             return courseSet;
         }

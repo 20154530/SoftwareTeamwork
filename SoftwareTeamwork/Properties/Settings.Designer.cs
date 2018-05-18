@@ -187,5 +187,41 @@ namespace SoftwareTeamwork.Properties {
                 this["CourseTableVisibility"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Default")]
+        public string AreaIconFontFamily {
+            get {
+                return ((string)(this["AreaIconFontFamily"]));
+            }
+            set {
+                this["AreaIconFontFamily"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("13.3")]
+        public double AreaIconFontSize {
+            get {
+                return ((double)(this["AreaIconFontSize"]));
+            }
+            set {
+                this["AreaIconFontSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double LastFluxInfo {
+            get {
+                return ((double)(this["LastFluxInfo"]));
+            }
+            set {
+                this["LastFluxInfo"] = value;
+            }
+        }
     }
 }

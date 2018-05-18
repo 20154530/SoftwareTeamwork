@@ -14,13 +14,11 @@ namespace SoftwareTeamwork {
 
         public void ShowError(UIElement aimobject, string message) {
                   if (aimobject is null) {
-
                       if (Error.IsOpen)
                           Error.HidePopupAni();
                       Error.PlacementTarget = null;
                       Error.Content = message;
                       Error.ShowPopupAni();
-
                   }
                   else {
                       var RootElement = (DependencyObject)aimobject;
@@ -32,6 +30,10 @@ namespace SoftwareTeamwork {
                       Error.Content = message;
                       Error.ShowPopupAni();
                   }
+        }
+
+        public bool GetErrorState() {
+            return Error.IsOpen;
         }
 
         private void MainWindow_StateChanged(object sender, EventArgs e) {
@@ -49,6 +51,5 @@ namespace SoftwareTeamwork {
             Application.Current.MainWindow.StateChanged += MainWindow_StateChanged;
         }
 
-  
     }
 }

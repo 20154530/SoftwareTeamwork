@@ -178,6 +178,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <EmbeddedResource Include="Resources\Rect.ttf" />
+    <EmbeddedResource Include="Resources\Digital.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

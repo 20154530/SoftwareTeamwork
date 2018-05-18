@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -11,7 +12,7 @@ using Color = System.Windows.Media.Color;
 
 namespace SoftwareTeamwork {
     class CourseTable : Window {
-        public static bool InstenceFlag = false;
+        private static bool InstenceFlag = false;
 
         public static CourseTable Instence;
 
@@ -215,6 +216,32 @@ namespace SoftwareTeamwork {
                 typeof(CourseTable), new PropertyMetadata(10.0));
         #endregion
 
+        public static void Open() {
+            Thread thread = new Thread(new ThreadStart(OpenTable));
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.IsBackground = true;
+            thread.Start();
+        }
+
+        private static void OpenTable() {
+            if (!InstenceFlag) {
+                Instence = new CourseTable();
+                InstenceFlag = true;
+            }
+            Instence.ShowDialog();
+            System.Windows.Threading.Dispatcher.Run();
+        }
+
+        public new void Close() {
+            if (!InstenceFlag) {
+                return;
+            }
+            else {
+                InstenceFlag = false;
+                base.Close();
+            }
+        }
+
         #region PrivateMethods
         private void CreatLists() {
             for (int i = 0; i < CourseSet.Courses.Count; i++) {
@@ -255,14 +282,15 @@ namespace SoftwareTeamwork {
         #endregion
 
         public CourseTable() {
-            CourseSet = DataFormater.Instense.GetCourse();
+            CourseSet = DataFormater.Instense.CourseSet;
+            if(CourseSet is null) {
+                MessageService.Instence.ShowError(null,"没有课程信息，请检查网络，教务处信息");
+            }
             Style = Application.Current.FindResource("CourseTableWidget") as Style;
             CreatLists();
             InitTable();
         }
 
-        static CourseTable() {
-           
-        }
+        static CourseTable() { }
     }
 }

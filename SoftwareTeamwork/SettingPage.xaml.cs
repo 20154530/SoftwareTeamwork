@@ -34,5 +34,9 @@ namespace SoftwareTeamwork {
                 OverallSettingManger.Instence.Reset();
             }
         }
+
+        private void CourseFontSize_Click(object sender, RoutedEventArgs e) {
+            CourseTable.Open();
+        }
     }
 }

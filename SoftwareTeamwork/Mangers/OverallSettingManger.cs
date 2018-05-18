@@ -9,6 +9,7 @@ namespace SoftwareTeamwork {
 
     class OverallSettingManger {
         public static OverallSettingManger Instence = new OverallSettingManger();
+
         public enum CloseMode {
             Exit,
             AreaIcon
@@ -32,6 +33,10 @@ namespace SoftwareTeamwork {
             get => fluxPercent;
             set { OnFluxUpdate?.Invoke(value, null); fluxPercent = value; }
         }
+        #endregion
+
+        #region 
+
         #endregion
 
         public async void Reset() {

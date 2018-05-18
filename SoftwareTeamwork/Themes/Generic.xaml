@@ -56,7 +56,12 @@
                          FontSize="{TemplateBinding FontSize}"
                          FontWeight="{TemplateBinding FontWeight}"
                          TextAlignment="Center"
-                         VerticalAlignment="Center" />
+                         VerticalAlignment="Center"
+                         RenderTransformOrigin=".5 .5">
+                <TextBlock.RenderTransform>
+                  <RotateTransform x:Name="ContentIconRotateTransform" />
+                </TextBlock.RenderTransform>
+              </TextBlock>
               <TextBlock x:Name="ContentTexts"
                          Grid.Column="1"
                          Margin="8,0,0,0"
@@ -72,18 +77,62 @@
             <Trigger Property="IsDefaulted"
                      Value="True">
             </Trigger>
-            <Trigger Property="IsMouseOver"
-                     Value="True">
-              <Setter TargetName="ContentIcon"
-                      Property="Foreground"
-                      Value="{Binding IconR,RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-              <Setter TargetName="ContentTexts"
-                      Property="Foreground"
-                      Value="{Binding IconR,RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-              <Setter TargetName="RootBorder"
-                      Property="Background"
-                      Value="{Binding IconMaskR,RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-            </Trigger>
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition Property="IsMouseOver"
+                           Value="True" />
+                <Condition Property="AllowAni"
+                           Value="True" />
+              </MultiTrigger.Conditions>
+              <MultiTrigger.Setters>
+                <Setter TargetName="ContentIcon"
+                        Property="Foreground"
+                        Value="{Binding IconR,RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                <Setter TargetName="ContentTexts"
+                        Property="Foreground"
+                        Value="{Binding IconR,RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                <Setter TargetName="RootBorder"
+                        Property="Background"
+                        Value="{Binding IconMaskR,RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+              </MultiTrigger.Setters>
+              <MultiTrigger.EnterActions>
+                <BeginStoryboard>
+                  <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="ContentIconRotateTransform"
+                                     Storyboard.TargetProperty="Angle"
+                                     To="-90" Duration="0:0:0.3"/>
+                  </Storyboard>
+                </BeginStoryboard>
+              </MultiTrigger.EnterActions>
+              <MultiTrigger.ExitActions>
+                <BeginStoryboard>
+                  <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="ContentIconRotateTransform"
+                                     Storyboard.TargetProperty="Angle"
+                                     To="0" Duration="0:0:0.3"/>
+                  </Storyboard>
+                </BeginStoryboard>
+              </MultiTrigger.ExitActions>
+            </MultiTrigger>
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition Property="IsMouseOver"
+                           Value="True" />
+                <Condition Property="AllowAni"
+                           Value="False" />
+              </MultiTrigger.Conditions>
+              <MultiTrigger.Setters>
+                <Setter TargetName="ContentIcon"
+                        Property="Foreground"
+                        Value="{Binding IconR,RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                <Setter TargetName="ContentTexts"
+                        Property="Foreground"
+                        Value="{Binding IconR,RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                <Setter TargetName="RootBorder"
+                        Property="Background"
+                        Value="{Binding IconMaskR,RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+              </MultiTrigger.Setters>
+            </MultiTrigger>
             <Trigger Property="IsPressed"
                      Value="True">
               <Setter TargetName="ContentIcon"
@@ -148,7 +197,7 @@
               <Rectangle x:Name="DarkMask"
                          Fill="{TemplateBinding IconMaskN}"
                          Visibility="Collapsed"
-                         Grid.ColumnSpan="2"/>
+                         Grid.ColumnSpan="2" />
               <TextBlock x:Name="ContentIcon"
                          Grid.Column="1"
                          Margin="{TemplateBinding Padding}"
@@ -159,7 +208,7 @@
                          FontWeight="{TemplateBinding FontWeight}" />
               <TextBlock x:Name="Label"
                          Margin="0,0,5,0"
-                        HorizontalAlignment="Center"
+                         HorizontalAlignment="Center"
                          VerticalAlignment="Center"
                          Text="{TemplateBinding Content}"
                          FontSize="{TemplateBinding FontSize}"
@@ -559,6 +608,7 @@
                                     FontSize="14"
                                     FontWeight="Light"
                                     Padding="4,0,4,0"
+                                    AllowAni="True"
                                     IconN="{DynamicResource WindowTitleBarIconButton_Icon.N}"
                                     IconR="{DynamicResource WindowTitleBarIconButton_Icon.R}"
                                     IconP="{DynamicResource WindowTitleBarIconButton_Icon.P}"

@@ -16,27 +16,14 @@ namespace SoftwareTeamwork {
         public List<Course> Courses { get; set; }
 
         //移除非本周课程
+    
         public void RemoveNotNow() {
-            if (Courses.Count > 0) {
-                for (int i = 0; i < Courses.Count; i++) {
-                    if (Courses[i].CourseName != "") {
-                        if (Courses[i].CourseDur.Length <= 2) {
-                            if (Convert.ToInt32(Courses[i].CourseDur) != Properties.Settings.Default.WeekNow) {
-                                if (Courses[i].CourseTime.Equals(Courses[i + 1].CourseTime) || (i > 1 && Courses[i].CourseTime.Equals(Courses[i - 1].CourseTime))) {
-                                    Courses.RemoveAt(i);
-                                    i--;
-                                }
-                                else {
-                                    Courses[i] = new Course() { CourseTime = Courses[i].CourseTime };
-                                }
-                            }
-                        }
-                        else if (Courses[i].CourseDur.Length <= 6) {
-                            string[] during = Courses[i].CourseDur.Split('-');
-                            if (during.Length > 1) {
-                                int begin = Convert.ToInt32(during[0]);
-                                int end = Convert.ToInt32(during[1]);
-                                if (Properties.Settings.Default.WeekNow < begin || Properties.Settings.Default.WeekNow > end) {
+            try {
+                if (Courses.Count > 0) {
+                    for (int i = 0; i < Courses.Count; i++) {
+                        if (Courses[i].CourseName != "") {
+                            if (Courses[i].CourseDur.Length <= 2) {
+                                if (Convert.ToInt32(Courses[i].CourseDur) != Properties.Settings.Default.WeekNow) {
                                     if (Courses[i].CourseTime.Equals(Courses[i + 1].CourseTime) || (i > 1 && Courses[i].CourseTime.Equals(Courses[i - 1].CourseTime))) {
                                         Courses.RemoveAt(i);
                                         i--;
@@ -46,28 +33,47 @@ namespace SoftwareTeamwork {
                                     }
                                 }
                             }
-                        }
-                        else {
-                            string[] during = Courses[i].CourseDur.Split(new char[] { '-', ':' });
-                            if (during.Length > 1) {
-                                int begin1 = Convert.ToInt32(during[0]);
-                                int begin2 = Convert.ToInt32(during[2]);
-                                int end1 = Convert.ToInt32(during[1]);
-                                int end2 = Convert.ToInt32(during[3]);
-                                if ((Properties.Settings.Default.WeekNow < begin1 || Properties.Settings.Default.WeekNow > end1) ||
-                                    (Properties.Settings.Default.WeekNow < begin2 || Properties.Settings.Default.WeekNow > end2)) {
-                                    if (Courses[i].CourseTime.Equals(Courses[i + 1].CourseTime) || (i > 1 && Courses[i].CourseTime.Equals(Courses[i - 1].CourseTime))) {
-                                        Courses.RemoveAt(i);
-                                        i--;
+                            else if (Courses[i].CourseDur.Length <= 6) {
+                                string[] during = Courses[i].CourseDur.Split('-');
+                                if (during.Length > 1) {
+                                    int begin = Convert.ToInt32(during[0]);
+                                    int end = Convert.ToInt32(during[1]);
+                                    if (Properties.Settings.Default.WeekNow < begin || Properties.Settings.Default.WeekNow > end) {
+                                        if (Courses[i].CourseTime.Equals(Courses[i + 1].CourseTime) || (i > 1 && Courses[i].CourseTime.Equals(Courses[i - 1].CourseTime))) {
+                                            Courses.RemoveAt(i);
+                                            i--;
+                                        }
+                                        else {
+                                            Courses[i] = new Course() { CourseTime = Courses[i].CourseTime };
+                                        }
                                     }
-                                    else {
-                                        Courses[i] = new Course() { CourseTime = Courses[i].CourseTime };
+                                }
+                            }
+                            else {
+                                string[] during = Courses[i].CourseDur.Split(new char[] { '-', ':' });
+                                if (during.Length > 1) {
+                                    int begin1 = Convert.ToInt32(during[0]);
+                                    int begin2 = Convert.ToInt32(during[2]);
+                                    int end1 = Convert.ToInt32(during[1]);
+                                    int end2 = Convert.ToInt32(during[3]);
+                                    if ((Properties.Settings.Default.WeekNow < begin1 || Properties.Settings.Default.WeekNow > end1) ||
+                                        (Properties.Settings.Default.WeekNow < begin2 || Properties.Settings.Default.WeekNow > end2)) {
+                                        if (Courses[i].CourseTime.Equals(Courses[i + 1].CourseTime) || (i > 1 && Courses[i].CourseTime.Equals(Courses[i - 1].CourseTime))) {
+                                            Courses.RemoveAt(i);
+                                            i--;
+                                        }
+                                        else {
+                                            Courses[i] = new Course() { CourseTime = Courses[i].CourseTime };
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
+            }
+            catch (Exception){
+                MessageService.Instence.ShowError(null, "获取课程信息失败，可能原因： 不存在本地课程表且网络未连接");
             }
         }
 
@@ -161,11 +167,9 @@ namespace SoftwareTeamwork {
 
         public string[] GetXmlItemStyle() {
             string[] pairs = new string[]{
-                String.Format("Hour:{0}", InfoTime.Hour),
-                String.Format("Min:{0}", InfoTime.Minute),
-                String.Format("Sec:{0}", InfoTime.Second),
                 String.Format("FluxData:{0}", FluxData),
                 String.Format("Balance:{0}", Balance),
+                String.Format("InfoTime:{0}",InfoTime.ToOADate())
             };
             return pairs;
         }
@@ -177,6 +181,10 @@ namespace SoftwareTeamwork {
                 String.Format("Day:{0}", InfoTime.Day),
             };
             return pairs;
+        }
+
+        public override string ToString() {
+            return String.Format("< FluxData:  {0}  Balance: {1} InfoTime: {2} >", FluxData, Balance, InfoTime.ToString());
         }
     }
 

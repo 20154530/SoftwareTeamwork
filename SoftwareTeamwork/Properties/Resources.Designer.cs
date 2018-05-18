@@ -63,6 +63,16 @@ namespace SoftwareTeamwork.Properties {
         /// <summary>
         ///   查找 System.Byte[] 类型的本地化资源。
         /// </summary>
+        internal static byte[] Digital {
+            get {
+                object obj = ResourceManager.GetObject("Digital", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
         internal static byte[] Rect {
             get {
                 object obj = ResourceManager.GetObject("Rect", resourceCulture);

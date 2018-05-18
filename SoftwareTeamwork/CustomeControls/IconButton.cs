@@ -106,6 +106,16 @@ namespace SoftwareTeamwork
             DependencyProperty.Register("AllowShadow", typeof(double), typeof(IconButton), new PropertyMetadata(0.0));
         #endregion
 
+        #region AllowAni
+        public bool AllowAni {
+            get { return (bool)GetValue(AllowAniProperty); }
+            set { SetValue(AllowAniProperty, value); }
+        }
+        public static readonly DependencyProperty AllowAniProperty =
+            DependencyProperty.Register("AllowAni", typeof(bool),
+                typeof(IconButton), new PropertyMetadata(false));
+        #endregion
+
         static IconButton()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(IconButton), new FrameworkPropertyMetadata(typeof(IconButton)));

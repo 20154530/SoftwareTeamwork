@@ -127,17 +127,6 @@ namespace SoftwareTeamwork {
                 await tk;
                 LoginAgent.Instence.Post("NEUZhjw");
             }
-            
-            Thread thread = new Thread(new ThreadStart(OpenTable));
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.IsBackground = true;
-            thread.Start();
-        }
-
-        private void OpenTable() {
-            CourseTable.Instence = CourseTable.InstenceFlag ? CourseTable.Instence : new CourseTable();
-            CourseTable.Instence.ShowDialog();
-            Dispatcher.Run();
         }
 
         private void ChangeNEUJW(object sender, RoutedEventArgs e) {

@@ -14,9 +14,7 @@ namespace SoftwareTeamwork {
         public const string FluxLog = @"\Configs\FluxLog.xml";
         public const string CourseData = @"\Configs\CourseData.xml";
 
-        public XmlHelper() {
-
-        }
+        public XmlHelper() { }
 
         public static WebLoginInfSet GetInfWithName(String name) {
             StreamReader reader = new StreamReader(App.RootPath + WebConfig, System.Text.Encoding.UTF8);
@@ -222,6 +220,12 @@ namespace SoftwareTeamwork {
             return 0;
         }
 
+        /// <summary>
+        /// 删除一个流量信息节点
+        /// </summary>
+        /// <param name="label"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public static int DeleteFluxNode(FluxNodeType label, DateTime date) {
             XmlDocument xmlDocument = new XmlDocument();
             using (StreamReader reader = new StreamReader(App.RootPath + FluxLog, System.Text.Encoding.UTF8)) {
@@ -270,6 +274,76 @@ namespace SoftwareTeamwork {
             return 0;
         }
 
+        /// <summary>
+        /// 获得一组流量趋势,不够的天数使用初始数据凑齐
+        /// </summary>
+        /// <param name="begin"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        public static FluxTrendGroup GetFluxTrendGroup(DateTime begin, DateTime end) {
+            FluxTrendGroup ftg = new FluxTrendGroup();
+            XmlDocument xmlDocument = new XmlDocument();
+            using (StreamReader reader = new StreamReader(App.RootPath + FluxLog, System.Text.Encoding.UTF8)) {
+                xmlDocument.Load(reader);
+            }
+
+            XmlElement Root = xmlDocument.DocumentElement;
+            int i = 0;
+
+            foreach (XmlNode xn in Root.ChildNodes) {
+                if (Convert.ToInt32( xn.Attributes["Mon"].Value) >= begin.Month && 
+                    Convert.ToInt32(xn.Attributes["Day"].Value) >= begin.Day &&
+                    Convert.ToInt32(xn.Attributes["Mon"].Value) <= end.Month && 
+                    Convert.ToInt32(xn.Attributes["Day"].Value) <= end.Day ) {
+                    if (i == 7)
+                        break;
+                    if (xn.HasChildNodes) {
+                        XmlNode node = xn.FirstChild;
+                        FluxInfo fi = new FluxInfo {
+                            FluxData = Convert.ToDouble(node.Attributes["FluxData"].Value),
+                            Balance = Convert.ToDouble(node.Attributes["Balance"].Value),
+                            InfoTime = DateTime.FromOADate(Convert.ToDouble(node.Attributes["InfoTime"].Value))
+                        };
+                        ftg.FluxInfos[i] = fi;
+                        i++;
+                    }
+
+                }
+            }
+
+            return ftg;
+        }
+
+        /// <summary>
+        /// 获得日志中最新的流量数据
+        /// </summary>
+        /// <returns></returns>
+        public static FluxInfo GetLatestFluxInfo() {
+            XmlDocument xmlDocument = new XmlDocument();
+            using (StreamReader reader = new StreamReader(App.RootPath + FluxLog, System.Text.Encoding.UTF8)) {
+                xmlDocument.Load(reader);
+            }
+
+            XmlElement Root = xmlDocument.DocumentElement;
+
+            XmlNode lasest = Root.LastChild.LastChild;
+            if (lasest is null)
+                return null;
+            else {
+                FluxInfo fi = new FluxInfo() {
+                    FluxData = Convert.ToDouble(lasest.Attributes["FluxData"].Value),
+                    Balance = Convert.ToDouble(lasest.Attributes["Balance"].Value),
+                    InfoTime = DateTime.FromOADate(Convert.ToDouble(lasest.Attributes["InfoTime"].Value))
+                };
+                return fi;
+            }
+        }
+
+        /// <summary>
+        /// 获得一个学期的课表
+        /// </summary>
+        /// <param name="term"></param>
+        /// <returns></returns>
         public static CourseSet GetCourseSetNode(string term) {
             StreamReader reader = new StreamReader(App.RootPath + CourseData, Encoding.UTF8);
             XmlDocument xmlDocument = new XmlDocument();
@@ -279,6 +353,8 @@ namespace SoftwareTeamwork {
             XmlElement root = xmlDocument.DocumentElement;
             XmlNodeList xnl = root.SelectNodes("/Courses/CourseSet");
             XmlNodeList xnls = null;
+            if (xnl.Count == 0)
+                return null;
 
             CourseSet courseSet = new CourseSet();
 
@@ -305,6 +381,11 @@ namespace SoftwareTeamwork {
             return courseSet;
         }
 
+        /// <summary>
+        /// 将一个学期的课表存储到xml
+        /// </summary>
+        /// <param name="set"></param>
+        /// <returns></returns>
         public static int CreatCourseSetNode(CourseSet set) {
             StreamReader reader = new StreamReader(App.RootPath + CourseData, Encoding.UTF8);
             XmlDocument xmlDocument = new XmlDocument();

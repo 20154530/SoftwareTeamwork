@@ -118,7 +118,6 @@ namespace SoftwareTeamwork {
             if (InfSet.NeedLogin)
                 try {
                     response = httpClient.PostAsync(InfSet.Uris[0] + ID, new FormUrlEncodedContent(paramList)).Result;
-                    Console.WriteLine(response.Content.ReadAsStringAsync().Result.Contains("网络综合平台"));
                     if (!infSet.HasCookie && InfSet.Verify)
                         SetCookies(InfSet.Uris[0]);
                 }
