@@ -25,7 +25,13 @@ namespace SoftwareTeamwork {
         }
         #endregion
 
-        #region
+        #region 流量更新
+        public event EventHandler OnFluxUpdate;
+        private double fluxPercent = 0.0;
+        public double FluxPercent {
+            get => fluxPercent;
+            set { OnFluxUpdate?.Invoke(value, null); fluxPercent = value; }
+        }
         #endregion
 
         public async void Reset() {

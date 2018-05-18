@@ -71,7 +71,7 @@ namespace SoftwareTeamwork
                 }
             }
             catch (NullReferenceException e) {
-                Console.WriteLine(e.Source);
+                
             }
             
             base.OnApplyTemplate();

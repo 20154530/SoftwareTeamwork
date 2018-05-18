@@ -30,7 +30,7 @@ namespace SoftwareTeamwork
 
         //.NetProperties
 
-        private float fontsize = 13.2f;
+        private float fontsize = 12.2f;
         public float Fontsize
         {
             get { return fontsize; }
@@ -107,7 +107,7 @@ namespace SoftwareTeamwork
                 Visible = AreaVisibility,
                 ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip()
             };
-            UpdataIconByStr("20");
+            UpdataIconByStr("0");
             FlowIcon.MouseClick += FlowIcon_MouseClick;
             FlowIcon.MouseMove += FlowIcon_MouseMove;
             FlowIcon.MouseDoubleClick += FlowIcon_MouseDoubleClick;
@@ -130,8 +130,7 @@ namespace SoftwareTeamwork
                 new Rect(SystemParameters.WorkArea.Width -5, 
                 SystemParameters.WorkArea.Height - 5, 0, 0);
             FlowIconPopup.Title = "流量信息";
-            FlowIconPopup.Content = "";
-            FlowIconPopup.SetIconPathByPercentAngle(20);
+            FlowIconPopup.SetIconPathByPercentAngle(0);
             FlowIconPopup.MouseMove += FlowIconPopup_MouseMove;
             FlowIconPopup.MouseLeave += FlowIconPopup_MouseLeave;
         }
@@ -238,9 +237,13 @@ namespace SoftwareTeamwork
             //  Dcontextmenu = new DContextMenu();
         }
 
-        public DAreaIcon()
-        {
+        private void Instence_OnFluxUpdate(object sender, EventArgs e) {
+            UpdataIconByStr(sender.ToString());
+        }
+
+        public DAreaIcon() {
             OverallSettingManger.Instence.ThemeChanged += Instence_ThemeChanged;
+            OverallSettingManger.Instence.OnFluxUpdate += Instence_OnFluxUpdate;
             InitNotifyIcon();
             InitTimers();
         }

@@ -119,7 +119,9 @@ namespace SoftwareTeamwork {
         }
 
         private void FrashCommand_CAction(object para) {//刷新按钮命令委托
-            SetIconPathByPercentAngle(DataAnalysis.GetFluxPercent(true)*100);
+            double percent = DataAnalysis.GetFluxPercent(true) * 100;
+            OverallSettingManger.Instence.FluxPercent = percent;
+            SetIconPathByPercentAngle(percent);
             FluxUsed = DataAnalysis.GetFluxData(true);
             FluxRemain = DataAnalysis.GetFluxData(false);
         }

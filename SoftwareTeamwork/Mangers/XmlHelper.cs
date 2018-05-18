@@ -194,12 +194,27 @@ namespace SoftwareTeamwork {
                     break;
                 case FluxNodeType.Item:
                     var Item = xmlDocument.CreateElement("Item");
-                    var LastDate = Root.LastChild;
-                    foreach (string s in pairs) {
-                        string[] k = s.Split(':');
-                        Item.SetAttribute(k[0], k[1]);
+                    if (Root.ChildNodes.Count > 0) {
+                        var LastDate = Root.LastChild;
+                        foreach (string s in pairs) {
+                            string[] k = s.Split(':');
+                            Item.SetAttribute(k[0], k[1]);
+                        }
+                        LastDate.AppendChild(Item);
                     }
-                    LastDate.AppendChild(Item);
+                    else {
+                        XmlElement xml = xmlDocument.CreateElement("Date");
+                        xml.SetAttribute("Year",DateTime.Now.Year.ToString());
+                        xml.SetAttribute("Mon", DateTime.Now.Month.ToString());
+                        xml.SetAttribute("Day", DateTime.Now.Day.ToString());
+                        Root.AppendChild(xml);
+                        var LastDate = Root.LastChild;
+                        foreach (string s in pairs) {
+                            string[] k = s.Split(':');
+                            Item.SetAttribute(k[0], k[1]);
+                        }
+                        xml.AppendChild(Item);
+                    }
                     break;
             }
 
@@ -207,12 +222,49 @@ namespace SoftwareTeamwork {
             return 0;
         }
 
-        public static int DeleteFluxNode() {
+        public static int DeleteFluxNode(FluxNodeType label, DateTime date) {
             XmlDocument xmlDocument = new XmlDocument();
             using (StreamReader reader = new StreamReader(App.RootPath + FluxLog, System.Text.Encoding.UTF8)) {
                 xmlDocument.Load(reader);
             }
 
+            XmlElement Root = xmlDocument.DocumentElement;
+
+            switch (label) {
+                case FluxNodeType.Date:
+                    for(int i = 0;i<Root.ChildNodes.Count;i++) {
+                        if (Root.ChildNodes[i].Attributes["Mon"].Value.Equals(date.Month.ToString()) &&
+                            Root.ChildNodes[i].Attributes["Day"].Value.Equals(date.Day.ToString())) {
+                            Root.RemoveChild(Root.ChildNodes[i]);
+                            break;
+                        }
+                    }
+                    break;
+                case FluxNodeType.Item:
+                    XmlNodeList secRoots = null;
+                    XmlNode SecRoot = null;
+                    foreach (XmlNode xn in Root.ChildNodes) {
+                        if (xn.Attributes["Mon"].Value.Equals(date.Month.ToString()) &&
+                            xn.Attributes["Day"].Value.Equals(date.Day.ToString())) {
+                            SecRoot = xn;
+                            secRoots = xn.ChildNodes;
+                            break;
+                        }
+                    }
+
+                    if (SecRoot == null)
+                        return -1;
+                    else {
+                        for (int i = 0; i < secRoots.Count; i++) {
+                            if (secRoots[i].Attributes["Mon"].Value.Equals(date.Month.ToString()) &&
+                                secRoots[i].Attributes["Day"].Value.Equals(date.Day.ToString())) {
+                                SecRoot.RemoveChild(secRoots[i]);i--;
+                                
+                            }
+                        }
+                    }
+                    break;
+            }
 
             xmlDocument.Save(App.RootPath + FluxLog);
             return 0;
@@ -253,10 +305,6 @@ namespace SoftwareTeamwork {
             return courseSet;
         }
 
-        //public static int DeleteCourseSetNode(string term) {
-
-        //}
-
         public static int CreatCourseSetNode(CourseSet set) {
             StreamReader reader = new StreamReader(App.RootPath + CourseData, Encoding.UTF8);
             XmlDocument xmlDocument = new XmlDocument();
@@ -290,6 +338,10 @@ namespace SoftwareTeamwork {
             return 0;
         }
 
+        /// <summary>
+        /// 重置所有xml
+        /// </summary>
+        /// <returns>重置是否成功</returns>
         public static int ResetAll() {
             DeleteWebNode("NEUZhjw", new HashSet<string>() { "cookie" });
             StreamReader reader = new StreamReader(App.RootPath + CourseData, Encoding.UTF8);

@@ -229,5 +229,260 @@
       </Setter.Value>
     </Setter>
   </Style>
-  
+
+  <!--CourseTableWidget-->
+  <Style x:Key="CourseTableWidget"
+         TargetType="{x:Type local:CourseTable}">
+    <Setter Property="ResizeMode"
+            Value="NoResize" />
+    <Setter Property="ShowInTaskbar"
+            Value="False" />
+    <Setter Property="SizeToContent"
+            Value="WidthAndHeight" />
+    <Setter Property="WindowStyle"
+            Value="None" />
+    <Setter Property="Background"
+            Value="Transparent" />
+    <Setter Property="AllowsTransparency"
+            Value="True" />
+    <Setter Property="TitleBackGround"
+            Value="#50ffffff" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type local:CourseTable}">
+          <Border x:Name="RootBorder"
+                  BorderBrush="{TemplateBinding CourseTableBorder}"
+                  BorderThickness="{TemplateBinding TableBorderThickness}"
+                  DataContext="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}}">
+            <Grid x:Name="RootGrid">
+              <Grid.Resources>
+                <!--TickStyles-->
+                <Style x:Key="HTitleText"
+                       TargetType="TextBlock">
+                  <Setter Property="Foreground"
+                          Value="{Binding TextBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
+                  <Setter Property="FontSize"
+                          Value="{Binding FirstLevelTextSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
+                  <Setter Property="HorizontalAlignment"
+                          Value="Center" />
+                  <Setter Property="TextAlignment"
+                          Value="Center" />
+                </Style>
+                <Style x:Key="VTitleText"
+                       TargetType="TextBlock">
+                  <Setter Property="Foreground"
+                          Value="{Binding TextBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
+                  <Setter Property="FontSize"
+                          Value="{Binding FirstLevelTextSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
+                  <Setter Property="HorizontalAlignment"
+                          Value="Center" />
+                  <Setter Property="VerticalAlignment"
+                          Value="Center" />
+                  <Setter Property="TextAlignment"
+                          Value="Center" />
+                </Style>
+
+                <!--ItemsPresenter-->
+                <Style x:Key="CourseItemsStyle"
+                       TargetType="ListViewItem">
+                  <Setter Property="Padding"
+                          Value="2" />
+                  <Setter Property="Template">
+                    <Setter.Value>
+                      <ControlTemplate TargetType="ListViewItem">
+                        <Border x:Name="RootBorder">
+                          <Grid>
+                            <Grid.RowDefinitions>
+                              <RowDefinition Height="*" />
+                              <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <ContentPresenter VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              Margin="{TemplateBinding Padding}" />
+                            <Rectangle Grid.Row="1"
+                                       Height="1"
+                                       Fill="{Binding TextBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
+                          </Grid>
+                        </Border>
+                      </ControlTemplate>
+                    </Setter.Value>
+                  </Setter>
+                </Style>
+
+                <!--ListView-->
+                <Style x:Key="CourseTableListView"
+                       TargetType="ListView">
+                  <Setter Property="ItemsPanel">
+                    <Setter.Value>
+                      <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" />
+                      </ItemsPanelTemplate>
+                    </Setter.Value>
+                  </Setter>
+                  <Setter Property="ItemTemplate">
+                    <Setter.Value>
+                      <DataTemplate DataType="{x:Type local:Course}">
+                        <Grid >
+                          <Grid.Resources>
+                            <Style x:Key="ItemText"
+                                   TargetType="TextBlock">
+                              <Setter Property="Foreground"
+                                      Value="{Binding TextBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
+                              <Setter Property="TextAlignment"
+                                      Value="{Binding CourseTextAlignment, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
+                              <Setter Property="TextWrapping"
+                                      Value="NoWrap" />
+                              <Setter Property="FontSize"
+                                      Value="{Binding SecondLevelTextSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
+                            </Style>
+                          </Grid.Resources>
+                          <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                          </Grid.RowDefinitions>
+                          <TextBlock Text="{Binding CourseName}"
+                                     Style="{DynamicResource ItemText}"
+                                     Grid.Row="0" />
+                          <TextBlock Text="{Binding CourseLoc}"
+                                     Style="{DynamicResource ItemText}"
+                                     Grid.Row="1" />
+                        </Grid>
+                      </DataTemplate>
+                    </Setter.Value>
+                  </Setter>
+                  <Setter Property="ItemContainerStyle"
+                          Value="{DynamicResource CourseItemsStyle}" />
+                  <Setter Property="Template">
+                    <Setter.Value>
+                      <ControlTemplate TargetType="ListView">
+                        <Grid Margin="0">
+                          <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          Margin="0" />
+                        </Grid>
+                      </ControlTemplate>
+                    </Setter.Value>
+                  </Setter>
+                </Style>
+
+              </Grid.Resources>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+              </Grid.RowDefinitions>
+              <Grid x:Name="TablePanel"
+                    Grid.Column="1"
+                    Grid.RowSpan="2"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <!--HTick-->
+                <Rectangle Fill="{TemplateBinding TitleBackGround}"
+                           Grid.ColumnSpan="7"
+                           Grid.Column="1" />
+                <TextBlock Text="{Binding  HTitles[0]}"
+                           Grid.Column="1"
+                           Style="{DynamicResource HTitleText}" />
+                <TextBlock Text="{Binding  HTitles[1]}"
+                           Grid.Column="2"
+                           Style="{DynamicResource HTitleText}" />
+                <TextBlock Text="{Binding  HTitles[2]}"
+                           Grid.Column="3"
+                           Style="{DynamicResource HTitleText}" />
+                <TextBlock Text="{Binding  HTitles[3]}"
+                           Grid.Column="4"
+                           Style="{DynamicResource HTitleText}" />
+                <TextBlock Text="{Binding  HTitles[4]}"
+                           Grid.Column="5"
+                           Style="{DynamicResource HTitleText}" />
+                <TextBlock Text="{Binding  HTitles[5]}"
+                           Grid.Column="6"
+                           Style="{DynamicResource HTitleText}" />
+                <TextBlock Text="{Binding  HTitles[6]}"
+                           Grid.Column="7"
+                           Style="{DynamicResource HTitleText}" />
+
+                <!--VTick-->
+                <Grid x:Name="VTitle"
+                      Grid.Row="1"
+                      Background="{TemplateBinding TitleBackGround}"
+                      VerticalAlignment="Stretch">
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                  </Grid.RowDefinitions>
+                  <TextBlock Text="{Binding  VTitles[0]}"
+                             Grid.Row="0"
+                             Style="{DynamicResource VTitleText}" />
+                  <TextBlock Text="{Binding  VTitles[1]}"
+                             Grid.Row="1"
+                             Style="{DynamicResource VTitleText}" />
+                  <TextBlock Text="{Binding  VTitles[2]}"
+                             Grid.Row="2"
+                             Style="{DynamicResource VTitleText}" />
+                  <TextBlock Text="{Binding  VTitles[3]}"
+                             Grid.Row="3"
+                             Style="{DynamicResource VTitleText}" />
+                  <TextBlock Text="{Binding  VTitles[4]}"
+                             Grid.Row="4"
+                             Style="{DynamicResource VTitleText}" />
+                  <TextBlock Text="{Binding  VTitles[5]}"
+                             Grid.Row="5"
+                             Style="{DynamicResource VTitleText}" />
+                </Grid>
+
+                <!--Table-->
+                <ListView Grid.Column="1"
+                          Grid.Row="1"
+                          Style="{DynamicResource CourseTableListView}"
+                          ItemsSource="{Binding MONList}" />
+                <ListView Grid.Column="2"
+                          Grid.Row="1"
+                          Style="{DynamicResource CourseTableListView}"
+                          ItemsSource="{Binding TUEList}" />
+                <ListView Grid.Column="3"
+                          Grid.Row="1"
+                          Style="{DynamicResource CourseTableListView}"
+                          ItemsSource="{Binding WEDList}" />
+                <ListView Grid.Column="4"
+                          Grid.Row="1"
+                          Style="{DynamicResource CourseTableListView}"
+                          ItemsSource="{Binding THUList}" />
+                <ListView Grid.Column="5"
+                          Grid.Row="1"
+                          Style="{DynamicResource CourseTableListView}"
+                          ItemsSource="{Binding FRIList}" />
+                <ListView Grid.Column="6"
+                          Grid.Row="1"
+                          Style="{DynamicResource CourseTableListView}"
+                          ItemsSource="{Binding SATList}" />
+                <ListView Grid.Column="7"
+                          Grid.Row="1"
+                          Style="{DynamicResource CourseTableListView}"
+                          ItemsSource="{Binding SUNList}" />
+              </Grid>
+            </Grid>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
 </ResourceDictionary>

@@ -18,6 +18,17 @@
         <RowDefinition Height="auto" />
         <RowDefinition Height="auto" />
       </Grid.RowDefinitions>
+      <local:GridLineFloder Title="当前周设置"
+                            Grid.Row="2"
+                            AimGridType="Auto"
+                            AttachedGrid="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}"
+                            CommandPara="3" />
+      <Grid Grid.Row="3">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+      </Grid>
       <Grid Grid.Row="4">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*" />

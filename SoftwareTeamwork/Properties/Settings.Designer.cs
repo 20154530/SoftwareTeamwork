@@ -175,5 +175,17 @@ namespace SoftwareTeamwork.Properties {
                 this["WeekNowSet"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CourseTableVisibility {
+            get {
+                return ((bool)(this["CourseTableVisibility"]));
+            }
+            set {
+                this["CourseTableVisibility"] = value;
+            }
+        }
     }
 }

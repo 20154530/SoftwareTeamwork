@@ -139,6 +139,13 @@ namespace SoftwareTeamwork {
             CourseTime time = (CourseTime)obj;
             return time.DayTime.Equals(DayTime) && time.WeekDay.Equals(WeekDay);
         }
+
+        public override int GetHashCode() {
+            var hashCode = -735683111;
+            hashCode = hashCode * -1521134295 + WeekDay.GetHashCode();
+            hashCode = hashCode * -1521134295 + DayTime.GetHashCode();
+            return hashCode;
+        }
     }
 
     public class FluxInfo {
@@ -148,7 +155,8 @@ namespace SoftwareTeamwork {
 
         public FluxInfo() {
             FluxData = 0.0;
-            Balance = 0.0; InfoTime = new DateTime(2000, 1, 1, 0, 0, 0);
+            Balance = 0.0;
+            InfoTime = DateTime.Now ;
         }
 
         public string[] GetXmlItemStyle() {
@@ -161,6 +169,7 @@ namespace SoftwareTeamwork {
             };
             return pairs;
         }
+
         public string[] GetXmlDateStyle() {
             string[] pairs = new string[]{
                 String.Format("Year:{0}", InfoTime.Year),

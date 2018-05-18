@@ -181,8 +181,8 @@
     <Setter Property="ContentTextFontSize"
             Value="10" />
   </Style>
-  
-  
+
+
   <!--TextBox-->
 
   <!--AccountTextBox-->
@@ -224,7 +224,8 @@
                             HorizontalScrollBarVisibility="Hidden"
                             VerticalScrollBarVisibility="Hidden"
                             Margin="0,3,0,0" />
-              <Rectangle x:Name="EnableId" Grid.Row="1"
+              <Rectangle x:Name="EnableId"
+                         Grid.Row="1"
                          Fill="{DynamicResource AccountPage_TextBox_UnderlineBrush}"
                          Height="1"
                          SnapsToDevicePixels="True"
@@ -334,7 +335,8 @@
                             HorizontalScrollBarVisibility="Hidden"
                             VerticalScrollBarVisibility="Hidden"
                             Margin="0,2,0,0" />
-              <Rectangle x:Name="EnableID" Grid.Row="1"
+              <Rectangle x:Name="EnableID"
+                         Grid.Row="1"
                          Fill="{DynamicResource AccountPage_TextBox_UnderlineBrush}"
                          Height="1"
                          SnapsToDevicePixels="True"
@@ -479,10 +481,10 @@
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ScrollViewer}">
           <Grid Background="{TemplateBinding Background}"
-                Width="{TemplateBinding MaxWidth}" >
+                Width="{TemplateBinding MaxWidth}">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="*" />
-              <ColumnDefinition x:Name="SBG" 
+              <ColumnDefinition x:Name="SBG"
                                 Width="8" />
             </Grid.ColumnDefinitions>
             <ScrollContentPresenter x:Name="PART_ScrollContentPresenter"
@@ -555,7 +557,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  
+
   <!--Frame-->
   <Style x:Key="DefaultFrame"
          TargetType="{x:Type Frame}">
@@ -570,50 +572,6 @@
                   Padding="{TemplateBinding Padding}">
             <ContentPresenter x:Name="PART_FrameCP" />
           </Border>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
-  
-  <!--ListView-->
-  <Style x:Key="CourseTableListView"
-         TargetType="ListView">
-    <Setter Property="ItemsPanel">
-      <Setter.Value>
-        <ItemsPanelTemplate>
-          <StackPanel Orientation="Vertical" />
-        </ItemsPanelTemplate>
-      </Setter.Value>
-    </Setter>
-    <Setter Property="ItemTemplate">
-      <Setter.Value>
-        <DataTemplate DataType="{x:Type local:Course}">
-          <Grid Width="70"
-                Height="40" >
-            <Grid.RowDefinitions>
-              <RowDefinition Height="auto" />
-              <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
-            <TextBlock Text="{Binding CourseName}"
-                       Foreground="{DynamicResource DefaultPopupForeground}"
-                       Grid.Row="0"
-                       FontSize="12"
-                       TextWrapping="NoWrap" />
-            <TextBlock Text="{Binding CourseLoc}"
-                       Foreground="{DynamicResource DefaultPopupForeground}"
-                       Grid.Row="1"
-                       FontSize="10"
-                       TextWrapping="NoWrap" />
-          </Grid>
-        </DataTemplate>
-      </Setter.Value>
-    </Setter>
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="ListView">
-          <Grid>
-            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-          </Grid>
         </ControlTemplate>
       </Setter.Value>
     </Setter>

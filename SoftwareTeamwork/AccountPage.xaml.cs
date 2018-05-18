@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -114,7 +115,7 @@ namespace SoftwareTeamwork {
                 name = JWAccount.Text;
                 password = JWPassword.Password;
                 id = JWIdentifyCode.Text;
-                Task t = new Task(() => {
+                Task tk = new Task(() => {
                     Dictionary<string, string> dc = new Dictionary<string, string> {
                     { "WebUserNO", name },
                     { "Password", password },
@@ -122,13 +123,21 @@ namespace SoftwareTeamwork {
                      };
                     XmlHelper.UpdateWebNodeValue("NEUZhjw", dc);
                 });
-                t.Start();
-                await t;
+                tk.Start();
+                await tk;
                 LoginAgent.Instence.Post("NEUZhjw");
             }
-            CourseTable ss = new CourseTable();
-            ss.Style = Application.Current.FindResource("CourseTableWidget") as Style;
-            ss.IsOpen = true;
+            
+            Thread thread = new Thread(new ThreadStart(OpenTable));
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.IsBackground = true;
+            thread.Start();
+        }
+
+        private void OpenTable() {
+            CourseTable.Instence = CourseTable.InstenceFlag ? CourseTable.Instence : new CourseTable();
+            CourseTable.Instence.ShowDialog();
+            Dispatcher.Run();
         }
 
         private void ChangeNEUJW(object sender, RoutedEventArgs e) {

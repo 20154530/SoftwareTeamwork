@@ -66,6 +66,8 @@ namespace SoftwareTeamwork {
                 IPGWConnected = false;
                 return null;
             }
+
+            XmlHelper.CreatFluxNode(XmlHelper.FluxNodeType.Item,info.GetXmlItemStyle());
             return info;
         }
 
