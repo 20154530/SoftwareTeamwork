@@ -141,6 +141,9 @@ namespace SoftwareTeamwork {
                 typeof(CourseTable), new PropertyMetadata(new string[6]));
         #endregion
 
+        #region 
+        #endregion
+
         #region CourseTextAlignment
         public TextAlignment CourseTextAlignment {
             get { return (TextAlignment)GetValue(CourseTextAlignmentProperty); }
@@ -160,7 +163,7 @@ namespace SoftwareTeamwork {
         }
         public static readonly DependencyProperty CourseTableBorderProperty =
             DependencyProperty.Register("CourseTableBorder", typeof(SolidColorBrush), typeof(CourseTable),
-                new PropertyMetadata(new SolidColorBrush(Color.FromArgb(255, 255, 255, 255))));
+                new PropertyMetadata(new SolidColorBrush(Color.FromArgb(160, 255, 255, 255))));
         #endregion
 
         #region TextBrush
@@ -273,11 +276,16 @@ namespace SoftwareTeamwork {
         }
         #endregion
 
+
+        private void Instence_OnCFontSizeChanged(object sender, EventArgs e) {
+            FirstLevelTextSize = (double)sender;
+        }
+
         public CourseTable() {
             CourseSet = DataFormater.Instense.CourseSet;
-            if(CourseSet is null) {
+            if(CourseSet is null) 
                 MessageService.Instence.ShowError(null,"没有课程信息，请检查网络，教务处信息");
-            }
+            OverallSettingManger.Instence.OnCFontSizeChanged += Instence_OnCFontSizeChanged;
             Style = Application.Current.FindResource("CourseTableWidget") as Style;
             CreatLists();
             InitTable();

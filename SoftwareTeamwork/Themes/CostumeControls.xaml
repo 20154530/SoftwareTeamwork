@@ -48,10 +48,6 @@
                                Content="{Binding OpenOrClose}"
                                Command="{StaticResource OpenMainWindowCommand}"
                                CommandParameter="{Binding CommandParameter}" />
-              <local:DMenuItem x:Name="M2"
-                               Style="{DynamicResource MenuItem}"
-                               FontIcon="&#xE753;"
-                               Content="天气情况" />
               <local:DMenuItem x:Name="M3"
                                FontIcon="&#xEC92;"
                                Style="{DynamicResource FirstLevelDMenuItem}"

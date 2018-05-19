@@ -30,11 +30,17 @@ namespace SoftwareTeamwork
 
         //.NetProperties
 
-        private float fontsize = 12.2f;
+        private float fontsize = (float)Properties.Settings.Default.AreaIconFontSize;
         public float Fontsize
         {
             get { return fontsize; }
             set { fontsize = value; }
+        }
+
+        private Drawing.Color fontColor = Properties.Settings.Default.AreaIconColor;
+        public Drawing.Color FontColor {
+            get => fontColor;
+            set { fontColor = value; }
         }
 
         #region AttachedWindow
@@ -98,6 +104,8 @@ namespace SoftwareTeamwork
         }
         #endregion
 
+        
+
         #region 初始化
         private void InitNotifyIcon()
         {
@@ -113,31 +121,16 @@ namespace SoftwareTeamwork
             FlowIcon.MouseDoubleClick += FlowIcon_MouseDoubleClick;
         }
 
-        private void InitRes()
-        {
+        private void InitRes() {
             byte[] myText = null;
             IntPtr MeAdd = IntPtr.Zero;
-            switch (Properties.Settings.Default.AreaIconFontFamily) {
-                case "Default":
-                    myText = (byte[])Properties.Resources.ResourceManager.GetObject("Rect");
-                    pfc = new PrivateFontCollection();
-                    MeAdd = Marshal.AllocHGlobal(myText.Length);
-                    Marshal.Copy(myText, 0, MeAdd, myText.Length);
-                    pfc.AddMemoryFont(MeAdd, myText.Length);
-                    break;
-                case "Digital":
-                    myText = (byte[])Properties.Resources.ResourceManager.GetObject("Digital");
-                    pfc = new PrivateFontCollection();
-                    MeAdd = Marshal.AllocHGlobal(myText.Length);
-                    Marshal.Copy(myText, 0, MeAdd, myText.Length);
-                    pfc.AddMemoryFont(MeAdd, myText.Length);
-                    break;
-                default:
-                    Drawing.FontFamily font = new Drawing.FontFamily(Properties.Settings.Default.AreaIconFontFamily);
-                    DisIconFont = new Font(font, Fontsize);
-                    break;
-            }
-          
+
+            myText = (byte[])Properties.Resources.ResourceManager.GetObject("Rect");
+            pfc = new PrivateFontCollection();
+            MeAdd = Marshal.AllocHGlobal(myText.Length);
+            Marshal.Copy(myText, 0, MeAdd, myText.Length);
+            pfc.AddMemoryFont(MeAdd, myText.Length);
+
             DisIconFont = new Font(pfc.Families[0], fontsize);
         }
 
@@ -227,7 +220,7 @@ namespace SoftwareTeamwork
             g.SmoothingMode = SmoothingMode.HighSpeed;
             g.CompositingQuality = CompositingQuality.HighSpeed;
             g.TextRenderingHint = TextRenderingHint.SingleBitPerPixelGridFit;
-            Drawing.Pen pen = new Drawing.Pen(Drawing.Color.FromArgb(255, 255, 255, 255), 1f);
+            Drawing.Pen pen = new Drawing.Pen(fontColor, 1f);
             g.DrawString(Inf, DisIconFont, pen.Brush, new Drawing.Point(0,1),new StringFormat() { });
             ico = (bufferedimage as Bitmap).GetHicon();
 
@@ -249,11 +242,11 @@ namespace SoftwareTeamwork
 
         #endregion
 
-        private void Instence_ThemeChanged(object sender, EventArgs e)
-        {
-            //  Dcontextmenu = new DContextMenu();
+        #region 设置更新
+        private void Instence_OnAFontColorChanged(object sender, EventArgs e) {
+            fontColor = (Drawing.Color)sender;
+            UpdataIconByStr(Math.Round((double)OverallSettingManger.Instence.FluxPercent).ToString());
         }
-
 
         private void Instence_OnAFontSizeChanged(object sender, EventArgs e) {
             DisIconFont = new Font(pfc.Families[0], (float)(double)sender);
@@ -261,13 +254,14 @@ namespace SoftwareTeamwork
         }
 
         private void Instence_OnFluxUpdate(object sender, EventArgs e) {
-            UpdataIconByStr(Math.Round((double)sender).ToString());
+            UpdataIconByStr(Math.Round((double)sender-1).ToString());
         }
+        #endregion
 
         public DAreaIcon() {
-            OverallSettingManger.Instence.ThemeChanged += Instence_ThemeChanged;
             OverallSettingManger.Instence.OnFluxUpdate += Instence_OnFluxUpdate;
             OverallSettingManger.Instence.OnAFontSizeChanged += Instence_OnAFontSizeChanged;
+            OverallSettingManger.Instence.OnAFontColorChanged += Instence_OnAFontColorChanged;
             fontsize = (float)Properties.Settings.Default.AreaIconFontSize;
             InitNotifyIcon();
             InitTimers();

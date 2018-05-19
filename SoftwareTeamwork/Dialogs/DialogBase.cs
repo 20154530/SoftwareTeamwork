@@ -56,28 +56,26 @@ namespace SoftwareTeamwork
                         (GetTemplateChild("OK") as Button).Click += DialogButtonClick;
                         break;
                     case MessageBoxButton.OKCancel:
-                        (GetTemplateChild("OK") as Button).Click += DialogButtonClick;
                         (GetTemplateChild("CANCEL") as Button).Click += DialogButtonClick;
+                        (GetTemplateChild("OK") as Button).Click += DialogButtonClick;
                         break;
                     case MessageBoxButton.YesNo:
                         (GetTemplateChild("YES") as Button).Click += DialogButtonClick;
                         (GetTemplateChild("NO") as Button).Click += DialogButtonClick;
                         break;
                     case MessageBoxButton.YesNoCancel:
+                        ((Button)GetTemplateChild("CANCEL")).Click += DialogButtonClick;
                         ((Button)GetTemplateChild("YES")).Click += DialogButtonClick;
                         ((Button)GetTemplateChild("NO")).Click += DialogButtonClick;
-                        ((Button)GetTemplateChild("CANCEL")).Click += DialogButtonClick;
                         break;
                 }
             }
-            catch (NullReferenceException e) {
-                
-            }
+            catch (NullReferenceException e) { }
             
             base.OnApplyTemplate();
         }
 
-        private void DialogButtonClick(object sender, RoutedEventArgs e)
+        protected virtual void DialogButtonClick(object sender, RoutedEventArgs e)
         {
             switch ((sender as Button).Name) {
                 case "YES": DialogResult = true; break;
@@ -89,7 +87,7 @@ namespace SoftwareTeamwork
             Close();
         }
 
-        public void ShowDialog(Window Holder)
+        public virtual void ShowDialog(Window Holder)
         {
             Owner = Holder;
             WindowStartupLocation = WindowStartupLocation.CenterOwner;

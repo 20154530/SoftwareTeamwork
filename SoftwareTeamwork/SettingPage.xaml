@@ -9,6 +9,9 @@
       xmlns:sys="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d"
       Title="SettingPage">
+  <Page.Resources>
+    <local:DrawingToMediaConvert x:Key="DTM" />
+  </Page.Resources>
   <ScrollViewer Style="{DynamicResource SC_ScrollViewer}"
                 Background="{DynamicResource BackgroundBrush}"
                 Margin="8,0,0,0"
@@ -86,7 +89,7 @@
                TargetType="ComboBox">
           <Setter Property="ItemTemplate">
             <Setter.Value>
-              <DataTemplate >
+              <DataTemplate>
                 <TextBlock Text="{Binding}"
                            TextAlignment="Right"
                            FontWeight="Light"
@@ -117,7 +120,8 @@
                       <Border x:Name="dropDownBorder"
                               BorderBrush="{DynamicResource BorderBrush}"
                               BorderThickness="1"
-                              Background="{DynamicResource DefaultPopupBackground}">
+                              MaxHeight="160"
+                              Background="{DynamicResource BackgroundBrush}">
                         <ScrollViewer x:Name="DropDownScrollViewer"
                                       Style="{DynamicResource SC_ScrollViewer}">
                           <Grid x:Name="grid"
@@ -145,6 +149,7 @@
                                           ToolTipVisiblity="Collapsed"
                                           ForeIcon="&#xE972;"
                                           BackIcon="&#xE971;"
+                                          IconMaskN="#20FFFFFF"
                                           Grid.Column="1"
                                           IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                           Style="{DynamicResource SettingPageIconToggelButton}" />
@@ -252,7 +257,12 @@
                      Style="{DynamicResource AccountLabel}"
                      FontSize="{DynamicResource SettingPageSecondFontSize}"
                      Background="{DynamicResource GridLineFloderBackground}" />
-          
+          <ComboBox x:Name="CFontSize"
+                    Grid.Column="2"
+                    DisplayMemberPath="{Binding CourseTableFontSize, Source={x:Static Properties:Settings.Default}}"
+                    ItemContainerStyle="{DynamicResource ComboxItemStyle}"
+                    Style="{DynamicResource SettingPageComboBox}"
+                    SelectionChanged="ChangeFontSize" />
         </Grid>
         <Grid Margin="0,10,0,0" Grid.Row="1">
           <Grid.ColumnDefinitions>
@@ -264,6 +274,11 @@
                      Style="{DynamicResource AccountLabel}"
                      FontSize="{DynamicResource SettingPageSecondFontSize}"
                      Background="{DynamicResource GridLineFloderBackground}" />
+          <local:IconButton x:Name="CFColor"
+                            Grid.Column="2"
+                            Content="&#xE790;"
+                            Style="{DynamicResource SettingPageIconButton}"
+                            Click="Color" />
         </Grid>
         <Grid Margin="0,10,0,0"
               Grid.Row="2">
@@ -288,8 +303,13 @@
                      Style="{DynamicResource AccountLabel}"
                      FontSize="{DynamicResource SettingPageSecondFontSize}"
                      Background="{DynamicResource GridLineFloderBackground}" />
+          <local:IconButton x:Name="CTColor"
+                            Grid.Column="2"
+                            Content="&#xE790;"
+                            Style="{DynamicResource SettingPageIconButton}"
+                            Click="Color" />
         </Grid>
-        <Grid Margin="0,10,0,0"
+        <Grid Margin="0,10,0,10"
               Grid.Row="4">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
@@ -300,13 +320,18 @@
                      Style="{DynamicResource AccountLabel}"
                      FontSize="{DynamicResource SettingPageSecondFontSize}"
                      Background="{DynamicResource GridLineFloderBackground}" />
+          <local:IconButton x:Name="CBGColor"
+                            Grid.Column="2"
+                            Content="&#xE790;"
+                            Style="{DynamicResource SettingPageIconButton}"
+                            Click="Color" />
         </Grid>
       </Grid>
       <local:GridLineFloder Title="托盘图标设置"
                             Grid.Row="2"
                             AimGridType="Auto"
                             AttachedGrid="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}"
-                            CommandPara="5" />
+                            CommandPara="3" />
       <Grid Grid.Row="3"
             Margin="20,0,0,0">
         <Grid.RowDefinitions>
@@ -331,7 +356,7 @@
                     DisplayMemberPath="{Binding AreaIconFontSize, Source={x:Static Properties:Settings.Default}}"
                     ItemContainerStyle="{DynamicResource ComboxItemStyle}"
                     Style="{DynamicResource SettingPageComboBox}"
-                    SelectionChanged="FontSize_SelectionChanged" />
+                    SelectionChanged="ChangeFontSize" />
         </Grid>
         <Grid Grid.Row="1"
               Margin="0,10,0,10">
@@ -339,14 +364,24 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
           </Grid.ColumnDefinitions>
           <TextBlock Text="&#x2502;  字体颜色"
                      Style="{DynamicResource AccountLabel}"
                      FontSize="{DynamicResource SettingPageSecondFontSize}"
                      Background="{DynamicResource GridLineFloderBackground}" />
+          <Rectangle Grid.Column="2"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Margin="0,0,10,0"
+                     Fill="{Binding AreaIconColor, Source={x:Static Properties:Settings.Default},Converter={StaticResource DTM}}"
+                     Width="16"
+                     Height="16" />
           <local:IconButton x:Name="AColor"
-                            Grid.Column="2" 
-                            
+                            Grid.Column="3"
+                            Content="&#xE790;"
+                            ForeToolTip="修改颜色"
+                            ToolTipVisiblity="Visible"
                             Style="{DynamicResource SettingPageIconButton}"
                             Click="Color"/>
         </Grid>

@@ -116,6 +116,26 @@ namespace SoftwareTeamwork
                 typeof(IconButton), new PropertyMetadata(false));
         #endregion
 
+        #region ForeTip
+        public string ForeToolTip {
+            get { return (string)GetValue(ForeToolTipProperty); }
+            set { SetValue(ForeToolTipProperty, value); }
+        }
+        public static readonly DependencyProperty ForeToolTipProperty =
+            DependencyProperty.Register("ForeToolTip", typeof(string), typeof(IconButton),
+                new PropertyMetadata(""));
+        #endregion
+
+        #region ToolTipVisiblity
+        public Visibility ToolTipVisiblity {
+            get { return (Visibility)GetValue(ToolTipVisiblityProperty); }
+            set { SetValue(ToolTipVisiblityProperty, value); }
+        }
+        public static readonly DependencyProperty ToolTipVisiblityProperty =
+            DependencyProperty.Register("ToolTipVisiblity", typeof(Visibility), typeof(IconButton),
+                new PropertyMetadata(Visibility.Visible));
+        #endregion
+
         static IconButton()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(IconButton), new FrameworkPropertyMetadata(typeof(IconButton)));

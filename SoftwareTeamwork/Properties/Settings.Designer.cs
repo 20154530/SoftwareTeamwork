@@ -190,13 +190,13 @@ namespace SoftwareTeamwork.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Default")]
-        public string AreaIconFontFamily {
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color AreaIconColor {
             get {
-                return ((string)(this["AreaIconFontFamily"]));
+                return ((global::System.Drawing.Color)(this["AreaIconColor"]));
             }
             set {
-                this["AreaIconFontFamily"] = value;
+                this["AreaIconColor"] = value;
             }
         }
         
@@ -221,6 +221,18 @@ namespace SoftwareTeamwork.Properties {
             }
             set {
                 this["LastFluxInfo"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("12")]
+        public double CourseTableFontSize {
+            get {
+                return ((double)(this["CourseTableFontSize"]));
+            }
+            set {
+                this["CourseTableFontSize"] = value;
             }
         }
     }
