@@ -131,7 +131,6 @@ namespace SoftwareTeamwork {
             if (InfSet.NeedLogin)
                 try {
                     response = httpClient.PostAsync(InfSet.Uris[0] + ID , new FormUrlEncodedContent(paramList)).Result;
-                    Console.WriteLine(response.Content.ReadAsStringAsync().Result.Contains("网络综合平台"));
                     if (!infSet.HasCookie && InfSet.Verify)
                         SetCookies(InfSet.Uris[0]);
                 }
@@ -233,7 +232,6 @@ namespace SoftwareTeamwork {
                 fs.Close();
             }
             catch (Exception ex) {
-                Console.WriteLine(ex.StackTrace);
             }
         }
 
@@ -242,7 +240,6 @@ namespace SoftwareTeamwork {
                 File.WriteAllBytes(dir + fileName, html);
             }
             catch (Exception ex) {
-                Console.WriteLine(ex.StackTrace);
             }
         }
         #endregion

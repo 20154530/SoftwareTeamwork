@@ -18,9 +18,9 @@ namespace SoftwareTeamwork {
         public FluxInfo IpgwInfo {
             get {
                 return ipgwInfo is null ?
-                     GetIpgwDataInf() is null ?
+                     GetLocalInfo() is null ?
                      UpdateFlux() :
-                     GetIpgwDataInf() :
+                     GetLocalInfo() :
                      ipgwInfo;
             }
             set { ipgwInfo = value;  }
@@ -54,10 +54,6 @@ namespace SoftwareTeamwork {
 
         public double GetBalance() { return IpgwInfo.Balance; }
 
-        private FluxInfo GetIpgwDataInf() {
-            return GetIpgwDataInf(LoginAgent.Instence.GetData("NEUIpgw"));
-        }
-
         private FluxInfo GetIpgwDataInf(string data)  //Ipgw网关信息格式化获取
         {
             FluxInfo info = new FluxInfo();
@@ -78,7 +74,7 @@ namespace SoftwareTeamwork {
                 return null;
             }
 
-            XmlHelper.CreatFluxNode(XmlHelper.FluxNodeType.Item,info.GetXmlItemStyle());
+            XmlHelper.CreatFluxNode(info);
             return info;
         }
 
@@ -92,6 +88,10 @@ namespace SoftwareTeamwork {
                 MessageService.Instence.ShowError(null, "数据格式错误，请检查用户名和密码");
             }
             return a / 1000000.0;
+        }
+
+        private FluxInfo GetLocalInfo() {
+            return XmlHelper.GetLatestFluxInfo();
         }
         #endregion
 
@@ -202,10 +202,6 @@ namespace SoftwareTeamwork {
             courseSet = XmlHelper.GetCourseSetNode(DateTime.Now.Month > 8 ?
                 String.Format("{0}-{1}", DateTime.Now.Year, DateTime.Now.Year + 1) :
                  String.Format("{0}-{1}", DateTime.Now.Year - 1, DateTime.Now.Year));
-            if (courseSet is null) {
-                Console.WriteLine("ssdsd");
-                return null;
-            }
             courseSet.RemoveNotNow();
             return courseSet;
         }

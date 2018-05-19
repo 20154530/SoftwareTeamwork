@@ -7,6 +7,7 @@
   <sys:Double x:Key="NotifyContextmenuTextSize">13</sys:Double>
   <sys:Double x:Key="NotifyContextmenuIconSize">14</sys:Double>
   <sys:Double x:Key="NotifyContextmenuItemHeight">26</sys:Double>
+  <local:DubtoGridlConverter x:Key="ToGridLine" />
 
   <!--Seperator-->
 
@@ -14,7 +15,7 @@
   <Style x:Key="SeparatorStyle1"
          TargetType="{x:Type Separator}">
     <Setter Property="Margin"
-            Value="0,2,0,2" />
+            Value="2,1,2,1" />
     <Setter Property="Focusable"
             Value="false" />
     <Setter Property="Template">
@@ -572,6 +573,77 @@
                   Padding="{TemplateBinding Padding}">
             <ContentPresenter x:Name="PART_FrameCP" />
           </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  
+  <!--MenuItem-->
+
+  <Style x:Key="FirstLevelDMenuItem"
+         TargetType="local:DMenuItem">
+    <Setter Property="IconMaskR"
+            Value="#005d9c" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="local:DMenuItem">
+          <Grid x:Name="RootGrid"
+                Height="{DynamicResource NotifyContextmenuItemHeight}"
+                MinWidth="120">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="26" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Rectangle x:Name="Mask"
+                       Margin="2"
+                       Grid.ColumnSpan="2"
+                       Fill="{TemplateBinding IconMaskN}" />
+            <TextBlock x:Name="Icon"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="{TemplateBinding FontIcon}"
+                       Foreground="{TemplateBinding IconN}"
+                       FontSize="{TemplateBinding FontSize}"
+                       FontWeight="{TemplateBinding FontWeight}"
+                       Style="{DynamicResource IconTextBlock}" />
+            <TextBlock x:Name="Content"
+                       Grid.Column="1"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="{TemplateBinding Content}"
+                       Foreground="{TemplateBinding TextN}"
+                       FontSize="{TemplateBinding FontSize}"
+                       FontWeight="{TemplateBinding FontWeight}" />
+            <Popup x:Name="SubMenu"
+                   Placement="MousePoint"
+                   IsOpen="{TemplateBinding IsSubmenuOpen}"
+                   AllowsTransparency="True"
+                   Focusable="True">
+              <Border x:Name="SubmenuBorder"
+                      SnapsToDevicePixels="True"
+                      Background="{DynamicResource BackgroundBrush}">
+                <StackPanel IsItemsHost="True"
+                            KeyboardNavigation.DirectionalNavigation="Cycle" />
+              </Border>
+            </Popup>
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver"
+                     Value="true">
+              <Setter TargetName="Mask"
+                      Property="Fill"
+                      Value="{Binding IconMaskR, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+              <Setter TargetName="Icon"
+                      Property="Foreground"
+                      Value="{Binding IconR, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+              <Setter TargetName="Content"
+                      Property="Foreground"
+                      Value="{Binding TextR, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+              <Setter Property="IsSubmenuOpen"
+                      Value="True" />
+            </Trigger>
+            
+          </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>

@@ -3,8 +3,10 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
+      xmlns:Properties="clr-namespace:SoftwareTeamwork.Properties"
       xmlns:local="clr-namespace:SoftwareTeamwork"
-      xmlns:sys ="clr-namespace:System;assembly=mscorlib"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d"
       Title="SettingPage">
   <ScrollViewer Style="{DynamicResource SC_ScrollViewer}"
@@ -13,7 +15,208 @@
                 Padding="0,0,8,0">
     <Grid x:Name="RootGrid">
       <Grid.Resources>
-        <sys:Double x:Key="SettingPageSecondFontSize">10</sys:Double> 
+        <sys:Double x:Key="SettingPageSecondFontSize">10</sys:Double>
+        <Style x:Key="SettingPageIconButton"
+               TargetType="local:IconButton">
+          <Setter Property="IconN"
+                  Value="{DynamicResource SettingPage_Button_Foreground}" />
+          <Setter Property="IconR"
+                  Value="{DynamicResource SettingPage_Button_Foreground_R}" />
+          <Setter Property="IconP"
+                  Value="{DynamicResource SettingPage_Button_Foreground_P}" />
+          <Setter Property="IconMaskN"
+                  Value="{DynamicResource SettingPage_Button_Background}" />
+          <Setter Property="IconMaskR"
+                  Value="{DynamicResource SettingPage_Button_Background_R}" />
+          <Setter Property="IconMaskP"
+                  Value="{DynamicResource SettingPage_Button_Background_P}" />
+        </Style>
+        <Style x:Key="SettingPageIconToggelButton"
+               TargetType="local:IconToggelButton">
+          <Setter Property="IconN"
+                  Value="{DynamicResource SettingPage_Button_Foreground}" />
+          <Setter Property="IconR"
+                  Value="{DynamicResource SettingPage_Button_Foreground_R}" />
+          <Setter Property="IconP"
+                  Value="{DynamicResource SettingPage_Button_Foreground_P}" />
+          <Setter Property="IconMaskN"
+                  Value="{DynamicResource SettingPage_Button_Background}" />
+          <Setter Property="IconMaskR"
+                  Value="{DynamicResource SettingPage_Button_Background_R}" />
+          <Setter Property="IconMaskP"
+                  Value="{DynamicResource SettingPage_Button_Background_P}" />
+          <Setter Property="FontSize"
+                  Value="{StaticResource SettingPageSecondFontSize}" />
+        </Style>
+        <!--ItemsPresenter-->
+        <Style x:Key="ComboxItemStyle"
+               TargetType="ComboBoxItem">
+          <Setter Property="Padding"
+                  Value="2" />
+          <Setter Property="Template">
+            <Setter.Value>
+              <ControlTemplate TargetType="ComboBoxItem">
+                <Border x:Name="RootBorder">
+                  <Grid>
+                    <Rectangle x:Name="Mask"
+                               Grid.Row="1"
+                               Margin="2"
+                               Visibility="Collapsed"
+                               Fill="{DynamicResource DefaultScrollThumb_Background_P}" />
+                    <ContentPresenter VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                      HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                      Margin="{TemplateBinding Padding}" />
+                  </Grid>
+                </Border>
+                <ControlTemplate.Triggers>
+                  <Trigger Property="IsMouseOver"
+                           Value="True">
+                    <Setter TargetName="Mask"
+                            Property="Visibility"
+                            Value="Visible" />
+                  </Trigger>
+                </ControlTemplate.Triggers>
+              </ControlTemplate>
+            </Setter.Value>
+          </Setter>
+        </Style>
+        <!--Combobox-->
+        <Style x:Key="SettingPageComboBox"
+               TargetType="ComboBox">
+          <Setter Property="ItemTemplate">
+            <Setter.Value>
+              <DataTemplate >
+                <TextBlock Text="{Binding}"
+                           TextAlignment="Right"
+                           FontWeight="Light"
+                           Foreground="{DynamicResource DefaultPopupForeground}"
+                           FontSize="{StaticResource SettingPageSecondFontSize}" />
+              </DataTemplate>
+            </Setter.Value>
+          </Setter>
+          <Setter Property="Template">
+            <Setter.Value>
+              <ControlTemplate TargetType="ComboBox">
+                <Grid x:Name="templateRoot"
+                      SnapsToDevicePixels="true">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}"
+                                      Width="0" />
+                  </Grid.ColumnDefinitions>
+                  <Popup x:Name="PART_Popup"
+                         AllowsTransparency="true"
+                         Grid.ColumnSpan="2"
+                         IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                         Placement="Bottom">
+                    <Themes:SystemDropShadowChrome x:Name="shadow"
+                                                   Color="Transparent"
+                                                   MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                                   MinWidth="{Binding ActualWidth, ElementName=templateRoot}">
+                      <Border x:Name="dropDownBorder"
+                              BorderBrush="{DynamicResource BorderBrush}"
+                              BorderThickness="1"
+                              Background="{DynamicResource DefaultPopupBackground}">
+                        <ScrollViewer x:Name="DropDownScrollViewer"
+                                      Style="{DynamicResource SC_ScrollViewer}">
+                          <Grid x:Name="grid"
+                                RenderOptions.ClearTypeHint="Enabled">
+                            <Canvas x:Name="canvas"
+                                    HorizontalAlignment="Left"
+                                    Height="0"
+                                    VerticalAlignment="Top"
+                                    Width="0">
+                              <Rectangle x:Name="opaqueRect"
+                                         Fill="{Binding Background, ElementName=dropDownBorder}"
+                                         Height="{Binding ActualHeight, ElementName=dropDownBorder}"
+                                         Width="{Binding ActualWidth, ElementName=dropDownBorder}" />
+                            </Canvas>
+                            <ItemsPresenter x:Name="ItemsPresenter"
+                                            KeyboardNavigation.DirectionalNavigation="Contained"
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                          </Grid>
+                        </ScrollViewer>
+                      </Border>
+                    </Themes:SystemDropShadowChrome>
+                  </Popup>
+                  <local:IconToggelButton x:Name="toggleButton"
+                                          LabelVisibility="Collapsed"
+                                          ToolTipVisiblity="Collapsed"
+                                          ForeIcon="&#xE972;"
+                                          BackIcon="&#xE971;"
+                                          Grid.Column="1"
+                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                          Style="{DynamicResource SettingPageIconToggelButton}" />
+                  <Border x:Name="border"
+                          BorderBrush="{DynamicResource BorderBrush}"
+                          Background="{StaticResource BackgroundBrush}"
+                          Margin="{TemplateBinding BorderThickness}">
+                    <TextBox x:Name="PART_EditableTextBox"
+                             Text="{TemplateBinding DisplayMemberPath}"
+                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                             IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}"
+                             Margin="{TemplateBinding Padding}"
+                             FontSize="{DynamicResource SettingPageSecondFontSize}"
+                             Foreground="{DynamicResource DefaultPopupForeground}"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                  </Border>
+                </Grid>
+                <ControlTemplate.Triggers>
+                  <Trigger Property="IsEnabled"
+                           Value="false">
+                    <Setter Property="Opacity"
+                            TargetName="border"
+                            Value="0.56" />
+                  </Trigger>
+                  <Trigger Property="IsKeyboardFocusWithin"
+                           Value="true">
+                    <Setter Property="Foreground"
+                            Value="Black" />
+                  </Trigger>
+                  <Trigger Property="HasDropShadow"
+                           SourceName="PART_Popup"
+                           Value="true">
+                    <Setter Property="Margin"
+                            TargetName="shadow"
+                            Value="0,0,5,5" />
+                    <Setter Property="Color"
+                            TargetName="shadow"
+                            Value="#71000000" />
+                  </Trigger>
+                  <Trigger Property="HasItems"
+                           Value="false">
+                    <Setter Property="Height"
+                            TargetName="dropDownBorder"
+                            Value="95" />
+                  </Trigger>
+                  <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                      <Condition Property="IsGrouping"
+                                 Value="true" />
+                      <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping"
+                                 Value="false" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="ScrollViewer.CanContentScroll"
+                            Value="false" />
+                  </MultiTrigger>
+                  <Trigger Property="ScrollViewer.CanContentScroll"
+                           SourceName="DropDownScrollViewer"
+                           Value="false">
+                    <Setter Property="Canvas.Top"
+                            TargetName="opaqueRect"
+                            Value="{Binding VerticalOffset, ElementName=DropDownScrollViewer}" />
+                    <Setter Property="Canvas.Left"
+                            TargetName="opaqueRect"
+                            Value="{Binding HorizontalOffset, ElementName=DropDownScrollViewer}" />
+                  </Trigger>
+                </ControlTemplate.Triggers>
+              </ControlTemplate>
+            </Setter.Value>
+          </Setter>
+        </Style>
       </Grid.Resources>
       <Grid.RowDefinitions>
         <RowDefinition Height="auto" />
@@ -26,28 +229,11 @@
         <RowDefinition Height="auto" />
       </Grid.RowDefinitions>
       <local:GridLineFloder Title="课程表设置"
-                            Grid.Row="2"
                             AimGridType="Auto"
                             AttachedGrid="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}"
                             CommandPara="3" />
-      <Grid Grid.Row="3" Margin="20,0,0,0">
-        <Grid.Resources>
-          <Style x:Key="SettingPageIconButton"
-                 TargetType="local:IconButton">
-            <Setter Property="IconN"
-                    Value="{DynamicResource SettingPage_Button_Foreground}" />
-            <Setter Property="IconR"
-                    Value="{DynamicResource SettingPage_Button_Foreground_R}" />
-            <Setter Property="IconP"
-                    Value="{DynamicResource SettingPage_Button_Foreground_P}" />
-            <Setter Property="IconMaskN"
-                    Value="{DynamicResource SettingPage_Button_Background}" />
-            <Setter Property="IconMaskR"
-                    Value="{DynamicResource SettingPage_Button_Background_R}" />
-            <Setter Property="IconMaskP"
-                    Value="{DynamicResource SettingPage_Button_Background_P}" />
-          </Style>
-        </Grid.Resources>
+      <Grid Grid.Row="1"
+            Margin="20,0,0,0">
         <Grid.RowDefinitions>
           <RowDefinition Height="auto" />
           <RowDefinition Height="auto" />
@@ -67,11 +253,6 @@
                      FontSize="{DynamicResource SettingPageSecondFontSize}"
                      Background="{DynamicResource GridLineFloderBackground}" />
           
-          <local:IconButton x:Name="CourseFontSize"
-                            Content="&#xE74E;"
-                            Grid.Column="3"
-                            Style="{DynamicResource SettingPageIconButton}" 
-                            Click="CourseFontSize_Click"/>
         </Grid>
         <Grid Margin="0,10,0,0" Grid.Row="1">
           <Grid.ColumnDefinitions>
@@ -122,11 +303,11 @@
         </Grid>
       </Grid>
       <local:GridLineFloder Title="托盘图标设置"
-                            Grid.Row="4"
+                            Grid.Row="2"
                             AimGridType="Auto"
                             AttachedGrid="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}"
                             CommandPara="5" />
-      <Grid Grid.Row="5"
+      <Grid Grid.Row="3"
             Margin="20,0,0,0">
         <Grid.RowDefinitions>
           <RowDefinition Height="auto" />
@@ -145,20 +326,14 @@
                      Style="{DynamicResource AccountLabel}"
                      FontSize="{DynamicResource SettingPageSecondFontSize}"
                      Background="{DynamicResource GridLineFloderBackground}" />
+          <ComboBox x:Name="AFontSize"
+                    Grid.Column="2"
+                    DisplayMemberPath="{Binding AreaIconFontSize, Source={x:Static Properties:Settings.Default}}"
+                    ItemContainerStyle="{DynamicResource ComboxItemStyle}"
+                    Style="{DynamicResource SettingPageComboBox}"
+                    SelectionChanged="FontSize_SelectionChanged" />
         </Grid>
         <Grid Grid.Row="1"
-              Margin="0,10,0,0">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="auto" />
-          </Grid.ColumnDefinitions>
-          <TextBlock Text="&#x2502;  字体样式"
-                     Style="{DynamicResource AccountLabel}"
-                     FontSize="{DynamicResource SettingPageSecondFontSize}"
-                     Background="{DynamicResource GridLineFloderBackground}" />
-        </Grid>
-        <Grid Grid.Row="2"
               Margin="0,10,0,10">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
@@ -169,25 +344,75 @@
                      Style="{DynamicResource AccountLabel}"
                      FontSize="{DynamicResource SettingPageSecondFontSize}"
                      Background="{DynamicResource GridLineFloderBackground}" />
+          <local:IconButton x:Name="AColor"
+                            Grid.Column="2" 
+                            
+                            Style="{DynamicResource SettingPageIconButton}"
+                            Click="Color"/>
         </Grid>
       </Grid>
-      <Grid Grid.Row="6" >
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="auto" />
-          <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <local:IconButton Content="&#xE9F3;"
-                          Padding="4"
-                          ContentText="恢复默认设置"
-                          ContentTextVisiblity="Visible"
-                          ContentTextFontSize="10"
-                          IconN="{DynamicResource SettingPage_Button_Foreground}"
-                          IconR="{DynamicResource SettingPage_Button_Foreground_R}"
-                          IconP="{DynamicResource SettingPage_Button_Foreground_P}"
-                          IconMaskN="{DynamicResource SettingPage_Button_Background}"
-                          IconMaskR="{DynamicResource SettingPage_Button_Background_R}"
-                          IconMaskP="{DynamicResource SettingPage_Button_Background_P}"
-                          Click="Reset" />
+      <local:GridLineFloder Title="其他设置"
+                            Grid.Row="4"
+                            AimGridType="Auto"
+                            AttachedGrid="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}"
+                            CommandPara="5" />
+      <Grid Grid.Row="5"
+            Margin="20,0,0,0">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid Margin="0,10,0,0">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+          </Grid.ColumnDefinitions>
+          <TextBlock Text="&#x2502;  退出模式设置"
+                     Style="{DynamicResource AccountLabel}"
+                     FontSize="{DynamicResource SettingPageSecondFontSize}"
+                     Background="{DynamicResource GridLineFloderBackground}" />
+          <local:IconToggelButton x:Name="ShowExit" 
+                                  Grid.Column="2"
+                                  ForeIcon="&#xEA3A;"
+                                  BackIcon="&#xE930;"
+                                  ToolTipVisiblity="Collapsed"
+                                  LabelVisibility="Visible"
+                                  Content="弹出对话框"
+                                  BackText="直接退出"
+                                  Style="{DynamicResource SettingPageIconToggelButton}" 
+                                  Click="OtherSetting"/>
+          <local:IconToggelButton x:Name="ExitAction"
+                                  Grid.Column="3"
+                                  Margin="12,0,0,0"
+                                  ForeIcon="&#xEA3A;"
+                                  BackIcon="&#xE930;"
+                                  ToolTipVisiblity="Collapsed"
+                                  LabelVisibility="Visible"
+                                  Content="退出程序"
+                                  BackText="托盘运行"
+                                  Style="{DynamicResource SettingPageIconToggelButton}"
+                                  Click="OtherSetting" />
+        </Grid>
+        <Grid Margin="0,10,0,10" Grid.Row="1">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+          </Grid.ColumnDefinitions>
+          <TextBlock Text="&#x2502;  恢复默认设置"
+                     Style="{DynamicResource AccountLabel}"
+                     FontSize="{DynamicResource SettingPageSecondFontSize}"
+                     Background="{DynamicResource GridLineFloderBackground}" />
+          <local:IconButton x:Name="ResetButton"
+                            Grid.Column="2"
+                            Content="&#xF259;"
+                            ContentTextFontSize="{DynamicResource SettingPageSecondFontSize}"
+                            Style="{DynamicResource SettingPageIconButton}"
+                            Click="Reset" />
+        </Grid>
       </Grid>
     </Grid>
   </ScrollViewer>

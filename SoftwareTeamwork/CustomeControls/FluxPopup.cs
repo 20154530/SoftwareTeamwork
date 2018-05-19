@@ -89,7 +89,6 @@ namespace SoftwareTeamwork {
         #endregion
 
         protected override void OnOpened(EventArgs e) {
-            SetIconPathByPercentAngle(DataAnalysis.GetFluxPercent(false) * 100);
             FluxUsed = DataAnalysis.GetFluxData(true);
             FluxRemain = DataAnalysis.GetFluxData(false);
         }

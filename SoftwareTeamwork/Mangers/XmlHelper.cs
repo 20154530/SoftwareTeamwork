@@ -173,48 +173,39 @@ namespace SoftwareTeamwork {
         /// <param name="label">XML节点标签名称</param>
         /// <param name="pairs">要格式化的信息串</param>
         /// <returns></returns>
-        public static int CreatFluxNode(FluxNodeType label, string[] pairs) {
+        public static int CreatFluxNode(FluxInfo fi) {
             XmlDocument xmlDocument = new XmlDocument();
             using (StreamReader reader = new StreamReader(App.RootPath + FluxLog, System.Text.Encoding.UTF8)) {
                 xmlDocument.Load(reader);
             }
-            if (pairs is null)
+            if (fi is null)
                 return -1;
             XmlNode Root = xmlDocument.DocumentElement;
-            switch (label) {
-                case FluxNodeType.Date:
-                    var Date = xmlDocument.CreateElement("Date");
-                    foreach (string s in pairs) {
-                        string[] k = s.Split(':');
-                        Date.SetAttribute(k[0], k[1]);
-                    }
-                    Root.AppendChild(Date);
-                    break;
-                case FluxNodeType.Item:
-                    var Item = xmlDocument.CreateElement("Item");
-                    if (Root.ChildNodes.Count > 0) {
-                        var LastDate = Root.LastChild;
-                        foreach (string s in pairs) {
-                            string[] k = s.Split(':');
-                            Item.SetAttribute(k[0], k[1]);
-                        }
-                        LastDate.AppendChild(Item);
-                    }
-                    else {
-                        XmlElement xml = xmlDocument.CreateElement("Date");
-                        xml.SetAttribute("Year",DateTime.Now.Year.ToString());
-                        xml.SetAttribute("Mon", DateTime.Now.Month.ToString());
-                        xml.SetAttribute("Day", DateTime.Now.Day.ToString());
-                        Root.AppendChild(xml);
-                        var LastDate = Root.LastChild;
-                        foreach (string s in pairs) {
-                            string[] k = s.Split(':');
-                            Item.SetAttribute(k[0], k[1]);
-                        }
-                        xml.AppendChild(Item);
-                    }
-                    break;
+
+            XmlNode LastDate = null;
+
+            var Item = xmlDocument.CreateElement("Item");
+            LastDate = Root.LastChild;
+
+            if (Root.ChildNodes.Count == 0 || !LastDate.Attributes["Day"].Value.Equals(fi.InfoTime.Day.ToString())
+                || !LastDate.Attributes["Mon"].Value.Equals(fi.InfoTime.Month.ToString())) {
+                XmlElement xml = xmlDocument.CreateElement("Date");
+                xml.SetAttribute("Year", DateTime.Now.Year.ToString());
+                xml.SetAttribute("Mon", DateTime.Now.Month.ToString());
+                xml.SetAttribute("Day", DateTime.Now.Day.ToString());
+                Root.AppendChild(xml);
             }
+
+            LastDate = Root.LastChild;
+
+            if (LastDate.ChildNodes.Count >= 5)
+                LastDate.RemoveChild(LastDate.LastChild);
+            Item.SetAttribute("FluxData", fi.FluxData.ToString());
+            Item.SetAttribute("Balance", fi.Balance.ToString());
+            Item.SetAttribute("InfoTime", fi.InfoTime.ToOADate().ToString());
+
+
+            LastDate.AppendChild(Item);
 
             xmlDocument.Save(App.RootPath + FluxLog);
             return 0;

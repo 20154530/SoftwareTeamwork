@@ -68,6 +68,16 @@ namespace SoftwareTeamwork {
                 new PropertyMetadata(new SolidColorBrush(Colors.Transparent)));
         #endregion
 
+        #region BackText
+        public string BackText {
+            get { return (string)GetValue(BackTextProperty); }
+            set { SetValue(BackTextProperty, value); }
+        }
+        public static readonly DependencyProperty BackTextProperty =
+            DependencyProperty.Register("BackText", typeof(string),
+                typeof(IconToggelButton), new PropertyMetadata(""));
+        #endregion
+
         #region ForeIcon
         public string ForeIcon {
             get { return (string)GetValue(ForeIconProperty); }
@@ -129,7 +139,6 @@ namespace SoftwareTeamwork {
         #endregion
 
         public override void OnApplyTemplate() {
-
             base.OnApplyTemplate();
         }
 

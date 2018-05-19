@@ -24,7 +24,13 @@ namespace SoftwareTeamwork
             MainWindow window = new MainWindow();
             window.Show();
             LoadCompleted += App_LoadCompleted;
+           
             base.OnStartup(e);
+        }
+
+        protected override void OnExit(ExitEventArgs e) {
+            SoftwareTeamwork.Properties.Settings.Default.Save();
+            base.OnExit(e);
         }
 
         private void App_LoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e) {

@@ -36,7 +36,12 @@ namespace SoftwareTeamwork {
         #endregion
 
         #region 
-
+        public event EventHandler OnAFontSizeChanged;
+         private double aFontSize = 0.0;
+        public double AFontSize {
+            get => aFontSize;
+            set { OnAFontSizeChanged?.Invoke(value, null); aFontSize = value; }
+        }
         #endregion
 
         public async void Reset() {

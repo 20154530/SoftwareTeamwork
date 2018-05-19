@@ -17,55 +17,100 @@ namespace SoftwareTeamwork
 {
     public class DMenuItem : MenuItem
     {
-        #region Text&Icon Color
-        public Color TextColorN
-        {
-            get { return (Color)GetValue(TextColorNProperty); }
-            set { SetValue(TextColorNProperty, value); }
+        #region Color
+        public Brush IconMaskN {
+            get { return (Brush)GetValue(IconMaskNProperty); }
+            set { SetValue(IconMaskNProperty, value); }
         }
-        public static readonly DependencyProperty TextColorNProperty =
-            DependencyProperty.Register("TextColorN", typeof(Color), typeof(DMenuItem), new PropertyMetadata(Color.FromArgb(255, 255, 255, 255)));
+        public static readonly DependencyProperty IconMaskNProperty =
+            DependencyProperty.Register("IconMaskN", typeof(Brush), typeof(DMenuItem),
+                new PropertyMetadata(new SolidColorBrush(Colors.Transparent)));
 
-        public Color IconColorN
-        {
-            get { return (Color)GetValue(IconColorNProperty); }
-            set { SetValue(IconColorNProperty, value); }
+        public Brush IconMaskR {
+            get { return (Brush)GetValue(IconMaskRProperty); }
+            set { SetValue(IconMaskRProperty, value); }
         }
-        public static readonly DependencyProperty IconColorNProperty =
-            DependencyProperty.Register("IconColorN", typeof(Color), typeof(DMenuItem), new PropertyMetadata(Color.FromArgb(255, 255, 255, 255)));
+        public static readonly DependencyProperty IconMaskRProperty =
+            DependencyProperty.Register("IconMaskR", typeof(Brush), typeof(DMenuItem),
+                new PropertyMetadata(new SolidColorBrush(Color.FromArgb(160, 0, 0, 0))));
 
-        public Color TextColorR
-        {
-            get { return (Color)GetValue(TextColorRProperty); }
-            set { SetValue(TextColorRProperty, value); }
+        public Brush IconMaskP {
+            get { return (Brush)GetValue(IconMaskPProperty); }
+            set { SetValue(IconMaskPProperty, value); }
         }
-        public static readonly DependencyProperty TextColorRProperty =
-            DependencyProperty.Register("TextColorR", typeof(Color), typeof(DMenuItem), new PropertyMetadata(Color.FromArgb(255, 0, 0, 0)));
+        public static readonly DependencyProperty IconMaskPProperty =
+            DependencyProperty.Register("IconMaskP", typeof(Brush), typeof(DMenuItem),
+                new PropertyMetadata(new SolidColorBrush(Color.FromArgb(160, 0, 0, 0))));
 
-        public Color IconColorR
-        {
-            get { return (Color)GetValue(IconColorRProperty); }
-            set { SetValue(IconColorRProperty, value); }
+        public Brush IconN {
+            get { return (Brush)GetValue(IconNProperty); }
+            set { SetValue(IconNProperty, value); }
         }
-        public static readonly DependencyProperty IconColorRProperty =
-            DependencyProperty.Register("IconColorR", typeof(Color), typeof(DMenuItem), new PropertyMetadata(Color.FromArgb(255, 0, 0, 0)));
+        public static readonly DependencyProperty IconNProperty =
+            DependencyProperty.Register("IconN", typeof(Brush), typeof(DMenuItem),
+                new PropertyMetadata(new SolidColorBrush(Colors.White)));
 
-        public Color TextMask
-        {
-            get { return (Color)GetValue(TextMaskProperty); }
-            set { SetValue(TextMaskProperty, value); }
+        public Brush IconR {
+            get { return (Brush)GetValue(IconRProperty); }
+            set { SetValue(IconRProperty, value); }
         }
-        public static readonly DependencyProperty TextMaskProperty =
-            DependencyProperty.Register("TextMask", typeof(Color), typeof(DMenuItem), new PropertyMetadata(Color.FromArgb(128,0,0,0)));
+        public static readonly DependencyProperty IconRProperty =
+            DependencyProperty.Register("IconR", typeof(Brush), typeof(DMenuItem),
+                new PropertyMetadata(new SolidColorBrush(Colors.FloralWhite)));
 
-        public Color IconMask
-        {
-            get { return (Color)GetValue(IconMaskProperty); }
-            set { SetValue(IconMaskProperty, value); }
+        public Brush IconP {
+            get { return (Brush)GetValue(IconPProperty); }
+            set { SetValue(IconPProperty, value); }
         }
-        public static readonly DependencyProperty IconMaskProperty =
-            DependencyProperty.Register("IconMask", typeof(Color), typeof(DMenuItem), new PropertyMetadata(Color.FromArgb(255, 255, 255, 255)));
+        public static readonly DependencyProperty IconPProperty =
+            DependencyProperty.Register("IconP", typeof(Brush), typeof(DMenuItem),
+                new PropertyMetadata(new SolidColorBrush(Colors.FloralWhite)));
+
+        public Brush TextN {
+            get { return (Brush)GetValue(TextNProperty); }
+            set { SetValue(TextNProperty, value); }
+        }
+        public static readonly DependencyProperty TextNProperty =
+            DependencyProperty.Register("TextN", typeof(Brush), typeof(DMenuItem),
+                new PropertyMetadata(new SolidColorBrush(Colors.FloralWhite)));
+
+        public Brush TextR {
+            get { return (Brush)GetValue(TextRProperty); }
+            set { SetValue(TextRProperty, value); }
+        }
+        public static readonly DependencyProperty TextRProperty =
+            DependencyProperty.Register("TextR", typeof(Brush), typeof(DMenuItem),
+                new PropertyMetadata(new SolidColorBrush(Colors.FloralWhite)));
+
+        public Brush TextP {
+            get { return (Brush)GetValue(TextPProperty); }
+            set { SetValue(TextPProperty, value); }
+        }
+        public static readonly DependencyProperty TextPProperty =
+            DependencyProperty.Register("TextP", typeof(Brush), typeof(DMenuItem),
+                new PropertyMetadata(new SolidColorBrush(Colors.FloralWhite)));
         #endregion
+
+        #region FontIcon
+        public string FontIcon {
+            get { return (string)GetValue(FontIconProperty); }
+            set { SetValue(FontIconProperty, value); }
+        }
+        public static readonly DependencyProperty FontIconProperty =
+            DependencyProperty.Register("FontIcon", typeof(string), 
+                typeof(DMenuItem), new PropertyMetadata(""));
+        #endregion
+
+        #region Content
+        public string Content {
+            get { return (string)GetValue(ContentProperty); }
+            set { SetValue(ContentProperty, value); }
+        }
+        public static readonly DependencyProperty ContentProperty =
+            DependencyProperty.Register("Content", typeof(string),
+                typeof(DMenuItem), new PropertyMetadata(""));
+        #endregion
+
 
         static DMenuItem()
         {

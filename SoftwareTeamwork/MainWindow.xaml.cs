@@ -69,6 +69,7 @@ namespace SoftwareTeamwork
 
         private void NavigateT(object para) {
             MainFrame.Navigate(new Uri((string)para,UriKind.Relative));
+          
         }
 
         public MainWindow() {

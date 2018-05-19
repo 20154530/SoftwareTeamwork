@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -8,21 +9,19 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 using Color = System.Windows.Media.Color;
 
 namespace SoftwareTeamwork {
     class CourseTable : Window {
-        private static bool InstenceFlag = false;
 
-        public static CourseTable Instence;
-
-        private static string[][] HTitlesTable = new string[3][] {
+        private string[][] HTitlesTable = new string[3][] {
             new string[]{ "星期一","星期二","星期三","星期四","星期五","星期六","星期日" },
             new string[]{ "MON","TUE","WED","THU","FRI","SAT","SUN"},
             new string[]{ "一","二", "三", "四", "五", "六", "七" }
         };
 
-        private static string[][] VTitlesTable = new string[3][] {
+        private string[][] VTitlesTable = new string[3][] {
             new string[]{ "一","二", "三", "四", "五", "六"},
             new string[]{ "1","2","3","4","5","6"},
             new string[]{  }
@@ -57,7 +56,7 @@ namespace SoftwareTeamwork {
         }
         public static readonly DependencyProperty MONListProperty =
             DependencyProperty.Register("MONList", typeof(ObservableCollection<Course>),
-                typeof(CourseTable), new PropertyMetadata(new ObservableCollection<Course>()));
+                typeof(CourseTable), new PropertyMetadata(null));
         #endregion
 
         #region TUEList
@@ -67,7 +66,7 @@ namespace SoftwareTeamwork {
         }
         public static readonly DependencyProperty TUEListProperty =
             DependencyProperty.Register("TUEList", typeof(ObservableCollection<Course>),
-                typeof(CourseTable), new PropertyMetadata(new ObservableCollection<Course>()));
+                typeof(CourseTable), new PropertyMetadata(null));
         #endregion
 
         #region WEDList
@@ -77,7 +76,7 @@ namespace SoftwareTeamwork {
         }
         public static readonly DependencyProperty WEDListProperty =
             DependencyProperty.Register("WEDList", typeof(ObservableCollection<Course>),
-                typeof(CourseTable), new PropertyMetadata(new ObservableCollection<Course>()));
+                typeof(CourseTable), new PropertyMetadata(null));
         #endregion
 
         #region THUList
@@ -87,7 +86,7 @@ namespace SoftwareTeamwork {
         }
         public static readonly DependencyProperty THUListProperty =
             DependencyProperty.Register("THUList", typeof(ObservableCollection<Course>),
-                typeof(CourseTable), new PropertyMetadata(new ObservableCollection<Course>()));
+                typeof(CourseTable), new PropertyMetadata(null));
         #endregion
 
         #region FRIList
@@ -97,7 +96,7 @@ namespace SoftwareTeamwork {
         }
         public static readonly DependencyProperty FRIListProperty =
             DependencyProperty.Register("FRIList", typeof(ObservableCollection<Course>),
-                typeof(CourseTable), new PropertyMetadata(new ObservableCollection<Course>()));
+                typeof(CourseTable), new PropertyMetadata(null));
         #endregion
 
         #region SATList
@@ -107,7 +106,7 @@ namespace SoftwareTeamwork {
         }
         public static readonly DependencyProperty SATListProperty =
             DependencyProperty.Register("SATList", typeof(ObservableCollection<Course>),
-                typeof(CourseTable), new PropertyMetadata(new ObservableCollection<Course>()));
+                typeof(CourseTable), new PropertyMetadata(null));
         #endregion
 
         #region SUNList
@@ -117,7 +116,7 @@ namespace SoftwareTeamwork {
         }
         public static readonly DependencyProperty SUNListProperty =
             DependencyProperty.Register("SUNList", typeof(ObservableCollection<Course>),
-                typeof(CourseTable), new PropertyMetadata(new ObservableCollection<Course>()));
+                typeof(CourseTable), new PropertyMetadata(null));
         #endregion
 
         #endregion
@@ -216,34 +215,15 @@ namespace SoftwareTeamwork {
                 typeof(CourseTable), new PropertyMetadata(10.0));
         #endregion
 
-        public static void Open() {
-            Thread thread = new Thread(new ThreadStart(OpenTable));
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.IsBackground = true;
-            thread.Start();
-        }
-
-        private static void OpenTable() {
-            if (!InstenceFlag) {
-                Instence = new CourseTable();
-                InstenceFlag = true;
-            }
-            Instence.ShowDialog();
-            System.Windows.Threading.Dispatcher.Run();
-        }
-
-        public new void Close() {
-            if (!InstenceFlag) {
-                return;
-            }
-            else {
-                InstenceFlag = false;
-                base.Close();
-            }
-        }
-
         #region PrivateMethods
         private void CreatLists() {
+            MONList = new ObservableCollection<Course>();
+            TUEList = new ObservableCollection<Course>();
+            WEDList = new ObservableCollection<Course>();
+            THUList = new ObservableCollection<Course>();
+            FRIList = new ObservableCollection<Course>();
+            SATList = new ObservableCollection<Course>();
+            SUNList = new ObservableCollection<Course>();
             for (int i = 0; i < CourseSet.Courses.Count; i++) {
                 switch (i % 7) {
                     case 0: MONList.Add(CourseSet.Courses[i]); break;
@@ -261,6 +241,8 @@ namespace SoftwareTeamwork {
             HTitles = HTitlesTable[0];
             VTitles = VTitlesTable[1];
         }
+
+
         #endregion
 
         #region overrides
@@ -274,11 +256,21 @@ namespace SoftwareTeamwork {
                 return;
             }
             else {
-                InstenceFlag = true;
                 base.ShowDialog();
             }
         }
 
+        protected override void OnClosing(CancelEventArgs e) {
+            MONList = null;
+            TUEList = null;
+            WEDList = null;
+            THUList = null;
+            FRIList = null;
+            SATList = null;
+            SUNList = null;
+            GC.Collect();
+            base.OnClosing(e);
+        }
         #endregion
 
         public CourseTable() {

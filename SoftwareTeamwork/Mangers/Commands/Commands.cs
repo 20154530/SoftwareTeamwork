@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace SoftwareTeamwork {
     /// <summary>
@@ -22,19 +24,15 @@ namespace SoftwareTeamwork {
         }
     }
 
-    /// <summary>
-    /// 退出程序
-    /// </summary>
-    public class ClsCommand : ICommand {
-        public event EventHandler CanExecuteChanged {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
+    public class ExitCommand : ICommand {
+        public event EventHandler CanExecuteChanged;
+
         public bool CanExecute(object parameter) {
             return true;
         }
+
         public void Execute(object parameter) {
-            Application.Current.Shutdown();
+            App.Current.Shutdown();
         }
     }
 
@@ -90,6 +88,43 @@ namespace SoftwareTeamwork {
         }
         public void Execute(object parameter) {
                 cAction(parameter);
+        }
+    }
+
+    public class CourseTableCommand : ICommand {
+        public event EventHandler CanExecuteChanged;
+        private CourseTable Table;
+
+        public bool CanExecute(object parameter) {
+            return true;
+        }
+
+        public void Execute(object parameter) {
+            switch (parameter) {
+                case "Open":
+                    if (Table is null)
+                        Table = new CourseTable();
+                    Table.Show();
+                    break;
+                case "Close":
+                    if (Table is null)
+                        break;
+                    Table.Close();
+                    Table = null;
+                    break;
+            }
+        }
+    }
+
+    public class ChangPropertiesCommand : ICommand {
+        public event EventHandler CanExecuteChanged;
+
+        public bool CanExecute(object parameter) {
+            return true;
+        }
+
+        public void Execute(object parameter) {
+
         }
     }
 }

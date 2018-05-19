@@ -254,13 +254,20 @@ namespace SoftwareTeamwork
             //  Dcontextmenu = new DContextMenu();
         }
 
+
+        private void Instence_OnAFontSizeChanged(object sender, EventArgs e) {
+            DisIconFont = new Font(pfc.Families[0], (float)(double)sender);
+            UpdataIconByStr(Math.Round((double)OverallSettingManger.Instence.FluxPercent).ToString());
+        }
+
         private void Instence_OnFluxUpdate(object sender, EventArgs e) {
-            UpdataIconByStr(sender.ToString());
+            UpdataIconByStr(Math.Round((double)sender).ToString());
         }
 
         public DAreaIcon() {
             OverallSettingManger.Instence.ThemeChanged += Instence_ThemeChanged;
             OverallSettingManger.Instence.OnFluxUpdate += Instence_OnFluxUpdate;
+            OverallSettingManger.Instence.OnAFontSizeChanged += Instence_OnAFontSizeChanged;
             fontsize = (float)Properties.Settings.Default.AreaIconFontSize;
             InitNotifyIcon();
             InitTimers();

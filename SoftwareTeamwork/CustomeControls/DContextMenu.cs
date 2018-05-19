@@ -46,6 +46,25 @@ namespace SoftwareTeamwork
 
         #endregion
 
+        #region OpenSubMenu
+        public WindowCommand OpenSubMenu {
+            get { return (WindowCommand)GetValue(OpenSubMenuProperty); }
+            set { SetValue(OpenSubMenuProperty, value); }
+        }
+        public static readonly DependencyProperty OpenSubMenuProperty =
+            DependencyProperty.Register("OpenSubMenu", typeof(WindowCommand),
+                typeof(DContextMenu), new PropertyMetadata(new WindowCommand()));
+        #endregion
+
+        private void OpenSubMenu_CAction(object para) {
+            //DContextMenu sub = (DContextMenu)Application.Current.FindResource(para);
+            //sub.PlacementTarget = this;
+            //sub.Placement = System.Windows.Controls.Primitives.PlacementMode.Left;
+            //sub.IsOpen = true;
+        }
+
+        
+
         protected override void OnOpened(RoutedEventArgs e)
         {
             OpenOrClose = ((AIWindow)App.Current.MainWindow).Visibility.Equals(Visibility.Hidden) ? "显示主界面" : "隐藏主界面";
@@ -54,6 +73,7 @@ namespace SoftwareTeamwork
 
         public DContextMenu()
         {
+            OpenSubMenu.CAction += OpenSubMenu_CAction; ;
         }
 
         static DContextMenu()

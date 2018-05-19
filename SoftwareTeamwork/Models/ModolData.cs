@@ -165,24 +165,6 @@ namespace SoftwareTeamwork {
             InfoTime = DateTime.Now ;
         }
 
-        public string[] GetXmlItemStyle() {
-            string[] pairs = new string[]{
-                String.Format("FluxData:{0}", FluxData),
-                String.Format("Balance:{0}", Balance),
-                String.Format("InfoTime:{0}",InfoTime.ToOADate())
-            };
-            return pairs;
-        }
-
-        public string[] GetXmlDateStyle() {
-            string[] pairs = new string[]{
-                String.Format("Year:{0}", InfoTime.Year),
-                String.Format("Mon:{0}", InfoTime.Month),
-                String.Format("Day:{0}", InfoTime.Day),
-            };
-            return pairs;
-        }
-
         public override string ToString() {
             return String.Format("< FluxData:  {0}  Balance: {1} InfoTime: {2} >", FluxData, Balance, InfoTime.ToString());
         }

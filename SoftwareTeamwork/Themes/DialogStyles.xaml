@@ -254,7 +254,8 @@
                   BorderBrush="{TemplateBinding CourseTableBorder}"
                   BorderThickness="{TemplateBinding TableBorderThickness}"
                   DataContext="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}}">
-            <Grid x:Name="RootGrid">
+            <Grid x:Name="RootGrid"
+                  Grid.IsSharedSizeScope="True">
               <Grid.Resources>
                 <!--TickStyles-->
                 <Style x:Key="HTitleText"
@@ -276,6 +277,8 @@
                           Value="{Binding FirstLevelTextSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
                   <Setter Property="HorizontalAlignment"
                           Value="Center" />
+                  <Setter Property="Width"
+                          Value="40" />
                   <Setter Property="VerticalAlignment"
                           Value="Center" />
                   <Setter Property="TextAlignment"
@@ -370,29 +373,23 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
               </Grid.RowDefinitions>
-              <Grid x:Name="TablePanel"
-                    Grid.Column="1"
-                    Grid.RowSpan="2"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch">
-                <Grid.RowDefinitions>
-                  <RowDefinition Height="Auto" />
-                  <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+              <Grid x:Name="HTick"
+                    Background="{TemplateBinding TitleBackGround}">
                 <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="auto" />
-                  <ColumnDefinition Width="auto" />
-                  <ColumnDefinition Width="auto" />
-                  <ColumnDefinition Width="auto" />
-                  <ColumnDefinition Width="auto" />
-                  <ColumnDefinition Width="auto" />
-                  <ColumnDefinition Width="auto" />
-                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" SharedSizeGroup="L0"/>
+                  <ColumnDefinition Width="*" SharedSizeGroup="L1"/>
+                  <ColumnDefinition Width="*" SharedSizeGroup="L2" />
+                  <ColumnDefinition Width="*" SharedSizeGroup="L3" />
+                  <ColumnDefinition Width="*" SharedSizeGroup="L4" />
+                  <ColumnDefinition Width="*" SharedSizeGroup="L5" />
+                  <ColumnDefinition Width="*" SharedSizeGroup="L6" />
+                  <ColumnDefinition Width="*" SharedSizeGroup="L7" />
                 </Grid.ColumnDefinitions>
                 <!--HTick-->
                 <Rectangle Fill="{TemplateBinding TitleBackGround}"
+                           Width="20"
                            Grid.ColumnSpan="7"
-                           Grid.Column="1" />
+                           Grid.Column="0" />
                 <TextBlock Text="{Binding  HTitles[0]}"
                            Grid.Column="1"
                            Style="{DynamicResource HTitleText}" />
@@ -414,6 +411,21 @@
                 <TextBlock Text="{Binding  HTitles[6]}"
                            Grid.Column="7"
                            Style="{DynamicResource HTitleText}" />
+              </Grid>
+              <Grid x:Name="TablePanel"
+                    Grid.Row="1"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch" >
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition SharedSizeGroup="L0" />
+                  <ColumnDefinition SharedSizeGroup="L1" />
+                  <ColumnDefinition SharedSizeGroup="L2" />
+                  <ColumnDefinition SharedSizeGroup="L3" />
+                  <ColumnDefinition SharedSizeGroup="L4" />
+                  <ColumnDefinition SharedSizeGroup="L5" />
+                  <ColumnDefinition SharedSizeGroup="L6" />
+                  <ColumnDefinition SharedSizeGroup="L7" />
+                </Grid.ColumnDefinitions>
 
                 <!--VTick-->
                 <Grid x:Name="VTitle"

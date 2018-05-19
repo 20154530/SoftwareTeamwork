@@ -126,13 +126,13 @@ namespace SoftwareTeamwork
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             if ((double)value > 1000) {
                 if (parameter is null)
-                    return String.Format("{0:###.##} G", (double)value / 1000.0);
+                    return String.Format("{0:###.#} G", (double)value / 1000.0);
                 else
                     return String.Format("{0:### . ##} G", (double)value / 1000.0);
             }
             else {
                 if (parameter is null)
-                    return String.Format("{0:###.##} M", (double)value);
+                    return String.Format("{0:###.#} M", (double)value);
                 else
                     return String.Format("{0:### . ##} G", (double)value / 1000.0);
             }
@@ -143,14 +143,5 @@ namespace SoftwareTeamwork
         }
     }
 
-    class CourseSetToListConverter : IValueConverter {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
 
-            return null;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
-            throw new NotImplementedException();
-        }
-    }
 }

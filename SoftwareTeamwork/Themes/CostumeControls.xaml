@@ -5,9 +5,11 @@
                     xmlns:local="clr-namespace:SoftwareTeamwork">
   <!--Converter-->
   <local:MoveConverter x:Key="Move" />
+  <local:ExitCommand x:Key="Exit" />
   <local:IntToStringConverter x:Key="ITS" />
   <local:DateTimeStringFormat x:Key="DateTimeStringFormat" />
   <local:ActrualDataToNodesPos x:Key="DTP" />
+  <local:CourseTableCommand x:Key="CourseCommand" />
   <local:FluxFormatConverter x:Key="FluxFormat" />
 
   <!--Controls-->
@@ -21,47 +23,66 @@
         <ControlTemplate TargetType="{x:Type local:DContextMenu}">
           <Border x:Name="RootBorder"
                   BorderThickness="2"
+                  DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DContextMenu}}"
                   BorderBrush="{TemplateBinding BorderBrush}"
                   Margin="{TemplateBinding Padding}">
+            <Border.Resources>
+              <Style x:Key="MenuItem"
+                     TargetType="local:DMenuItem">
+                <Setter Property="IconN"
+                        Value="#E0E0E0" />
+                <Setter Property="IconR"
+                        Value="#E0E0E0" />
+                <Setter Property="IconMaskR"
+                        Value="#005d9c" />
+                <Setter Property="TextN"
+                        Value="#E0E0E0" />
+                <Setter Property="TextR"
+                        Value="#E0E0E0" />
+              </Style>
+            </Border.Resources>
             <StackPanel Background="{TemplateBinding Background}">
               <local:DMenuItem x:Name="M1"
-                               Icon="&#xE15E;"
+                               FontIcon="&#xE15E;"
+                               Style="{DynamicResource MenuItem}"
+                               Content="{Binding OpenOrClose}"
                                Command="{StaticResource OpenMainWindowCommand}"
-                               IconColorN="{DynamicResource VsBorderColor}"
-                               IconMask="{DynamicResource VsBorderColor}"
-                               IconColorR="White"
-                               Header="{Binding OpenOrClose, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:DContextMenu},Mode=OneWay}"
-                               CommandParameter="{Binding CommandParameter, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DContextMenu}}" />
+                               CommandParameter="{Binding CommandParameter}" />
               <local:DMenuItem x:Name="M2"
-                               Icon="&#xEA39;"
-                               Header="设置"
-                               Command="{StaticResource ChangeTheme}" />
+                               Style="{DynamicResource MenuItem}"
+                               FontIcon="&#xE753;"
+                               Content="天气情况" />
               <local:DMenuItem x:Name="M3"
-                               Icon="&#xEA39;"
-                               Header="选项" />
-              <local:DMenuItem x:Name="M4"
-                               Icon="&#xEA39;"
-                               Header="近期流量数据" />
-              <local:DMenuItem x:Name="M5"
-                               Icon="&#xEA39;"
-                               Header="天气情况" />
-              <local:DMenuItem x:Name="M6"
-                               Icon="&#xEA39;"
-                               Header="课程表" />
+                               FontIcon="&#xEC92;"
+                               Style="{DynamicResource FirstLevelDMenuItem}"
+                               Content="课程表">
+                <local:DMenuItem  FontIcon="&#xEA39;"
+                                  Style="{DynamicResource MenuItem}"
+                                  Command="{StaticResource CourseCommand}"
+                                  CommandParameter="Open"
+                                  Content="打开课程表">
+                </local:DMenuItem>
+                <local:DMenuItem  FontIcon="&#xEA39;"
+                                  Style="{DynamicResource MenuItem}"
+                                  Command="{StaticResource CourseCommand}"
+                                  CommandParameter="Close"
+                                  Content="关闭课程表">
+                </local:DMenuItem>
+              </local:DMenuItem>
               <Separator Style="{DynamicResource SeparatorStyle1}" />
-              <local:DMenuItem x:Name="M10"
-                               Icon="&#xEA39;"
-                               Header="退出程序"
-                               IconColorN="Red"
-                               IconMask="Red"
-                               IconColorR="White"
-                               Command="{StaticResource ClsCommand}" />
+              <local:DMenuItem x:Name="M4"
+                               Style="{DynamicResource MenuItem}"
+                               FontIcon="&#xEA39;"
+                               Content="退出程序"
+                               Command="{StaticResource Exit}"/>
             </StackPanel>
           </Border>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
   </Style>
+  
+  <!--CourseContextMenu-->
 
   <!--FlowAnaPanel-->
 
