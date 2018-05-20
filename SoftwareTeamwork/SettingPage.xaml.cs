@@ -91,28 +91,48 @@ namespace SoftwareTeamwork {
         private void Color(object sender, RoutedEventArgs e) {
             ColorPicker picker = new ColorPicker();
             picker.Style = Application.Current.FindResource("DefaultColorPicker") as Style;
-            picker.ShowDialogD(App.Current.MainWindow, OverallSettingManger.Instence.AFontColor);
-            var co = picker.DrawingGetColor();
-            if ((bool)picker.DialogResult)
-                switch (((Control)sender).Name) {
-                    case "AColor":
-                        OverallSettingManger.Instence.AFontColor = co;
-                        break;
-                    case "CBGColor":
-                        OverallSettingManger.Instence.CBackgroundColor = DataFormater.GetMediaColor(co);
-                        break;
-                    case "CTColor":
-                        OverallSettingManger.Instence.CTitleColor = DataFormater.GetMediaColor(co);
-                        break;
-                    case "CFColor":
-                        OverallSettingManger.Instence.CFontColor = DataFormater.GetMediaColor(co);
-                        break;
-
-                }
+            Color co;
+            Drawing.Color dco;
+            switch (((Control)sender).Name) {
+                case "AColor":
+                    picker.ShowDialogD(App.Current.MainWindow, OverallSettingManger.Instence.AFontColor);
+                    dco = picker.DrawingGetColor();
+                    if ((bool)picker.DialogResult)
+                        OverallSettingManger.Instence.AFontColor = dco;
+                    break;
+                case "CBGColor":
+                    picker.ShowDialog(App.Current.MainWindow, OverallSettingManger.Instence.CBackgroundColor);
+                    co = picker.GetColor();
+                    if ((bool)picker.DialogResult)
+                        OverallSettingManger.Instence.CBackgroundColor = co;
+                    break;
+                case "CTColor":
+                    picker.ShowDialog(App.Current.MainWindow, OverallSettingManger.Instence.CTitleColor);
+                    co = picker.GetColor();
+                    if ((bool)picker.DialogResult)
+                        OverallSettingManger.Instence.CTitleColor = co;
+                    break;
+                case "CFColor":
+                    picker.ShowDialog(App.Current.MainWindow, OverallSettingManger.Instence.CFontColor);
+                    co = picker.GetColor();
+                    if ((bool)picker.DialogResult)
+                        OverallSettingManger.Instence.CFontColor = co;
+                    break;
+            }
         }
 
         private void AFontSize_KeyDown(object sender, KeyEventArgs e) {
 
+        }
+
+        private void WeekSetting(object sender, RoutedEventArgs e) {
+            int week = Convert.ToInt32(((TextBox)sender).Text);
+            if (week < 0 && week > 22) {
+                MessageService.Instence.ShowError(App.Current.MainWindow, "输入范围错误，请重新输入");
+                return;
+            }
+            Properties.Settings.Default.WeekNow = week;
+            Properties.Settings.Default.WeekNowSet = DateTime.Now;
         }
     }
 }

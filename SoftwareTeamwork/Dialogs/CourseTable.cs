@@ -244,21 +244,19 @@ namespace SoftwareTeamwork {
             HTitles = HTitlesTable[0];
             VTitles = VTitlesTable[1];
         }
+
+        private void InitColor() {
+            TitleBackGround = new SolidColorBrush(DataFormater.GetMediaColor(Properties.Settings.Default.CourseTableTitleBackground));
+            Background = new SolidColorBrush(DataFormater.GetMediaColor(Properties.Settings.Default.CourseTableBackground));
+            TextBrush = new SolidColorBrush(DataFormater.GetMediaColor(Properties.Settings.Default.CourseTableTextColor));
+            FirstLevelTextSize = Properties.Settings.Default.CourseTableFontSize;
+        }
         #endregion
 
         #region overrides
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e) {
             this.DragMove();
             base.OnMouseLeftButtonDown(e);
-        }
-
-        public new void ShowDialog() {
-            if (base.Visibility.Equals(Visibility.Visible)) {
-                return;
-            }
-            else {
-                base.ShowDialog();
-            }
         }
 
         protected override void OnClosing(CancelEventArgs e) {
@@ -288,7 +286,7 @@ namespace SoftwareTeamwork {
             Background = new SolidColorBrush((Color)sender);
         }
 
-        private void Instence_OnAFontColorChanged(object sender, EventArgs e) {
+        private void Instence_OnCFontColorChanged(object sender, EventArgs e) {
             TextBrush = new SolidColorBrush((Color)sender);
         }
         #endregion
@@ -298,10 +296,11 @@ namespace SoftwareTeamwork {
             if(CourseSet is null) 
                 MessageService.Instence.ShowError(null,"没有课程信息，请检查网络，教务处信息");
             OverallSettingManger.Instence.OnCFontSizeChanged += Instence_OnCFontSizeChanged;
-            OverallSettingManger.Instence.OnAFontColorChanged += Instence_OnAFontColorChanged;
+            OverallSettingManger.Instence.OnCFontColorChanged += Instence_OnCFontColorChanged;
             OverallSettingManger.Instence.OnCBackgroundColorChanged += Instence_OnCBackgroundColorChanged;
             OverallSettingManger.Instence.OnCTitleColorChanged += Instence_OnCTitleColorChanged;
             Style = Application.Current.FindResource("CourseTableWidget") as Style;
+            InitColor();
             CreatLists();
             InitTable();
         }

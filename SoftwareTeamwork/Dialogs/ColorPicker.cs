@@ -59,12 +59,12 @@ namespace SoftwareTeamwork
         #endregion
 
         #region ColorShow
-        public Brush ColorNow {
-            get { return (Brush)GetValue(ColorNowProperty); }
+        public Color ColorNow {
+            get { return (Color)GetValue(ColorNowProperty); }
             set { SetValue(ColorNowProperty, value); }
         }
         public static readonly DependencyProperty ColorNowProperty =
-            DependencyProperty.Register("ColorNow", typeof(Brush),
+            DependencyProperty.Register("ColorNow", typeof(Color),
                 typeof(ColorPicker), new PropertyMetadata(null));
         #endregion
 
@@ -81,18 +81,22 @@ namespace SoftwareTeamwork
         #region PropertyChangedCallback
         private static void ColorChange(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             ColorPicker cp = (ColorPicker)d;
-            cp.ColorNow = new SolidColorBrush(Color.FromArgb(
+            cp.ColorNow = Color.FromArgb(
                 Convert.ToByte(cp.ColorA),
                 Convert.ToByte(cp.ColorR),
                 Convert.ToByte(cp.ColorG),
-                Convert.ToByte(cp.ColorB)));
+                Convert.ToByte(cp.ColorB));
             cp.ColorHEX = String.Format("#{0:X2}{1:X2}{2:X2}{3:X2}", cp.ColorA, cp.ColorR, cp.ColorG, cp.ColorB);
         }
 
         private static void ColorhexChange(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             ColorPicker cp = (ColorPicker)d;
             try {
-                cp.ColorNow = new SolidColorBrush((Color)ColorConverter.ConvertFromString(e.NewValue.ToString()));
+                cp.ColorNow = (Color)ColorConverter.ConvertFromString(e.NewValue.ToString());
+                cp.ColorA = cp.ColorNow.A;
+                cp.ColorR = cp.ColorNow.R;
+                cp.ColorG = cp.ColorNow.G;
+                cp.ColorB = cp.ColorNow.B;
             }
             catch {
               //  MessageService.Instence.ShowError(App.Current.MainWindow,"无效的值");
@@ -117,21 +121,11 @@ namespace SoftwareTeamwork
         }
 
         public Color GetColor() {
-            return Color.FromArgb(
-                Convert.ToByte(ColorA), 
-                Convert.ToByte(ColorR), 
-                Convert.ToByte(ColorG), 
-                Convert.ToByte(ColorB)
-                );
+            return ColorNow;
         }
 
         public Drawing.Color DrawingGetColor() {
-            return Drawing.Color.FromArgb(
-                Convert.ToByte(ColorA),
-                Convert.ToByte(ColorR),
-                Convert.ToByte(ColorG),
-                Convert.ToByte(ColorB)
-                );
+            return DataFormater.GetDrawingColor(ColorNow);
         }
 
         public void ShowDialog(Window Holder, Color color) {

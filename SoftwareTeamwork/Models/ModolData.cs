@@ -18,6 +18,7 @@ namespace SoftwareTeamwork {
         //移除非本周课程
     
         public void RemoveNotNow() {
+            
             try {
                 if (Courses.Count > 0) {
                     for (int i = 0; i < Courses.Count; i++) {

@@ -255,6 +255,7 @@
           <Border x:Name="RootBorder"
                   BorderBrush="{TemplateBinding CourseTableBorder}"
                   BorderThickness="{TemplateBinding TableBorderThickness}"
+                  Background="{TemplateBinding Background}"
                   DataContext="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}}">
             <Grid x:Name="RootGrid"
                   Grid.IsSharedSizeScope="True">
@@ -263,7 +264,7 @@
                 <Style x:Key="HTitleText"
                        TargetType="TextBlock">
                   <Setter Property="Foreground"
-                          Value="{Binding TextBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
+                          Value="{Binding TextBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable},Mode=OneWay}" />
                   <Setter Property="FontSize"
                           Value="{Binding FirstLevelTextSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
                   <Setter Property="HorizontalAlignment"
@@ -504,10 +505,11 @@
           <Border x:Name="RootBorder"
                   BorderBrush="{DynamicResource BorderBrush}"
                   DataContext="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                  Background="{DynamicResource BackgroundBrush}"
                   Width="240"
                   Height="160"
-                  BorderThickness="1"
-                  Padding="0,0,0,5">
+                  BorderThickness="1" 
+                  Margin="0,0,0,4">
             <Grid x:Name="RootGrid" Background="{DynamicResource BackgroundBrush}" >
               <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
@@ -546,22 +548,14 @@
                 <Grid.ColumnDefinitions>
                   <ColumnDefinition Width="*" />
                   <ColumnDefinition Width="auto" />
-                  <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
-                <Rectangle Fill="{Binding ColorNow}"
-                           Grid.ColumnSpan="2"
+                <Rectangle Fill="{Binding ColorNow,Converter={StaticResource ColortoBrushConverter}}"
                            RadiusX="8"
                            RadiusY="8"
                            Margin="5,0,0,0"
                            Height="16" />
-                <TextBlock Text="当前颜色&#x2502;"
-                           Grid.Column="1"
-                           VerticalAlignment="Center"
-                           FontSize="10.6"
-                           Margin="0,0,5,0"
-                           Foreground="{DynamicResource WindowDialogForeground}" />
                 <TextBox x:Name="ColorValue"
-                         Grid.Column="2"
+                         Grid.Column="1"
                          MinWidth="86"
                          Text="{Binding ColorHEX,Mode=TwoWay,UpdateSourceTrigger=Explicit}"
                          Style="{DynamicResource ColorPickerHEXBox}" />

@@ -249,6 +249,7 @@
           <RowDefinition Height="auto" />
           <RowDefinition Height="auto" />
           <RowDefinition Height="auto" />
+          <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid Margin="0,10,0,0">
           <Grid.ColumnDefinitions>
@@ -302,6 +303,7 @@
                      Style="{DynamicResource AccountLabel}"
                      FontSize="{DynamicResource SettingPageSecondFontSize}"
                      Background="{DynamicResource GridLineFloderBackground}" />
+          
         </Grid>
         <Grid Margin="0,10,0,0"
               Grid.Row="3">
@@ -328,7 +330,7 @@
                             Style="{DynamicResource SettingPageIconButton}"
                             Click="Color" />
         </Grid>
-        <Grid Margin="0,10,0,10"
+        <Grid Margin="0,10,0,0"
               Grid.Row="4">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
@@ -352,6 +354,23 @@
                             Content="&#xE790;"
                             Style="{DynamicResource SettingPageIconButton}"
                             Click="Color" />
+        </Grid>
+        <Grid Margin="0,10,0,10"
+              Grid.Row="5">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+          </Grid.ColumnDefinitions>
+          <TextBlock Text="&#x2502;  设置当前周"
+                     Style="{DynamicResource AccountLabel}"
+                     FontSize="{DynamicResource SettingPageSecondFontSize}"
+                     Background="{DynamicResource GridLineFloderBackground}" />
+          <TextBox Grid.Column="2"
+                   Text="{Binding WeekNow, Source={x:Static Properties:Settings.Default},Converter={StaticResource ITS}}"
+                   Style="{DynamicResource ColorPickerHEXBox}"
+                   LostFocus="WeekSetting"/>
         </Grid>
       </Grid>
       <local:GridLineFloder Title="托盘图标设置"
