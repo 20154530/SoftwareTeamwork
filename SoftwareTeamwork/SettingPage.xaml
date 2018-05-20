@@ -368,6 +368,7 @@
                      FontSize="{DynamicResource SettingPageSecondFontSize}"
                      Background="{DynamicResource GridLineFloderBackground}" />
           <TextBox Grid.Column="2"
+                   FontSize="10"
                    Text="{Binding WeekNow, Source={x:Static Properties:Settings.Default},Converter={StaticResource ITS}}"
                    Style="{DynamicResource ColorPickerHEXBox}"
                    LostFocus="WeekSetting"/>

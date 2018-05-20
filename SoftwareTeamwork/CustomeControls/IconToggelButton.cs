@@ -145,7 +145,20 @@ namespace SoftwareTeamwork {
         }
         public static readonly DependencyProperty RoatAngelProperty =
             DependencyProperty.Register("RoatAngel", typeof(double),
-                typeof(IconToggelButton), new PropertyMetadata(0.0));
+                typeof(IconToggelButton), new PropertyMetadata(0.0 ,new PropertyChangedCallback(OnRoatAngelChanged)));
+        private static void OnRoatAngelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
+            ((IconToggelButton)d).IconRotate.Angle = (double)e.NewValue;
+        }
+        #endregion
+
+        #region IconRotate
+        public RotateTransform IconRotate {
+            get { return (RotateTransform)GetValue(IconRotateProperty); }
+            set { SetValue(IconRotateProperty, value); }
+        }
+        public static readonly DependencyProperty IconRotateProperty =
+            DependencyProperty.Register("IconRotate", typeof(RotateTransform),
+                typeof(IconToggelButton), new PropertyMetadata(null));
         #endregion
 
         public override void OnApplyTemplate() {
@@ -155,6 +168,12 @@ namespace SoftwareTeamwork {
         protected override void OnIsPressedChanged(DependencyPropertyChangedEventArgs e) {
             // Console.WriteLine(IsChecked);
             base.OnIsPressedChanged(e);
+        }
+
+        public IconToggelButton() {
+            IconRotate = new RotateTransform {
+                Angle = RoatAngel
+            };
         }
 
         static IconToggelButton() {

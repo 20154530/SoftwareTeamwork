@@ -308,7 +308,8 @@
                                               Margin="{TemplateBinding Padding}" />
                             <Rectangle Grid.Row="1"
                                        Height="1"
-                                       Fill="{Binding CourseTableBorder, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
+                                       Width="{TemplateBinding Width}"
+                                       Fill="{Binding TitleBackGround, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
                           </Grid>
                         </Border>
                       </ControlTemplate>
@@ -389,8 +390,6 @@
                   <ColumnDefinition Width="*" SharedSizeGroup="L7" />
                 </Grid.ColumnDefinitions>
                 <!--HTick-->
-                <Rectangle Fill="{TemplateBinding TitleBackGround}"
-                           Grid.Column="0" />
                 <TextBlock Text="{Binding  HTitles[0]}"
                            Grid.Column="1"
                            Style="{DynamicResource HTitleText}" />
@@ -430,7 +429,6 @@
 
                 <!--VTick-->
                 <Grid x:Name="VTitle"
-                      Background="{TemplateBinding TitleBackGround}"
                       VerticalAlignment="Stretch">
                   <Grid.RowDefinitions>
                     <RowDefinition Height="*" />

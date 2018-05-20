@@ -20,7 +20,7 @@ namespace SoftwareTeamwork
 
         protected override void OnStartup(StartupEventArgs e)
         {
-           // AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
             MainWindow window = new MainWindow();
             window.Show();
             LoadCompleted += App_LoadCompleted;
