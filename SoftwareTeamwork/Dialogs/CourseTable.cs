@@ -244,8 +244,6 @@ namespace SoftwareTeamwork {
             HTitles = HTitlesTable[0];
             VTitles = VTitlesTable[1];
         }
-
-
         #endregion
 
         #region overrides
@@ -264,6 +262,7 @@ namespace SoftwareTeamwork {
         }
 
         protected override void OnClosing(CancelEventArgs e) {
+            //释放资源
             MONList = null;
             TUEList = null;
             WEDList = null;
@@ -276,16 +275,32 @@ namespace SoftwareTeamwork {
         }
         #endregion
 
-
+        #region 更新通知
         private void Instence_OnCFontSizeChanged(object sender, EventArgs e) {
             FirstLevelTextSize = (double)sender;
         }
+
+        private void Instence_OnCTitleColorChanged(object sender, EventArgs e) {
+            TitleBackGround = new SolidColorBrush((Color)sender);
+        }
+
+        private void Instence_OnCBackgroundColorChanged(object sender, EventArgs e) {
+            Background = new SolidColorBrush((Color)sender);
+        }
+
+        private void Instence_OnAFontColorChanged(object sender, EventArgs e) {
+            TextBrush = new SolidColorBrush((Color)sender);
+        }
+        #endregion
 
         public CourseTable() {
             CourseSet = DataFormater.Instense.CourseSet;
             if(CourseSet is null) 
                 MessageService.Instence.ShowError(null,"没有课程信息，请检查网络，教务处信息");
             OverallSettingManger.Instence.OnCFontSizeChanged += Instence_OnCFontSizeChanged;
+            OverallSettingManger.Instence.OnAFontColorChanged += Instence_OnAFontColorChanged;
+            OverallSettingManger.Instence.OnCBackgroundColorChanged += Instence_OnCBackgroundColorChanged;
+            OverallSettingManger.Instence.OnCTitleColorChanged += Instence_OnCTitleColorChanged;
             Style = Application.Current.FindResource("CourseTableWidget") as Style;
             CreatLists();
             InitTable();

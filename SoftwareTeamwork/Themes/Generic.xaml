@@ -201,8 +201,9 @@
           <Border BorderBrush="{TemplateBinding BorderBrush}"
                   BorderThickness="{TemplateBinding BorderThickness}">
             <Grid x:Name="RootGrid"
-                  Background="{TemplateBinding Background}">
-              <Grid.ColumnDefinitions>
+                  Background="{TemplateBinding Background}"
+                  RenderTransformOrigin=".5 .5">
+                <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
               </Grid.ColumnDefinitions>
@@ -217,7 +218,12 @@
                          Text="{TemplateBinding ForeIcon}"
                          FontSize="{TemplateBinding FontSize}"
                          Foreground="{TemplateBinding IconN}"
-                         FontWeight="{TemplateBinding FontWeight}" />
+                         FontWeight="{TemplateBinding FontWeight}"
+                         RenderTransformOrigin=".5 .5">
+                <TextBlock.RenderTransform>
+                  <RotateTransform Angle="{Binding RoatAngel,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:IconToggelButton}}" />
+                </TextBlock.RenderTransform>
+              </TextBlock>
               <TextBlock x:Name="Label"
                          Margin="0,0,5,0"
                          HorizontalAlignment="Center"
@@ -504,6 +510,7 @@
         <ControlTemplate TargetType="{x:Type local:DMenuItem}">
           <Grid x:Name="RootGrid"
                 Height="{DynamicResource NotifyContextmenuItemHeight}"
+                Background="{DynamicResource BackgroundBrush}"
                 MinWidth="120">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="26" />
@@ -716,6 +723,7 @@
                                       IconR="{DynamicResource AccountPage_Button_Foreground_R}"
                                       IconP="{DynamicResource AccountPage_Button_Foreground_P}"
                                       Background="{TemplateBinding Background}"
+                                      RoatAngel="0"
                                       Grid.Column="2"
                                       BackIcon="&#xE70D;"
                                       ForeIcon="&#xE70E;"

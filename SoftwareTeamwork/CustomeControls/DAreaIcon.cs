@@ -103,9 +103,7 @@ namespace SoftwareTeamwork
                 dai.InitPopup();
         }
         #endregion
-
         
-
         #region 初始化
         private void InitNotifyIcon()
         {
@@ -115,7 +113,6 @@ namespace SoftwareTeamwork
                 Visible = AreaVisibility,
                 ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip()
             };
-            UpdataIconByStr(Properties.Settings.Default.LastFluxInfo.ToString());
             FlowIcon.MouseClick += FlowIcon_MouseClick;
             FlowIcon.MouseMove += FlowIcon_MouseMove;
             FlowIcon.MouseDoubleClick += FlowIcon_MouseDoubleClick;
@@ -144,6 +141,7 @@ namespace SoftwareTeamwork
             FlowIconPopup.MouseMove += FlowIconPopup_MouseMove;
             FlowIconPopup.MouseLeave += FlowIconPopup_MouseLeave;
         }
+
         #endregion
 
         #region 计时器方法
@@ -205,13 +203,12 @@ namespace SoftwareTeamwork
         }
         #endregion
 
-        #region GraphUpdata
-        //托盘画图
+        #region GraphUpdata -- 托盘画图
         private Icon GetImageSourceByText(String Inf)
         {
             Drawing.Image bufferedimage;
             if (ico == IntPtr.Zero)
-                bufferedimage = new Bitmap(35, 30, Drawing.Imaging.PixelFormat.Format32bppArgb);
+                bufferedimage = new Bitmap(36, 32, Drawing.Imaging.PixelFormat.Format32bppArgb);
             else
                 bufferedimage = Bitmap.FromHicon(ico);
 
@@ -220,10 +217,17 @@ namespace SoftwareTeamwork
             g.SmoothingMode = SmoothingMode.HighSpeed;
             g.CompositingQuality = CompositingQuality.HighSpeed;
             g.TextRenderingHint = TextRenderingHint.SingleBitPerPixelGridFit;
-            Drawing.Pen pen = new Drawing.Pen(fontColor, 1f);
-            g.DrawString(Inf, DisIconFont, pen.Brush, new Drawing.Point(0,1),new StringFormat() { });
+            Drawing.Pen pen = new Drawing.Pen(fontColor, 2f);
+            g.DrawString(Inf, DisIconFont, pen.Brush,
+                new Drawing.Rectangle(0, 0, 36, 32),
+                new StringFormat() {
+                    Alignment = StringAlignment.Center,
+                    LineAlignment = StringAlignment.Center,
+                    FormatFlags = StringFormatFlags.DirectionRightToLeft,
+                    });
             ico = (bufferedimage as Bitmap).GetHicon();
 
+            bufferedimage.Dispose();
             g.Dispose();
             return Icon.FromHandle(ico);
         }
@@ -245,12 +249,12 @@ namespace SoftwareTeamwork
         #region 设置更新
         private void Instence_OnAFontColorChanged(object sender, EventArgs e) {
             fontColor = (Drawing.Color)sender;
-            UpdataIconByStr(Math.Round((double)OverallSettingManger.Instence.FluxPercent).ToString());
+            UpdataIconByStr(Math.Round(Properties.Settings.Default.LastFluxInfo).ToString());
         }
 
         private void Instence_OnAFontSizeChanged(object sender, EventArgs e) {
             DisIconFont = new Font(pfc.Families[0], (float)(double)sender);
-            UpdataIconByStr(Math.Round((double)OverallSettingManger.Instence.FluxPercent).ToString());
+            UpdataIconByStr(Math.Round(Properties.Settings.Default.LastFluxInfo).ToString());
         }
 
         private void Instence_OnFluxUpdate(object sender, EventArgs e) {

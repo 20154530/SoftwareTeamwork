@@ -76,6 +76,45 @@ namespace SoftwareTeamwork {
         }
         #endregion
 
+        #region CTitleColor
+        public event EventHandler OnCTitleColorChanged;
+        private Color cTitleColor = DataFormater.GetMediaColor(Properties.Settings.Default.CourseTableTitleBackground);
+        public Color CTitleColor {
+            get => cTitleColor;
+            set {
+                OnCTitleColorChanged?.Invoke(value, null);
+                cTitleColor = value;
+                Properties.Settings.Default.CourseTableTitleBackground = DataFormater.GetDrawingColor(value);
+            }
+        }
+        #endregion
+
+        #region CBackgroundColor
+        public event EventHandler OnCBackgroundColorChanged;
+        private Color cBackgroundColor = DataFormater.GetMediaColor(Properties.Settings.Default.CourseTableBackground);
+        public Color CBackgroundColor {
+            get => cBackgroundColor;
+            set {
+                OnCBackgroundColorChanged?.Invoke(value, null);
+                cBackgroundColor = value;
+                Properties.Settings.Default.CourseTableBackground = DataFormater.GetDrawingColor(value);
+            }
+        }
+        #endregion
+
+        #region CFontColor
+        public event EventHandler OnCFontColorChanged;
+        private Color cFontColor = DataFormater.GetMediaColor(Properties.Settings.Default.CourseTableTextColor);
+        public Color CFontColor {
+            get => cFontColor;
+            set {
+                OnCFontColorChanged?.Invoke(value, null);
+                cFontColor = value;
+                Properties.Settings.Default.CourseTableTextColor = DataFormater.GetDrawingColor(value);
+            }
+        }
+        #endregion
+
         public async void Reset() {
             Properties.Settings.Default.Reset();
             Task t =  new Task(() => {

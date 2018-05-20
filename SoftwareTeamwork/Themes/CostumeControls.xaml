@@ -6,7 +6,7 @@
   <!--Converter-->
   <local:MoveConverter x:Key="Move" />
   <local:ExitCommand x:Key="Exit" />
-  <local:IntToStringConverter x:Key="ITS" />
+  <local:NumToStringConverter x:Key="ITS" />
   <local:DateTimeStringFormat x:Key="DateTimeStringFormat" />
   <local:ActrualDataToNodesPos x:Key="DTP" />
   <local:CourseTableCommand x:Key="CourseCommand" />

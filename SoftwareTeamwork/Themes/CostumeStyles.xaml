@@ -8,6 +8,8 @@
   <sys:Double x:Key="NotifyContextmenuIconSize">14</sys:Double>
   <sys:Double x:Key="NotifyContextmenuItemHeight">26</sys:Double>
   <local:DubtoGridlConverter x:Key="ToGridLine" />
+  <local:DouToStringConverter x:Key="DTS" />
+
 
   <!--Seperator-->
 
@@ -622,7 +624,48 @@
   </Style>
 
   <!--ColorPickerSlider-->
-  <Style x:Key="RepeatButtonTransparent"
+  <Style x:Key="ColorPickerThumb"
+         TargetType="{x:Type Thumb}">
+    <Setter Property="OverridesDefaultStyle"
+            Value="True" />
+    <Setter Property="IsTabStop"
+            Value="False" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Thumb}">
+          <Ellipse x:Name="THB"
+                   Width="{TemplateBinding Height}"
+                   Height="{TemplateBinding Height}"
+                   Fill="{DynamicResource ColorPickerThumb_Background_N}" />
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsDragging"
+                     Value="true">
+              <Setter TargetName="THB"
+                      Property="Fill"
+                      Value="{DynamicResource ColorPickerThumb_Background_P}" />
+            </Trigger>
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition Property="IsDragging"
+                           Value="false" />
+                <Condition Property="IsMouseOver"
+                           Value="true" />
+              </MultiTrigger.Conditions>
+              <Setter TargetName="THB"
+                      Property="Cursor"
+                      Value="Hand" />
+              <Setter TargetName="THB"
+                      Property="Fill"
+                      Value="{DynamicResource ColorPickerThumb_Background_R}" />
+            </MultiTrigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+
+  <Style x:Key="ColorPickerSliderD"
          TargetType="{x:Type RepeatButton}">
     <Setter Property="OverridesDefaultStyle"
             Value="true" />
@@ -642,7 +685,30 @@
       </Setter.Value>
     </Setter>
   </Style>
-  
+
+  <Style x:Key="ColorPickerSliderI"
+         TargetType="{x:Type RepeatButton}">
+    <Setter Property="OverridesDefaultStyle"
+            Value="true" />
+    <Setter Property="Background"
+            Value="Transparent" />
+    <Setter Property="Focusable"
+            Value="false" />
+    <Setter Property="IsTabStop"
+            Value="false" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type RepeatButton}">
+          <Rectangle Fill="{TemplateBinding Background}"
+                     Height="{TemplateBinding Height}"
+                     Width="{TemplateBinding Width}" />
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!--ColorPickerSlider-->
+
   <Style x:Key="ColorPickerSlider"
          TargetType="Slider">
     <Setter Property="Template">
@@ -660,56 +726,47 @@
                                MinHeight="{TemplateBinding MinHeight}" />
                 <RowDefinition Height="Auto" />
               </Grid.RowDefinitions>
-              <Border x:Name="TrackBackground"
-                      BorderBrush="Transparent"
-                      BorderThickness="1"
-                      Background="{DynamicResource WindowDialogBackground}"
-                      Height="4.0"
-                      Margin="5,0"
-                      Grid.Row="1"
-                      VerticalAlignment="center">
-                <Canvas Margin="-6,-1">
-                  <Rectangle x:Name="PART_SelectionRange"
-                             Fill="{DynamicResource BorderBrush}"
-                             Height="4.0"
-                             Visibility="Hidden" />
-                </Canvas>
-              </Border>
+              <Rectangle x:Name="TrackBackground"
+                         Fill="{DynamicResource ColorPickerSliderBackground}"
+                         Grid.Row="1"
+                         Height="4"
+                         HorizontalAlignment="Stretch"
+                         VerticalAlignment="center" />
               <Track x:Name="PART_Track"
                      Grid.Row="1">
                 <Track.DecreaseRepeatButton>
                   <RepeatButton Command="{x:Static Slider.DecreaseLarge}"
-                                Style="{StaticResource RepeatButtonTransparent}" />
+                                Height="2"
+                                Background="{DynamicResource ColorPickerSliderDBackground}"
+                                Style="{StaticResource ColorPickerSliderD}" />
                 </Track.DecreaseRepeatButton>
                 <Track.IncreaseRepeatButton>
-                  <RepeatButton Command="{x:Static Slider.IncreaseLarge}"
-                                Style="{StaticResource RepeatButtonTransparent}" />
+                  <RepeatButton Height="2"
+                                Command="{x:Static Slider.IncreaseLarge}"
+                                Style="{StaticResource ColorPickerSliderI}" />
                 </Track.IncreaseRepeatButton>
                 <Track.Thumb>
                   <Thumb x:Name="Thumb"
                          Focusable="False"
-                         Height="18"
+                         Height="8"
                          OverridesDefaultStyle="True"
-                         Style="{DynamicResource SC_Thumb}"
+                         Style="{DynamicResource ColorPickerThumb}"
                          VerticalAlignment="Center"
-                         Width="{TemplateBinding Height}" />
+                         Width="{TemplateBinding Height}">
+                    <Thumb.ToolTip>
+                      <ToolTip Style="{DynamicResource DefaultToolTip}"
+                               Background="{DynamicResource BackgroundBrush}">
+                        <TextBlock Style="{DynamicResource FlowAnaNodeTip}"
+                                   Text="{Binding Value, RelativeSource={RelativeSource Mode=TemplatedParent},Converter={StaticResource DTS} }" />
+                      </ToolTip>
+                    </Thumb.ToolTip>
+                  </Thumb>
                 </Track.Thumb>
               </Track>
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
-            <Trigger Property="IsSelectionRangeEnabled"
-                     Value="true">
-              <Setter Property="Visibility"
-                      TargetName="PART_SelectionRange"
-                      Value="Visible" />
-            </Trigger>
-            <Trigger Property="IsKeyboardFocused"
-                     Value="true">
-              <Setter Property="Foreground"
-                      TargetName="Thumb"
-                      Value="Blue" />
-            </Trigger>
+
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
@@ -717,6 +774,7 @@
   </Style>
 
   <!--Frame-->
+  
   <Style x:Key="DefaultFrame"
          TargetType="{x:Type Frame}">
     <Setter Property="Margin"
@@ -746,6 +804,7 @@
         <ControlTemplate TargetType="local:DMenuItem">
           <Grid x:Name="RootGrid"
                 Height="{DynamicResource NotifyContextmenuItemHeight}"
+                Background="{DynamicResource BackgroundBrush}"
                 MinWidth="120">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="26" />
@@ -772,7 +831,7 @@
                        FontSize="{TemplateBinding FontSize}"
                        FontWeight="{TemplateBinding FontWeight}" />
             <Popup x:Name="SubMenu"
-                   Placement="MousePoint"
+                   Placement="Right"
                    IsOpen="{TemplateBinding IsSubmenuOpen}"
                    AllowsTransparency="True"
                    Focusable="True">
@@ -799,7 +858,6 @@
               <Setter Property="IsSubmenuOpen"
                       Value="True" />
             </Trigger>
-            
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>

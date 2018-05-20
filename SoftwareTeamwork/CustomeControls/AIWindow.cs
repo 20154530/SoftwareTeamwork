@@ -57,6 +57,14 @@ namespace SoftwareTeamwork {
 
         #endregion
 
+        private void AIWindow_Loaded(object sender, RoutedEventArgs e) {
+           AreaIcon.UpdataIconByStr(Math.Round(Properties.Settings.Default.LastFluxInfo).ToString());
+        }
+
+        public AIWindow() {
+            Loaded += AIWindow_Loaded;
+        }
+
         static AIWindow()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(AIWindow), new FrameworkPropertyMetadata(typeof(AIWindow)));

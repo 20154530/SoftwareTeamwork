@@ -139,13 +139,25 @@ namespace SoftwareTeamwork
         }
     }
 
-    class IntToStringConverter : IValueConverter {
+    class NumToStringConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             return ((int)value).ToString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
             return System.Convert.ToInt32(value);
+        }
+    }
+
+    class DouToStringConverter : IValueConverter {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+            if (value is null)
+                return "";
+            return value.ToString();
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+            return System.Convert.ToDouble(value);
         }
     }
 

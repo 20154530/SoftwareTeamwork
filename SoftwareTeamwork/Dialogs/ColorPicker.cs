@@ -102,6 +102,11 @@ namespace SoftwareTeamwork
 
         public override void OnApplyTemplate() {
             ((TextBox)GetTemplateChild("ColorValue")).KeyDown += OnColorHexChanged;
+            ((TextBox)GetTemplateChild("AlphaValue")).KeyDown += OnColorHexChanged;
+            ((TextBox)GetTemplateChild("RedValue")).KeyDown += OnColorHexChanged;
+            ((TextBox)GetTemplateChild("GreenValue")).KeyDown += OnColorHexChanged;
+            ((TextBox)GetTemplateChild("BlueValue")).KeyDown += OnColorHexChanged;
+
             base.OnApplyTemplate();
         }
 

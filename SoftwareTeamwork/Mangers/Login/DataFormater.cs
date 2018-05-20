@@ -9,6 +9,9 @@ using System.Text;
 using HtmlAgilityPack;
 using System.Diagnostics;
 using System.Windows.Threading;
+using System.Windows;
+using Drawing = System.Drawing;
+using Color = System.Windows.Media.Color;
 
 namespace SoftwareTeamwork {
     class DataFormater //数据格式化类
@@ -64,12 +67,18 @@ namespace SoftwareTeamwork {
                 info.InfoTime = DateTime.Now;
             }
             catch (IndexOutOfRangeException) {
-                MessageService.Instence.ShowError(App.Current.MainWindow, "用户名或密码错误");
+                MessageService.Instence.ShowError(
+                    App.Current.MainWindow.Visibility.Equals(Visibility.Hidden) ?
+                    null : App.Current.MainWindow, 
+                    "用户名或密码错误");
                 IPGWConnected = false;
                 return null;
             }
             catch (NullReferenceException) {
-                MessageService.Instence.ShowError(App.Current.MainWindow, "网络未连接");
+                MessageService.Instence.ShowError(
+                    App.Current.MainWindow.Visibility.Equals(Visibility.Hidden) ?
+                    null : App.Current.MainWindow,
+                    "网络未连接");
                 IPGWConnected = false;
                 return null;
             }
@@ -208,9 +217,14 @@ namespace SoftwareTeamwork {
         #endregion
 
 
-        #region 天气信息
+        #region 颜色格式化
+        public static Color GetMediaColor(Drawing.Color color) {
+            return Color.FromArgb(color.A, color.R, color.G, color.B);
+        }
 
-
+        public static Drawing.Color GetDrawingColor(Color color) {
+            return Drawing.Color.FromArgb(color.A, color.R, color.G, color.B);
+        }
         #endregion
     }
 

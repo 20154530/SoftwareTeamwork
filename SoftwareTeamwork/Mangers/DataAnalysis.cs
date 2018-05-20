@@ -51,7 +51,6 @@ namespace SoftwareTeamwork {
 
             return temp;
         }
-
         #endregion
     }
 }

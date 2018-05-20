@@ -235,5 +235,41 @@ namespace SoftwareTeamwork.Properties {
                 this["CourseTableFontSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Transparent")]
+        public global::System.Drawing.Color CourseTableBackground {
+            get {
+                return ((global::System.Drawing.Color)(this["CourseTableBackground"]));
+            }
+            set {
+                this["CourseTableBackground"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color CourseTableTitleBackground {
+            get {
+                return ((global::System.Drawing.Color)(this["CourseTableTitleBackground"]));
+            }
+            set {
+                this["CourseTableTitleBackground"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color CourseTableTextColor {
+            get {
+                return ((global::System.Drawing.Color)(this["CourseTableTextColor"]));
+            }
+            set {
+                this["CourseTableTextColor"] = value;
+            }
+        }
     }
 }

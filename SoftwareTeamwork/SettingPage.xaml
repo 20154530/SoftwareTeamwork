@@ -11,6 +11,7 @@
       Title="SettingPage">
   <Page.Resources>
     <local:DrawingToMediaConvert x:Key="DTM" />
+    <local:DouToStringConverter x:Key="DTS" />
   </Page.Resources>
   <ScrollViewer Style="{DynamicResource SC_ScrollViewer}"
                 Background="{DynamicResource BackgroundBrush}"
@@ -90,7 +91,7 @@
           <Setter Property="ItemTemplate">
             <Setter.Value>
               <DataTemplate>
-                <TextBlock Text="{Binding}"
+                <TextBlock Text="{Binding Converter={StaticResource DTS}}"
                            TextAlignment="Right"
                            FontWeight="Light"
                            Foreground="{DynamicResource DefaultPopupForeground}"
@@ -98,6 +99,8 @@
               </DataTemplate>
             </Setter.Value>
           </Setter>
+          <Setter Property="ItemContainerStyle"
+                  Value="{DynamicResource ComboxItemStyle}" />
           <Setter Property="Template">
             <Setter.Value>
               <ControlTemplate TargetType="ComboBox">
@@ -147,8 +150,9 @@
                   <local:IconToggelButton x:Name="toggleButton"
                                           LabelVisibility="Collapsed"
                                           ToolTipVisiblity="Collapsed"
-                                          ForeIcon="&#xE972;"
-                                          BackIcon="&#xE971;"
+                                          ForeIcon="&#xE761;"
+                                          BackIcon="&#xE760;"
+                                          RoatAngel="90"
                                           IconMaskN="#20FFFFFF"
                                           Grid.Column="1"
                                           IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
@@ -158,7 +162,7 @@
                           Background="{StaticResource BackgroundBrush}"
                           Margin="{TemplateBinding BorderThickness}">
                     <TextBox x:Name="PART_EditableTextBox"
-                             Text="{TemplateBinding DisplayMemberPath}"
+                             Text="{Binding SelectedValue,RelativeSource={RelativeSource Mode=TemplatedParent},UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,Converter={StaticResource DTS}}"
                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                              IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}"
                              Margin="{TemplateBinding Padding}"
@@ -259,8 +263,7 @@
                      Background="{DynamicResource GridLineFloderBackground}" />
           <ComboBox x:Name="CFontSize"
                     Grid.Column="2"
-                    DisplayMemberPath="{Binding CourseTableFontSize, Source={x:Static Properties:Settings.Default}}"
-                    ItemContainerStyle="{DynamicResource ComboxItemStyle}"
+                    SelectedValue="{Binding CourseTableFontSize, Source={x:Static Properties:Settings.Default}}"
                     Style="{DynamicResource SettingPageComboBox}"
                     SelectionChanged="ChangeFontSize" />
         </Grid>
@@ -269,13 +272,21 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
           </Grid.ColumnDefinitions>
           <TextBlock Text="&#x2502;  字体颜色"
                      Style="{DynamicResource AccountLabel}"
                      FontSize="{DynamicResource SettingPageSecondFontSize}"
                      Background="{DynamicResource GridLineFloderBackground}" />
+          <Rectangle Grid.Column="2"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Margin="0,0,10,0"
+                     Fill="{Binding CourseTableTextColor, Source={x:Static Properties:Settings.Default},Converter={StaticResource DTM}}"
+                     Width="16"
+                     Height="16" />
           <local:IconButton x:Name="CFColor"
-                            Grid.Column="2"
+                            Grid.Column="3"
                             Content="&#xE790;"
                             Style="{DynamicResource SettingPageIconButton}"
                             Click="Color" />
@@ -298,13 +309,21 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
           </Grid.ColumnDefinitions>
           <TextBlock Text="&#x2502;  表头颜色"
                      Style="{DynamicResource AccountLabel}"
                      FontSize="{DynamicResource SettingPageSecondFontSize}"
                      Background="{DynamicResource GridLineFloderBackground}" />
+          <Rectangle Grid.Column="2"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Margin="0,0,10,0"
+                     Fill="{Binding CourseTableTitleBackground, Source={x:Static Properties:Settings.Default},Converter={StaticResource DTM}}"
+                     Width="16"
+                     Height="16" />
           <local:IconButton x:Name="CTColor"
-                            Grid.Column="2"
+                            Grid.Column="3"
                             Content="&#xE790;"
                             Style="{DynamicResource SettingPageIconButton}"
                             Click="Color" />
@@ -315,13 +334,21 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
           </Grid.ColumnDefinitions>
           <TextBlock Text="&#x2502;  背景颜色"
                      Style="{DynamicResource AccountLabel}"
                      FontSize="{DynamicResource SettingPageSecondFontSize}"
                      Background="{DynamicResource GridLineFloderBackground}" />
+          <Rectangle Grid.Column="2"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Margin="0,0,10,0"
+                     Fill="{Binding CourseTableBackground, Source={x:Static Properties:Settings.Default},Converter={StaticResource DTM}}"
+                     Width="16"
+                     Height="16" />
           <local:IconButton x:Name="CBGColor"
-                            Grid.Column="2"
+                            Grid.Column="3"
                             Content="&#xE790;"
                             Style="{DynamicResource SettingPageIconButton}"
                             Click="Color" />
@@ -353,8 +380,7 @@
                      Background="{DynamicResource GridLineFloderBackground}" />
           <ComboBox x:Name="AFontSize"
                     Grid.Column="2"
-                    DisplayMemberPath="{Binding AreaIconFontSize, Source={x:Static Properties:Settings.Default}}"
-                    ItemContainerStyle="{DynamicResource ComboxItemStyle}"
+                    SelectedValue="{Binding AreaIconFontSize, Source={x:Static Properties:Settings.Default}}"
                     Style="{DynamicResource SettingPageComboBox}"
                     SelectionChanged="ChangeFontSize" />
         </Grid>

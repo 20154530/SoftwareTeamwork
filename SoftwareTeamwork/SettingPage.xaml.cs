@@ -32,8 +32,9 @@ namespace SoftwareTeamwork {
         #endregion
 
         public SettingPage() {
-            for(int i = 4; i <= 24; i += 2) {
+            for(int i = 4; i <= 18; i += 1) {
                 AreaIconFontSize.Add(i);
+                AreaIconFontSize.Add(i + 0.5);
             }
             InitializeComponent();
             Loaded += SettingPage_Loaded;
@@ -88,17 +89,26 @@ namespace SoftwareTeamwork {
         }
 
         private void Color(object sender, RoutedEventArgs e) {
-            ColorPicker picker;
-            switch (((Control)sender).Name) {
-                case "AColor":
-                    picker = new ColorPicker();
-                    picker.Style = Application.Current.FindResource("DefaultColorPicker") as Style;
-                    picker.ShowDialogD(App.Current.MainWindow, OverallSettingManger.Instence.AFontColor);
-                    
-                    OverallSettingManger.Instence.AFontColor;
-                    break;
-                      
-            }
+            ColorPicker picker = new ColorPicker();
+            picker.Style = Application.Current.FindResource("DefaultColorPicker") as Style;
+            picker.ShowDialogD(App.Current.MainWindow, OverallSettingManger.Instence.AFontColor);
+            var co = picker.DrawingGetColor();
+            if ((bool)picker.DialogResult)
+                switch (((Control)sender).Name) {
+                    case "AColor":
+                        OverallSettingManger.Instence.AFontColor = co;
+                        break;
+                    case "CBGColor":
+                        OverallSettingManger.Instence.CBackgroundColor = DataFormater.GetMediaColor(co);
+                        break;
+                    case "CTColor":
+                        OverallSettingManger.Instence.CTitleColor = DataFormater.GetMediaColor(co);
+                        break;
+                    case "CFColor":
+                        OverallSettingManger.Instence.CFontColor = DataFormater.GetMediaColor(co);
+                        break;
+
+                }
         }
 
         private void AFontSize_KeyDown(object sender, KeyEventArgs e) {

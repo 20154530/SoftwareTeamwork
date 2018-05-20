@@ -138,6 +138,16 @@ namespace SoftwareTeamwork {
                 new PropertyMetadata(Visibility.Visible));
         #endregion
 
+        #region RoatAngel
+        public double RoatAngel {
+            get { return (double)GetValue(RoatAngelProperty); }
+            set { SetValue(RoatAngelProperty, value); }
+        }
+        public static readonly DependencyProperty RoatAngelProperty =
+            DependencyProperty.Register("RoatAngel", typeof(double),
+                typeof(IconToggelButton), new PropertyMetadata(0.0));
+        #endregion
+
         public override void OnApplyTemplate() {
             base.OnApplyTemplate();
         }

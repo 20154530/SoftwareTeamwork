@@ -524,15 +524,15 @@
                   <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
                 <local:IconButton x:Name="YES"
-                                  Content="&#xEC52;"
-                                  Grid.Column="1"
+                                  Content="&#xE930;"
+                                  Grid.Column="0"
                                   FontSize="15"
                                   Margin="6,6,0,0"
                                   ToolTipVisiblity="Visible"
-                                  ForeToolTip="取消"
+                                  ForeToolTip="确认"
                                   Style="{DynamicResource ColorPickerIconButtonStyle}" />
                 <local:IconButton x:Name="CANCEL"
-                                  Content="&#xEC52;"
+                                  Content="&#xEA39;"
                                   Grid.Column="2"
                                   FontSize="15"
                                   Margin="0,6,6,0"
@@ -549,25 +549,25 @@
                   <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
                 <Rectangle Fill="{Binding ColorNow}"
-                           Stroke="{DynamicResource BorderBrush}"
+                           Grid.ColumnSpan="2"
                            RadiusX="8"
                            RadiusY="8"
-                           Margin="5,0,5,0"
-                           StrokeThickness="1.5"
+                           Margin="5,0,0,0"
                            Height="16" />
                 <TextBlock Text="当前颜色&#x2502;"
                            Grid.Column="1"
                            VerticalAlignment="Center"
-                           FontSize="12"
+                           FontSize="10.6"
+                           Margin="0,0,5,0"
                            Foreground="{DynamicResource WindowDialogForeground}" />
                 <TextBox x:Name="ColorValue"
                          Grid.Column="2"
-                         MinWidth="90"
+                         MinWidth="86"
                          Text="{Binding ColorHEX,Mode=TwoWay,UpdateSourceTrigger=Explicit}"
                          Style="{DynamicResource ColorPickerHEXBox}" />
               </Grid>
               <Grid x:Name="AlphaPanel"
-                    Margin="5,5,5,0"
+                    Margin="5,10,5,0"
                     Grid.Row="2">
                 <Grid.ColumnDefinitions>
                   <ColumnDefinition Width="auto" />
@@ -599,7 +599,7 @@
                   <ColumnDefinition Width="*" />
                   <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
-                <Ellipse Fill="{Binding Value,ElementName=RedSlider,Converter={StaticResource ItoC},ConverterParameter=R,UpdateSourceTrigger=PropertyChanged}"
+                <Ellipse Fill="Red"
                          Width="16"
                          Height="16"
                          Margin="5,0,5,0"/>
@@ -624,7 +624,7 @@
                   <ColumnDefinition Width="*" />
                   <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
-                <Ellipse Fill="{Binding Value,ElementName=GreenSlider,Converter={StaticResource ItoC},ConverterParameter=G,UpdateSourceTrigger=PropertyChanged}"
+                <Ellipse Fill="Green"
                          Width="16"
                          Height="16"
                          Margin="5,0,5,0" />
@@ -649,7 +649,7 @@
                   <ColumnDefinition Width="*" />
                   <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
-                <Ellipse Fill="{Binding Value,ElementName=BlueSlider,Converter={StaticResource ItoC},ConverterParameter=B,UpdateSourceTrigger=PropertyChanged}"
+                <Ellipse Fill="Blue"
                          Width="16"
                          Height="16"
                          Margin="5,0,5,0" />
