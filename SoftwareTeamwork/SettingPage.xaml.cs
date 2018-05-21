@@ -32,9 +32,8 @@ namespace SoftwareTeamwork {
         #endregion
 
         public SettingPage() {
-            for(int i = 4; i <= 18; i += 1) {
-                AreaIconFontSize.Add(i);
-                AreaIconFontSize.Add(i + 0.5);
+            for(int i = 80; i <= 140; i += 2) {
+                AreaIconFontSize.Add(i/10.0);
             }
             InitializeComponent();
             Loaded += SettingPage_Loaded;
@@ -121,18 +120,16 @@ namespace SoftwareTeamwork {
             }
         }
 
-        private void AFontSize_KeyDown(object sender, KeyEventArgs e) {
-
-        }
-
-        private void WeekSetting(object sender, RoutedEventArgs e) {
-            int week = Convert.ToInt32(((TextBox)sender).Text);
-            if (week < 0 && week > 22) {
-                MessageService.Instence.ShowError(App.Current.MainWindow, "输入范围错误，请重新输入");
-                return;
+        private void WeekSetting(object sender, KeyEventArgs e) {
+            if (e.Key.Equals(Key.Enter)) {
+                int week = Convert.ToInt32(((TextBox)sender).Text);
+                if (week < 0 && week > 22) {
+                    MessageService.Instence.ShowError(App.Current.MainWindow, "输入范围错误，请重新输入");
+                    return;
+                }
+                Properties.Settings.Default.WeekNow = week;
+                Properties.Settings.Default.WeekNowSet = DateTime.Now;
             }
-            Properties.Settings.Default.WeekNow = week;
-            Properties.Settings.Default.WeekNowSet = DateTime.Now;
         }
     }
 }

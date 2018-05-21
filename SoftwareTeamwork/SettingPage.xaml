@@ -20,6 +20,7 @@
     <Grid x:Name="RootGrid">
       <Grid.Resources>
         <sys:Double x:Key="SettingPageSecondFontSize">10</sys:Double>
+        <sys:Double x:Key="SettingPageRowHeight">24</sys:Double>
         <Style x:Key="SettingPageIconButton"
                TargetType="local:IconButton">
           <Setter Property="IconN"
@@ -159,7 +160,6 @@
                                           Style="{DynamicResource SettingPageIconToggelButton}" />
                   <Border x:Name="border"
                           BorderBrush="{DynamicResource BorderBrush}"
-                          Background="{StaticResource BackgroundBrush}"
                           Margin="{TemplateBinding BorderThickness}">
                     <TextBox x:Name="PART_EditableTextBox"
                              Text="{Binding SelectedValue,RelativeSource={RelativeSource Mode=TemplatedParent},UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,Converter={StaticResource DTS}}"
@@ -170,7 +170,8 @@
                              Foreground="{DynamicResource DefaultPopupForeground}"
                              Background="Transparent"
                              BorderThickness="0"
-                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                             VerticalAlignment="Center"
+                             VerticalContentAlignment="Center" />
                   </Border>
                 </Grid>
                 <ControlTemplate.Triggers>
@@ -251,7 +252,9 @@
           <RowDefinition Height="auto" />
           <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <Grid Margin="0,10,0,0">
+        <Grid Margin="0,10,0,0"
+              MinHeight="{StaticResource SettingPageRowHeight}"
+              Background="#151515">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
@@ -260,15 +263,17 @@
           </Grid.ColumnDefinitions>
           <TextBlock Text="&#x2502;  字体大小"
                      Style="{DynamicResource AccountLabel}"
-                     FontSize="{DynamicResource SettingPageSecondFontSize}"
-                     Background="{DynamicResource GridLineFloderBackground}" />
+                     VerticalAlignment="Center"
+                     FontSize="{DynamicResource SettingPageSecondFontSize}" />
           <ComboBox x:Name="CFontSize"
                     Grid.Column="2"
                     SelectedValue="{Binding CourseTableFontSize, Source={x:Static Properties:Settings.Default}}"
                     Style="{DynamicResource SettingPageComboBox}"
                     SelectionChanged="ChangeFontSize" />
         </Grid>
-        <Grid Margin="0,10,0,0" Grid.Row="1">
+        <Grid Margin="0,10,0,0"
+              Grid.Row="1"
+              MinHeight="{StaticResource SettingPageRowHeight}">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
@@ -278,7 +283,7 @@
           <TextBlock Text="&#x2502;  字体颜色"
                      Style="{DynamicResource AccountLabel}"
                      FontSize="{DynamicResource SettingPageSecondFontSize}"
-                     Background="{DynamicResource GridLineFloderBackground}" />
+                     VerticalAlignment="Center" />
           <Rectangle Grid.Column="2"
                      HorizontalAlignment="Center"
                      VerticalAlignment="Center"
@@ -293,20 +298,9 @@
                             Click="Color" />
         </Grid>
         <Grid Margin="0,10,0,0"
-              Grid.Row="2">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="auto" />
-          </Grid.ColumnDefinitions>
-          <TextBlock Text="&#x2502;  表头样式"
-                     Style="{DynamicResource AccountLabel}"
-                     FontSize="{DynamicResource SettingPageSecondFontSize}"
-                     Background="{DynamicResource GridLineFloderBackground}" />
-          
-        </Grid>
-        <Grid Margin="0,10,0,0"
-              Grid.Row="3">
+              Grid.Row="2"
+              MinHeight="{StaticResource SettingPageRowHeight}"
+              Background="#151515">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
@@ -316,7 +310,7 @@
           <TextBlock Text="&#x2502;  表头颜色"
                      Style="{DynamicResource AccountLabel}"
                      FontSize="{DynamicResource SettingPageSecondFontSize}"
-                     Background="{DynamicResource GridLineFloderBackground}" />
+                     VerticalAlignment="Center" />
           <Rectangle Grid.Column="2"
                      HorizontalAlignment="Center"
                      VerticalAlignment="Center"
@@ -331,7 +325,8 @@
                             Click="Color" />
         </Grid>
         <Grid Margin="0,10,0,0"
-              Grid.Row="4">
+              MinHeight="{StaticResource SettingPageRowHeight}"
+              Grid.Row="3">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
@@ -341,7 +336,7 @@
           <TextBlock Text="&#x2502;  背景颜色"
                      Style="{DynamicResource AccountLabel}"
                      FontSize="{DynamicResource SettingPageSecondFontSize}"
-                     Background="{DynamicResource GridLineFloderBackground}" />
+                     VerticalAlignment="Center" />
           <Rectangle Grid.Column="2"
                      HorizontalAlignment="Center"
                      VerticalAlignment="Center"
@@ -356,7 +351,9 @@
                             Click="Color" />
         </Grid>
         <Grid Margin="0,10,0,10"
-              Grid.Row="5">
+              Grid.Row="4"
+              MinHeight="{StaticResource SettingPageRowHeight}"
+              Background="#151515">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
@@ -366,12 +363,12 @@
           <TextBlock Text="&#x2502;  设置当前周"
                      Style="{DynamicResource AccountLabel}"
                      FontSize="{DynamicResource SettingPageSecondFontSize}"
-                     Background="{DynamicResource GridLineFloderBackground}" />
+                     VerticalAlignment="Center" />
           <TextBox Grid.Column="2"
                    FontSize="10"
                    Text="{Binding WeekNow, Source={x:Static Properties:Settings.Default},Converter={StaticResource ITS}}"
                    Style="{DynamicResource ColorPickerHEXBox}"
-                   LostFocus="WeekSetting"/>
+                   KeyDown="WeekSetting"/>
         </Grid>
       </Grid>
       <local:GridLineFloder Title="托盘图标设置"
@@ -384,11 +381,10 @@
         <Grid.RowDefinitions>
           <RowDefinition Height="auto" />
           <RowDefinition Height="auto" />
-          <RowDefinition Height="auto" />
-          <RowDefinition Height="auto" />
-          <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <Grid Margin="0,10,0,0">
+        <Grid Margin="0,10,0,0"
+              MinHeight="{StaticResource SettingPageRowHeight}"
+              Background="#151515">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
@@ -397,7 +393,7 @@
           <TextBlock Text="&#x2502;  字体大小"
                      Style="{DynamicResource AccountLabel}"
                      FontSize="{DynamicResource SettingPageSecondFontSize}"
-                     Background="{DynamicResource GridLineFloderBackground}" />
+                     VerticalAlignment="Center" />
           <ComboBox x:Name="AFontSize"
                     Grid.Column="2"
                     SelectedValue="{Binding AreaIconFontSize, Source={x:Static Properties:Settings.Default}}"
@@ -405,6 +401,7 @@
                     SelectionChanged="ChangeFontSize" />
         </Grid>
         <Grid Grid.Row="1"
+              MinHeight="{StaticResource SettingPageRowHeight}"
               Margin="0,10,0,10">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
@@ -415,7 +412,7 @@
           <TextBlock Text="&#x2502;  字体颜色"
                      Style="{DynamicResource AccountLabel}"
                      FontSize="{DynamicResource SettingPageSecondFontSize}"
-                     Background="{DynamicResource GridLineFloderBackground}" />
+                     VerticalAlignment="Center" />
           <Rectangle Grid.Column="2"
                      HorizontalAlignment="Center"
                      VerticalAlignment="Center"
@@ -438,13 +435,15 @@
                             AttachedGrid="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}"
                             CommandPara="5" />
       <Grid Grid.Row="5"
+            MinHeight="{StaticResource SettingPageRowHeight}"
             Margin="20,0,0,0">
         <Grid.RowDefinitions>
           <RowDefinition Height="auto" />
           <RowDefinition Height="auto" />
-          <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <Grid Margin="0,10,0,0">
+        <Grid Margin="0,10,0,0"
+              MinHeight="{StaticResource SettingPageRowHeight}"
+              Background="#151515">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
@@ -454,7 +453,7 @@
           <TextBlock Text="&#x2502;  退出模式设置"
                      Style="{DynamicResource AccountLabel}"
                      FontSize="{DynamicResource SettingPageSecondFontSize}"
-                     Background="{DynamicResource GridLineFloderBackground}" />
+                     VerticalAlignment="Center" />
           <local:IconToggelButton x:Name="ShowExit" 
                                   Grid.Column="2"
                                   ForeIcon="&#xEA3A;"
@@ -477,7 +476,9 @@
                                   Style="{DynamicResource SettingPageIconToggelButton}"
                                   Click="OtherSetting" />
         </Grid>
-        <Grid Margin="0,10,0,10" Grid.Row="1">
+        <Grid Margin="0,10,0,10"
+              MinHeight="{StaticResource SettingPageRowHeight}"
+              Grid.Row="1">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
@@ -486,7 +487,7 @@
           <TextBlock Text="&#x2502;  恢复默认设置"
                      Style="{DynamicResource AccountLabel}"
                      FontSize="{DynamicResource SettingPageSecondFontSize}"
-                     Background="{DynamicResource GridLineFloderBackground}" />
+                     VerticalAlignment="Center" />
           <local:IconButton x:Name="ResetButton"
                             Grid.Column="2"
                             Content="&#xF259;"

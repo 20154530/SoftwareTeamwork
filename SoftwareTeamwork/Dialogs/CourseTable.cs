@@ -293,8 +293,11 @@ namespace SoftwareTeamwork {
 
         public CourseTable() {
             CourseSet = DataFormater.Instense.CourseSet;
-            if(CourseSet is null) 
-                MessageService.Instence.ShowError(null,"没有课程信息，请检查网络，教务处信息");
+            if (CourseSet is null) {
+                MessageService.Instence.ShowError(null, "没有课程信息，请检查网络，教务处信息");
+                this.Close();
+                return;
+            }
             OverallSettingManger.Instence.OnCFontSizeChanged += Instence_OnCFontSizeChanged;
             OverallSettingManger.Instence.OnCFontColorChanged += Instence_OnCFontColorChanged;
             OverallSettingManger.Instence.OnCBackgroundColorChanged += Instence_OnCBackgroundColorChanged;

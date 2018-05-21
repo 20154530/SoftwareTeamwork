@@ -17,6 +17,7 @@ namespace SoftwareTeamwork {
     class DataFormater //数据格式化类
     {
         public bool IPGWConnected { get; set; }
+        private DateTime date = Properties.Settings.Default.WeekNowSet;
         private FluxInfo ipgwInfo = null;
         public FluxInfo IpgwInfo {
             get {
@@ -31,10 +32,14 @@ namespace SoftwareTeamwork {
         private CourseSet courseSet = null;
         public CourseSet CourseSet {
             get {
+                if (!date.Equals(Properties.Settings.Default.WeekNowSet))
+                    return GetCourse() is null ?
+                       UpdateCourse() :
+                       GetCourse();
                 return courseSet is null ? //为空则寻找最近的课程列表
-                    courseSet = GetCourse() is null ?//最近课程列表为空则寻找网络
+                       GetCourse() is null ?//最近课程列表为空则寻找网络
                        UpdateCourse() ://没网，那没辙了
-                       GetCourse() : 
+                       GetCourse() :
                        courseSet;
             }
             set { courseSet = value; }
@@ -106,6 +111,7 @@ namespace SoftwareTeamwork {
 
 
         #region 教务处
+
         private void LoadClassPage() {
             CourseInfo = new HtmlDocument();
             try {
@@ -131,7 +137,7 @@ namespace SoftwareTeamwork {
             }
             catch (Exception) {
                 App.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() => {
-                    MessageService.Instence.ShowError(App.Current.MainWindow, "登录过期，请重新登录");
+                    MessageService.Instence.ShowError(null, "登录过期，请重新登录");
                 }));
                 return null;
             }
@@ -198,6 +204,7 @@ namespace SoftwareTeamwork {
                  String.Format("{0}-{1}", DateTime.Now.Year - 1, DateTime.Now.Year);
 
             XmlHelper.CreatCourseSetNode(cs);
+            cs.RemoveNotNow();
             return cs;
         }
 
@@ -211,6 +218,8 @@ namespace SoftwareTeamwork {
             courseSet = XmlHelper.GetCourseSetNode(DateTime.Now.Month > 8 ?
                 String.Format("{0}-{1}", DateTime.Now.Year, DateTime.Now.Year + 1) :
                  String.Format("{0}-{1}", DateTime.Now.Year - 1, DateTime.Now.Year));
+            if (courseSet is null)
+                return null;
             courseSet.RemoveNotNow();
             return courseSet;
         }

@@ -250,7 +250,7 @@ namespace SoftwareTeamwork.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        [global::System.Configuration.DefaultSettingValueAttribute("96, 255, 255, 255")]
         public global::System.Drawing.Color CourseTableTitleBackground {
             get {
                 return ((global::System.Drawing.Color)(this["CourseTableTitleBackground"]));

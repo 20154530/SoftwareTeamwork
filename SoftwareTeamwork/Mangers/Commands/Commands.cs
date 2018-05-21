@@ -104,7 +104,10 @@ namespace SoftwareTeamwork {
                 case "Open":
                     if (Table is null)
                         Table = new CourseTable();
-                    Table.Show();
+                    try {
+                        Table.Show();
+                    }
+                    catch { }
                     break;
                 case "Close":
                     if (Table is null)

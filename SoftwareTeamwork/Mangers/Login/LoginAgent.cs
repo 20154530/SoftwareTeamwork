@@ -19,7 +19,6 @@ using System.Net.Http.Headers;
 namespace SoftwareTeamwork {
 
     class LoginAgent {
-        private String dir = @"D:\TEMP\";
         private WebLoginInfSet infSet;
         public WebLoginInfSet InfSet {
             get => infSet;
@@ -193,12 +192,15 @@ namespace SoftwareTeamwork {
 
         #region 获取cookies
         private void SetCookies(string uri) {
-            var responseCookies = clientHandler.CookieContainer.GetCookies(new Uri(uri)).Cast<Cookie>().ToArray();
-            string[][] pairs = new string[clientHandler.CookieContainer.Count][];
-            for (int i = 0; i < clientHandler.CookieContainer.Count; i++) {
-                pairs[i] = FormatCookie(responseCookies[i]);
+            try {
+                var responseCookies = clientHandler.CookieContainer.GetCookies(new Uri(uri)).Cast<Cookie>().ToArray();
+                string[][] pairs = new string[clientHandler.CookieContainer.Count][];
+                for (int i = 0; i < clientHandler.CookieContainer.Count; i++) {
+                    pairs[i] = FormatCookie(responseCookies[i]);
+                }
+                XmlHelper.CreatWebNode(infSet.name, pairs);
             }
-            XmlHelper.CreatWebNode(infSet.name, pairs);
+            catch {  }
         }
 
         private string[] FormatCookie(Cookie c) {
@@ -222,26 +224,5 @@ namespace SoftwareTeamwork {
         }
         #endregion
 
-        #region 写入本地
-        private void Write(string fileName, string html) {
-            try {
-                FileStream fs = new FileStream(dir + fileName, FileMode.OpenOrCreate);
-                StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
-                sw.Write(html);
-                sw.Close();
-                fs.Close();
-            }
-            catch (Exception ex) {
-            }
-        }
-
-        private void Write(string fileName, byte[] html) {
-            try {
-                File.WriteAllBytes(dir + fileName, html);
-            }
-            catch (Exception ex) {
-            }
-        }
-        #endregion
     }
 }

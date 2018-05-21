@@ -302,13 +302,13 @@
                               <RowDefinition Height="*" />
                               <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
-                            <ContentPresenter VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                            <ContentPresenter x:Name="Content" VerticalAlignment="{TemplateBinding VerticalAlignment}"
                                               HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                               Margin="{TemplateBinding Padding}" />
                             <Rectangle Grid.Row="1"
                                        Height="1"
-                                       Width="{TemplateBinding Width}"
+                                       Width="{Binding Width,ElementName=Content}"
                                        Fill="{Binding TitleBackGround, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
                           </Grid>
                         </Border>
@@ -330,7 +330,7 @@
                   <Setter Property="ItemTemplate">
                     <Setter.Value>
                       <DataTemplate DataType="{x:Type local:Course}">
-                        <Grid MinWidth="60" MinHeight="32">
+                        <Grid Width="60" Height="32" MinHeight="28" MinWidth="48">
                           <Grid.Resources>
                             <Style x:Key="ItemText"
                                    TargetType="TextBlock">
@@ -418,18 +418,22 @@
                     VerticalAlignment="Stretch" >
                 <Grid.ColumnDefinitions>
                   <ColumnDefinition SharedSizeGroup="L0" />
-                  <ColumnDefinition SharedSizeGroup="L1" />
-                  <ColumnDefinition SharedSizeGroup="L2" />
-                  <ColumnDefinition SharedSizeGroup="L3" />
-                  <ColumnDefinition SharedSizeGroup="L4" />
-                  <ColumnDefinition SharedSizeGroup="L5" />
-                  <ColumnDefinition SharedSizeGroup="L6" />
-                  <ColumnDefinition SharedSizeGroup="L7" />
+                  <ColumnDefinition Width="*" SharedSizeGroup="L1" />
+                  <ColumnDefinition Width="*" SharedSizeGroup="L2" />
+                  <ColumnDefinition Width="*" SharedSizeGroup="L3" />
+                  <ColumnDefinition Width="*" SharedSizeGroup="L4" />
+                  <ColumnDefinition Width="*" SharedSizeGroup="L5" />
+                  <ColumnDefinition Width="*" SharedSizeGroup="L6" />
+                  <ColumnDefinition Width="*" SharedSizeGroup="L7" />
                 </Grid.ColumnDefinitions>
 
                 <!--VTick-->
                 <Grid x:Name="VTitle"
                       VerticalAlignment="Stretch">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                  </Grid.ColumnDefinitions>
                   <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
@@ -438,53 +442,82 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                   </Grid.RowDefinitions>
+                  <Rectangle Width="1"
+                             Grid.RowSpan="7"
+                             Grid.Column="1"
+                             Fill="{TemplateBinding TitleBackGround}"
+                             VerticalAlignment="Stretch" />
                   <TextBlock Text="{Binding  VTitles[0]}"
                              Grid.Row="0"
                              Style="{DynamicResource VTitleText}" />
+                  <Rectangle Height="1"
+                             Grid.Row="0"
+                             Fill="{TemplateBinding TitleBackGround}"
+                             VerticalAlignment="Bottom"
+                             HorizontalAlignment="Stretch" />
                   <TextBlock Text="{Binding  VTitles[1]}"
                              Grid.Row="1"
                              Style="{DynamicResource VTitleText}" />
+                  <Rectangle Height="1"
+                             Grid.Row="1"
+                             Fill="{TemplateBinding TitleBackGround}"
+                             VerticalAlignment="Bottom"
+                             HorizontalAlignment="Stretch" />
                   <TextBlock Text="{Binding  VTitles[2]}"
                              Grid.Row="2"
                              Style="{DynamicResource VTitleText}" />
+                  <Rectangle Height="1"
+                             Grid.Row="2"
+                             Fill="{TemplateBinding TitleBackGround}"
+                             VerticalAlignment="Bottom"
+                             HorizontalAlignment="Stretch" />
                   <TextBlock Text="{Binding  VTitles[3]}"
                              Grid.Row="3"
                              Style="{DynamicResource VTitleText}" />
+                  <Rectangle Height="1"
+                             Grid.Row="3"
+                             Fill="{TemplateBinding TitleBackGround}"
+                             VerticalAlignment="Bottom"
+                             HorizontalAlignment="Stretch" />
                   <TextBlock Text="{Binding  VTitles[4]}"
                              Grid.Row="4"
                              Style="{DynamicResource VTitleText}" />
+                  <Rectangle Height="1"
+                             Grid.Row="4"
+                             Fill="{TemplateBinding TitleBackGround}"
+                             VerticalAlignment="Bottom"
+                             HorizontalAlignment="Stretch" />
                   <TextBlock Text="{Binding  VTitles[5]}"
                              Grid.Row="5"
                              Style="{DynamicResource VTitleText}" />
+                  <Rectangle Height="1"
+                             Grid.Row="5"
+                             Fill="{TemplateBinding TitleBackGround}"
+                             VerticalAlignment="Bottom"
+                             HorizontalAlignment="Stretch" />
                 </Grid>
+
 
                 <!--Table-->
                 <ListView Grid.Column="1"
-                          Grid.Row="1"
                           Style="{DynamicResource CourseTableListView}"
                           ItemsSource="{Binding MONList}" />
                 <ListView Grid.Column="2"
-                          Grid.Row="1"
                           Style="{DynamicResource CourseTableListView}"
                           ItemsSource="{Binding TUEList}" />
                 <ListView Grid.Column="3"
-                          Grid.Row="1"
                           Style="{DynamicResource CourseTableListView}"
                           ItemsSource="{Binding WEDList}" />
                 <ListView Grid.Column="4"
-                          Grid.Row="1"
                           Style="{DynamicResource CourseTableListView}"
                           ItemsSource="{Binding THUList}" />
                 <ListView Grid.Column="5"
-                          Grid.Row="1"
                           Style="{DynamicResource CourseTableListView}"
                           ItemsSource="{Binding FRIList}" />
                 <ListView Grid.Column="6"
-                          Grid.Row="1"
                           Style="{DynamicResource CourseTableListView}"
                           ItemsSource="{Binding SATList}" />
                 <ListView Grid.Column="7"
-                          Grid.Row="1"
                           Style="{DynamicResource CourseTableListView}"
                           ItemsSource="{Binding SUNList}" />
               </Grid>

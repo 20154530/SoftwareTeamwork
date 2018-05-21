@@ -267,9 +267,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Image\docu.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Configs\FluxLog.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -281,9 +278,6 @@
     <Resource Include="Backs\Web-config.xml">
       <SubType>Designer</SubType>
     </Resource>
-    <Content Include="HTMLPage1.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
