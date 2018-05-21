@@ -69,14 +69,14 @@ namespace SoftwareTeamwork
             base.OnOpened(e);
         }
 
-        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+        private void Current_Exit(object sender, ExitEventArgs e) {
             this.IsOpen = false;
         }
 
         public DContextMenu()
         {
             OpenSubMenu.CAction += OpenSubMenu_CAction; ;
-            Application.Current.MainWindow.Closing += MainWindow_Closing;
+            Application.Current.Exit += Current_Exit; ;
         }
 
         static DContextMenu()

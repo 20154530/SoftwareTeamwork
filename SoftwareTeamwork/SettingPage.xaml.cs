@@ -22,19 +22,25 @@ namespace SoftwareTeamwork {
     public partial class SettingPage : Page {
 
         #region AreaIconFontSize
-        public List<Double> AreaIconFontSize {
-            get { return (List<Double>)GetValue(AreaIconFontSizeProperty); }
-            set { SetValue(AreaIconFontSizeProperty, value); }
-        }
-        public static readonly DependencyProperty AreaIconFontSizeProperty =
-            DependencyProperty.Register("AreaIconFontSize", typeof(List<Double>),
-                typeof(SettingPage), new PropertyMetadata(new List<Double>()));
+        public List<Double> AreaIconFontSize;
+        #endregion
+
+        #region TitleStyle
+        public List<string> TitleStyle;
         #endregion
 
         public SettingPage() {
-            for(int i = 80; i <= 140; i += 2) {
+            AreaIconFontSize = new List<double>();
+            TitleStyle = new List<string>();
+            for (int i = 80; i <= 140; i += 2) {
                 AreaIconFontSize.Add(i/10.0);
             }
+            TitleStyle.Add("星期三 - 三");
+            TitleStyle.Add("星期三 - 3");
+            TitleStyle.Add("WED - 三");
+            TitleStyle.Add("WED - 3");
+            TitleStyle.Add("三 - 三");
+            TitleStyle.Add("三 - 3");
             InitializeComponent();
             Loaded += SettingPage_Loaded;
         }
@@ -42,7 +48,7 @@ namespace SoftwareTeamwork {
         private void SettingPage_Loaded(object sender, RoutedEventArgs e) {
             AFontSize.ItemsSource = AreaIconFontSize;
             CFontSize.ItemsSource = AreaIconFontSize;
-
+            CTitleStyle.ItemsSource = TitleStyle;
             InitControls();
         }
 
@@ -117,6 +123,12 @@ namespace SoftwareTeamwork {
                     if ((bool)picker.DialogResult)
                         OverallSettingManger.Instence.CFontColor = co;
                     break;
+                case "TBGColor":
+                    picker.ShowDialog(App.Current.MainWindow, OverallSettingManger.Instence.CTodayColor);
+                    co = picker.GetColor();
+                    if ((bool)picker.DialogResult)
+                        OverallSettingManger.Instence.CTodayColor = co;
+                    break;
             }
         }
 
@@ -128,12 +140,41 @@ namespace SoftwareTeamwork {
                     return;
                 }
                 Properties.Settings.Default.WeekNow = week;
-                OverallSettingManger.Instence.WeekNowSet = DateTime.Now;
+                int dayoffset = Convert.ToInt32( DateTime.Now.DayOfWeek);
+                if(dayoffset == 0)
+                    OverallSettingManger.Instence.WeekNowSet = DateTime.Now.AddDays(-7);
+                OverallSettingManger.Instence.WeekNowSet = DateTime.Now.AddDays(-dayoffset);
             }
         }
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e) {
-            OverallSettingManger.Instence.WeekNowSet = DateTime.Now;
+            int dayoffset = Convert.ToInt32(DateTime.Now.DayOfWeek);
+            if (dayoffset == 0)
+                OverallSettingManger.Instence.WeekNowSet = DateTime.Now.AddDays(-7);
+            OverallSettingManger.Instence.WeekNowSet = DateTime.Now.AddDays(-dayoffset);
+        }
+
+        private void ChangeTitle(object sender, SelectionChangedEventArgs e) {
+            switch (CTitleStyle.SelectedValue) {
+                case "星期三 - 三":
+                    OverallSettingManger.Instence.CourseTableTitleStyle = 0;
+                    break;
+                case "星期三 - 3":
+                    OverallSettingManger.Instence.CourseTableTitleStyle = 1;
+                    break;
+                case "WED - 三":
+                    OverallSettingManger.Instence.CourseTableTitleStyle = 2;
+                    break;
+                case "WED - 3":
+                    OverallSettingManger.Instence.CourseTableTitleStyle = 3;
+                    break;
+                case "三 - 三":
+                    OverallSettingManger.Instence.CourseTableTitleStyle = 4;
+                    break;
+                default:
+                    OverallSettingManger.Instence.CourseTableTitleStyle = 5;
+                    break;
+            }
         }
     }
 }

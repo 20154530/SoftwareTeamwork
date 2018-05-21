@@ -16,9 +16,9 @@ namespace SoftwareTeamwork {
         public List<Course> Courses { get; set; }
 
         //移除非本周课程
-    
+
         public void RemoveNotNow() {
-            
+            OverallSettingManger.WeekNowCheck();
             try {
                 if (Courses.Count > 0) {
                     for (int i = 0; i < Courses.Count; i++) {
@@ -163,7 +163,7 @@ namespace SoftwareTeamwork {
         public FluxInfo() {
             FluxData = 0.0;
             Balance = 0.0;
-            InfoTime = DateTime.Now ;
+            InfoTime = new DateTime(2000,1,1,0,0,0);
         }
 
         public override string ToString() {

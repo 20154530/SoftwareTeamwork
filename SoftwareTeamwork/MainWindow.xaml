@@ -34,7 +34,7 @@
         <RowDefinition Height="*" />
         <RowDefinition Height="auto" />
       </Grid.RowDefinitions>
-      <local:MenuItemIconRadioButton Background="{DynamicResource BorderBrush}"
+      <local:MenuItemIconRadioButton x:Name="Info" Background="{DynamicResource BorderBrush}"
                                      Foreground="{DynamicResource MainTextColor}"
                                      IconMaskN="{DynamicResource MenuIconButton_Mask_N}"
                                      IconMaskR="{DynamicResource MenuIconButton_Mask_R}"
@@ -46,7 +46,7 @@
                                      CommandParameter="AccountPage.xaml"
                                      IsChecked="True"
                                      Text="信息设置" />
-      <local:MenuItemIconRadioButton Grid.Row="1"
+      <local:MenuItemIconRadioButton x:Name="Setting" Grid.Row="1"
                                      Margin="0,12,0,0"
                                      Background="{DynamicResource BorderBrush}"
                                      Foreground="{DynamicResource MainTextColor}"
@@ -58,20 +58,7 @@
                                      ContentTextFontSize="10"
                                      Command="{Binding NavigateTo, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:AIWindow}}"
                                      CommandParameter="SettingPage.xaml"
-                                     Text="软件设置"  />
-      <local:MenuItemIconRadioButton Grid.Row="3"
-                                     Margin="0,12,0,0"
-                                     Background="{DynamicResource BorderBrush}"
-                                     Foreground="{DynamicResource MainTextColor}"
-                                     IconMaskN="{DynamicResource MenuIconButton_Mask_N}"
-                                     IconMaskR="{DynamicResource MenuIconButton_Mask_R}"
-                                     IconMaskP="{DynamicResource MenuIconButton_Mask_P}"
-                                     ForeIcon="&#xE783;"
-                                     BackIcon="&#xE91C;"
-                                     ContentTextFontSize="10"
-                                     Command="{Binding NavigateTo, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:AIWindow}}"
-                                     CommandParameter="InfoPage.xaml"
-                                     Text="使用说明"  />
+                                     Text="软件设置" />
     </Grid>
     <Rectangle Width="1"
                Grid.Column="1"

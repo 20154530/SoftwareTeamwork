@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using Drawing = System.Drawing;
 using Color = System.Windows.Media.Color;
+using System.Windows;
 
 namespace SoftwareTeamwork {
 
@@ -102,6 +103,19 @@ namespace SoftwareTeamwork {
         }
         #endregion
 
+        #region CTodayColor
+        public event EventHandler OnCTodayColorChanged;
+        private Color cTodayColor = DataFormater.GetMediaColor(Properties.Settings.Default.CourseTableTodayBrush);
+        public Color CTodayColor {
+            get => cTodayColor;
+            set {
+                OnCTodayColorChanged?.Invoke(value, null);
+                cTodayColor = value;
+                Properties.Settings.Default.CourseTableTodayBrush = DataFormater.GetDrawingColor(value);
+            }
+        }
+        #endregion
+
         #region CFontColor
         public event EventHandler OnCFontColorChanged;
         private Color cFontColor = DataFormater.GetMediaColor(Properties.Settings.Default.CourseTableTextColor);
@@ -117,13 +131,38 @@ namespace SoftwareTeamwork {
 
         #region WeekChanged
         public event EventHandler WeekChanged;
-        public DateTime weekNowSet = Properties.Settings.Default.WeekNowSet;
+        private DateTime weekNowSet = Properties.Settings.Default.WeekNowSet;
         public DateTime WeekNowSet {
             get => weekNowSet;
             set {
                 weekNowSet = value;
                 Properties.Settings.Default.WeekNowSet = value;
-                WeekChanged?.Invoke(weekNowSet, null);
+                WeekChanged?.Invoke(value, null);
+            }
+        }
+        #endregion
+
+        #region CourseTableTitleStyle
+        public event EventHandler CourseTableTitleStyleChanged;
+        private int courseTableTitleStyle = Properties.Settings.Default.CourseTableTitleStyle;
+        public int CourseTableTitleStyle {
+            get => courseTableTitleStyle;
+            set {
+                courseTableTitleStyle = value;
+                Properties.Settings.Default.CourseTableTitleStyle = value;
+                CourseTableTitleStyleChanged?.Invoke(value,null);
+            }
+        }
+        #endregion
+
+        #region OpenSettingPage
+        public event EventHandler OpenSettingPage;
+        private bool openTrigger;
+        public bool OpenTrigger {
+            get => openTrigger;
+            set {
+                OpenSettingPage?.Invoke(null, null);
+                
             }
         }
         #endregion
@@ -136,6 +175,18 @@ namespace SoftwareTeamwork {
             t.Start();
             await t;
             MessageService.Instence.ShowError(App.Current.MainWindow,"已恢复初始化设置");
+        }
+
+        public static void WeekNowCheck() {
+            DateTime now = DateTime.Now;
+            int dayoffset = now.DayOfYear - Properties.Settings.Default.WeekNowSet.DayOfYear;
+            if(dayoffset > 7 || dayoffset < -358) {
+                Properties.Settings.Default.WeekNow += 1;
+                int daof = Convert.ToInt32(now.DayOfWeek);
+                if (daof == 0)
+                    OverallSettingManger.Instence.WeekNowSet = DateTime.Now.AddDays(-7);
+                OverallSettingManger.Instence.WeekNowSet = DateTime.Now.AddDays(-dayoffset);
+            }
         }
 
         public OverallSettingManger()

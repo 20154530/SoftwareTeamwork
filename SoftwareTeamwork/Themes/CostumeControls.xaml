@@ -52,13 +52,13 @@
                                FontIcon="&#xEC92;"
                                Style="{DynamicResource FirstLevelDMenuItem}"
                                Content="课程表">
-                <local:DMenuItem  FontIcon="&#xEA39;"
+                <local:DMenuItem  FontIcon="&#xE840;"
                                   Style="{DynamicResource MenuItem}"
                                   Command="{StaticResource CourseCommand}"
                                   CommandParameter="Open"
                                   Content="打开课程表">
                 </local:DMenuItem>
-                <local:DMenuItem  FontIcon="&#xEA39;"
+                <local:DMenuItem  FontIcon="&#xE77A;"
                                   Style="{DynamicResource MenuItem}"
                                   Command="{StaticResource CourseCommand}"
                                   CommandParameter="Close"

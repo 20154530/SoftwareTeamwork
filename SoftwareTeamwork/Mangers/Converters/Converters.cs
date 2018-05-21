@@ -194,5 +194,36 @@ namespace SoftwareTeamwork
         }
     }
 
+    class TitleStyleConverter : IValueConverter {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+            if (value is int)
+                switch (System.Convert.ToInt32(value)) {
+                    case 0: return "星期三 - 三";
+                    case 1: return "星期三 - 3";
+                    case 2: return "WED - 三";
+                    case 3: return "WED - 3";
+                    case 4: return "三 - 三";
+                    default: return "三 - 3";
+                }
+            else
+                return value;
+        }
 
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+            return null;
+        }
+    }
+
+    class TodayConverter : IValueConverter {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+            if (System.Convert.ToInt32(DateTime.Now.DayOfWeek).Equals(System.Convert.ToInt32(parameter)))
+                return value;
+            else
+                return Colors.Transparent;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+            throw new NotImplementedException();
+        }
+    }
 }

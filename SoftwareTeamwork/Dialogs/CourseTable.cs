@@ -17,6 +17,7 @@ using Color = System.Windows.Media.Color;
 namespace SoftwareTeamwork {
     class CourseTable : Window {
         private DragBorder SizeBorder;
+        private IconButton SettingButton;
         private bool SizeBorderVisibility = false;
 
         private string[][] HTitlesTable = new string[3][] {
@@ -25,10 +26,9 @@ namespace SoftwareTeamwork {
             new string[]{ "一","二", "三", "四", "五", "六", "七" }
         };
 
-        private string[][] VTitlesTable = new string[3][] {
+        private string[][] VTitlesTable = new string[2][] {
             new string[]{ "一","二", "三", "四", "五", "六"},
-            new string[]{ "1","2","3","4","5","6"},
-            new string[]{  }
+            new string[]{ "1","2","3","4","5","6"}
         };
 
         #region CourseSet
@@ -125,6 +125,8 @@ namespace SoftwareTeamwork {
 
         #endregion
 
+        //TitleStyle
+
         #region HTitles
         public string[] HTitles {
             get { return (string[])GetValue(HTitlesProperty); }
@@ -143,9 +145,6 @@ namespace SoftwareTeamwork {
         public static readonly DependencyProperty VTitlesProperty =
             DependencyProperty.Register("VTitles", typeof(string[]),
                 typeof(CourseTable), new PropertyMetadata(new string[6]));
-        #endregion
-
-        #region 
         #endregion
 
         #region CourseTextAlignment
@@ -190,6 +189,16 @@ namespace SoftwareTeamwork {
                 new PropertyMetadata(new SolidColorBrush(Color.FromArgb(160, 255, 255, 255))));
         #endregion
 
+        #region TodayBrush
+        public Brush TodayBrush {
+            get { return (Brush)GetValue(TodayBrushProperty); }
+            set { SetValue(TodayBrushProperty, value); }
+        }
+        public static readonly DependencyProperty TodayBrushProperty =
+            DependencyProperty.Register("TodayBrush", typeof(Brush),
+                typeof(CourseTable), new PropertyMetadata(new SolidColorBrush(Colors.Transparent)));
+        #endregion
+
         //Sizes
 
         #region CourseTableBorderThickness
@@ -222,6 +231,8 @@ namespace SoftwareTeamwork {
                 typeof(CourseTable), new PropertyMetadata(10.0));
         #endregion
 
+        //Converters
+
         #region PrivateMethods
         private void CreatLists() {
             MONList = new ObservableCollection<Course>();
@@ -244,9 +255,43 @@ namespace SoftwareTeamwork {
             }
         }
 
-        private void InitTable() {
-            HTitles = HTitlesTable[0];
-            VTitles = VTitlesTable[1];
+        private void InitTitle() {
+            switch (Properties.Settings.Default.CourseTableTitleStyle) {
+                case 0:
+                    HTitles = HTitlesTable[0];
+                    VTitles = VTitlesTable[0];
+                    break;
+                case 1:
+                    HTitles = HTitlesTable[0];
+                    VTitles = VTitlesTable[1];
+                    break;
+                case 2:
+                    HTitles = HTitlesTable[1];
+                    VTitles = VTitlesTable[0];
+                    break;
+                case 3:
+                    HTitles = HTitlesTable[1];
+                    VTitles = VTitlesTable[1];
+                    break;
+                case 4:
+                    HTitles = HTitlesTable[2];
+                    VTitles = VTitlesTable[0];
+                    break;
+                case 5:
+                    HTitles = HTitlesTable[2];
+                    VTitles = VTitlesTable[1];
+                    break;
+            }
+        }
+
+        private void InitListeners() {
+            OverallSettingManger.Instence.OnCFontSizeChanged += Instence_OnCFontSizeChanged;
+            OverallSettingManger.Instence.OnCFontColorChanged += Instence_OnCFontColorChanged;
+            OverallSettingManger.Instence.OnCBackgroundColorChanged += Instence_OnCBackgroundColorChanged;
+            OverallSettingManger.Instence.OnCTitleColorChanged += Instence_OnCTitleColorChanged;
+            OverallSettingManger.Instence.WeekChanged += Instence_WeekChanged;
+            OverallSettingManger.Instence.CourseTableTitleStyleChanged += Instence_CourseTableTitleStyleChanged;
+            OverallSettingManger.Instence.OnCTodayColorChanged += Instence_OnCTodayColorChanged;
         }
 
         private void InitColor() {
@@ -254,11 +299,13 @@ namespace SoftwareTeamwork {
             Background = new SolidColorBrush(DataFormater.GetMediaColor(Properties.Settings.Default.CourseTableBackground));
             TextBrush = new SolidColorBrush(DataFormater.GetMediaColor(Properties.Settings.Default.CourseTableTextColor));
             FirstLevelTextSize = Properties.Settings.Default.CourseTableFontSize;
+            TodayBrush = new SolidColorBrush(DataFormater.GetMediaColor(Properties.Settings.Default.CourseTableTodayBrush));
         }
         #endregion
 
         #region overrides
         protected override void OnMouseEnter(MouseEventArgs e) {
+            SettingButton.Visibility = Visibility.Visible;
             SizeBorder.BorderBrush = new SolidColorBrush(Color.FromArgb(160, 0, 0, 0));
             base.OnMouseEnter(e);
         }
@@ -306,12 +353,29 @@ namespace SoftwareTeamwork {
 
         public override void OnApplyTemplate() {
             SizeBorder = ((DragBorder)GetTemplateChild("DragSide"));
-            SizeBorder. AttachedWindow = this;           
+            SizeBorder. AttachedWindow = this;
+            SettingButton = ((IconButton)GetTemplateChild("OpenSetting"));
+            SettingButton.Visibility = Visibility.Collapsed;
+            SettingButton.Click += SettingButton_Click;
             base.OnApplyTemplate();
+        }
+
+        private void SettingButton_Click(object sender, RoutedEventArgs e) {
+            Application.Current.MainWindow.Show();
+            OverallSettingManger.Instence.OpenTrigger = true;
         }
         #endregion
 
         #region 更新通知
+
+        private void Instence_OnCTodayColorChanged(object sender, EventArgs e) {
+            TodayBrush = new SolidColorBrush((Color)sender);
+        }
+
+        private void Instence_CourseTableTitleStyleChanged(object sender, EventArgs e) {
+            InitTitle();
+        }
+
         private void Instence_OnCFontSizeChanged(object sender, EventArgs e) {
             FirstLevelTextSize = (double)sender;
         }
@@ -331,21 +395,14 @@ namespace SoftwareTeamwork {
         private void Instence_WeekChanged(object sender, EventArgs e) {
             CourseSet = DataFormater.Instense.GetCourse();
             CreatLists();
-            InitTable();
+            InitTitle();
         }
 
-        private void MainWindow_Closing(object sender, CancelEventArgs e) {
+
+        private void Current_Exit(object sender, ExitEventArgs e) {
             this.Close();
-            MONList = null;
-            TUEList = null;
-            WEDList = null;
-            THUList = null;
-            FRIList = null;
-            SATList = null;
-            SUNList = null;
-            GC.Collect();
-            base.OnClosing(e);
         }
+
         #endregion
 
         public CourseTable() {
@@ -357,16 +414,12 @@ namespace SoftwareTeamwork {
             }
             Height = Properties.Settings.Default.CourseTableSize.Height;
             Width = Properties.Settings.Default.CourseTableSize.Width;
-            OverallSettingManger.Instence.OnCFontSizeChanged += Instence_OnCFontSizeChanged;
-            OverallSettingManger.Instence.OnCFontColorChanged += Instence_OnCFontColorChanged;
-            OverallSettingManger.Instence.OnCBackgroundColorChanged += Instence_OnCBackgroundColorChanged;
-            OverallSettingManger.Instence.OnCTitleColorChanged += Instence_OnCTitleColorChanged;
-            OverallSettingManger.Instence.WeekChanged += Instence_WeekChanged;
-            App.Current.MainWindow.Closing += MainWindow_Closing;
+            InitListeners();
+            App.Current.Exit += Current_Exit;
             Style = Application.Current.FindResource("CourseTableWidget") as Style;
             InitColor();
             CreatLists();
-            InitTable();
+            InitTitle();
         }
 
         static CourseTable() { }

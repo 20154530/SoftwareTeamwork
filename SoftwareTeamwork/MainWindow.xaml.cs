@@ -57,7 +57,10 @@ namespace SoftwareTeamwork
                         Hide();
                         e.Cancel = true;
                     }
-                    Properties.Settings.Default.Save();
+                    else {
+                        Properties.Settings.Default.Save();
+                        Application.Current.Shutdown();
+                    }
                 }
             }
         }
@@ -69,14 +72,19 @@ namespace SoftwareTeamwork
 
         private void NavigateT(object para) {
             MainFrame.Navigate(new Uri((string)para,UriKind.Relative));
-          
+        }
+
+        private void Instence_OpenSettingPage(object sender, EventArgs e) {
+            Setting.IsChecked = true;
+            MainFrame.Navigate(new Uri("SettingPage.xaml", UriKind.Relative));
         }
 
         public MainWindow() {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
-            
+            OverallSettingManger.Instence.OpenSettingPage += Instence_OpenSettingPage;
             Properties.Settings.Default.Upgrade();
         }
+
     }
 }

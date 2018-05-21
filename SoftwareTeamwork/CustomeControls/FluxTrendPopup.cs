@@ -61,6 +61,11 @@ namespace SoftwareTeamwork {
                 new PropertyMetadata(Visibility.Collapsed));
         #endregion
 
+        protected override void OnOpened(EventArgs e) {
+            PopupHidetimer.Enabled = true;
+            base.OnOpened(e);
+        }
+
         protected override void OnStyleChanged(Style oldStyle, Style newStyle) {
             base.OnStyleChanged(oldStyle, newStyle);
         }
@@ -117,6 +122,7 @@ namespace SoftwareTeamwork {
 
         public FluxTrendPopup() {
             DataGroup = XmlHelper.GetFluxTrendGroup(DateTime.Now.AddDays(-5), DateTime.Now);
+            InitTimers();
             this.MouseMove += FluxTrendPopup_MouseMove; ;
             this.MouseLeave += FluxTrendPopup_MouseLeave;
         }

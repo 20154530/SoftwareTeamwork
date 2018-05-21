@@ -283,5 +283,29 @@ namespace SoftwareTeamwork.Properties {
                 this["CourseTableSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int CourseTableTitleStyle {
+            get {
+                return ((int)(this["CourseTableTitleStyle"]));
+            }
+            set {
+                this["CourseTableTitleStyle"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Transparent")]
+        public global::System.Drawing.Color CourseTableTodayBrush {
+            get {
+                return ((global::System.Drawing.Color)(this["CourseTableTodayBrush"]));
+            }
+            set {
+                this["CourseTableTodayBrush"] = value;
+            }
+        }
     }
 }
