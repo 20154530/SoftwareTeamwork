@@ -65,5 +65,8 @@
     <Setting Name="CourseTableTextColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">White</Value>
     </Setting>
+    <Setting Name="CourseTableSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">480, 320</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -7,13 +7,17 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
 using Color = System.Windows.Media.Color;
 
 namespace SoftwareTeamwork {
     class CourseTable : Window {
+        private DragBorder SizeBorder;
+        private bool SizeBorderVisibility = false;
 
         private string[][] HTitlesTable = new string[3][] {
             new string[]{ "星期一","星期二","星期三","星期四","星期五","星期六","星期日" },
@@ -254,13 +258,41 @@ namespace SoftwareTeamwork {
         #endregion
 
         #region overrides
+        protected override void OnMouseEnter(MouseEventArgs e) {
+            SizeBorder.BorderBrush = new SolidColorBrush(Color.FromArgb(160, 0, 0, 0));
+            base.OnMouseEnter(e);
+        }
+
+        protected override void OnMouseLeave(MouseEventArgs e) {
+            if (!SizeBorderVisibility)
+                SizeBorder.BorderBrush = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
+            base.OnMouseLeave(e);
+        }
+
+        protected override void OnMouseDoubleClick(MouseButtonEventArgs e) {
+            if (!SizeBorderVisibility) {
+                SizeBorderVisibility = true;
+                SizeBorder.BorderBrush = new SolidColorBrush(Color.FromArgb(160, 0, 0, 0));
+            }
+            else {
+                SizeBorderVisibility = false;
+                SizeBorder.BorderBrush = new SolidColorBrush(Color.FromArgb(160, 0, 0, 0));
+            }
+            base.OnMouseDoubleClick(e);
+        }
+
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e) {
-            this.DragMove();
+            Win32APIs.ReleaseCapture();
+            Win32APIs.SendMessage(new WindowInteropHelper(this).Handle, 0x112, (IntPtr)0xF012, IntPtr.Zero);
             base.OnMouseLeftButtonDown(e);
         }
 
         protected override void OnClosing(CancelEventArgs e) {
             //释放资源
+            if (Width > 320 && Height > 240)
+                Properties.Settings.Default.CourseTableSize = new System.Drawing.Size((int)Width, (int)Height);
+            else
+                Properties.Settings.Default.CourseTableSize = new System.Drawing.Size(320, 240);
             MONList = null;
             TUEList = null;
             WEDList = null;
@@ -270,6 +302,12 @@ namespace SoftwareTeamwork {
             SUNList = null;
             GC.Collect();
             base.OnClosing(e);
+        }
+
+        public override void OnApplyTemplate() {
+            SizeBorder = ((DragBorder)GetTemplateChild("DragSide"));
+            SizeBorder. AttachedWindow = this;           
+            base.OnApplyTemplate();
         }
         #endregion
 
@@ -297,6 +335,7 @@ namespace SoftwareTeamwork {
         }
 
         private void MainWindow_Closing(object sender, CancelEventArgs e) {
+            this.Close();
             MONList = null;
             TUEList = null;
             WEDList = null;
@@ -316,6 +355,8 @@ namespace SoftwareTeamwork {
                 this.Close();
                 return;
             }
+            Height = Properties.Settings.Default.CourseTableSize.Height;
+            Width = Properties.Settings.Default.CourseTableSize.Width;
             OverallSettingManger.Instence.OnCFontSizeChanged += Instence_OnCFontSizeChanged;
             OverallSettingManger.Instence.OnCFontColorChanged += Instence_OnCFontColorChanged;
             OverallSettingManger.Instence.OnCBackgroundColorChanged += Instence_OnCBackgroundColorChanged;

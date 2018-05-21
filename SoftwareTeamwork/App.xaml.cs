@@ -20,10 +20,10 @@ namespace SoftwareTeamwork
 
         protected override void OnStartup(StartupEventArgs e)
         {
+          //  AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
             MainWindow window = new MainWindow();
             window.Show();
-            LoadCompleted += App_LoadCompleted;
-           
+
             base.OnStartup(e);
         }
 
@@ -32,13 +32,9 @@ namespace SoftwareTeamwork
             base.OnExit(e);
         }
 
-        private void App_LoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e) {
-            
+        private Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args) {
+            AssemblyName assemblyName = new AssemblyName(args.Name);
+            return Assembly.LoadFrom(Path.Combine(RootPath, DllPath));
         }
-
-        //private Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args) {
-        //    AssemblyName assemblyName = new AssemblyName(args.Name);
-        //    return Assembly.LoadFrom(Path.Combine(RootPath, DllPath));
-        //}
     }
 }

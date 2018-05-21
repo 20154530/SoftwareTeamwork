@@ -48,7 +48,7 @@ namespace SoftwareTeamwork {
             InfSet = infset;
             try { GetOrignResult(); }
             catch (Exception e) {
-                MessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接");
+                MessageService.Instence.ShowError(null, "请检查网络连接");
                 return -1;
             }
             if (infset.NeedLogin)
@@ -68,7 +68,7 @@ namespace SoftwareTeamwork {
         {
             for (int i = 0; i < paramList.Count; i++) {
                 if (paramList[i].Value == "" ){//若为空进行补全
-                    MessageService.Instence.ShowError(App.Current.MainWindow, "请完善登陆信息");
+                    MessageService.Instence.ShowError(null, "请完善登陆信息");
                     break;
                 }
             }
@@ -121,7 +121,7 @@ namespace SoftwareTeamwork {
                         SetCookies(InfSet.Uris[0]);
                 }
                 catch (AggregateException) {
-                    MessageService.Instence.ShowError(App.Current.MainWindow,"请检查网络连接");
+                    MessageService.Instence.ShowError(null,"请检查网络连接");
                 }
         }
 
@@ -134,7 +134,7 @@ namespace SoftwareTeamwork {
                         SetCookies(InfSet.Uris[0]);
                 }
                 catch (AggregateException) {
-                    MessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接");
+                    MessageService.Instence.ShowError(null, "请检查网络连接");
                 }
         }
 
@@ -152,7 +152,7 @@ namespace SoftwareTeamwork {
                         SetCookies(InfSet.Uris[0]);
                 }
                 catch (AggregateException) {
-                    MessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接");
+                    MessageService.Instence.ShowError(null, "请检查网络连接");
                 }
         }
 

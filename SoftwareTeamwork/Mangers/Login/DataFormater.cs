@@ -72,18 +72,12 @@ namespace SoftwareTeamwork {
                 info.InfoTime = DateTime.Now;
             }
             catch (IndexOutOfRangeException) {
-                MessageService.Instence.ShowError(
-                    App.Current.MainWindow.Visibility.Equals(Visibility.Hidden) ?
-                    null : App.Current.MainWindow, 
-                    "用户名或密码错误");
+                MessageService.Instence.ShowError(null, "用户名或密码错误");
                 IPGWConnected = false;
                 return null;
             }
             catch (NullReferenceException) {
-                MessageService.Instence.ShowError(
-                    App.Current.MainWindow.Visibility.Equals(Visibility.Hidden) ?
-                    null : App.Current.MainWindow,
-                    "网络未连接");
+                MessageService.Instence.ShowError(null, "网络未连接");
                 IPGWConnected = false;
                 return null;
             }
@@ -119,7 +113,7 @@ namespace SoftwareTeamwork {
             }
             catch (Exception) {
                 App.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => {
-                    MessageService.Instence.ShowError(App.Current.MainWindow, "请检查网络连接,用户信息设置");
+                    MessageService.Instence.ShowError(null, "请检查网络连接,用户信息设置");
                 }));
             }
         }

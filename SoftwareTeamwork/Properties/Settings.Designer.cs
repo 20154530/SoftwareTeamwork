@@ -271,5 +271,17 @@ namespace SoftwareTeamwork.Properties {
                 this["CourseTableTextColor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("480, 320")]
+        public global::System.Drawing.Size CourseTableSize {
+            get {
+                return ((global::System.Drawing.Size)(this["CourseTableSize"]));
+            }
+            set {
+                this["CourseTableSize"] = value;
+            }
+        }
     }
 }

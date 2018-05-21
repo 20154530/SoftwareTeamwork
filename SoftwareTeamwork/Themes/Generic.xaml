@@ -738,4 +738,10 @@
     </Setter>
   </Style>
 
+  <!--DragBorder-->
+  <Style TargetType="{x:Type local:DragBorder}">
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="BorderBrush" Value="#00000000"/>
+    </Style>
+
 </ResourceDictionary>
