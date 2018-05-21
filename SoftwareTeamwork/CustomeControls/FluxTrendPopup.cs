@@ -4,13 +4,16 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace SoftwareTeamwork {
     public class FluxTrendPopup : DPopup {
+        private System.Timers.Timer PopupHidetimer;
 
         #region MousePoint.X
         public double PosX {
@@ -86,8 +89,36 @@ namespace SoftwareTeamwork {
             base.OnMouseLeftButtonUp(e);
         }
 
+        private void FluxTrendPopup_MouseLeave(object sender, MouseEventArgs e) {
+            PopupHidetimer.Enabled = true;
+        }
+
+        private void FluxTrendPopup_MouseMove(object sender, MouseEventArgs e) {
+            PopupHidetimer.Enabled = false;
+        }
+
+        private void PopupMouseMove(MouseEventArgs e) {
+            PopupHidetimer.Enabled = false;
+            base.OnPreviewMouseMove(e);
+        }
+
+        private void InitTimers() {
+            //图标弹框淡出计时
+            PopupHidetimer = new System.Timers.Timer(3000);
+            PopupHidetimer.Elapsed += new ElapsedEventHandler(HidePopup);
+        }
+
+        private void HidePopup(object sender, ElapsedEventArgs e) {
+            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (ThreadStart)delegate () {
+                this.HidePopupAni();
+            });
+            PopupHidetimer.Enabled = false;
+        }
+
         public FluxTrendPopup() {
             DataGroup = XmlHelper.GetFluxTrendGroup(DateTime.Now.AddDays(-5), DateTime.Now);
+            this.MouseMove += FluxTrendPopup_MouseMove; ;
+            this.MouseLeave += FluxTrendPopup_MouseLeave;
         }
 
     }

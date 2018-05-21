@@ -289,6 +289,24 @@ namespace SoftwareTeamwork {
         private void Instence_OnCFontColorChanged(object sender, EventArgs e) {
             TextBrush = new SolidColorBrush((Color)sender);
         }
+
+        private void Instence_WeekChanged(object sender, EventArgs e) {
+            CourseSet = DataFormater.Instense.GetCourse();
+            CreatLists();
+            InitTable();
+        }
+
+        private void MainWindow_Closing(object sender, CancelEventArgs e) {
+            MONList = null;
+            TUEList = null;
+            WEDList = null;
+            THUList = null;
+            FRIList = null;
+            SATList = null;
+            SUNList = null;
+            GC.Collect();
+            base.OnClosing(e);
+        }
         #endregion
 
         public CourseTable() {
@@ -302,6 +320,8 @@ namespace SoftwareTeamwork {
             OverallSettingManger.Instence.OnCFontColorChanged += Instence_OnCFontColorChanged;
             OverallSettingManger.Instence.OnCBackgroundColorChanged += Instence_OnCBackgroundColorChanged;
             OverallSettingManger.Instence.OnCTitleColorChanged += Instence_OnCTitleColorChanged;
+            OverallSettingManger.Instence.WeekChanged += Instence_WeekChanged;
+            App.Current.MainWindow.Closing += MainWindow_Closing;
             Style = Application.Current.FindResource("CourseTableWidget") as Style;
             InitColor();
             CreatLists();

@@ -416,6 +416,15 @@ namespace SoftwareTeamwork {
         /// <returns>重置是否成功</returns>
         public static int ResetAll() {
             DeleteWebNode("NEUZhjw", new HashSet<string>() { "cookie" });
+            Dictionary<string, string> dc = new Dictionary<string, string> {
+                    { "WebUserNO", "" },
+                    { "Password", "" },
+                    { "Agnomen", "" }};
+            UpdateWebNodeValue("NEUZhjw", dc);
+            dc = new Dictionary<string, string> {
+                    { "password", "" },
+                    { "username", "" }};
+            UpdateWebNodeValue("NEUIpgw", dc);
             StreamReader reader = new StreamReader(App.RootPath + CourseData, Encoding.UTF8);
             XmlDocument xmlDocument = new XmlDocument();
             xmlDocument.Load(reader);

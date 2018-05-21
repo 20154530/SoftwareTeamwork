@@ -128,8 +128,12 @@ namespace SoftwareTeamwork {
                     return;
                 }
                 Properties.Settings.Default.WeekNow = week;
-                Properties.Settings.Default.WeekNowSet = DateTime.Now;
+                OverallSettingManger.Instence.WeekNowSet = DateTime.Now;
             }
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e) {
+            OverallSettingManger.Instence.WeekNowSet = DateTime.Now;
         }
     }
 }

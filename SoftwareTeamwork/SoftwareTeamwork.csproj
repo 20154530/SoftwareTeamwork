@@ -191,7 +191,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Configs\Web-config.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -268,10 +268,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Configs\FluxLog.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Configs\CourseData.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Resource Include="Backs\CourseData.xml" />
     <Resource Include="Backs\FluxLog.xml" />

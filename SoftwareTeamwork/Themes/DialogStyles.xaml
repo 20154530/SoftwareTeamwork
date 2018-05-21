@@ -236,7 +236,7 @@
   <Style x:Key="CourseTableWidget"
          TargetType="{x:Type local:CourseTable}">
     <Setter Property="ResizeMode"
-            Value="NoResize" />
+            Value="CanResizeWithGrip" />
     <Setter Property="ShowInTaskbar"
             Value="False" />
     <Setter Property="SizeToContent"
@@ -252,282 +252,304 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type local:CourseTable}">
-          <Border x:Name="RootBorder"
-                  BorderBrush="{TemplateBinding CourseTableBorder}"
-                  BorderThickness="{TemplateBinding TableBorderThickness}"
-                  Background="{TemplateBinding Background}"
-                  DataContext="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}}">
-            <Grid x:Name="RootGrid"
-                  Grid.IsSharedSizeScope="True">
-              <Grid.Resources>
-                <!--TickStyles-->
-                <Style x:Key="HTitleText"
-                       TargetType="TextBlock">
-                  <Setter Property="Foreground"
-                          Value="{Binding TextBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable},Mode=OneWay}" />
-                  <Setter Property="FontSize"
-                          Value="{Binding FirstLevelTextSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
-                  <Setter Property="HorizontalAlignment"
-                          Value="Center" />
-                  <Setter Property="TextAlignment"
-                          Value="Center" />
-                </Style>
-                <Style x:Key="VTitleText"
-                       TargetType="TextBlock">
-                  <Setter Property="Foreground"
-                          Value="{Binding TextBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
-                  <Setter Property="FontSize"
-                          Value="{Binding FirstLevelTextSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
-                  <Setter Property="HorizontalAlignment"
-                          Value="Center" />
-                  <Setter Property="Width"
-                          Value="20" />
-                  <Setter Property="VerticalAlignment"
-                          Value="Center" />
-                  <Setter Property="TextAlignment"
-                          Value="Center" />
-                </Style>
+          <Viewbox>
+            <Border x:Name="RootBorder"
+                    BorderBrush="{TemplateBinding CourseTableBorder}"
+                    BorderThickness="{TemplateBinding TableBorderThickness}"
+                    Background="{TemplateBinding Background}"
+                    DataContext="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}}">
+              <Grid x:Name="RootGrid"
+                    Grid.IsSharedSizeScope="True">
+                <Grid.Resources>
+                  <!--TickStyles-->
+                  <Style x:Key="HTitleText"
+                         TargetType="TextBlock">
+                    <Setter Property="Foreground"
+                            Value="{Binding TextBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable},Mode=OneWay}" />
+                    <Setter Property="FontSize"
+                            Value="{Binding FirstLevelTextSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
+                    <Setter Property="HorizontalAlignment"
+                            Value="Center" />
+                    <Setter Property="TextAlignment"
+                            Value="Center" />
+                  </Style>
+                  <Style x:Key="VTitleText"
+                         TargetType="TextBlock">
+                    <Setter Property="Foreground"
+                            Value="{Binding TextBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
+                    <Setter Property="FontSize"
+                            Value="{Binding FirstLevelTextSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
+                    <Setter Property="HorizontalAlignment"
+                            Value="Center" />
+                    <Setter Property="Width"
+                            Value="20" />
+                    <Setter Property="VerticalAlignment"
+                            Value="Center" />
+                    <Setter Property="TextAlignment"
+                            Value="Center" />
+                  </Style>
 
-                <!--ItemsPresenter-->
-                <Style x:Key="CourseItemsStyle"
-                       TargetType="ListViewItem">
-                  <Setter Property="Padding"
-                          Value="2" />
-                  <Setter Property="Template">
-                    <Setter.Value>
-                      <ControlTemplate TargetType="ListViewItem">
-                        <Border x:Name="RootBorder">
-                          <Grid>
+                  <!--ItemsPresenter-->
+                  <Style x:Key="CourseItemsStyle"
+                         TargetType="ListViewItem">
+                    <Setter Property="Padding"
+                            Value="2" />
+                    <Setter Property="Template">
+                      <Setter.Value>
+                        <ControlTemplate TargetType="ListViewItem">
+                          <Border x:Name="RootBorder">
+                            <Grid>
+                              <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="auto" />
+                              </Grid.RowDefinitions>
+                              <ContentPresenter x:Name="Content"
+                                                VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                Margin="{TemplateBinding Padding}" />
+                              <Rectangle Grid.Row="1"
+                                         Height="1"
+                                         Width="{Binding Width,ElementName=Content}"
+                                         Fill="{Binding TitleBackGround, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
+                            </Grid>
+                          </Border>
+                        </ControlTemplate>
+                      </Setter.Value>
+                    </Setter>
+                  </Style>
+
+                  <!--ListView-->
+                  <Style x:Key="CourseTableListView"
+                         TargetType="ListView">
+                    <Setter Property="ItemsPanel">
+                      <Setter.Value>
+                        <ItemsPanelTemplate>
+                          <StackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                      </Setter.Value>
+                    </Setter>
+                    <Setter Property="ItemTemplate">
+                      <Setter.Value>
+                        <DataTemplate DataType="{x:Type local:Course}">
+                          <Grid Width="60"
+                                Height="32"
+                                MinHeight="28"
+                                MinWidth="48">
+                            <Grid.Resources>
+                              <Style x:Key="ItemText"
+                                     TargetType="TextBlock">
+                                <Setter Property="Foreground"
+                                        Value="{Binding TextBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
+                                <Setter Property="TextAlignment"
+                                        Value="{Binding CourseTextAlignment, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
+                                <Setter Property="TextWrapping"
+                                        Value="NoWrap" />
+                                <Setter Property="FontSize"
+                                        Value="{Binding FirstLevelTextSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
+                              </Style>
+                            </Grid.Resources>
                             <Grid.RowDefinitions>
-                              <RowDefinition Height="*" />
+                              <RowDefinition Height="auto" />
                               <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
-                            <ContentPresenter x:Name="Content" VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                                              HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                              Margin="{TemplateBinding Padding}" />
-                            <Rectangle Grid.Row="1"
-                                       Height="1"
-                                       Width="{Binding Width,ElementName=Content}"
-                                       Fill="{Binding TitleBackGround, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
+                            <TextBlock Text="{Binding CourseName}"
+                                       Style="{DynamicResource ItemText}"
+                                       Grid.Row="0" />
+                            <TextBlock Text="{Binding CourseLoc}"
+                                       Style="{DynamicResource ItemText}"
+                                       Grid.Row="1" />
                           </Grid>
-                        </Border>
-                      </ControlTemplate>
-                    </Setter.Value>
-                  </Setter>
-                </Style>
+                        </DataTemplate>
+                      </Setter.Value>
+                    </Setter>
+                    <Setter Property="ItemContainerStyle"
+                            Value="{DynamicResource CourseItemsStyle}" />
+                    <Setter Property="Template">
+                      <Setter.Value>
+                        <ControlTemplate TargetType="ListView">
+                          <Grid Margin="0">
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                            Margin="0" />
+                          </Grid>
+                        </ControlTemplate>
+                      </Setter.Value>
+                    </Setter>
+                  </Style>
 
-                <!--ListView-->
-                <Style x:Key="CourseTableListView"
-                       TargetType="ListView">
-                  <Setter Property="ItemsPanel">
-                    <Setter.Value>
-                      <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical" />
-                      </ItemsPanelTemplate>
-                    </Setter.Value>
-                  </Setter>
-                  <Setter Property="ItemTemplate">
-                    <Setter.Value>
-                      <DataTemplate DataType="{x:Type local:Course}">
-                        <Grid Width="60" Height="32" MinHeight="28" MinWidth="48">
-                          <Grid.Resources>
-                            <Style x:Key="ItemText"
-                                   TargetType="TextBlock">
-                              <Setter Property="Foreground"
-                                      Value="{Binding TextBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
-                              <Setter Property="TextAlignment"
-                                      Value="{Binding CourseTextAlignment, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
-                              <Setter Property="TextWrapping"
-                                      Value="NoWrap" />
-                              <Setter Property="FontSize"
-                                      Value="{Binding FirstLevelTextSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:CourseTable}}" />
-                            </Style>
-                          </Grid.Resources>
-                          <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                          </Grid.RowDefinitions>
-                          <TextBlock Text="{Binding CourseName}"
-                                     Style="{DynamicResource ItemText}"
-                                     Grid.Row="0" />
-                          <TextBlock Text="{Binding CourseLoc}"
-                                     Style="{DynamicResource ItemText}"
-                                     Grid.Row="1" />
-                        </Grid>
-                      </DataTemplate>
-                    </Setter.Value>
-                  </Setter>
-                  <Setter Property="ItemContainerStyle"
-                          Value="{DynamicResource CourseItemsStyle}" />
-                  <Setter Property="Template">
-                    <Setter.Value>
-                      <ControlTemplate TargetType="ListView">
-                        <Grid Margin="0">
-                          <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                          Margin="0" />
-                        </Grid>
-                      </ControlTemplate>
-                    </Setter.Value>
-                  </Setter>
-                </Style>
-
-              </Grid.Resources>
-              <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
-              </Grid.RowDefinitions>
-              <Grid x:Name="HTick"
-                    Background="{TemplateBinding TitleBackGround}">
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="auto" SharedSizeGroup="L0"/>
-                  <ColumnDefinition Width="*" SharedSizeGroup="L1"/>
-                  <ColumnDefinition Width="*" SharedSizeGroup="L2" />
-                  <ColumnDefinition Width="*" SharedSizeGroup="L3" />
-                  <ColumnDefinition Width="*" SharedSizeGroup="L4" />
-                  <ColumnDefinition Width="*" SharedSizeGroup="L5" />
-                  <ColumnDefinition Width="*" SharedSizeGroup="L6" />
-                  <ColumnDefinition Width="*" SharedSizeGroup="L7" />
-                </Grid.ColumnDefinitions>
-                <!--HTick-->
-                <TextBlock Text="{Binding  HTitles[0]}"
-                           Grid.Column="1"
-                           Style="{DynamicResource HTitleText}" />
-                <TextBlock Text="{Binding  HTitles[1]}"
-                           Grid.Column="2"
-                           Style="{DynamicResource HTitleText}" />
-                <TextBlock Text="{Binding  HTitles[2]}"
-                           Grid.Column="3"
-                           Style="{DynamicResource HTitleText}" />
-                <TextBlock Text="{Binding  HTitles[3]}"
-                           Grid.Column="4"
-                           Style="{DynamicResource HTitleText}" />
-                <TextBlock Text="{Binding  HTitles[4]}"
-                           Grid.Column="5"
-                           Style="{DynamicResource HTitleText}" />
-                <TextBlock Text="{Binding  HTitles[5]}"
-                           Grid.Column="6"
-                           Style="{DynamicResource HTitleText}" />
-                <TextBlock Text="{Binding  HTitles[6]}"
-                           Grid.Column="7"
-                           Style="{DynamicResource HTitleText}" />
-              </Grid>
-              <Grid x:Name="TablePanel"
-                    Grid.Row="1"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch" >
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition SharedSizeGroup="L0" />
-                  <ColumnDefinition Width="*" SharedSizeGroup="L1" />
-                  <ColumnDefinition Width="*" SharedSizeGroup="L2" />
-                  <ColumnDefinition Width="*" SharedSizeGroup="L3" />
-                  <ColumnDefinition Width="*" SharedSizeGroup="L4" />
-                  <ColumnDefinition Width="*" SharedSizeGroup="L5" />
-                  <ColumnDefinition Width="*" SharedSizeGroup="L6" />
-                  <ColumnDefinition Width="*" SharedSizeGroup="L7" />
-                </Grid.ColumnDefinitions>
-
-                <!--VTick-->
-                <Grid x:Name="VTitle"
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="auto" />
+                  <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid x:Name="HTick"
+                      Background="{TemplateBinding TitleBackGround}">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"
+                                      SharedSizeGroup="L0" />
+                    <ColumnDefinition Width="*"
+                                      SharedSizeGroup="L1" />
+                    <ColumnDefinition Width="*"
+                                      SharedSizeGroup="L2" />
+                    <ColumnDefinition Width="*"
+                                      SharedSizeGroup="L3" />
+                    <ColumnDefinition Width="*"
+                                      SharedSizeGroup="L4" />
+                    <ColumnDefinition Width="*"
+                                      SharedSizeGroup="L5" />
+                    <ColumnDefinition Width="*"
+                                      SharedSizeGroup="L6" />
+                    <ColumnDefinition Width="*"
+                                      SharedSizeGroup="L7" />
+                  </Grid.ColumnDefinitions>
+                  <!--HTick-->
+                  <TextBlock Text="{Binding  HTitles[0]}"
+                             Grid.Column="1"
+                             Style="{DynamicResource HTitleText}" />
+                  <TextBlock Text="{Binding  HTitles[1]}"
+                             Grid.Column="2"
+                             Style="{DynamicResource HTitleText}" />
+                  <TextBlock Text="{Binding  HTitles[2]}"
+                             Grid.Column="3"
+                             Style="{DynamicResource HTitleText}" />
+                  <TextBlock Text="{Binding  HTitles[3]}"
+                             Grid.Column="4"
+                             Style="{DynamicResource HTitleText}" />
+                  <TextBlock Text="{Binding  HTitles[4]}"
+                             Grid.Column="5"
+                             Style="{DynamicResource HTitleText}" />
+                  <TextBlock Text="{Binding  HTitles[5]}"
+                             Grid.Column="6"
+                             Style="{DynamicResource HTitleText}" />
+                  <TextBlock Text="{Binding  HTitles[6]}"
+                             Grid.Column="7"
+                             Style="{DynamicResource HTitleText}" />
+                </Grid>
+                <Grid x:Name="TablePanel"
+                      Grid.Row="1"
+                      HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch">
                   <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition SharedSizeGroup="L0" />
+                    <ColumnDefinition Width="*"
+                                      SharedSizeGroup="L1" />
+                    <ColumnDefinition Width="*"
+                                      SharedSizeGroup="L2" />
+                    <ColumnDefinition Width="*"
+                                      SharedSizeGroup="L3" />
+                    <ColumnDefinition Width="*"
+                                      SharedSizeGroup="L4" />
+                    <ColumnDefinition Width="*"
+                                      SharedSizeGroup="L5" />
+                    <ColumnDefinition Width="*"
+                                      SharedSizeGroup="L6" />
+                    <ColumnDefinition Width="*"
+                                      SharedSizeGroup="L7" />
                   </Grid.ColumnDefinitions>
-                  <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                  </Grid.RowDefinitions>
-                  <Rectangle Width="1"
-                             Grid.RowSpan="7"
-                             Grid.Column="1"
-                             Fill="{TemplateBinding TitleBackGround}"
-                             VerticalAlignment="Stretch" />
-                  <TextBlock Text="{Binding  VTitles[0]}"
-                             Grid.Row="0"
-                             Style="{DynamicResource VTitleText}" />
-                  <Rectangle Height="1"
-                             Grid.Row="0"
-                             Fill="{TemplateBinding TitleBackGround}"
-                             VerticalAlignment="Bottom"
-                             HorizontalAlignment="Stretch" />
-                  <TextBlock Text="{Binding  VTitles[1]}"
-                             Grid.Row="1"
-                             Style="{DynamicResource VTitleText}" />
-                  <Rectangle Height="1"
-                             Grid.Row="1"
-                             Fill="{TemplateBinding TitleBackGround}"
-                             VerticalAlignment="Bottom"
-                             HorizontalAlignment="Stretch" />
-                  <TextBlock Text="{Binding  VTitles[2]}"
-                             Grid.Row="2"
-                             Style="{DynamicResource VTitleText}" />
-                  <Rectangle Height="1"
-                             Grid.Row="2"
-                             Fill="{TemplateBinding TitleBackGround}"
-                             VerticalAlignment="Bottom"
-                             HorizontalAlignment="Stretch" />
-                  <TextBlock Text="{Binding  VTitles[3]}"
-                             Grid.Row="3"
-                             Style="{DynamicResource VTitleText}" />
-                  <Rectangle Height="1"
-                             Grid.Row="3"
-                             Fill="{TemplateBinding TitleBackGround}"
-                             VerticalAlignment="Bottom"
-                             HorizontalAlignment="Stretch" />
-                  <TextBlock Text="{Binding  VTitles[4]}"
-                             Grid.Row="4"
-                             Style="{DynamicResource VTitleText}" />
-                  <Rectangle Height="1"
-                             Grid.Row="4"
-                             Fill="{TemplateBinding TitleBackGround}"
-                             VerticalAlignment="Bottom"
-                             HorizontalAlignment="Stretch" />
-                  <TextBlock Text="{Binding  VTitles[5]}"
-                             Grid.Row="5"
-                             Style="{DynamicResource VTitleText}" />
-                  <Rectangle Height="1"
-                             Grid.Row="5"
-                             Fill="{TemplateBinding TitleBackGround}"
-                             VerticalAlignment="Bottom"
-                             HorizontalAlignment="Stretch" />
+
+                  <!--VTick-->
+                  <Grid x:Name="VTitle"
+                        VerticalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="*" />
+                      <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                      <RowDefinition Height="*" />
+                      <RowDefinition Height="*" />
+                      <RowDefinition Height="*" />
+                      <RowDefinition Height="*" />
+                      <RowDefinition Height="*" />
+                      <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Rectangle Width="1"
+                               Grid.RowSpan="7"
+                               Grid.Column="1"
+                               Fill="{TemplateBinding TitleBackGround}"
+                               VerticalAlignment="Stretch" />
+                    <TextBlock Text="{Binding  VTitles[0]}"
+                               Grid.Row="0"
+                               Style="{DynamicResource VTitleText}" />
+                    <Rectangle Height="1"
+                               Grid.Row="0"
+                               Fill="{TemplateBinding TitleBackGround}"
+                               VerticalAlignment="Bottom"
+                               HorizontalAlignment="Stretch" />
+                    <TextBlock Text="{Binding  VTitles[1]}"
+                               Grid.Row="1"
+                               Style="{DynamicResource VTitleText}" />
+                    <Rectangle Height="1"
+                               Grid.Row="1"
+                               Fill="{TemplateBinding TitleBackGround}"
+                               VerticalAlignment="Bottom"
+                               HorizontalAlignment="Stretch" />
+                    <TextBlock Text="{Binding  VTitles[2]}"
+                               Grid.Row="2"
+                               Style="{DynamicResource VTitleText}" />
+                    <Rectangle Height="1"
+                               Grid.Row="2"
+                               Fill="{TemplateBinding TitleBackGround}"
+                               VerticalAlignment="Bottom"
+                               HorizontalAlignment="Stretch" />
+                    <TextBlock Text="{Binding  VTitles[3]}"
+                               Grid.Row="3"
+                               Style="{DynamicResource VTitleText}" />
+                    <Rectangle Height="1"
+                               Grid.Row="3"
+                               Fill="{TemplateBinding TitleBackGround}"
+                               VerticalAlignment="Bottom"
+                               HorizontalAlignment="Stretch" />
+                    <TextBlock Text="{Binding  VTitles[4]}"
+                               Grid.Row="4"
+                               Style="{DynamicResource VTitleText}" />
+                    <Rectangle Height="1"
+                               Grid.Row="4"
+                               Fill="{TemplateBinding TitleBackGround}"
+                               VerticalAlignment="Bottom"
+                               HorizontalAlignment="Stretch" />
+                    <TextBlock Text="{Binding  VTitles[5]}"
+                               Grid.Row="5"
+                               Style="{DynamicResource VTitleText}" />
+                    <Rectangle Height="1"
+                               Grid.Row="5"
+                               Fill="{TemplateBinding TitleBackGround}"
+                               VerticalAlignment="Bottom"
+                               HorizontalAlignment="Stretch" />
+                  </Grid>
+
+
+                  <!--Table-->
+                  <ListView Grid.Column="1"
+                            Style="{DynamicResource CourseTableListView}"
+                            ItemsSource="{Binding MONList}" />
+                  <ListView Grid.Column="2"
+                            Style="{DynamicResource CourseTableListView}"
+                            ItemsSource="{Binding TUEList}" />
+                  <ListView Grid.Column="3"
+                            Style="{DynamicResource CourseTableListView}"
+                            ItemsSource="{Binding WEDList}" />
+                  <ListView Grid.Column="4"
+                            Style="{DynamicResource CourseTableListView}"
+                            ItemsSource="{Binding THUList}" />
+                  <ListView Grid.Column="5"
+                            Style="{DynamicResource CourseTableListView}"
+                            ItemsSource="{Binding FRIList}" />
+                  <ListView Grid.Column="6"
+                            Style="{DynamicResource CourseTableListView}"
+                            ItemsSource="{Binding SATList}" />
+                  <ListView Grid.Column="7"
+                            Style="{DynamicResource CourseTableListView}"
+                            ItemsSource="{Binding SUNList}" />
                 </Grid>
-
-
-                <!--Table-->
-                <ListView Grid.Column="1"
-                          Style="{DynamicResource CourseTableListView}"
-                          ItemsSource="{Binding MONList}" />
-                <ListView Grid.Column="2"
-                          Style="{DynamicResource CourseTableListView}"
-                          ItemsSource="{Binding TUEList}" />
-                <ListView Grid.Column="3"
-                          Style="{DynamicResource CourseTableListView}"
-                          ItemsSource="{Binding WEDList}" />
-                <ListView Grid.Column="4"
-                          Style="{DynamicResource CourseTableListView}"
-                          ItemsSource="{Binding THUList}" />
-                <ListView Grid.Column="5"
-                          Style="{DynamicResource CourseTableListView}"
-                          ItemsSource="{Binding FRIList}" />
-                <ListView Grid.Column="6"
-                          Style="{DynamicResource CourseTableListView}"
-                          ItemsSource="{Binding SATList}" />
-                <ListView Grid.Column="7"
-                          Style="{DynamicResource CourseTableListView}"
-                          ItemsSource="{Binding SUNList}" />
               </Grid>
-            </Grid>
-          </Border>
+            </Border>
+
+          </Viewbox>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
   </Style>
-  
+
   <!--ColorPicker-->
   <Style x:Key="DefaultColorPicker" TargetType="local:ColorPicker">
     <Setter Property="Template">

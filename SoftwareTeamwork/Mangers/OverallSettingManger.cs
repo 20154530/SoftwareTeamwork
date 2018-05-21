@@ -115,6 +115,19 @@ namespace SoftwareTeamwork {
         }
         #endregion
 
+        #region WeekChanged
+        public event EventHandler WeekChanged;
+        public DateTime weekNowSet = Properties.Settings.Default.WeekNowSet;
+        public DateTime WeekNowSet {
+            get => weekNowSet;
+            set {
+                weekNowSet = value;
+                Properties.Settings.Default.WeekNowSet = value;
+                WeekChanged?.Invoke(weekNowSet, null);
+            }
+        }
+        #endregion
+
         public async void Reset() {
             Properties.Settings.Default.Reset();
             Task t =  new Task(() => {

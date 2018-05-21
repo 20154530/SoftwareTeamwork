@@ -62,18 +62,21 @@ namespace SoftwareTeamwork
             //sub.Placement = System.Windows.Controls.Primitives.PlacementMode.Left;
             //sub.IsOpen = true;
         }
-
         
-
         protected override void OnOpened(RoutedEventArgs e)
         {
             OpenOrClose = ((AIWindow)App.Current.MainWindow).Visibility.Equals(Visibility.Hidden) ? "显示主界面" : "隐藏主界面";
             base.OnOpened(e);
         }
 
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+            this.IsOpen = false;
+        }
+
         public DContextMenu()
         {
             OpenSubMenu.CAction += OpenSubMenu_CAction; ;
+            Application.Current.MainWindow.Closing += MainWindow_Closing;
         }
 
         static DContextMenu()

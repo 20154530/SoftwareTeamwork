@@ -14,13 +14,23 @@ namespace SoftwareTeamwork {
             try {
                 if (Properties.Settings.Default.FluxPackage) {
                     double all = DataFormater.Instense.IpgwInfo.Balance - 20;
-                    all = all * 1000 + 60000;
-                    return DataFormater.Instense.IpgwInfo.FluxData / all;
+                    if (DataFormater.Instense.IpgwInfo.FluxData > 60 * 1024) {
+                        return DataFormater.Instense.IpgwInfo.FluxData / (DataFormater.Instense.IpgwInfo.FluxData + all * 1000);
+                    }
+                    else {
+                        all = all * 1000 + 60000;
+                        return DataFormater.Instense.IpgwInfo.FluxData / all;
+                    }
                 }
                 else {
                     double all = DataFormater.Instense.IpgwInfo.Balance - 15;
-                    all = all * 1000 + 27000;
-                    return DataFormater.Instense.IpgwInfo.FluxData / all;
+                    if (DataFormater.Instense.IpgwInfo.FluxData > 27 * 1024) {
+                        return DataFormater.Instense.IpgwInfo.FluxData / (DataFormater.Instense.IpgwInfo.FluxData + all * 1000);
+                    }
+                    else {
+                        all = all * 1000 + 27000;
+                        return DataFormater.Instense.IpgwInfo.FluxData / all;
+                    }
                 }
             }
             catch (Exception) {
@@ -34,10 +44,26 @@ namespace SoftwareTeamwork {
                 if (use)
                     return DataFormater.Instense.IpgwInfo.FluxData;
                 else {
-                    double all = Properties.Settings.Default.FluxPackage ?
-                    (DataFormater.Instense.IpgwInfo.Balance - 20) * 1000 + 60000 :
-                    (DataFormater.Instense.IpgwInfo.Balance - 15) * 1000 + 27000;
-                    return all - DataFormater.Instense.IpgwInfo.FluxData;
+                    if (Properties.Settings.Default.FluxPackage) {
+                        double all = DataFormater.Instense.IpgwInfo.Balance - 20;
+                        if (DataFormater.Instense.IpgwInfo.FluxData > 60 * 1024) {
+                            return  all * 1000;
+                        }
+                        else {
+                            all = all * 1000 + 60000;
+                            return  all - DataFormater.Instense.IpgwInfo.FluxData;
+                        }
+                    }
+                    else {
+                        double all = DataFormater.Instense.IpgwInfo.Balance - 15;
+                        if (DataFormater.Instense.IpgwInfo.FluxData > 27 * 1024) {
+                            return  all * 1000;
+                        }
+                        else {
+                            all = all * 1000 + 27000;
+                            return all - DataFormater.Instense.IpgwInfo.FluxData ;
+                        }
+                    }
                 }
             }
             catch (Exception) {

@@ -93,7 +93,7 @@ namespace SoftwareTeamwork {
 
     public class CourseTableCommand : ICommand {
         public event EventHandler CanExecuteChanged;
-        private CourseTable Table;
+        static CourseTable Table;
 
         public bool CanExecute(object parameter) {
             return true;

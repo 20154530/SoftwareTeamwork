@@ -266,9 +266,14 @@ namespace SoftwareTeamwork
             OverallSettingManger.Instence.OnFluxUpdate += Instence_OnFluxUpdate;
             OverallSettingManger.Instence.OnAFontSizeChanged += Instence_OnAFontSizeChanged;
             OverallSettingManger.Instence.OnAFontColorChanged += Instence_OnAFontColorChanged;
+            App.Current.MainWindow.Closing += MainWindow_Closing;
             fontsize = (float)Properties.Settings.Default.AreaIconFontSize;
             InitNotifyIcon();
             InitTimers();
+        }
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+            FlowIconPopup.IsOpen = false;
         }
 
         #region IDisposable Support

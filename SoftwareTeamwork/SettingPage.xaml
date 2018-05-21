@@ -366,9 +366,11 @@
                      VerticalAlignment="Center" />
           <TextBox Grid.Column="2"
                    FontSize="10"
+                   VerticalAlignment="Center"
                    Text="{Binding WeekNow, Source={x:Static Properties:Settings.Default},Converter={StaticResource ITS}}"
                    Style="{DynamicResource ColorPickerHEXBox}"
-                   KeyDown="WeekSetting"/>
+                   KeyDown="WeekSetting"
+                   LostFocus="TextBox_LostFocus"/>
         </Grid>
       </Grid>
       <local:GridLineFloder Title="托盘图标设置"
