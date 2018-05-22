@@ -53,10 +53,8 @@ namespace SoftwareTeamwork {
         }
 
         private void InitControls() {
-            ShowExit.IsChecked = !Properties.Settings.Default.IsExitDialogShow;
+            ShowExit.IsChecked = Properties.Settings.Default.IsExitDirectly;
             ExitAction.IsChecked = Properties.Settings.Default.ExitAction;
-
-            
         }
 
         private void Reset(object sender, RoutedEventArgs e) {
@@ -74,7 +72,7 @@ namespace SoftwareTeamwork {
         private void OtherSetting(object sender, RoutedEventArgs e) {
             switch (((Control)sender).Name) {
                 case "ShowExit":
-                    Properties.Settings.Default.IsExitDialogShow = !(bool)ShowExit.IsChecked;
+                    Properties.Settings.Default.IsExitDirectly = (bool)ShowExit.IsChecked;
                     break;
                 case "ExitAction":
                     Properties.Settings.Default.ExitAction = (bool)ExitAction.IsChecked;
@@ -175,6 +173,11 @@ namespace SoftwareTeamwork {
                     OverallSettingManger.Instence.CourseTableTitleStyle = 5;
                     break;
             }
+        }
+
+        private void IsSelfRunning(object sender, RoutedEventArgs e) {
+            Properties.Settings.Default.IsRunAtStart = (bool)SelfRuning.IsChecked;
+            OverallSettingManger.SetSelfRunning(Properties.Settings.Default.IsRunAtStart);
         }
     }
 }

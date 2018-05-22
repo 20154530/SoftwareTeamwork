@@ -19,6 +19,7 @@ namespace SoftwareTeamwork {
         private DragBorder SizeBorder;
         private IconButton SettingButton;
         private bool SizeBorderVisibility = false;
+        private System.Timers.Timer RefrashDateTimer;
 
         private string[][] HTitlesTable = new string[3][] {
             new string[]{ "星期一","星期二","星期三","星期四","星期五","星期六","星期日" },
@@ -234,6 +235,12 @@ namespace SoftwareTeamwork {
         //Converters
 
         #region PrivateMethods
+        private void InitTimer() {
+            RefrashDateTimer = new System.Timers.Timer();
+            RefrashDateTimer.Interval = 3600000;
+            RefrashDateTimer.Elapsed += RefrashDate;
+        }
+
         private void CreatLists() {
             MONList = new ObservableCollection<Course>();
             TUEList = new ObservableCollection<Course>();
@@ -292,6 +299,7 @@ namespace SoftwareTeamwork {
             OverallSettingManger.Instence.WeekChanged += Instence_WeekChanged;
             OverallSettingManger.Instence.CourseTableTitleStyleChanged += Instence_CourseTableTitleStyleChanged;
             OverallSettingManger.Instence.OnCTodayColorChanged += Instence_OnCTodayColorChanged;
+            App.Current.Exit += Current_Exit;
         }
 
         private void InitColor() {
@@ -311,6 +319,7 @@ namespace SoftwareTeamwork {
         }
 
         protected override void OnMouseLeave(MouseEventArgs e) {
+            SettingButton.Visibility = Visibility.Hidden;
             if (!SizeBorderVisibility)
                 SizeBorder.BorderBrush = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
             base.OnMouseLeave(e);
@@ -340,6 +349,8 @@ namespace SoftwareTeamwork {
                 Properties.Settings.Default.CourseTableSize = new System.Drawing.Size((int)Width, (int)Height);
             else
                 Properties.Settings.Default.CourseTableSize = new System.Drawing.Size(320, 240);
+            HTitles = null;
+            VTitles = null;
             MONList = null;
             TUEList = null;
             WEDList = null;
@@ -355,7 +366,7 @@ namespace SoftwareTeamwork {
             SizeBorder = ((DragBorder)GetTemplateChild("DragSide"));
             SizeBorder. AttachedWindow = this;
             SettingButton = ((IconButton)GetTemplateChild("OpenSetting"));
-            SettingButton.Visibility = Visibility.Collapsed;
+            SettingButton.Visibility = Visibility.Hidden;
             SettingButton.Click += SettingButton_Click;
             base.OnApplyTemplate();
         }
@@ -403,6 +414,10 @@ namespace SoftwareTeamwork {
             this.Close();
         }
 
+
+        private void RefrashDate(object sender, System.Timers.ElapsedEventArgs e) {
+            TodayBrush = new SolidColorBrush((Color)sender);
+        }
         #endregion
 
         public CourseTable() {
@@ -414,9 +429,9 @@ namespace SoftwareTeamwork {
             }
             Height = Properties.Settings.Default.CourseTableSize.Height;
             Width = Properties.Settings.Default.CourseTableSize.Width;
-            InitListeners();
-            App.Current.Exit += Current_Exit;
             Style = Application.Current.FindResource("CourseTableWidget") as Style;
+            InitTimer();
+            InitListeners();
             InitColor();
             CreatLists();
             InitTitle();

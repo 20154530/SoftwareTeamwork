@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -20,12 +21,13 @@ namespace SoftwareTeamwork
 
         protected override void OnStartup(StartupEventArgs e)
         {
-          //  AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
+            //  AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
             MainWindow window = new MainWindow();
             window.Show();
-
             base.OnStartup(e);
         }
+
+        
 
         protected override void OnExit(ExitEventArgs e) {
             SoftwareTeamwork.Properties.Settings.Default.Save();

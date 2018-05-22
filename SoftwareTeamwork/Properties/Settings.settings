@@ -2,8 +2,8 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SoftwareTeamwork.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="IsExitDialogShow" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+    <Setting Name="IsExitDirectly" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="ExitAction" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -73,6 +73,9 @@
     </Setting>
     <Setting Name="CourseTableTodayBrush" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">Transparent</Value>
+    </Setting>
+    <Setting Name="IsRunAtStart" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

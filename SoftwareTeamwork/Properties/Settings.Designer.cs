@@ -25,13 +25,13 @@ namespace SoftwareTeamwork.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool IsExitDialogShow {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsExitDirectly {
             get {
-                return ((bool)(this["IsExitDialogShow"]));
+                return ((bool)(this["IsExitDirectly"]));
             }
             set {
-                this["IsExitDialogShow"] = value;
+                this["IsExitDirectly"] = value;
             }
         }
         
@@ -305,6 +305,18 @@ namespace SoftwareTeamwork.Properties {
             }
             set {
                 this["CourseTableTodayBrush"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsRunAtStart {
+            get {
+                return ((bool)(this["IsRunAtStart"]));
+            }
+            set {
+                this["IsRunAtStart"] = value;
             }
         }
     }

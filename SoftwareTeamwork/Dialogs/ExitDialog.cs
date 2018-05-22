@@ -19,7 +19,7 @@ namespace SoftwareTeamwork {
         }
 
         private void SaveAction_Click(object sender, RoutedEventArgs e) {
-            Properties.Settings.Default.IsExitDialogShow = !(bool)((IconToggelButton)sender).IsChecked;
+            Properties.Settings.Default.IsExitDirectly = (bool)((IconToggelButton)sender).IsChecked;
         }
 
         private void ExitAction_Click(object sender, RoutedEventArgs e) {

@@ -7,6 +7,8 @@ using System.Windows.Media;
 using Drawing = System.Drawing;
 using Color = System.Windows.Media.Color;
 using System.Windows;
+using Microsoft.Win32;
+using System.Diagnostics;
 
 namespace SoftwareTeamwork {
 
@@ -23,8 +25,9 @@ namespace SoftwareTeamwork {
         private String theme = "DefaultTheme.xaml";
         public String Theme {
             get => theme;
-            set { theme = value;
-                ThemeChanged?.Invoke(this,EventArgs.Empty);
+            set {
+                theme = value;
+                ThemeChanged?.Invoke(this, EventArgs.Empty);
             }
         }
         #endregion
@@ -150,7 +153,7 @@ namespace SoftwareTeamwork {
             set {
                 courseTableTitleStyle = value;
                 Properties.Settings.Default.CourseTableTitleStyle = value;
-                CourseTableTitleStyleChanged?.Invoke(value,null);
+                CourseTableTitleStyleChanged?.Invoke(value, null);
             }
         }
         #endregion
@@ -162,25 +165,25 @@ namespace SoftwareTeamwork {
             get => openTrigger;
             set {
                 OpenSettingPage?.Invoke(null, null);
-                
+
             }
         }
         #endregion
 
         public async void Reset() {
             Properties.Settings.Default.Reset();
-            Task t =  new Task(() => {
+            Task t = new Task(() => {
                 XmlHelper.ResetAll();
             });
             t.Start();
             await t;
-            MessageService.Instence.ShowError(App.Current.MainWindow,"已恢复初始化设置");
+            MessageService.Instence.ShowError(App.Current.MainWindow, "已恢复初始化设置");
         }
 
         public static void WeekNowCheck() {
             DateTime now = DateTime.Now;
             int dayoffset = now.DayOfYear - Properties.Settings.Default.WeekNowSet.DayOfYear;
-            if(dayoffset > 7 || dayoffset < -358) {
+            if (dayoffset > 7 || dayoffset < -358) {
                 Properties.Settings.Default.WeekNow += 1;
                 int daof = Convert.ToInt32(now.DayOfWeek);
                 if (daof == 0)
@@ -189,8 +192,78 @@ namespace SoftwareTeamwork {
             }
         }
 
-        public OverallSettingManger()
-        {
+        private static bool IsExistKey(string keyName) {
+            bool _exist = false;
+            try {
+                RegistryKey localKey;
+                if (Environment.Is64BitOperatingSystem)
+                    localKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
+                else
+                    localKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
+                RegistryKey runs = localKey.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+                if (runs == null) {
+                    RegistryKey key2 = localKey.CreateSubKey("SOFTWARE");
+                    RegistryKey key3 = key2.CreateSubKey("Microsoft");
+                    RegistryKey key4 = key3.CreateSubKey("Windows");
+                    RegistryKey key5 = key4.CreateSubKey("CurrentVersion");
+                    RegistryKey key6 = key5.CreateSubKey("Run");
+                    runs = key6;
+                }
+                string[] runsName = runs.GetValueNames();
+                foreach (string strName in runsName) {
+                    if (strName.ToUpper() == keyName.ToUpper()) {
+                        _exist = true;
+                        return _exist;
+                    }
+                }
+            }
+            catch { }
+            return _exist;
+
+        }
+
+        private static bool SelfRunning(bool isStart, string exeName, string path) {
+            try {
+                RegistryKey localKey;
+                if (Environment.Is64BitOperatingSystem)
+                    localKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
+                else
+                    localKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
+                RegistryKey key = localKey.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+                if (key == null) {
+                    localKey.CreateSubKey("SOFTWARE//Microsoft//Windows//CurrentVersion//Run");
+                }
+                if (isStart)//若开机自启动则添加键值对
+                {
+                    key.SetValue(exeName, path);
+                    key.Close();
+                }
+                else//否则删除键值对
+                {
+                    string[] keyNames = key.GetValueNames();
+                    foreach (string keyName in keyNames) {
+                        if (keyName.ToUpper() == exeName.ToUpper()) {
+                            key.DeleteValue(exeName);
+                            key.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception) { }
+
+            return true;
+        }
+
+        public static void SetSelfRunning(bool isStart) {
+            if (!IsExistKey("SoftwareTeamwork") && isStart) {
+                SelfRunning(isStart, "SoftwareTeamwork", Process.GetCurrentProcess().MainModule.FileName);
+            }
+            else if (IsExistKey("SoftwareTeamwork") && !isStart) {
+                SelfRunning(isStart, "SoftwareTeamwork", Process.GetCurrentProcess().MainModule.FileName);
+            }
+        }
+
+        public OverallSettingManger() {
             FontFamily a = new FontFamily();
         }
     }

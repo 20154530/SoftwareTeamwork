@@ -30,7 +30,7 @@ namespace SoftwareTeamwork
         #endregion
 
         protected override void OnClosing(CancelEventArgs e) {
-            if (!Properties.Settings.Default.IsExitDialogShow) {
+            if (Properties.Settings.Default.IsExitDirectly) {
                 if (Properties.Settings.Default.ExitAction) {
                     Hide();
                     e.Cancel = true;
@@ -50,7 +50,7 @@ namespace SoftwareTeamwork
                 if (dialog.DialogResult == false) {
                     e.Cancel = true;
                     Properties.Settings.Default.ExitAction = false;
-                    Properties.Settings.Default.IsExitDialogShow = true;
+                    Properties.Settings.Default.IsExitDirectly = false;
                 }
                 else {
                     if (Properties.Settings.Default.ExitAction) {
