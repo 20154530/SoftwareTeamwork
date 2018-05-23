@@ -19,16 +19,7 @@ namespace SoftwareTeamwork
         private static string DllPath = "Libs";
         public static string RootPath = AppDomain.CurrentDomain.BaseDirectory;
 
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            //  AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
-            MainWindow window = new MainWindow();
-            window.Show();
-            base.OnStartup(e);
-        }
-
-        
-
+       
         protected override void OnExit(ExitEventArgs e) {
             SoftwareTeamwork.Properties.Settings.Default.Save();
             base.OnExit(e);
@@ -37,6 +28,13 @@ namespace SoftwareTeamwork
         private Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args) {
             AssemblyName assemblyName = new AssemblyName(args.Name);
             return Assembly.LoadFrom(Path.Combine(RootPath, DllPath));
+        }
+
+        private void Application_Startup(object sender, StartupEventArgs e) {
+            MainWindow window = new MainWindow();
+            window.Show();
+            if (!e.Args.Length.Equals(0))
+                window.Hide();
         }
     }
 }

@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Drawing = System.Drawing;
 
 namespace SoftwareTeamwork
@@ -206,9 +207,10 @@ namespace SoftwareTeamwork
         #region GraphUpdata -- 托盘画图
         private Icon GetImageSourceByText(String Inf)
         {
+            int size = 30;
             Drawing.Image bufferedimage;
             if (ico == IntPtr.Zero)
-                bufferedimage = new Bitmap(36, 32, Drawing.Imaging.PixelFormat.Format32bppArgb);
+                bufferedimage = new Bitmap(size, size, Drawing.Imaging.PixelFormat.Format32bppArgb);
             else
                 bufferedimage = Bitmap.FromHicon(ico);
 
@@ -217,18 +219,15 @@ namespace SoftwareTeamwork
             g.SmoothingMode = SmoothingMode.HighSpeed;
             g.CompositingQuality = CompositingQuality.HighSpeed;
             g.TextRenderingHint = TextRenderingHint.SingleBitPerPixelGridFit;
-            Drawing.Pen pen = new Drawing.Pen(fontColor, 2f);
+            Drawing.Pen pen = new Drawing.Pen(fontColor, 1f);
+            SizeF infsize = g.MeasureString(Inf, DisIconFont);
             g.DrawString(Inf, DisIconFont, pen.Brush,
-                new Drawing.Rectangle(0, 0, 36, 32),
-                new StringFormat() {
-                    Alignment = StringAlignment.Center,
-                    LineAlignment = StringAlignment.Center,
-                    FormatFlags = StringFormatFlags.DirectionRightToLeft,
-                    });
+                new Drawing.Point((int)((size - infsize.Width) / 2), (int)((size - infsize.Height) / 2)));
             ico = (bufferedimage as Bitmap).GetHicon();
 
             bufferedimage.Dispose();
             g.Dispose();
+
             return Icon.FromHandle(ico);
         }
         #endregion
@@ -253,7 +252,8 @@ namespace SoftwareTeamwork
         }
 
         private void Instence_OnAFontSizeChanged(object sender, EventArgs e) {
-            DisIconFont = new Font(pfc.Families[0], (float)(double)sender);
+            fontsize = (float)(double)sender;
+            DisIconFont = new Font(pfc.Families[0], fontsize);
             UpdataIconByStr(Math.Round(Properties.Settings.Default.LastFluxInfo).ToString());
         }
 

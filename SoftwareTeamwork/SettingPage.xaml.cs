@@ -32,7 +32,7 @@ namespace SoftwareTeamwork {
         public SettingPage() {
             AreaIconFontSize = new List<double>();
             TitleStyle = new List<string>();
-            for (int i = 80; i <= 140; i += 2) {
+            for (int i = 90; i <= 120; i += 2) {
                 AreaIconFontSize.Add(i/10.0);
             }
             TitleStyle.Add("星期三 - 三");

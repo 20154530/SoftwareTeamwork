@@ -171,9 +171,10 @@ namespace SoftwareTeamwork {
         #endregion
 
         public async void Reset() {
-            Properties.Settings.Default.Reset();
             Task t = new Task(() => {
+                Properties.Settings.Default.Reset();
                 XmlHelper.ResetAll();
+                SetSelfRunning(false);
             });
             t.Start();
             await t;
@@ -197,9 +198,9 @@ namespace SoftwareTeamwork {
             try {
                 RegistryKey localKey;
                 if (Environment.Is64BitOperatingSystem)
-                    localKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
+                    localKey = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64);
                 else
-                    localKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
+                    localKey = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32);
                 RegistryKey runs = localKey.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
                 if (runs == null) {
                     RegistryKey key2 = localKey.CreateSubKey("SOFTWARE");
@@ -226,9 +227,9 @@ namespace SoftwareTeamwork {
             try {
                 RegistryKey localKey;
                 if (Environment.Is64BitOperatingSystem)
-                    localKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
+                    localKey = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64);
                 else
-                    localKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
+                    localKey = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32);
                 RegistryKey key = localKey.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
                 if (key == null) {
                     localKey.CreateSubKey("SOFTWARE//Microsoft//Windows//CurrentVersion//Run");
@@ -256,10 +257,10 @@ namespace SoftwareTeamwork {
 
         public static void SetSelfRunning(bool isStart) {
             if (!IsExistKey("SoftwareTeamwork") && isStart) {
-                SelfRunning(isStart, "SoftwareTeamwork", Process.GetCurrentProcess().MainModule.FileName);
+                SelfRunning(isStart, "SoftwareTeamwork", Process.GetCurrentProcess().MainModule.FileName + " -s");
             }
             else if (IsExistKey("SoftwareTeamwork") && !isStart) {
-                SelfRunning(isStart, "SoftwareTeamwork", Process.GetCurrentProcess().MainModule.FileName);
+                SelfRunning(isStart, "SoftwareTeamwork", Process.GetCurrentProcess().MainModule.FileName + " -s");
             }
         }
 
