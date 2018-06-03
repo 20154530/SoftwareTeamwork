@@ -13,7 +13,6 @@ using System.Windows.Input;
 
 namespace SoftwareTeamwork {
     public class FluxTrendPopup : DPopup {
-        private System.Timers.Timer PopupHidetimer;
 
         #region MousePoint.X
         public double PosX {
@@ -61,15 +60,17 @@ namespace SoftwareTeamwork {
                 new PropertyMetadata(Visibility.Collapsed));
         #endregion
 
-        protected override void OnOpened(EventArgs e) {
-            PopupHidetimer.Enabled = true;
-            base.OnOpened(e);
+        #region
+        public WindowCommand Update {
+            get { return (WindowCommand)GetValue(UpdateProperty); }
+            set { SetValue(UpdateProperty, value); }
         }
+        public static readonly DependencyProperty UpdateProperty =
+            DependencyProperty.Register("Update", typeof(WindowCommand), 
+                typeof(FluxTrendPopup), new PropertyMetadata(new WindowCommand()));
+        #endregion
 
-        protected override void OnStyleChanged(Style oldStyle, Style newStyle) {
-            base.OnStyleChanged(oldStyle, newStyle);
-        }
-
+        #region MouseAactions
         protected override void OnMouseMove(MouseEventArgs e) {
             PosX = e.GetPosition(null).X - 32;
             PosY = e.GetPosition(null).Y - 20;
@@ -93,40 +94,31 @@ namespace SoftwareTeamwork {
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e) {
             base.OnMouseLeftButtonUp(e);
         }
+        #endregion
 
-        private void FluxTrendPopup_MouseLeave(object sender, MouseEventArgs e) {
-            PopupHidetimer.Enabled = true;
+        private void Update_CAction(object para) {
+            throw new NotImplementedException();
         }
 
-        private void FluxTrendPopup_MouseMove(object sender, MouseEventArgs e) {
-            PopupHidetimer.Enabled = false;
+        #region
+        protected override void OnOpened(EventArgs e) {           
+            base.OnOpened(e);
         }
 
-        private void PopupMouseMove(MouseEventArgs e) {
-            PopupHidetimer.Enabled = false;
-            base.OnPreviewMouseMove(e);
-        }
-
-        private void InitTimers() {
-            //图标弹框淡出计时
-            PopupHidetimer = new System.Timers.Timer(3000);
-            PopupHidetimer.Elapsed += new ElapsedEventHandler(HidePopup);
+        protected override void OnStyleChanged(Style oldStyle, Style newStyle) {
+            base.OnStyleChanged(oldStyle, newStyle);
         }
 
         private void HidePopup(object sender, ElapsedEventArgs e) {
             this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (ThreadStart)delegate () {
                 this.HidePopupAni();
             });
-            PopupHidetimer.Enabled = false;
         }
+        #endregion
 
         public FluxTrendPopup() {
-            DataGroup = XmlHelper.GetFluxTrendGroup(DateTime.Now.AddDays(-5), DateTime.Now);
-            InitTimers();
-            this.MouseMove += FluxTrendPopup_MouseMove; ;
-            this.MouseLeave += FluxTrendPopup_MouseLeave;
+            DataGroup = XmlHelper.GetFluxTrendGroup(DateTime.Now.AddDays(-6), DateTime.Now);
+            Update.CAction += Update_CAction;
         }
-
     }
-
 }

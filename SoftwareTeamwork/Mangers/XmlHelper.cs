@@ -282,9 +282,7 @@ namespace SoftwareTeamwork {
             int i = 0;
 
             foreach (XmlNode xn in Root.ChildNodes) {
-                if (Convert.ToInt32( xn.Attributes["Mon"].Value) >= begin.Month && 
-                    Convert.ToInt32(xn.Attributes["Day"].Value) >= begin.Day &&
-                    Convert.ToInt32(xn.Attributes["Mon"].Value) <= end.Month && 
+                if ((Convert.ToInt32(xn.Attributes["Mon"].Value) > begin.Month? true: Convert.ToInt32(xn.Attributes["Day"].Value) >= begin.Day) &&
                     Convert.ToInt32(xn.Attributes["Day"].Value) <= end.Day ) {
                     if (i == 7)
                         break;

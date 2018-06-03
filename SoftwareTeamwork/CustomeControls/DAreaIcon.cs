@@ -23,7 +23,6 @@ namespace SoftwareTeamwork
         private IntPtr ico = IntPtr.Zero;
 
         //NormalProperties
-        private System.Timers.Timer PopupHidetimer;
         private System.Windows.Forms.NotifyIcon FlowIcon;
 
         private PrivateFontCollection pfc;
@@ -134,49 +133,16 @@ namespace SoftwareTeamwork
 
         private void InitPopup()
         {
+            FlowIconPopup.TimerInteval = 5000;
             FlowIconPopup.PlacementRectangle = 
                 new Rect(SystemParameters.WorkArea.Width -5, 
                 SystemParameters.WorkArea.Height - 5, 0, 0);
             FlowIconPopup.Title = "流量信息";
             FlowIconPopup.SetIconPathByPercentAngle(Properties.Settings.Default.LastFluxInfo);
-            FlowIconPopup.MouseMove += FlowIconPopup_MouseMove;
-            FlowIconPopup.MouseLeave += FlowIconPopup_MouseLeave;
-        }
-
-        #endregion
-
-        #region 计时器方法
-
-        private void InitTimers()
-        {
-            //图标弹框淡出计时
-            PopupHidetimer = new System.Timers.Timer(3000);
-            PopupHidetimer.Elapsed += new ElapsedEventHandler(HidePopup);
-        }
-
-        private void HidePopup(object sender, ElapsedEventArgs e)
-        {
-            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (ThreadStart)delegate ()
-            {
-                FlowIconPopup.HidePopupAni();
-            });
-            PopupHidetimer.Enabled = false;
         }
         #endregion
 
         #region 事件方法
-
-        private void FlowIconPopup_MouseLeave(object sender, MouseEventArgs e)
-        {
-            if (PopupHidetimer != null)
-                PopupHidetimer.Enabled = true;
-        }
-
-        private void FlowIconPopup_MouseMove(object sender, MouseEventArgs e)
-        {
-            PopupHidetimer.Enabled = false;
-        }
-
         private void FlowIcon_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             switch (e.Button)
@@ -187,7 +153,6 @@ namespace SoftwareTeamwork
                 case System.Windows.Forms.MouseButtons.Left:                    
                     if (!FlowIconPopup.IsOpen)
                         FlowIconPopup.ShowPopupAni();
-                    PopupHidetimer.Enabled = true;
                     break;
             }
         }
@@ -258,7 +223,7 @@ namespace SoftwareTeamwork
         }
 
         private void Instence_OnFluxUpdate(object sender, EventArgs e) {
-            UpdataIconByStr(Math.Round((double)sender-1).ToString());
+            UpdataIconByStr(Math.Round((double)sender).ToString());
         }
         #endregion
 
@@ -269,7 +234,6 @@ namespace SoftwareTeamwork
             App.Current.MainWindow.Closing += MainWindow_Closing;
             fontsize = (float)Properties.Settings.Default.AreaIconFontSize;
             InitNotifyIcon();
-            InitTimers();
         }
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
@@ -286,7 +250,6 @@ namespace SoftwareTeamwork
                     // TODO: 释放托管状态(托管对象)。
                 }
                 FlowIcon.Dispose();
-                PopupHidetimer.Dispose();
                 // TODO: 释放未托管的资源(未托管的对象)并在以下内容中替代终结器。
                 // TODO: 将大型字段设置为 null。
 

@@ -49,6 +49,8 @@ namespace SoftwareTeamwork {
                 if (FluxInfos[i].FluxData <= 0)
                     FluxInfos[i].FluxData = 0;
             }
+            FluxInfos[0].FluxData = 0.0;
+           
         }
 
         private void TransformToNode() {

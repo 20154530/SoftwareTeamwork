@@ -6,11 +6,6 @@ using System.Threading.Tasks;
 
 namespace SoftwareTeamwork {
 
-    public class AccountInfo {
-        public string AccountName { get; set; }
-        public List<CourseSet> CourseInfos { get; set; }
-    }
-
     public class CourseSet {
         public string Term { get; set; }
         public List<Course> Courses { get; set; }

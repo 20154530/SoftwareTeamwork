@@ -77,7 +77,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  
+
   <!--CourseContextMenu-->
 
   <!--FlowAnaPanel-->
@@ -116,6 +116,12 @@
               <RowDefinition Height="*" />
               <RowDefinition Height="22" />
             </Grid.RowDefinitions>
+            <Grid x:Name="SettingTable">
+              <local:IconButton x:Name="UpDate"
+                                Content="&#xE117;"
+                                ForeToolTip="刷新流量数据"
+                                Style="{DynamicResource FluxPopupButtonStyle}"/>
+            </Grid>
             <Grid x:Name="VTick"
                   Grid.RowSpan="3">
               <TextBlock Style="{DynamicResource FluxAnaTickV}"
@@ -530,61 +536,33 @@
                                 Padding="4"
                                 Margin="0,4,6,0"
                                 VerticalAlignment="Top"
+                                ForeToolTip="打开流量走势图"
                                 Command="{Binding OpenTrendCommand}"
-                                Style="{DynamicResource FluxPopupButtonStyle}">
-                <local:IconButton.ToolTip>
-                  <ToolTip Style="{DynamicResource DefaultToolTip}"
-                           Background="{DynamicResource DefaultPopupBackground}">
-                    <TextBlock Text="打开流量走势图"
-                               Style="{DynamicResource FluxPopupToolTipText}" />
-                  </ToolTip>
-                </local:IconButton.ToolTip>
-              </local:IconButton>
+                                Style="{DynamicResource FluxPopupButtonStyle}"/>
               <local:IconButton x:Name="Refrash"
                                 Content="&#xEDAB;"
                                 Grid.Column="1"
                                 Margin="0,0,6,0"
                                 VerticalAlignment="Center"
+                                ForeToolTip="刷新流量数据"
                                 Command="{Binding FrashCommand}"
-                                Style="{DynamicResource FluxPopupButtonStyle}">
-                <local:IconButton.ToolTip>
-                  <ToolTip Style="{DynamicResource DefaultToolTip}"
-                           Background="{DynamicResource DefaultPopupBackground}">
-                    <TextBlock Text="刷新流量数据"
-                               Style="{DynamicResource FluxPopupToolTipText}" />
-                  </ToolTip>
-                </local:IconButton.ToolTip>
-              </local:IconButton>
+                                Style="{DynamicResource FluxPopupButtonStyle}"/>
               <local:IconButton x:Name="Connect"
                                 Content="&#xE704;"
                                 Margin="0,6,6,0"
                                 Grid.Column="1"
                                 VerticalAlignment="Top"
+                                ForeToolTip="连接IPGW"
                                 Command="{Binding ConnectCommand}"
-                                Style="{DynamicResource FluxPopupButtonStyle}">
-                <local:IconButton.ToolTip>
-                  <ToolTip Style="{DynamicResource DefaultToolTip}"
-                           Background="{DynamicResource DefaultPopupBackground}">
-                    <TextBlock Text="连接IPGW"
-                               Style="{DynamicResource FluxPopupToolTipText}" />
-                  </ToolTip>
-                </local:IconButton.ToolTip>
-              </local:IconButton>
+                                Style="{DynamicResource FluxPopupButtonStyle}"/>
               <local:IconButton x:Name="DisConnect"
                                 Content="&#xE7E8;"
                                 Margin="0,0,6,6"
                                 Grid.Column="1"
                                 VerticalAlignment="Bottom"
+                                ForeToolTip="断开IPGW"
                                 Command="{Binding DisConnect}"
-                                Style="{DynamicResource FluxPopupButtonStyle}">
-                <local:IconButton.ToolTip>
-                  <ToolTip Style="{DynamicResource DefaultToolTip}"
-                           Background="{DynamicResource DefaultPopupBackground}">
-                    <TextBlock Text="断开IPGW"
-                               Style="{DynamicResource FluxPopupToolTipText}" />
-                  </ToolTip>
-                </local:IconButton.ToolTip>
-              </local:IconButton>
+                                Style="{DynamicResource FluxPopupButtonStyle}"/>
             </Grid>
           </Grid>
         </Border>

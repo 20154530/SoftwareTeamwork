@@ -31,10 +31,16 @@ namespace SoftwareTeamwork
         }
 
         private void Application_Startup(object sender, StartupEventArgs e) {
+            App.Current.SessionEnding += Current_SessionEnding;
             MainWindow window = new MainWindow();
             window.Show();
             if (!e.Args.Length.Equals(0))
                 window.Hide();
+        }
+
+        private void Current_SessionEnding(object sender, SessionEndingCancelEventArgs e) {
+            SoftwareTeamwork.Properties.Settings.Default.Save();
+            
         }
     }
 }
