@@ -60,7 +60,7 @@ namespace SoftwareTeamwork {
                 new PropertyMetadata(Visibility.Collapsed));
         #endregion
 
-        #region
+        #region Update
         public WindowCommand Update {
             get { return (WindowCommand)GetValue(UpdateProperty); }
             set { SetValue(UpdateProperty, value); }
@@ -87,20 +87,13 @@ namespace SoftwareTeamwork {
             base.OnMouseLeave(e);
         }
 
-        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e) {
-            base.OnPreviewMouseLeftButtonDown(e);
-        }
-
-        protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e) {
-            base.OnMouseLeftButtonUp(e);
-        }
         #endregion
 
+        #region
         private void Update_CAction(object para) {
-            throw new NotImplementedException();
+            DataGroup = XmlHelper.GetFluxTrendGroup(DateTime.Now.AddDays(-6), DateTime.Now);
         }
 
-        #region
         protected override void OnOpened(EventArgs e) {           
             base.OnOpened(e);
         }

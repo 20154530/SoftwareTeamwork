@@ -25,11 +25,6 @@ namespace SoftwareTeamwork
             base.OnExit(e);
         }
 
-        private Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args) {
-            AssemblyName assemblyName = new AssemblyName(args.Name);
-            return Assembly.LoadFrom(Path.Combine(RootPath, DllPath));
-        }
-
         private void Application_Startup(object sender, StartupEventArgs e) {
             App.Current.SessionEnding += Current_SessionEnding;
             MainWindow window = new MainWindow();
@@ -40,7 +35,6 @@ namespace SoftwareTeamwork
 
         private void Current_SessionEnding(object sender, SessionEndingCancelEventArgs e) {
             SoftwareTeamwork.Properties.Settings.Default.Save();
-            
         }
     }
 }

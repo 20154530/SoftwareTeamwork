@@ -354,8 +354,7 @@
     </Setter>
   </Style>
 
-
-  
+  <!--CourseTable-->
   <Style x:Key="CourseTableWidget"
          TargetType="{x:Type local:CourseTable}">
     <Setter Property="ResizeMode"

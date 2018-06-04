@@ -136,18 +136,8 @@ namespace SoftwareTeamwork {
             });
         }
 
-        private void Pop_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) {
-            Pop.HidePopupAni();
-        }
-
-        private void Pop_MouseMove(object sender, System.Windows.Input.MouseEventArgs e) {
-            
-        }
-
         public FluxPopup() {
             Pop = new FluxTrendPopup { Style = (Style)Application.Current.FindResource("FluxAnaPanel") };
-            Pop.MouseMove += Pop_MouseMove;
-            Pop.MouseLeave += Pop_MouseLeave;
             OverallSettingManger.Instence.ThemeChanged += Instence_ThemeChanged;
             OpenTrendCommand.CAction += OpenTrendCommand_CAction;
             FrashCommand.CAction += FrashCommand_CAction;

@@ -15,7 +15,6 @@
   <!--Controls-->
 
   <!--DcontextMenu-->
-
   <Style x:Key="DcontextMenu"
          TargetType="{x:Type local:DContextMenu}">
     <Setter Property="Template">
@@ -81,7 +80,6 @@
   <!--CourseContextMenu-->
 
   <!--FlowAnaPanel-->
-
   <Style x:Key="FluxAnaPanel"
          TargetType='{x:Type local:FluxTrendPopup}'>
     <Setter Property="Placement"
@@ -116,10 +114,16 @@
               <RowDefinition Height="*" />
               <RowDefinition Height="22" />
             </Grid.RowDefinitions>
-            <Grid x:Name="SettingTable">
+            <Grid x:Name="SettingTable"
+                  Grid.Column="2">
               <local:IconButton x:Name="UpDate"
+                                Margin="0,4,0,0"
+                                FontSize="10"
+                                ToolTipVisiblity="Visible"
                                 Content="&#xE117;"
-                                ForeToolTip="刷新流量数据"
+                                ForeToolTip="刷新数据"
+                                IconN="#a0a0a0"
+                                Command="{Binding Update}"
                                 Style="{DynamicResource FluxPopupButtonStyle}"/>
             </Grid>
             <Grid x:Name="VTick"
@@ -422,7 +426,6 @@
   </Style>
 
   <!--MainFluxPopup-->
-
   <Style x:Key="MainFluxPopup"
          TargetType="{x:Type local:FluxPopup}">
     <Setter Property="Placement"
