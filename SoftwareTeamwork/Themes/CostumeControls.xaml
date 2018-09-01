@@ -80,6 +80,7 @@
   <!--CourseContextMenu-->
 
   <!--FlowAnaPanel-->
+    
   <Style x:Key="FluxAnaPanel"
          TargetType='{x:Type local:FluxTrendPopup}'>
     <Setter Property="Placement"
@@ -426,6 +427,7 @@
   </Style>
 
   <!--MainFluxPopup-->
+    
   <Style x:Key="MainFluxPopup"
          TargetType="{x:Type local:FluxPopup}">
     <Setter Property="Placement"
@@ -540,6 +542,7 @@
                                 Margin="0,4,6,0"
                                 VerticalAlignment="Top"
                                 ForeToolTip="打开流量走势图"
+                                ToolTipVisiblity="Visible"
                                 Command="{Binding OpenTrendCommand}"
                                 Style="{DynamicResource FluxPopupButtonStyle}"/>
               <local:IconButton x:Name="Refrash"
@@ -547,6 +550,7 @@
                                 Grid.Column="1"
                                 Margin="0,0,6,0"
                                 VerticalAlignment="Center"
+                                ToolTipVisiblity="Visible"
                                 ForeToolTip="刷新流量数据"
                                 Command="{Binding FrashCommand}"
                                 Style="{DynamicResource FluxPopupButtonStyle}"/>
@@ -555,6 +559,7 @@
                                 Margin="0,6,6,0"
                                 Grid.Column="1"
                                 VerticalAlignment="Top"
+                                ToolTipVisiblity="Visible"
                                 ForeToolTip="连接IPGW"
                                 Command="{Binding ConnectCommand}"
                                 Style="{DynamicResource FluxPopupButtonStyle}"/>
@@ -563,6 +568,7 @@
                                 Margin="0,0,6,6"
                                 Grid.Column="1"
                                 VerticalAlignment="Bottom"
+                                ToolTipVisiblity="Visible"
                                 ForeToolTip="断开IPGW"
                                 Command="{Binding DisConnect}"
                                 Style="{DynamicResource FluxPopupButtonStyle}"/>

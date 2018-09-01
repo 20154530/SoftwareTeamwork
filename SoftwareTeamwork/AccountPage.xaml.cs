@@ -43,6 +43,8 @@ namespace SoftwareTeamwork {
         }
 
         private void SaveIPGW(object sender, RoutedEventArgs e) {
+            if (JWAccount.Text.Length > 8)
+                MessageService.Instence.ShowError(App.Current.MainWindow, "用户名错误");
             if (IPGWAccount.Text.Equals("") || IPGWPassword.Password.Equals("")) 
                 MessageService.Instence.ShowError(App.Current.MainWindow, "请输入用户名和密码");
             else 
@@ -97,6 +99,8 @@ namespace SoftwareTeamwork {
         }
 
         private void SaveNEUJW(object sender, RoutedEventArgs e) {
+            if(JWAccount.Text.Length > 8)
+                MessageService.Instence.ShowError(App.Current.MainWindow, "用户名错误");
             if (JWAccount.Text.Equals("") || JWPassword.Password.Equals("") || (JWIdentifyCode.Text.Equals("") && !Properties.Settings.Default.JWF))
                 MessageService.Instence.ShowError(App.Current.MainWindow, "请输入用户名、密码、验证码");
             else

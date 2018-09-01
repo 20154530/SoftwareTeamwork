@@ -16,7 +16,6 @@ namespace SoftwareTeamwork
     /// </summary>
     public partial class App : Application
     {
-        private static string DllPath = "Libs";
         public static string RootPath = AppDomain.CurrentDomain.BaseDirectory;
 
        

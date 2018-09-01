@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace SoftwareTeamwork {
     class Win32APIs {
+        public const int WM_SYSCOMMAND = 0x112;
 
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
@@ -17,6 +18,5 @@ namespace SoftwareTeamwork {
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         public static extern int SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int x, int y, int Width, int Height, int flags);
 
-        public const int WM_SYSCOMMAND = 0x112;
     }
 }

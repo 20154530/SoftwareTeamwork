@@ -231,7 +231,9 @@
         </Setter.Value>
       </Setter>
     </Style>
+      
   </Page.Resources>
+    
   <ScrollViewer Style="{DynamicResource SC_ScrollViewer}"
                 Background="{DynamicResource BackgroundBrush}"
                 Margin="8,0,0,0"

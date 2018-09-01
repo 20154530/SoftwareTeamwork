@@ -11,7 +11,6 @@ using System.ComponentModel;
 namespace SoftwareTeamwork {
     public class DragBorder : Border {
         private int resDirection;
-
         public int ResDirection {
             get { return resDirection; }
             set { resDirection = value; }
@@ -32,13 +31,10 @@ namespace SoftwareTeamwork {
         #endregion
 
         public static readonly DependencyProperty AttachedWindowProperty = DependencyProperty.Register("AttachedWindow", typeof(Window), typeof(DragBorder),
-           new FrameworkPropertyMetadata(new PropertyChangedCallback(AttachedWindowChangedCallback)));
+           new FrameworkPropertyMetadata(null));
         public Window AttachedWindow {
             get { return (Window)GetValue(AttachedWindowProperty); }
             set { SetValue(AttachedWindowProperty, value); }
-        }
-        private static void AttachedWindowChangedCallback(DependencyObject sender, DependencyPropertyChangedEventArgs arg) {
-
         }
 
         protected override void OnMouseMove(MouseEventArgs e) {
